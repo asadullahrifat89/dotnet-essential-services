@@ -31,7 +31,7 @@ namespace IdentityWeb.Controllers
         
         [HttpPost("Signup")]
         [AllowAnonymous]
-        public async Task<ServiceResponse> Signup(SignupCommand command)
+        public async Task<ServiceResponse> Signup(CreateUserCommand command)
         {
             return await _mediator.Send(command);
         }

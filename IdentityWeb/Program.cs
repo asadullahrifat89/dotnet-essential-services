@@ -58,10 +58,10 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddHttpContextAccessor();
 
 // Add mediator
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(SignupCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateUserCommand).GetTypeInfo().Assembly));
 
 // Add validators
-builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<SignupCommandValidator>();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
 
 // Add services
 builder.Services.AddSingleton<IMongoDbService, MongoDbService>();

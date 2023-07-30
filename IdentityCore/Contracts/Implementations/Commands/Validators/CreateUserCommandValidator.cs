@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Commands.Validators
 {
-    public class SignupCommandValidator : AbstractValidator<SignupCommand>
+    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
-        public SignupCommandValidator()
+        public CreateUserCommandValidator()
         {
             RuleFor(x => x.Email).NotNull().NotEmpty();
             RuleFor(x => x.Password).NotNull().NotEmpty();

@@ -11,7 +11,7 @@ namespace IdentityCore.Models.Entities
 
         public string[] Claims { get; set; } = new string[0];
 
-        public static User Initialize(SignupCommand command)
+        public static User Initialize(CreateUserCommand command)
         {
             var user = new User()
             {

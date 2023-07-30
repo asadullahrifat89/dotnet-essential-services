@@ -30,7 +30,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         #region Methods
 
-        public async Task<ServiceResponse> Signup(SignupCommand command)
+        public async Task<ServiceResponse> Signup(CreateUserCommand command)
         {
             var user = User.Initialize(command);
 
