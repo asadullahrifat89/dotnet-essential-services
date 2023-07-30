@@ -15,10 +15,10 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             RuleFor(x => x.Email).NotNull().NotEmpty();
             RuleFor(x => x.Password).NotNull().NotEmpty();
 
-            RuleFor(x => x.FirstName).NotNull().NotEmpty();
-            RuleFor(x => x.Lastname).NotNull().NotEmpty();
+            //RuleFor(x => x.FirstName).NotNull().NotEmpty();
+            //RuleFor(x => x.Lastname).NotNull().NotEmpty();
 
-            RuleFor(x => x.Phone).NotNull();
+            //RuleFor(x => x.Phone).NotNull();
         }
     }
 }
