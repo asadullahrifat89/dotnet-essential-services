@@ -1,6 +1,7 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Models.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityWeb.Controllers
@@ -29,6 +30,7 @@ namespace IdentityWeb.Controllers
         #region Methods
         
         [HttpPost("Signup")]
+        [AllowAnonymous]
         public async Task<ServiceResponse> Signup(SignupCommand command)
         {
             return await _mediator.Send(command);

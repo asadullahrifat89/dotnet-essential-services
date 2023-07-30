@@ -1,7 +1,18 @@
+using IdentityCore.Contracts.Declarations.Commands;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using IdentityCore.Contracts.Implementations.Commands.Validators;
+using IdentityCore.Contracts.Declarations.Services;
+using IdentityCore.Contracts.Implementations.Services;
+using IdentityCore.Contracts.Declarations.Repositories;
+using IdentityCore.Contracts.Implementations.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +54,22 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
 
+// Add http context accessor
 builder.Services.AddHttpContextAccessor();
+
+// Add mediator
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(SignupCommand).GetTypeInfo().Assembly));
+
+// Add validators
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<SignupCommandValidator>();
+
+// Add services
+builder.Services.AddSingleton<IMongoDbService, MongoDbService>();
+
+// Add repositories
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+
+builder.Services.AddMvc();
 
 // Add services to the container.
 builder.Services.AddControllers();
