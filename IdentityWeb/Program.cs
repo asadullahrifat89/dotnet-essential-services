@@ -5,8 +5,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region Logging
-
 #if DEBUG
 
 builder.Services.AddHttpLogging(options =>
@@ -16,18 +14,10 @@ builder.Services.AddHttpLogging(options =>
 
 #endif
 
-#endregion
-
-#region CORS
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 });
-
-#endregion
-
-#region Authentication & Authorization
 
 builder.Services.AddAuthentication(options =>
 {
@@ -53,26 +43,15 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 });
 
-#endregion
-
 builder.Services.AddHttpContextAccessor();
 
-#region Service Registration
-
 // Add services to the container.
-builder.Services.AddControllers(); 
+builder.Services.AddControllers();
 
-#endregion
-
-#region Swagger
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); 
-
-#endregion
-
-#region Build & Run
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -99,6 +78,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run(); 
-
-#endregion
+app.Run();

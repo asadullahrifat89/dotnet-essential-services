@@ -36,7 +36,6 @@ namespace IdentityCore.Contracts.Implementations.Commands.Handlers
 
         #region Methods
 
-        #endregion
         public async Task<ServiceResponse> Handle(SignupCommand request, CancellationToken cancellationToken)
         {
             try
@@ -52,5 +51,7 @@ namespace IdentityCore.Contracts.Implementations.Commands.Handlers
                 return Response.Build().BuildErrorResponse(ex.Message);
             }
         }
+
+        #endregion
     }
 }

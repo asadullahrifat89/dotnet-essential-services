@@ -19,9 +19,9 @@ namespace IdentityCore.Contracts.Declarations.Commands
 
         public string Lastname { get; set; } = string.Empty;
 
-        public string MirrorFirstName { get; set; } = string.Empty;
+        //public string MirrorFirstName { get; set; } = string.Empty;
 
-        public string MirrorLastName { get; set; } = string.Empty;
+        //public string MirrorLastName { get; set; } = string.Empty;
 
         public string ImageId { get; set; } = string.Empty;
 
