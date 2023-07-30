@@ -58,6 +58,13 @@ namespace IdentityCore.Contracts.Implementations.Services
             return true;
         }
 
+        public async Task<bool> Exists<T>(FilterDefinition<T> filter)
+        {
+            var collection = GetMongoCollection<T>();
+            var result = await collection.Find(filter).FirstOrDefaultAsync();
+            return result is not null;
+        }
+
         #endregion
 
         #endregion

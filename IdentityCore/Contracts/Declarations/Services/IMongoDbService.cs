@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,7 @@ namespace IdentityCore.Contracts.Declarations.Services
     public interface IMongoDbService
     {
         Task<bool> InsertDocument<T>(T document);
+
+        Task<bool> Exists<T>(FilterDefinition<T> filter);
     }
 }

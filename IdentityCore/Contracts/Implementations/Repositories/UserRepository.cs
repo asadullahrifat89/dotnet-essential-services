@@ -1,8 +1,10 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
+using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             await _mongoDbService.InsertDocument(user);
 
             return Response.Build().BuildSuccessResponse(user);
+        }
+
+        public async Task<bool> BeAnExistingUserEmail(string userEmail)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.Email, userEmail);
+
+            return await _mongoDbService.Exists(filter);
         }
 
         #endregion
