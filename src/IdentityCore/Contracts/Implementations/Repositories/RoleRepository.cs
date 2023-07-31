@@ -1,9 +1,11 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
+using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MongoDB.Driver;
+using System.Data;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {
@@ -50,6 +52,19 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var filter = Builders<Role>.Filter.Eq(x => x.Name, role);
 
             return await _mongoDbService.Exists(filter);
+        }
+
+        public async Task<QueryRecordsResponse<Role>> GetRolesByNames(string[] names)
+        {
+            var filter = Builders<Role>.Filter.In(x => x.Name, names);
+
+            var count = await _mongoDbService.CountDocuments(filter);
+
+            var results = await _mongoDbService.GetDocuments(filter: filter);
+
+            return new QueryRecordsResponse<Role>().BuildSuccessResponse(
+              count: results is not null ? count : 0,
+              records: results is not null ? results.ToArray() : Array.Empty<Role>());
         }
 
         #endregion

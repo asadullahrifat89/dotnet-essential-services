@@ -43,7 +43,7 @@ namespace IdentityCore.Contracts.Implementations.Commands.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _userRepository.Signup(request);
+                return await _userRepository.CreateUser(request);
             }
             catch (Exception ex)
             {

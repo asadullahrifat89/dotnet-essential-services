@@ -11,7 +11,7 @@ namespace IdentityCore.Contracts.Declarations.Repositories
 {
     public interface IUserRepository
     {
-        Task<ServiceResponse> Signup(CreateUserCommand command);
+        Task<ServiceResponse> CreateUser(CreateUserCommand command);
 
         Task<bool> BeAnExistingUserEmail(string userEmail);
 

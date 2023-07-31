@@ -22,8 +22,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public bool BeAnExistingClaimPermission(string claim)
         {
-            // TODO: check in constants if this claim exists or not            
-
             return Constants.Claims.Contains(claim);
         }
 

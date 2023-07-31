@@ -32,9 +32,18 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         #region Methods
 
-        public async Task<ServiceResponse> Signup(CreateUserCommand command)
+        public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
             var user = User.Initialize(command);
+
+            var userRoleMaps = new List<UserRoleMap>();
+
+            //TODO: get roles for role names
+
+            foreach (var role in command.Roles)
+            {
+
+            }
 
             await _mongoDbService.InsertDocument(user);
 
