@@ -18,14 +18,16 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         #region Fields
 
         private readonly IMongoDbService _mongoDbService;
+        private readonly IRoleRepository _roleRepository;
 
         #endregion
 
         #region Ctor
 
-        public UserRepository(IMongoDbService mongoDbService)
+        public UserRepository(IMongoDbService mongoDbService, IRoleRepository roleRepository)
         {
             _mongoDbService = mongoDbService;
+            _roleRepository = roleRepository;
         }
 
         #endregion
@@ -36,16 +38,25 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         {
             var user = User.Initialize(command);
 
+            var response = await _roleRepository.GetRolesByNames(command.Roles);
+
+            var roles = response.Result.Records;
+
             var userRoleMaps = new List<UserRoleMap>();
 
-            //TODO: get roles for role names
-
-            foreach (var role in command.Roles)
+            foreach (var role in roles)
             {
+                var roleMap = new UserRoleMap() { 
+                
+                    UserId = user.Id,
+                    RoleId = role.Id,
+                };
 
+                userRoleMaps.Add(roleMap);
             }
 
             await _mongoDbService.InsertDocument(user);
+            await _mongoDbService.InsertDocuments(userRoleMaps);
 
             return Response.Build().BuildSuccessResponse(user);
         }
