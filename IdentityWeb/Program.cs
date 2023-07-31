@@ -27,7 +27,13 @@ builder.Services.AddHttpLogging(options =>
 
 builder.Services.AddCors(options =>
 {
+
+#if DEBUG
     options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+#else
+    options.AddPolicy("CorsPolicy", policy => { policy.WithOrigins().SetIsOriginAllowedToAllowWildcardSubdomains().AllowAnyHeader().AllowAnyMethod(); });
+#endif
+
 });
 
 builder.Services.AddAuthentication(options =>
