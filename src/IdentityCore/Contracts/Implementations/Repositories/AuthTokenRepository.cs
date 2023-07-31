@@ -83,7 +83,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var keyBytes = Encoding.ASCII.GetBytes(key);
 
-            var lifeTime = DateTime.UtcNow.AddMinutes(2);
+            var lifeTime = DateTime.UtcNow.AddSeconds(120);
 
             // TODO: find user roles, then from roles, find claims, then from claims assign in token
 
