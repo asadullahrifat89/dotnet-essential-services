@@ -24,11 +24,6 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             RuleFor(x => x.Email).MustAsync(NotBeAnExistingUserEmail).WithMessage("Email already exists.").When(x => !x.Email.IsNullOrBlank());
 
             RuleFor(x => x.Password).NotNull().NotEmpty();
-
-            //RuleFor(x => x.FirstName).NotNull().NotEmpty();
-            //RuleFor(x => x.Lastname).NotNull().NotEmpty();
-
-            //RuleFor(x => x.Phone).NotNull();
         }
 
         private async Task<bool> NotBeAnExistingUserEmail(string email, CancellationToken token)
