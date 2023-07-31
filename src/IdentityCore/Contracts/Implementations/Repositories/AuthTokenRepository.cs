@@ -90,7 +90,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var lifeTime = DateTime.UtcNow.AddSeconds(120);
 
-            // TODO: find user roles, then from roles, find claims, then from claims assign in token
+            // find user roles, then from roles, find claims, then from claims assign in token
 
             var roles = await _roleRepository.GetUserRoles(userId);
 
