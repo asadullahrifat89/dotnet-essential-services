@@ -2,13 +2,13 @@
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Contracts.Implementations.Services;
+using IdentityCore.Extensions;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
@@ -46,6 +46,17 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var filter = Builders<User>.Filter.Eq(x => x.Email, userEmail);
 
             return await _mongoDbService.Exists(filter);
+        }
+
+        public async Task<User> GetUser(string userEmail, string password)
+        {
+            var encryptedPassword = password.Encrypt();
+
+            var filter = Builders<User>.Filter.And(
+                   Builders<User>.Filter.Eq(x => x.Email, userEmail),
+                   Builders<User>.Filter.Eq(x => x.Password, encryptedPassword));
+
+            return await _mongoDbService.FindOne(filter);
         }
 
         #endregion

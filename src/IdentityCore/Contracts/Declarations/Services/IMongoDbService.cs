@@ -1,11 +1,5 @@
-﻿using IdentityCore.Contracts.Implementations.Services;
-using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MongoDB.Driver;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Declarations.Services
 {

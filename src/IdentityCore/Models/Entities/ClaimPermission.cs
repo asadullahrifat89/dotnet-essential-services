@@ -3,7 +3,7 @@
 namespace IdentityCore.Models.Entities
 {
     [BsonIgnoreExtraElements]
-    public class Claim
+    public class ClaimPermission
     {
 
         [BsonId]

@@ -10,7 +10,7 @@ namespace IdentityCore.Extensions
     public static class StringExtensions
     {
         public const string NumericFormat = "#,0.##";
-        private static readonly string encryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private static readonly string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         public static bool IsNullOrBlank(this string text)
         {
@@ -29,7 +29,7 @@ namespace IdentityCore.Extensions
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new(
-                    password: encryptionKey,
+                    password: EncryptionKey,
                     salt: new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
 
                 encryptor.Key = pdb.GetBytes(32);
@@ -59,7 +59,7 @@ namespace IdentityCore.Extensions
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new(
-                    password: encryptionKey,
+                    password: EncryptionKey,
                     salt: new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
 
                 encryptor.Key = pdb.GetBytes(32);
