@@ -46,8 +46,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             AuthToken result = await GenerateAuthToken(user: user);
 
             return Response.Build().BuildSuccessResponse(result);
-
-            throw new NotImplementedException();
         }
 
         public Task<bool> BeAnExistingRefreshToken(string refreshToken, string companyId)
@@ -135,6 +133,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var jwtToken = tokenHandler.WriteToken(token);
+
             return jwtToken;
         }
 
