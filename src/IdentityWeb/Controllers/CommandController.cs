@@ -31,8 +31,9 @@ namespace IdentityWeb.Controllers
         #endregion
 
         #region Methods
-        
-        [HttpPost("CreateUser")]        
+
+        [HttpPost("CreateUser")]
+        [AllowAnonymous]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
             return await _mediator.Send(command);

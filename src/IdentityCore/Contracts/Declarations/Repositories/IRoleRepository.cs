@@ -10,6 +10,8 @@ namespace IdentityCore.Contracts.Declarations.Repositories
 
         Task<ServiceResponse> AddRole(AddRoleCommand command);
 
-        Task<QueryRecordsResponse<Role>> GetRolesByNames(string[] names);
+        Task<Role[]> GetRolesByNames(string[] names);
+
+        Task<UserRoleMap[]> GetUserRoles(string userId);
     }
 }

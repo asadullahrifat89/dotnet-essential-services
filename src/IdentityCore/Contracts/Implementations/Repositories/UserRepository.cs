@@ -38,9 +38,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         {
             var user = User.Initialize(command);
 
-            var response = await _roleRepository.GetRolesByNames(command.Roles);
-
-            var roles = response.Result.Records;
+            var roles = await _roleRepository.GetRolesByNames(command.Roles);
 
             var userRoleMaps = new List<UserRoleMap>();
 

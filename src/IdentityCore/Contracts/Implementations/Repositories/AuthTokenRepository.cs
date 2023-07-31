@@ -1,7 +1,6 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
-using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +18,8 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         private readonly IMongoDbService _mongoDbService;
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IClaimPermissionRepository _claimPermissionRepository;
         private readonly IConfiguration _configuration;
 
         #endregion
@@ -28,11 +29,15 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         public AuthTokenRepository(
            IMongoDbService mongoDbService,
            IUserRepository userRepository,
-           IConfiguration configuration)
+           IConfiguration configuration,
+           IRoleRepository roleRepository,
+           IClaimPermissionRepository claimPermissionRepository)
         {
             _mongoDbService = mongoDbService;
             _userRepository = userRepository;
             _configuration = configuration;
+            _roleRepository = roleRepository;
+            _claimPermissionRepository = claimPermissionRepository;
         }
 
         #endregion
@@ -87,7 +92,15 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             // TODO: find user roles, then from roles, find claims, then from claims assign in token
 
-            string jwtToken = GenerateJwt(userId, issuer, audience, keyBytes, lifeTime);
+            var roles = await _roleRepository.GetUserRoles(userId);
+
+            var roleIds = roles.Select(r => r.Id).Distinct().ToArray();
+
+            var claims = await _claimPermissionRepository.GetClaimsForRoleIds(roleIds);
+
+            var userClaims = claims.Select(c => c.ClaimPermission).Distinct().ToArray();
+
+            string jwtToken = GenerateJwt(userClaims, issuer, audience, keyBytes, lifeTime);
 
             // create refresh token
             RefreshToken refreshToken = new()
@@ -95,7 +108,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
                 UserId = user.Id,
             };
 
-            refreshToken.Jwt = GenerateJwt(refreshToken.Id, issuer, audience, keyBytes, lifeTime);
+            refreshToken.Jwt = GenerateJwt(new[] { refreshToken.Id }, issuer, audience, keyBytes, lifeTime);
 
             // save the refresh token
             await _mongoDbService.InsertDocument(refreshToken);
@@ -112,22 +125,22 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         }
 
         private static string GenerateJwt(
-            string id,
+            string[] userClaims,
             string? issuer,
             string? audience,
             byte[] keyBytes,
             DateTime lifeTime)
         {
-            // TODO: ultimately the claims will be dynamic and be sent via a function param
+            var claims = new List<Claim>();
+
+            foreach (var claim in userClaims)
+            {
+                claims.Add(new Claim(claim, "true"));
+            }
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim("Id", id),
-                    //new Claim(JwtRegisteredClaimNames.Sub, id),
-                    //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = lifeTime,
                 Issuer = issuer,
                 Audience = audience,

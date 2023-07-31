@@ -54,17 +54,22 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return await _mongoDbService.Exists(filter);
         }
 
-        public async Task<QueryRecordsResponse<Role>> GetRolesByNames(string[] names)
+        public async Task<Role[]> GetRolesByNames(string[] names)
         {
             var filter = Builders<Role>.Filter.In(x => x.Name, names);
 
-            var count = await _mongoDbService.CountDocuments(filter);
+            var results = await _mongoDbService.GetDocuments(filter: filter);
+
+            return results is not null ? results.ToArray() : Array.Empty<Role>();
+        }
+
+        public async Task<UserRoleMap[]> GetUserRoles(string userId)
+        {
+            var filter = Builders<UserRoleMap>.Filter.Eq(x => x.UserId, userId);
 
             var results = await _mongoDbService.GetDocuments(filter: filter);
 
-            return new QueryRecordsResponse<Role>().BuildSuccessResponse(
-              count: results is not null ? count : 0,
-              records: results is not null ? results.ToArray() : Array.Empty<Role>());
+            return results is not null? results.ToArray(): Array.Empty<UserRoleMap>();
         }
 
         #endregion

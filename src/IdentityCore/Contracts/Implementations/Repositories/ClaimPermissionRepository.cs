@@ -1,5 +1,7 @@
 ﻿using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
+using IdentityCore.Models.Entities;
+using MongoDB.Driver;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {
@@ -23,6 +25,15 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         public bool BeAnExistingClaimPermission(string claim)
         {
             return Constants.Claims.Contains(claim);
+        }
+
+        public async Task<RoleClaimPermissionMap[]> GetClaimsForRoleIds(string[] roleIds)
+        {
+            var filter = Builders<RoleClaimPermissionMap>.Filter.In(x => x.RoleId, roleIds);
+
+            var results = await _mongoDbService.GetDocuments(filter: filter);
+
+            return results is not null ? results.ToArray() : Array.Empty<RoleClaimPermissionMap>();
         }
 
         #endregion
