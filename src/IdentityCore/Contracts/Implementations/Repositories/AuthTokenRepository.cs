@@ -94,7 +94,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var roles = await _roleRepository.GetUserRoles(userId);
 
-            var roleIds = roles.Select(r => r.Id).Distinct().ToArray();
+            var roleIds = roles.Select(r => r.RoleId).Distinct().ToArray();
 
             var claims = await _claimPermissionRepository.GetClaimsForRoleIds(roleIds);
 
