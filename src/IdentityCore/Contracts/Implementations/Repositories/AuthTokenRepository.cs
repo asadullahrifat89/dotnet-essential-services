@@ -48,9 +48,11 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return Response.Build().BuildSuccessResponse(result);
         }
 
-        public Task<bool> BeAnExistingRefreshToken(string refreshToken, string companyId)
+        public async Task<bool> BeAnExistingRefreshToken(string refreshToken)
         {
-            throw new NotImplementedException();
+            var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.Jwt, refreshToken));
+
+            return await _mongoDbService.Exists(filter);
         }
 
         public async Task<ServiceResponse> ValidateToken(ValidateTokenCommand command)

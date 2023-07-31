@@ -36,6 +36,16 @@ namespace IdentityCore.Models.Responses
                 RequestUri = requestUri,
             };
         }
+
+        public ServiceResponse BuildBadRequestResponse(string error, string requestUri = "")
+        {
+            return new ServiceResponse()
+            {
+                HttpStatusCode = HttpStatusCode.BadRequest,
+                ExternalError = error,
+                RequestUri = requestUri
+            };
+        }
     }
 
     public static class Response
