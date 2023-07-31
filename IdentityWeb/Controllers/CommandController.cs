@@ -29,9 +29,8 @@ namespace IdentityWeb.Controllers
 
         #region Methods
         
-        [HttpPost("Signup")]
-        [AllowAnonymous]
-        public async Task<ServiceResponse> Signup(CreateUserCommand command)
+        [HttpPost("CreateUser")]        
+        public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
             return await _mediator.Send(command);
         }
