@@ -13,6 +13,8 @@ using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Implementations.Repositories;
+using IdentityCore.Extensions;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,13 +69,13 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateUserCommand).GetTypeInfo().Assembly));
 
 // Add validators
-builder.Services.AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
+builder.Services.AddValidators();
 
 // Add services
-builder.Services.AddSingleton<IMongoDbService, MongoDbService>();
+builder.Services.AddCoreServices();
 
 // Add repositories
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddRepositories();
 
 builder.Services.AddMvc();
 
@@ -83,7 +85,33 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Web Api", Version = "v1" });
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 var app = builder.Build();
 

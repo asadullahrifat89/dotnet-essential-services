@@ -23,4 +23,8 @@
     <ProjectReference Include="..\IdentityCore\IdentityCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>
