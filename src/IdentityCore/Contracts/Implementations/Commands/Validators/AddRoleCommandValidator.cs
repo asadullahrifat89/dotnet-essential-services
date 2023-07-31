@@ -19,7 +19,9 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
 
             RuleFor(x => x.Name).NotNull().NotEmpty();
             RuleFor(x => x).MustAsync(NotBeAnExistingRole).WithMessage("Role already exists.").When(x => !x.Name.IsNullOrBlank());
-            RuleFor(x => x).Must(BeAnExistingClaimPermission).WithMessage("Claim doesn't exist.").When(x => !x.Name.IsNullOrBlank());
+
+            RuleFor(x => x.Claims).NotNull();
+            RuleFor(x => x).Must(BeAnExistingClaimPermission).WithMessage("Claim doesn't exist.").When(x => x.Claims != null);
         }
 
         private async Task<bool> NotBeAnExistingRole(AddRoleCommand command, CancellationToken arg2)
