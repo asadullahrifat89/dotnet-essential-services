@@ -125,11 +125,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim("Id", id),
+                    //new Claim(JwtRegisteredClaimNames.Sub, id),
+                    //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
                 Expires = lifeTime,
                 Issuer = issuer,
                 Audience = audience,
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha512Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -39,6 +39,7 @@ namespace IdentityWeb.Controllers
         }
 
         [HttpPost("Authenticate")]
+        [AllowAnonymous]
         public async Task<ServiceResponse> Authenticate()
         {
             var httpContext = _httpContextAccessor.HttpContext;
@@ -56,6 +57,7 @@ namespace IdentityWeb.Controllers
         }
 
         [HttpPost("Validate")]
+        [AllowAnonymous]
         public async Task<ServiceResponse> Validate(ValidateTokenCommand command)
         {
             return await _mediator.Send(command);
