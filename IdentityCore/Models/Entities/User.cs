@@ -9,15 +9,12 @@ namespace IdentityCore.Models.Entities
 
         public string Email { get; set; } = string.Empty;
 
-        public string[] Claims { get; set; } = new string[0];
-
         public static User Initialize(CreateUserCommand command)
         {
             var user = new User()
             {
                 Email = command.Email,
                 Password = command.Password.Encrypt(),
-                Claims = new string[] { "Admin" },
             };
 
             return user;

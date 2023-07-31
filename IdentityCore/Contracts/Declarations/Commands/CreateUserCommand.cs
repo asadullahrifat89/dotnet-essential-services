@@ -15,18 +15,6 @@ namespace IdentityCore.Contracts.Declarations.Commands
 
         public string Password { get; set; } = string.Empty;
 
-        //public string FirstName { get; set; } = string.Empty;
-
-        //public string Lastname { get; set; } = string.Empty;
-
-        //public string MirrorFirstName { get; set; } = string.Empty;
-
-        //public string MirrorLastName { get; set; } = string.Empty;
-
-        //public string ImageId { get; set; } = string.Empty;
-
-        //public Phone Phone { get; set; } = new Phone();
-
-        //public Address Address { get; set; } = new Address();
+        public string[] Roles { get; set; } = new string[0];
     }
 }
