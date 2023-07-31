@@ -59,6 +59,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return await _mongoDbService.FindOne(filter);
         }
 
+        public async Task<User> GetUser(string userId)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
+
+            return await _mongoDbService.FindOne(filter);
+        }
+
         #endregion
     }
 }

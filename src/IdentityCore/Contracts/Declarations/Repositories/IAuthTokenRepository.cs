@@ -9,6 +9,6 @@ namespace IdentityCore.Contracts.Declarations.Repositories
 
         Task<bool> BeAnExistingRefreshToken(string refreshToken, string companyId);
 
-        //Task<ServiceResponse> ValidateToken(ValidateTokenCommand command);
+        Task<ServiceResponse> ValidateToken(ValidateTokenCommand command);
     }
 }

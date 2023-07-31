@@ -16,5 +16,7 @@ namespace IdentityCore.Contracts.Declarations.Repositories
         Task<bool> BeAnExistingUserEmail(string userEmail);
 
         Task<User> GetUser(string userEmail, string password);
+
+        Task<User> GetUser(string userId);
     }
 }

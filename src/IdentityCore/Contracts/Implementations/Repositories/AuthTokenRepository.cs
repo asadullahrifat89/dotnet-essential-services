@@ -1,10 +1,12 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
+using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Driver;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,7 +17,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbService _mongoDdService;
+        private readonly IMongoDbService _mongoDbService;
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
@@ -28,7 +30,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
            IUserRepository userRepository,
            IConfiguration configuration)
         {
-            _mongoDdService = mongoDbService;
+            _mongoDbService = mongoDbService;
             _userRepository = userRepository;
             _configuration = configuration;
         }
@@ -48,6 +50,30 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<bool> BeAnExistingRefreshToken(string refreshToken, string companyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse> ValidateToken(ValidateTokenCommand command)
+        {
+            var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.Jwt, command.RefreshToken));
+
+            var refreshToken = await _mongoDbService.FindOne(filter);
+
+            var user = await _userRepository.GetUser(userId: refreshToken.UserId);
+
+            if (user == null)
+                return Response.Build().BuildErrorResponse("User not found.");
+
+            AuthToken result = await GenerateAuthToken(user: user);
+
+            // delete the old refresh token
+            await _mongoDbService.DeleteById<RefreshToken>(refreshToken.Id);
+
+            return Response.Build().BuildSuccessResponse(result);
+        }
+
         private async Task<AuthToken> GenerateAuthToken(User user)
         {
             var userId = user.Id;
@@ -64,7 +90,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             string jwtToken = GenerateJwt(userId, issuer, audience, keyBytes, lifeTime);
 
             // create refresh token
-
             RefreshToken refreshToken = new()
             {
                 UserId = user.Id,
@@ -73,7 +98,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             refreshToken.Jwt = GenerateJwt(refreshToken.Id, issuer, audience, keyBytes, lifeTime);
 
             // save the refresh token
-            await _mongoDdService.InsertDocument(refreshToken);
+            await _mongoDbService.InsertDocument(refreshToken);
 
             // return the auth token with refresh token
             var result = new AuthToken()
@@ -86,8 +111,15 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return result;
         }
 
-        private static string GenerateJwt(string id, string? issuer, string? audience, byte[] keyBytes, DateTime lifeTime)
+        private static string GenerateJwt(
+            string id,
+            string? issuer,
+            string? audience,
+            byte[] keyBytes,
+            DateTime lifeTime)
         {
+            // TODO: ultimately the claims will be dynamic and be sent via a function param
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -105,12 +137,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var jwtToken = tokenHandler.WriteToken(token);
             return jwtToken;
         }
-
-        public Task<bool> BeAnExistingRefreshToken(string refreshToken, string companyId)
-        {
-            throw new NotImplementedException();
-        }
-
 
         #endregion
     }
