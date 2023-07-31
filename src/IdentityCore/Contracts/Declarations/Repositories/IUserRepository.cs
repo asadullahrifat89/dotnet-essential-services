@@ -15,6 +15,8 @@ namespace IdentityCore.Contracts.Declarations.Repositories
 
         Task<bool> BeAnExistingUserEmail(string userEmail);
 
+        Task<bool> BeValidUser(string userEmail, string password);
+
         Task<User> GetUser(string userEmail, string password);
 
         Task<User> GetUser(string userId);

@@ -48,6 +48,17 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return await _mongoDbService.Exists(filter);
         }
 
+        public async Task<bool> BeValidUser(string userEmail, string password)
+        {
+            var encryptedPassword = password.Encrypt();
+
+            var filter = Builders<User>.Filter.And(
+                    Builders<User>.Filter.Eq(x => x.Email, userEmail),
+                    Builders<User>.Filter.Eq(x => x.Password, encryptedPassword));
+
+            return await _mongoDbService.Exists(filter);
+        }
+
         public async Task<User> GetUser(string userEmail, string password)
         {
             var encryptedPassword = password.Encrypt();

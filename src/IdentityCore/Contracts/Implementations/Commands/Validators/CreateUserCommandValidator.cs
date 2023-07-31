@@ -23,7 +23,7 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             RuleFor(x => x.Email).Must(e => e.Contains('@')).WithMessage("Invalid email.").When(x => !x.Email.IsNullOrBlank());
             RuleFor(x => x.Email).MustAsync(NotBeAnExistingUserEmail).WithMessage("Email already exists.").When(x => !x.Email.IsNullOrBlank());
 
-            RuleFor(x => x.Password).NotNull().NotEmpty();
+            RuleFor(x => x.Password).NotNull().NotEmpty();           
         }
 
         private async Task<bool> NotBeAnExistingUserEmail(string email, CancellationToken token)
