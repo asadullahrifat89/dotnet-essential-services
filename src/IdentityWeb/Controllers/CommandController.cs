@@ -63,6 +63,12 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPost("AddRole")]
+        public async Task<ServiceResponse> AddRole(AddRoleCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
         #endregion
     }
 }

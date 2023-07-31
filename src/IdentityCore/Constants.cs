@@ -14,5 +14,7 @@ namespace IdentityCore
         };
 
         public static string[] AllowedSwaggerEnvironments = new[] { "Development", "dev-az" };
+
+        public static string[] Claims = new[] { "create-user", "read-user", "update-user", "delete-user" };
     }
 }

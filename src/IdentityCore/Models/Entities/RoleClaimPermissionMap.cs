@@ -10,6 +10,6 @@ namespace IdentityCore.Models.Entities
 
         public string RoleId { get; set; } = string.Empty;
 
-        public string ClaimPermissionId { get; set; } = string.Empty;
+        public string ClaimPermission { get; set; } = string.Empty;
     }
 }
