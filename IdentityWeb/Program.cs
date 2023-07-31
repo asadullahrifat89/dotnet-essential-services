@@ -15,6 +15,8 @@ using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Implementations.Repositories;
 using IdentityCore.Extensions;
 using Microsoft.OpenApi.Models;
+using IdentityCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,54 +84,67 @@ builder.Services.AddMvc();
 // Add services to the container.
 builder.Services.AddControllers();
 
+var environemntVariable = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+if (environemntVariable != null && Constants.AllowedSwaggerEnvironments.Contains(environemntVariable))
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Web Api", Version = "v1" });
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(options =>
     {
-        In = ParameterLocation.Header,
-        Description = "Please enter a valid token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "Bearer"
-    });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
+        options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Web Api", Version = "v1" });
+        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
-            new OpenApiSecurityScheme
+            In = ParameterLocation.Header,
+            Description = "Please enter a valid token",
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            BearerFormat = "JWT",
+            Scheme = "Bearer"
+        });
+        options.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
             {
-                Reference = new OpenApiReference
+                new OpenApiSecurityScheme
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            new string[]{}
-        }
+                    Reference = new OpenApiReference
+                    {
+                        Type=ReferenceType.SecurityScheme,
+                        Id="Bearer"
+                    }
+                },
+                new string[]{}
+            }
+        });
     });
-});
+}
 
+// Add serilog
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
 
+#if !DEBUG
+builder.Logging.ClearProviders();
+#endif
 
+builder.Logging.AddSerilog(logger);
+
+// App build
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || Constants.AllowedSwaggerEnvironments.Contains(environemntVariable))
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 #if DEBUG
-
 app.UseHttpLogging();
-
 #endif
 
+// Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
