@@ -29,10 +29,16 @@ namespace IdentityWeb.Controllers
 
         #region Methods
 
-        [HttpGet]
-        public async Task<QueryRecordResponse<UserResponse>> GetUser(string id)
+        [HttpGet("GetUser")]
+        public async Task<QueryRecordResponse<UserResponse>> GetUser([FromQuery] GetUserQuery query)
         {
-            return await _mediator.Send(new GetUserQuery() { UserId = id });
+            return await _mediator.Send(query);
+        }
+
+        [HttpGet("GetUsers")]
+        public async Task<QueryRecordsResponse<UserResponse>> GetUsers([FromQuery]GetUsersQuery query)
+        {
+            return await _mediator.Send(query);
         }
 
         #endregion
