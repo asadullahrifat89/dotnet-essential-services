@@ -1,15 +1,10 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
-using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Extensions;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {
@@ -65,6 +60,14 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             return await _mongoDbService.Exists(filter);
         }
+
+        public async Task<bool> BeAnExistingPhoneNumber(string phoneNumber)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.PhoneNumber, phoneNumber);
+
+            return await _mongoDbService.Exists(filter);
+        }
+
 
         public async Task<bool> BeValidUser(string userEmail, string password)
         {

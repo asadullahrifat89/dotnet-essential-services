@@ -1,5 +1,4 @@
 ﻿using IdentityCore.Models.Entities;
-using System.Security.Claims;
 
 namespace IdentityCore.Contracts.Declarations.Repositories
 {

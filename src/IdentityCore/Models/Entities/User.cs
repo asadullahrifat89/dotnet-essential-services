@@ -11,9 +11,9 @@ namespace IdentityCore.Models.Entities
 
         public string DisplayName { get; set; } = string.Empty;
 
-        public string Password { get; set; } = string.Empty;
-
         public string Email { get; set; } = string.Empty;
+
+        public string Password { get; set; } = string.Empty;
 
         public string ProfileImageUrl { get; set; } = string.Empty;
 
@@ -23,6 +23,11 @@ namespace IdentityCore.Models.Entities
         {
             var user = new User()
             {
+                FirstName = command.FirstName,
+                LastName = command.LastName,
+                DisplayName = (command.FirstName + " " + command.LastName).Trim(),
+                ProfileImageUrl = command.ProfileImageUrl,
+                PhoneNumber = command.PhoneNumber,
                 Email = command.Email,
                 Password = command.Password.Encrypt(),
             };

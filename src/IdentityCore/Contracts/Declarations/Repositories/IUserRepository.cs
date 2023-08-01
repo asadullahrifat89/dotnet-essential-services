@@ -1,11 +1,6 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Declarations.Repositories
 {
@@ -14,6 +9,8 @@ namespace IdentityCore.Contracts.Declarations.Repositories
         Task<ServiceResponse> CreateUser(CreateUserCommand command);
 
         Task<bool> BeAnExistingUserEmail(string userEmail);
+
+        Task<bool> BeAnExistingPhoneNumber(string phoneNumber);
 
         Task<bool> BeValidUser(string userEmail, string password);
 

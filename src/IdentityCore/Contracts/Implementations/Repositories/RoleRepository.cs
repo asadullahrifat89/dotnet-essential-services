@@ -1,11 +1,9 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
-using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MongoDB.Driver;
-using System.Data;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {

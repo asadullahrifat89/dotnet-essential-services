@@ -1,14 +1,7 @@
 ﻿using FluentValidation;
 using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Repositories;
-using IdentityCore.Contracts.Implementations.Repositories;
 using IdentityCore.Extensions;
-using IdentityCore.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Commands.Validators
 {
@@ -21,11 +14,19 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             _userRepository = userRepository;
             _roleRepository = roleRepository;
 
+            RuleFor(x => x.FirstName).NotNull().NotEmpty();
+            RuleFor(x => x.LastName).NotNull().NotEmpty();
+
             RuleFor(x => x.Email).NotNull().NotEmpty();
             RuleFor(x => x.Email).Must(e => e.Contains('@')).WithMessage("Invalid email.").When(x => !x.Email.IsNullOrBlank());
             RuleFor(x => x.Email).MustAsync(NotBeAnExistingUserEmail).WithMessage("Email already exists.").When(x => !x.Email.IsNullOrBlank());
 
             RuleFor(x => x.Password).NotNull().NotEmpty();
+
+            RuleFor(x => x.ProfileImageUrl).NotNull().NotEmpty();
+
+            RuleFor(x => x.PhoneNumber).NotNull().NotEmpty();
+            RuleFor(x => x.PhoneNumber).MustAsync(NotBeAnExistingPhoneNumber).WithMessage("Phone number is already in use.").When(x => !x.Email.IsNullOrBlank());
 
             RuleFor(x => x.Roles).NotNull();
             RuleFor(x => x).MustAsync(BeAnExistingRole).WithMessage("Role doesn't exist.").When(x => x.Roles != null);
@@ -34,6 +35,11 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
         private async Task<bool> NotBeAnExistingUserEmail(string email, CancellationToken token)
         {
             return !await _userRepository.BeAnExistingUserEmail(email);
+        }
+
+        private async Task<bool> NotBeAnExistingPhoneNumber(string phoneNumber, CancellationToken token)
+        {
+            return !await _userRepository.BeAnExistingPhoneNumber(phoneNumber);
         }
 
         private async Task<bool> BeAnExistingRole(CreateUserCommand command, CancellationToken token)

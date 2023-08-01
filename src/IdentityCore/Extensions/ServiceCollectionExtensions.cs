@@ -1,16 +1,10 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Contracts.Implementations.Commands.Validators;
 using IdentityCore.Contracts.Implementations.Repositories;
 using IdentityCore.Contracts.Implementations.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Extensions
 {

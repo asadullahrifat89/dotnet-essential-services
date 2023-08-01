@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IdentityCore.Models.Responses
+﻿namespace IdentityCore.Models.Responses
 {
     public class QueryRecordResponse<TRecord>
     {
