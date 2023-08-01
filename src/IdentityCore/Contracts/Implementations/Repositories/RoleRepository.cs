@@ -44,7 +44,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             await _mongoDbService.InsertDocument(role);
             await _mongoDbService.InsertDocuments(roleClaimMaps);
 
-            return Response.Build().BuildSuccessResponse(role);
+            return Response.BuildServiceResponse().BuildSuccessResponse(role);
         }
 
         public async Task<bool> BeAnExistingRole(string role)

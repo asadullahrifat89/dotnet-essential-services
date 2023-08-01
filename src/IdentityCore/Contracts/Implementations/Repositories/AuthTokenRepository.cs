@@ -50,7 +50,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             AuthToken result = await GenerateAuthToken(user: user);
 
-            return Response.Build().BuildSuccessResponse(result);
+            return Response.BuildServiceResponse().BuildSuccessResponse(result);
         }
 
         public async Task<bool> BeAnExistingRefreshToken(string refreshToken)
@@ -69,14 +69,14 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var user = await _userRepository.GetUser(userId: refreshToken.UserId);
 
             if (user == null)
-                return Response.Build().BuildErrorResponse("User not found.");
+                return Response.BuildServiceResponse().BuildErrorResponse("User not found.");
 
             AuthToken result = await GenerateAuthToken(user: user);
 
             // delete the old refresh token
             await _mongoDbService.DeleteById<RefreshToken>(refreshToken.Id);
 
-            return Response.Build().BuildSuccessResponse(result);
+            return Response.BuildServiceResponse().BuildSuccessResponse(result);
         }
 
         private async Task<AuthToken> GenerateAuthToken(User user)

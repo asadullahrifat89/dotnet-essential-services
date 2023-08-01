@@ -56,7 +56,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             await _mongoDbService.InsertDocument(user);
             await _mongoDbService.InsertDocuments(userRoleMaps);
 
-            return Response.Build().BuildSuccessResponse(user);
+            return Response.BuildServiceResponse().BuildSuccessResponse(user);
         }
 
         public async Task<bool> BeAnExistingUserEmail(string userEmail)

@@ -47,12 +47,4 @@ namespace IdentityCore.Models.Responses
             };
         }
     }
-
-    public static class Response
-    {
-        public static ServiceResponse Build()
-        {
-            return new ServiceResponse();
-        }
-    }
 }

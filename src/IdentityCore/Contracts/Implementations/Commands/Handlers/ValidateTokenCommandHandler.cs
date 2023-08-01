@@ -48,7 +48,7 @@ namespace IdentityCore.Contracts.Implementations.Commands.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.Build().BuildErrorResponse(ex.Message);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message);
             }
         }
 
