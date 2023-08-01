@@ -135,7 +135,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             foreach (var claim in userClaims)
             {
-                claims.Add(new Claim(claim, "true"));
+                claims.Add(new Claim("Permissions", claim));
             }
 
             var tokenDescriptor = new SecurityTokenDescriptor
