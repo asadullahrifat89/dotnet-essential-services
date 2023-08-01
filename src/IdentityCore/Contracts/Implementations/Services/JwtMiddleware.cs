@@ -33,7 +33,10 @@ namespace IdentityCore.Contracts.Implementations.Services
                 if (!userId.IsNullOrBlank())
                 {
                     // attach user to context on successful jwt validation
-                    httpContext.Items["User"] = userRepository.GetUser(userId);
+
+                    var user = await userRepository.GetUser(userId);
+
+                    httpContext.Items["User"] = user;
                 }
             }
 
