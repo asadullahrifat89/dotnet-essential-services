@@ -153,7 +153,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         {
             var claims = new List<Claim>();
 
-            claims.Add(new Claim("UserId", userId));
+            claims.Add(new Claim("Id", userId));
 
             foreach (var claim in userClaims)
             {
