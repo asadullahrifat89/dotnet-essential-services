@@ -21,6 +21,8 @@ namespace IdentityCore.Contracts.Declarations.Repositories
 
         Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query);
 
+        Task<QueryRecordsResponse<UserResponse>> GetUsers(GetUsersQuery query);
+
         Task<bool> BeAnExistingUser(string userId);
     }
 }

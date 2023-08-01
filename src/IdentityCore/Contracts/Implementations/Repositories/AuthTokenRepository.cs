@@ -92,7 +92,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             string[] userClaims = await GetUserClaims(userId);
 
-            string jwtToken = GenerateJwt(userId, userClaims, issuer, audience, keyBytes, lifeTime);
+            string jwtToken = GenerateJwt(
+                userId: userId,
+                userClaims: userClaims,
+                issuer: issuer,
+                audience: audience,
+                keyBytes: keyBytes,
+                lifeTime: lifeTime);
 
             // create refresh token
             RefreshToken refreshToken = new()
@@ -100,7 +106,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
                 UserId = user.Id,
             };
 
-            refreshToken.Jwt = GenerateJwt(userId, new[] { refreshToken.Id }, issuer, audience, keyBytes, lifeTime);
+            refreshToken.Jwt = GenerateJwt(
+                userId: userId,
+                userClaims: new[] { refreshToken.Id },
+                issuer: issuer,
+                audience: audience,
+                keyBytes: keyBytes,
+                lifeTime: lifeTime);
 
             // save the refresh token
             await _mongoDbService.InsertDocument(refreshToken);

@@ -41,8 +41,9 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             foreach (var role in roles)
             {
-                var roleMap = new UserRoleMap() { 
-                
+                var roleMap = new UserRoleMap()
+                {
+
                     UserId = user.Id,
                     RoleId = role.Id,
                 };
@@ -106,6 +107,26 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return user is null
                 ? Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(new ErrorResponse().BuildExternalError("User doesn't exist."))
                 : Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user));
+        }
+
+        public async Task<QueryRecordsResponse<UserResponse>> GetUsers(GetUsersQuery query)
+        {
+            var filter = Builders<User>.Filter.Or(
+                Builders<User>.Filter.Where(x => x.FirstName.ToLowerInvariant().Contains(query.SearchTerm.ToLowerInvariant())),
+                Builders<User>.Filter.Where(x => x.LastName.ToLowerInvariant().Contains(query.SearchTerm.ToLowerInvariant())),
+                Builders<User>.Filter.Where(x => x.DisplayName.ToLowerInvariant().Contains(query.SearchTerm.ToLowerInvariant())),
+                Builders<User>.Filter.Where(x => x.Email.ToLowerInvariant().Contains(query.SearchTerm.ToLowerInvariant())));
+
+            var count = await _mongoDbService.CountDocuments(filter: filter);
+
+            var users = await _mongoDbService.GetDocuments(
+                filter: filter,
+                skip: query.PageIndex * query.PageSize,
+                limit: query.PageSize);
+
+            return new QueryRecordsResponse<UserResponse>().BuildSuccessResponse(
+               count: count,
+               records: users is not null ? users.Select(x => UserResponse.Initialize(x)).ToArray() : Array.Empty<UserResponse>());
         }
 
         public async Task<bool> BeAnExistingUser(string id)
