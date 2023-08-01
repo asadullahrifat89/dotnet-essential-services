@@ -33,7 +33,6 @@ namespace IdentityWeb.Controllers
         #region Methods
 
         [HttpPost("CreateUser")]
-        [AllowAnonymous]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
             return await _mediator.Send(command);
