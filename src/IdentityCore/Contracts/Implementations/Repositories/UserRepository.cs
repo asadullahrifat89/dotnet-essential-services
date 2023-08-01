@@ -99,13 +99,19 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return await _mongoDbService.FindOne(filter);
         }
 
-        public async Task<QueryRecordResponse<UserResponse>> GetUserResponse(GetUserQuery query)
+        public async Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query)
         {
             var user = await _mongoDbService.FindOne<User>(x => x.Id == query.UserId);
 
             return user is null
                 ? Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(new ErrorResponse().BuildExternalError("User doesn't exist."))
                 : Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user));
+        }
+
+        public async Task<bool> BeAnExistingUser(string id)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.Id, id);
+            return await _mongoDbService.Exists(filter);
         }
 
         #endregion
