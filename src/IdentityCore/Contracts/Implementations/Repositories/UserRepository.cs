@@ -1,6 +1,8 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
+using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Extensions;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
@@ -68,7 +70,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return await _mongoDbService.Exists(filter);
         }
 
-
         public async Task<bool> BeValidUser(string userEmail, string password)
         {
             var encryptedPassword = password.Encrypt();
@@ -96,6 +97,15 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
 
             return await _mongoDbService.FindOne(filter);
+        }
+
+        public async Task<QueryRecordResponse<UserResponse>> GetUserResponse(GetUserQuery query)
+        {
+            var user = await _mongoDbService.FindOne<User>(x => x.Id == query.UserId);
+
+            return user is null
+                ? Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(new ErrorResponse().BuildExternalError("User doesn't exist."))
+                : Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user));
         }
 
         #endregion

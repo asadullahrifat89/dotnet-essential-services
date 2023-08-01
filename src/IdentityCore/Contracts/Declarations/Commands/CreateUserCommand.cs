@@ -1,4 +1,5 @@
-﻿using IdentityCore.Models.Responses;
+﻿using IdentityCore.Models.Entities;
+using IdentityCore.Models.Responses;
 using MediatR;
 
 namespace IdentityCore.Contracts.Declarations.Commands
@@ -16,6 +17,8 @@ namespace IdentityCore.Contracts.Declarations.Commands
         public string Email { get; set; } = string.Empty;
 
         public string Password { get; set; } = string.Empty;
+
+        public Address Address { get; set; } = new Address();
 
         public string[] Roles { get; set; } = new string[] { };
     }

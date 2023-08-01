@@ -1,4 +1,5 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 
@@ -17,5 +18,7 @@ namespace IdentityCore.Contracts.Declarations.Repositories
         Task<User> GetUser(string userEmail, string password);
 
         Task<User> GetUser(string userId);
+
+        Task<QueryRecordResponse<UserResponse>> GetUserResponse(GetUserQuery query);
     }
 }

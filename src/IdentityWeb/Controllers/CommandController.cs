@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityWeb.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class CommandController : ControllerBase

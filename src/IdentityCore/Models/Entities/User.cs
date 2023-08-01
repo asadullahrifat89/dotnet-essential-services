@@ -19,6 +19,8 @@ namespace IdentityCore.Models.Entities
 
         public string PhoneNumber { get; set; } = string.Empty;
 
+        public Address Address { get; set; } = new Address();
+
         public static User Initialize(CreateUserCommand command)
         {
             var user = new User()
@@ -30,6 +32,7 @@ namespace IdentityCore.Models.Entities
                 PhoneNumber = command.PhoneNumber,
                 Email = command.Email,
                 Password = command.Password.Encrypt(),
+                Address = command.Address,
             };
 
             return user;
