@@ -13,7 +13,6 @@ namespace IdentityWeb.Controllers
     {
         #region Fields
 
-        private readonly ILogger<CommandController> _logger;
         private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -21,9 +20,8 @@ namespace IdentityWeb.Controllers
 
         #region Ctor
 
-        public CommandController(ILogger<CommandController> logger, IMediator mediator, IHttpContextAccessor httpContextAccessor)
+        public CommandController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
-            _logger = logger;
             _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
         }
