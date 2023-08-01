@@ -20,6 +20,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IClaimPermissionRepository _claimPermissionRepository;
+        private readonly IJwtService _jwtService;
         private readonly IConfiguration _configuration;
 
         #endregion
@@ -31,13 +32,15 @@ namespace IdentityCore.Contracts.Implementations.Repositories
            IUserRepository userRepository,
            IConfiguration configuration,
            IRoleRepository roleRepository,
-           IClaimPermissionRepository claimPermissionRepository)
+           IClaimPermissionRepository claimPermissionRepository,
+           IJwtService jwtService)
         {
             _mongoDbService = mongoDbService;
             _userRepository = userRepository;
             _configuration = configuration;
             _roleRepository = roleRepository;
             _claimPermissionRepository = claimPermissionRepository;
+            _jwtService = jwtService;
         }
 
         #endregion
@@ -82,23 +85,12 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         private async Task<AuthToken> GenerateAuthToken(User user)
         {
             var userId = user.Id;
-            var issuer = _configuration["Jwt:Issuer"];
-            var audience = _configuration["Jwt:Audience"];
-            var key = _configuration["Jwt:Key"];
 
-            var keyBytes = Encoding.ASCII.GetBytes(key);
-
-            var lifeTime = DateTime.UtcNow.AddSeconds(120);
+            var lifeTime = DateTime.UtcNow.AddSeconds(Convert.ToInt32(_configuration["Jwt:Lifetime"]));
 
             string[] userClaims = await GetUserClaims(userId);
 
-            string jwtToken = GenerateJwt(
-                userId: userId,
-                userClaims: userClaims,
-                issuer: issuer,
-                audience: audience,
-                keyBytes: keyBytes,
-                lifeTime: lifeTime);
+            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: userClaims);
 
             // create refresh token
             RefreshToken refreshToken = new()
@@ -106,13 +98,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
                 UserId = user.Id,
             };
 
-            refreshToken.Jwt = GenerateJwt(
-                userId: userId,
-                userClaims: new[] { refreshToken.Id },
-                issuer: issuer,
-                audience: audience,
-                keyBytes: keyBytes,
-                lifeTime: lifeTime);
+            refreshToken.Jwt = _jwtService.GenerateJwtToken(userId: userId, userClaims: new[] { refreshToken.Id });
 
             // save the refresh token
             await _mongoDbService.InsertDocument(refreshToken);
@@ -143,7 +129,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return userClaims;
         }
 
-        private static string GenerateJwt(
+        private string GenerateJwtToken(
             string userId,
             string[] userClaims,
             string? issuer,
@@ -151,9 +137,10 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             byte[] keyBytes,
             DateTime lifeTime)
         {
-            var claims = new List<Claim>();
-
-            claims.Add(new Claim("Id", userId));
+            var claims = new List<Claim>
+            {
+                new Claim("Id", userId)
+            };
 
             foreach (var claim in userClaims)
             {
