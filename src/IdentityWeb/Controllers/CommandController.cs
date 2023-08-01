@@ -1,14 +1,14 @@
-﻿using IdentityCore.Contracts.Declarations.Commands;
+﻿using IdentityCore.Attributes;
+using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Models.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityWeb.Controllers
 {
-
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class CommandController : ControllerBase
     {
@@ -37,8 +37,8 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(command);
         }
 
-        [HttpPost("Authenticate")]
         [AllowAnonymous]
+        [HttpPost("Authenticate")]        
         public async Task<ServiceResponse> Authenticate()
         {
             var httpContext = _httpContextAccessor.HttpContext;
@@ -55,8 +55,8 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(command);
         }
 
-        [HttpPost("Validate")]
         [AllowAnonymous]
+        [HttpPost("Validate")]       
         public async Task<ServiceResponse> Validate(ValidateTokenCommand command)
         {
             return await _mediator.Send(command);

@@ -2,10 +2,12 @@
 using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using IdentityCore.Attributes;
 
 namespace IdentityWeb.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
 
     public class QueryController : ControllerBase

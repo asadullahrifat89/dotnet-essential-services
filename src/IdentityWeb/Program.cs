@@ -8,6 +8,7 @@ using IdentityCore.Extensions;
 using Microsoft.OpenApi.Models;
 using IdentityCore;
 using Serilog;
+using IdentityCore.Contracts.Implementations.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,30 +32,30 @@ builder.Services.AddCors(options =>
 
 });
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-    {
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ClockSkew = TimeSpan.Zero,
-    };
-});
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer(options =>
+//{
+//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+//    {
+//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//        ValidAudience = builder.Configuration["Jwt:Audience"],
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//        ClockSkew = TimeSpan.Zero,
+//    };
+//});
 
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-});
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+//});
 
 // Add http context accessor
 builder.Services.AddHttpContextAccessor();
@@ -136,14 +137,21 @@ if (app.Environment.IsDevelopment() || Constants.AllowedSwaggerEnvironments.Cont
 app.UseHttpLogging();
 #endif
 
+
+
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
-
-app.UseCors("CorsPolicy");
+app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("CorsPolicy");
 
-app.UseAuthentication();
-app.UseAuthorization();
+
+app.UseMiddleware<JwtMiddleware>(); // custom jwt auth middleware
+//app.UseAuthentication();
+//app.UseAuthorization();
+
+
+
 
 app.MapControllers();
 

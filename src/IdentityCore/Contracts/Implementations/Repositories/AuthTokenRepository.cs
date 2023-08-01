@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {

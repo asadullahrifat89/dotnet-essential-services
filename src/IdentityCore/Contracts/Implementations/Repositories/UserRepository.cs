@@ -2,7 +2,6 @@
 using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
-using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Extensions;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;

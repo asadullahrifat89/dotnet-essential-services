@@ -1,18 +1,10 @@
-﻿using IdentityCore.Contracts.Declarations.Commands;
-using IdentityCore.Contracts.Declarations.Queries;
+﻿using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Contracts.Declarations.Repositories;
-using IdentityCore.Contracts.Implementations.Commands.Handlers;
-using IdentityCore.Contracts.Implementations.Commands.Validators;
 using IdentityCore.Contracts.Implementations.Queries.Validators;
 using IdentityCore.Extensions;
 using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Queries.Handlers
 {

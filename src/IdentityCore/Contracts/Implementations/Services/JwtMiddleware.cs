@@ -1,12 +1,12 @@
-﻿using IdentityCore.Contracts.Declarations.Repositories;
+﻿using IdentityCore.Attributes;
+using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Extensions;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace IdentityCore.Contracts.Implementations.Services
 {
@@ -19,17 +19,26 @@ namespace IdentityCore.Contracts.Implementations.Services
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IUserRepository userRepository, IJwtService jwtUtils)
+        public async Task Invoke(HttpContext httpContext, IUserRepository userRepository, IJwtService jwtService)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var userId = jwtUtils.ValidateJwtToken(token);
-            if (!userId.IsNullOrBlank())
+            var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+
+            if (!token.IsNullOrBlank())
             {
-                // attach user to context on successful jwt validation
-                context.Items["User"] = userRepository.GetUser(userId);
+                if (httpContext?.User.Identity is not ClaimsIdentity identity)
+                    return;
+
+                var userId = jwtService.ValidateJwtToken(token);
+
+                if (!userId.IsNullOrBlank())
+                {
+                    // attach user to context on successful jwt validation
+                    httpContext.Items["User"] = userRepository.GetUser(userId);
+                }
             }
 
-            await _next(context);
+            // Call the next delegate/middleware in the pipeline.
+            await _next(httpContext);
         }
     }
 }

@@ -1,16 +1,11 @@
 ﻿using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Extensions;
-using IdentityCore.Models.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver.Linq;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Services
 {

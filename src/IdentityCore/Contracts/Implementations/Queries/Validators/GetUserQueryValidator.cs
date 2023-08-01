@@ -1,13 +1,7 @@
 ﻿using FluentValidation;
-using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Queries.Validators
 {
