@@ -1,10 +1,4 @@
-﻿using IdentityCore.Contracts.Implementations.Services;
-using IdentityCore.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IdentityCore.Models.Entities;
 
 namespace IdentityCore.Contracts.Declarations.Services
 {

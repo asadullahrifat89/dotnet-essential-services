@@ -4,10 +4,7 @@ using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {

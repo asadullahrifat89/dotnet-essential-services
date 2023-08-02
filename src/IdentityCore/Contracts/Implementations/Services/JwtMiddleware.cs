@@ -1,14 +1,8 @@
-﻿using IdentityCore.Attributes;
-using IdentityCore.Contracts.Declarations.Repositories;
+﻿using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Extensions;
 using Microsoft.AspNetCore.Http;
-using System.Net.Http;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Http.Extensions;
-using IdentityCore.Models.Entities;
 
 namespace IdentityCore.Contracts.Implementations.Services
 {

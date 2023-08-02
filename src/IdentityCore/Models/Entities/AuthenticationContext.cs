@@ -1,6 +1,4 @@
-﻿using IdentityCore.Models.Entities;
-
-namespace IdentityCore.Models.Entities
+﻿namespace IdentityCore.Models.Entities
 {
     public class AuthenticationContext
     {
