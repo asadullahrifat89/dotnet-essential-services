@@ -6,6 +6,7 @@ using IdentityCore.Extensions;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MongoDB.Driver;
+using System.Text;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {
@@ -135,6 +136,36 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var filter = Builders<User>.Filter.Eq(x => x.Id, id);
             return await _mongoDbService.Exists(filter);
         }
+
+
+
+        public async Task<List<string>> GetEndpointList()
+        {
+            // need to get all the endpoints from the EndpointRoutes class
+
+            var endpoints = EndpointRoutes.GetEndpointRoutes();
+
+            var endpointList = new List<string>();
+            
+            foreach (var endpoint in endpoints)
+            {
+                endpointList.Add(endpoint);
+            }
+
+            return endpointList;
+           
+            
+        }
+
+        Task<string[]> IUserRepository.GetEndpointList()
+        {
+            var endpoints = EndpointRoutes.GetEndpointRoutes();
+          
+            return Task.FromResult(endpoints.ToArray());
+
+
+        }
+
 
         #endregion
     }
