@@ -14,6 +14,6 @@ namespace IdentityCore.Models.Entities
                 Name = command.Name,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
             };
-        }
+        } 
     }
 }

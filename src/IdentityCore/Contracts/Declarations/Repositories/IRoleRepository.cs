@@ -1,4 +1,5 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 
@@ -17,5 +18,7 @@ namespace IdentityCore.Contracts.Declarations.Repositories
         Task<Role[]> GetRolesByNames(string[] names);
 
         Task<UserRoleMap[]> GetUserRoles(string userId);
+
+        Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query);
     }
 }

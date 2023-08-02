@@ -17,7 +17,8 @@ namespace IdentityCore
         public const string Action_Authenticate = "api/Command/Authenticate";
         
         
-        public const string Action_GetEndPoints = "api/Command/GetEndpoints";
+        public const string Action_GetEndPoints = "api/Query/GetEndpoints";
+        public const string Action_GetRoles = "api/Query/GetRoles";
 
         public static string[] GetEndpointRoutes()
         {
