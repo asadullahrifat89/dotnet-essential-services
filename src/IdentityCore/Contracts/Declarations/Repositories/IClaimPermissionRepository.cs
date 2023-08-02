@@ -1,4 +1,6 @@
-﻿using IdentityCore.Models.Entities;
+﻿using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Models.Entities;
+using IdentityCore.Models.Responses;
 
 namespace IdentityCore.Contracts.Declarations.Repositories
 {
@@ -7,5 +9,7 @@ namespace IdentityCore.Contracts.Declarations.Repositories
         bool BeAnExistingClaimPermission(string claim);
 
         Task<RoleClaimPermissionMap[]> GetClaimsForRoleIds(string[] roleIds);
+
+        Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command);
     }
 }

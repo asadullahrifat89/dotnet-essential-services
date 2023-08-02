@@ -1,7 +1,10 @@
-﻿using IdentityCore.Contracts.Declarations.Repositories;
+﻿using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Models.Entities;
+using IdentityCore.Models.Responses;
 using MongoDB.Driver;
+using System.Data;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {
@@ -10,14 +13,16 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         #region Fields
 
         private readonly IMongoDbService _mongoDbService;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public ClaimPermissionRepository(IMongoDbService mongoDbService)
+        public ClaimPermissionRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
+            _authenticationContext = authenticationContext;
         }
 
         #region Methods
@@ -34,6 +39,15 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var results = await _mongoDbService.GetDocuments(filter: filter);
 
             return results is not null ? results.ToArray() : Array.Empty<RoleClaimPermissionMap>();
+        }
+
+        public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
+        {
+            var claimPermission = ClaimPermission.Initialize(command, _authenticationContext.GetAuthenticationContext());
+
+            await _mongoDbService.InsertDocument(claimPermission);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(claimPermission);
         }
 
         #endregion
