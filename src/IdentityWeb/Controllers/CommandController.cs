@@ -68,6 +68,12 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPut(EndpointRoutes.Action_UpdateRole)]
+        public async Task<ServiceResponse> UpdateRole(UpdateRoleCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
         [HttpPost(EndpointRoutes.Action_AddClaimPermission)]
         public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
         {

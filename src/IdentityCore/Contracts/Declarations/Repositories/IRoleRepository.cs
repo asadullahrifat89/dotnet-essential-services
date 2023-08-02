@@ -8,7 +8,11 @@ namespace IdentityCore.Contracts.Declarations.Repositories
     {
         Task<bool> BeAnExistingRole(string role);
 
+        Task<bool> BeAnExistingRoleById(string id);
+
         Task<ServiceResponse> AddRole(AddRoleCommand command);
+
+        Task<ServiceResponse> UpdateRole(UpdateRoleCommand command);
 
         Task<Role[]> GetRolesByNames(string[] names);
 

@@ -4,6 +4,7 @@ using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MongoDB.Driver;
+using System.Data;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {
@@ -47,9 +48,47 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(role);
         }
 
+        public async Task<ServiceResponse> UpdateRole(UpdateRoleCommand command)
+        {
+            var existingRole = await _mongoDbService.FindById<Role>(command.RoleId);
+
+            var newRoleClaimMaps = new List<RoleClaimPermissionMap>();
+
+            if (command.Claims is not null && command.Claims.Any())
+            {
+                foreach (var claim in command.Claims.Distinct())
+                {
+                    var roleClaimMap = new RoleClaimPermissionMap()
+                    {
+                        RoleId = command.RoleId,
+                        ClaimPermission = claim
+                    };
+
+                    newRoleClaimMaps.Add(roleClaimMap);
+                }
+            }
+
+            var existingRoleClaimMaps = await _mongoDbService.GetDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, command.RoleId));
+
+            if (existingRoleClaimMaps != null && existingRoleClaimMaps.Any())
+                await _mongoDbService.DeleteDocuments(Builders<RoleClaimPermissionMap>.Filter.In(x => x.Id, existingRoleClaimMaps.Select(x => x.Id).ToArray()));
+
+            if (newRoleClaimMaps.Any())
+                await _mongoDbService.InsertDocuments(newRoleClaimMaps);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(existingRole);
+        }
+
         public async Task<bool> BeAnExistingRole(string role)
         {
             var filter = Builders<Role>.Filter.Eq(x => x.Name, role);
+
+            return await _mongoDbService.Exists(filter);
+        }
+
+        public async Task<bool> BeAnExistingRoleById(string id)
+        {
+            var filter = Builders<Role>.Filter.Eq(x => x.Id, id);
 
             return await _mongoDbService.Exists(filter);
         }
@@ -69,7 +108,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var results = await _mongoDbService.GetDocuments(filter: filter);
 
-            return results is not null? results.ToArray(): Array.Empty<UserRoleMap>();
+            return results is not null ? results.ToArray() : Array.Empty<UserRoleMap>();
         }
 
         #endregion
