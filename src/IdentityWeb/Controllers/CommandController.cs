@@ -1,15 +1,14 @@
-﻿using IdentityCore.Attributes;
+﻿using IdentityCore;
+using IdentityCore.Attributes;
 using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Models.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityWeb.Controllers
 {
     [ApiController]
-    [AuthorizationRequired]
-    [Route("api/[controller]")]
+    [AuthorizationRequired]   
     public class CommandController : ControllerBase
     {
         #region Fields
@@ -32,7 +31,7 @@ namespace IdentityWeb.Controllers
         #region Methods
 
         [AuthorizationNotRequired]
-        [HttpPost("Authenticate")]
+        [HttpPost(EndpointRoutes.Action_Authenticate)]
         public async Task<ServiceResponse> Authenticate()
         {
             var httpContext = _httpContextAccessor.HttpContext;
@@ -50,25 +49,25 @@ namespace IdentityWeb.Controllers
         }
 
         [AuthorizationNotRequired]
-        [HttpPost("Validate")]
+        [HttpPost(EndpointRoutes.Action_Validate)]
         public async Task<ServiceResponse> Validate(ValidateTokenCommand command)
         {
             return await _mediator.Send(command);
         }
 
-        [HttpPost("CreateUser")]
+        [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
             return await _mediator.Send(command);
         }        
 
-        [HttpPost("AddRole")]
+        [HttpPost(EndpointRoutes.Action_AddRole)]
         public async Task<ServiceResponse> AddRole(AddRoleCommand command)
         {
             return await _mediator.Send(command);
         }
 
-        [HttpPost("AddClaimPermission")]
+        [HttpPost(EndpointRoutes.Action_AddClaimPermission)]
         public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
         {
             return await _mediator.Send(command);

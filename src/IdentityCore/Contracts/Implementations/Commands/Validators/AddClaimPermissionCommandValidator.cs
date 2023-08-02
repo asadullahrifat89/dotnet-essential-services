@@ -14,7 +14,9 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             _claimPermissionRepository = ClaimPermissionRepository;
 
             RuleFor(x => x.Name).NotNull().NotEmpty();
-            RuleFor(x => x).MustAsync(NotBeAnExistingClaimPermission).WithMessage("ClaimPermission already exists.").When(x => !x.Name.IsNullOrBlank());
+            RuleFor(x => x).MustAsync(NotBeAnExistingClaimPermission).WithMessage("Name already exists.").When(x => !x.Name.IsNullOrBlank());
+
+            //TODO: check if the request uri exists in the web api or not
         }
 
         private async Task<bool> NotBeAnExistingClaimPermission(AddClaimPermissionCommand command, CancellationToken arg2)

@@ -3,13 +3,12 @@ using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using IdentityCore.Attributes;
+using IdentityCore;
 
 namespace IdentityWeb.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    [Route("api/[controller]")]
-
     public class QueryController : ControllerBase
     {
         #region Fields
@@ -31,14 +30,14 @@ namespace IdentityWeb.Controllers
 
         #region Methods
 
-        [HttpGet("GetUser")]
+        [HttpGet(EndpointRoutes.Action_GetUser)]
         public async Task<QueryRecordResponse<UserResponse>> GetUser([FromQuery] GetUserQuery query)
         {
             return await _mediator.Send(query);
         }
 
-        [HttpGet("GetUsers")]
-        public async Task<QueryRecordsResponse<UserResponse>> GetUsers([FromQuery]GetUsersQuery query)
+        [HttpGet(EndpointRoutes.Action_GetUsers)]
+        public async Task<QueryRecordsResponse<UserResponse>> GetUsers([FromQuery] GetUsersQuery query)
         {
             return await _mediator.Send(query);
         }
