@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdentityCore.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,10 @@ namespace IdentityCore
 
         public const string Action_Validate = "api/Command/Validate";
         public const string Action_Authenticate = "api/Command/Authenticate";
+
+        public static string[] GetEndpointRoutes()
+        {
+            return ClassExtensions.GetConstants(typeof(EndpointRoutes)).Select(x => x.Name).ToArray();
+        }
     }
 }
