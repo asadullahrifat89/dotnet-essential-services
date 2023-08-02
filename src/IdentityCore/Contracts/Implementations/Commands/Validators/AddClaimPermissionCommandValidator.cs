@@ -16,7 +16,7 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             RuleFor(x => x.Name).NotNull().NotEmpty();
             RuleFor(x => x).MustAsync(NotBeAnExistingClaimPermission).WithMessage("Name already exists.").When(x => !x.Name.IsNullOrBlank());
 
-            //TODO: check if the request uri exists in the web api or not
+            // check if the request uri exists in the web api or not
 
             RuleFor(x => x.RequestUri).NotNull().NotEmpty();
             RuleFor(x => x.RequestUri).Must(BeAnExistingRequestUri).WithMessage("RequestUri doesn't exist.").When(x => !x.RequestUri.IsNullOrBlank());

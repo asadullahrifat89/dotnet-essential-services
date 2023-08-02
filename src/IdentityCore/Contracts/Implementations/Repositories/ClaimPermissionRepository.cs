@@ -52,6 +52,15 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(claimPermission);
         }
 
+        public async Task<ClaimPermission[]> GetClaimsForClaimNames(string[] claimNames)
+        {
+            var filter = Builders<ClaimPermission>.Filter.In(x => x.Name, claimNames);
+
+            var results = await _mongoDbService.GetDocuments(filter: filter);
+
+            return results is not null ? results.ToArray() : Array.Empty<ClaimPermission>();
+        }
+
         #endregion
 
         #endregion

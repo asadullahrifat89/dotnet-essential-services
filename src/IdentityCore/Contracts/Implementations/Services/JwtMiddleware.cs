@@ -21,7 +21,12 @@ namespace IdentityCore.Contracts.Implementations.Services
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, IUserRepository userRepository, IJwtService jwtService)
+        public async Task Invoke(
+            HttpContext httpContext,
+            IUserRepository userRepository,
+            IRoleRepository roleRepository,
+            IClaimPermissionRepository claimPermissionRepository,
+            IJwtService jwtService)
         {
             var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             var requestUri = httpContext.Request.Path.Value;
@@ -40,8 +45,15 @@ namespace IdentityCore.Contracts.Implementations.Services
                     // attach user to context on successful jwt validation
 
                     var user = await userRepository.GetUser(userId);
+                    var roleMaps = await roleRepository.GetUserRoles(userId);
+                    var roleIds = roleMaps.Select(r => r.RoleId).ToArray();
+                    var claimMaps = await claimPermissionRepository.GetClaimsForRoleIds(roleIds);
+                    var claims = await claimPermissionRepository.GetClaimsForClaimNames(claimMaps.Select(x => x.ClaimPermission).ToArray());
 
-                    httpContext.Items["User"] = user;                   
+                    var requestUris = claims.Select(x => x.RequestUri.ToLower()).ToArray();
+
+                    if (requestUris.Contains(requestUri.ToLower().Trim('/')))
+                        httpContext.Items["User"] = user;
                 }
             }
 

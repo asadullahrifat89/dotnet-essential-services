@@ -18,7 +18,7 @@ namespace IdentityCore.Contracts.Implementations.Services
             _configuration = configuration;
         }
 
-        public string GenerateJwtToken(string userId, string[] userClaims)
+        public string GenerateJwtToken(string userId, string[] userClaimNames)
         {
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
@@ -33,7 +33,7 @@ namespace IdentityCore.Contracts.Implementations.Services
                 new Claim("Id", userId)
             };
 
-            foreach (var claim in userClaims)
+            foreach (var claim in userClaimNames)
             {
                 claims.Add(new Claim("Permissions", claim));
             }

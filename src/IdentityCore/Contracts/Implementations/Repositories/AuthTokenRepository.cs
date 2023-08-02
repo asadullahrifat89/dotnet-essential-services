@@ -87,9 +87,9 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var lifeTime = DateTime.UtcNow.AddSeconds(Convert.ToInt32(_configuration["Jwt:Lifetime"]));
 
-            string[] userClaims = await GetUserClaims(userId);
+            ClaimPermission[] userClaims = await GetUserClaims(userId);
 
-            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: userClaims);
+            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: userClaims.Select(x => x.Name).ToArray());
 
             // create refresh token
             RefreshToken refreshToken = new()
@@ -113,7 +113,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return result;
         }
 
-        private async Task<string[]> GetUserClaims(string userId)
+        private async Task<ClaimPermission[]> GetUserClaims(string userId)
         {
             // find user roles, then from roles, find claims, then from claims assign in token
 
@@ -121,11 +121,11 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var roleIds = roles.Select(r => r.RoleId).Distinct().ToArray();
 
-            var claims = await _claimPermissionRepository.GetClaimsForRoleIds(roleIds);
+            var roleClaimMaps = await _claimPermissionRepository.GetClaimsForRoleIds(roleIds);
 
-            var userClaims = claims.Select(c => c.ClaimPermission).Distinct().ToArray();
+            var claims = await _claimPermissionRepository.GetClaimsForClaimNames(roleClaimMaps.Select(x => x.ClaimPermission).Distinct().ToArray());
 
-            return userClaims;
+            return claims;
         }
 
         #endregion

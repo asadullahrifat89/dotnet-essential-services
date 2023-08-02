@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizationNotRequiredAttribute : Attribute
     {
         public void OnAuthorization(AuthorizationFilterContext context)

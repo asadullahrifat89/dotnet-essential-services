@@ -10,6 +10,8 @@ namespace IdentityCore.Contracts.Declarations.Repositories
 
         Task<RoleClaimPermissionMap[]> GetClaimsForRoleIds(string[] roleIds);
 
+        Task<ClaimPermission[]> GetClaimsForClaimNames(string[] claimNames);
+
         Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command);
     }
 }
