@@ -113,10 +113,10 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         public async Task<QueryRecordsResponse<UserResponse>> GetUsers(GetUsersQuery query)
         {
             var filter = Builders<User>.Filter.Or(
-                Builders<User>.Filter.Where(x => x.FirstName.ToLowerInvariant().Contains(query.SearchTerm.ToLowerInvariant())),
-                Builders<User>.Filter.Where(x => x.LastName.ToLowerInvariant().Contains(query.SearchTerm.ToLowerInvariant())),
-                Builders<User>.Filter.Where(x => x.DisplayName.ToLowerInvariant().Contains(query.SearchTerm.ToLowerInvariant())),
-                Builders<User>.Filter.Where(x => x.Email.ToLowerInvariant().Contains(query.SearchTerm.ToLowerInvariant())));
+                Builders<User>.Filter.Where(x => x.FirstName.ToLower().Contains(query.SearchTerm.ToLower())),
+                Builders<User>.Filter.Where(x => x.LastName.ToLower().Contains(query.SearchTerm.ToLower())),
+                Builders<User>.Filter.Where(x => x.DisplayName.ToLower().Contains(query.SearchTerm.ToLower())),
+                Builders<User>.Filter.Where(x => x.Email.ToLower().Contains(query.SearchTerm.ToLower())));
 
             var count = await _mongoDbService.CountDocuments(filter: filter);
 

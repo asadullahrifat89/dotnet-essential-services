@@ -24,7 +24,7 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
 
         private bool BeAnExistingRequestUri(string requestUri)
         {
-            return EndpointRoutes.GetEndpointRoutes().Contains(requestUri);
+            return EndpointRoutes.GetEndpointRoutes().Contains(requestUri.ToLower());
         }
 
         private async Task<bool> NotBeAnExistingClaimPermission(AddClaimPermissionCommand command, CancellationToken arg2)

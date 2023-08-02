@@ -21,7 +21,9 @@ namespace IdentityCore
 
         public static string[] GetEndpointRoutes()
         {
-            return ClassExtensions.GetConstants(typeof(EndpointRoutes)).Select(x => x.Name).ToArray();
+            var endpoints = ClassExtensions.GetConstants(typeof(EndpointRoutes)).Select(x => x.GetValue(x.Name).ToString().ToLower()).ToArray();
+
+            return endpoints;
         }
     }
 }

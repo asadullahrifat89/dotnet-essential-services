@@ -9,7 +9,9 @@ namespace IdentityCore.Extensions
             FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public |
                  BindingFlags.Static | BindingFlags.FlattenHierarchy);
 
-            return fieldInfos.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
+            var fields = fieldInfos.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
+
+            return fields;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public async Task<bool> BeAnExistingClaimPermission(string claim)
         {
-            var filter = Builders<ClaimPermission>.Filter.Eq(x => x.Name.ToLowerInvariant(), claim.ToLowerInvariant());
+            var filter = Builders<ClaimPermission>.Filter.Where(x => x.Name.ToLower() == claim.ToLower());
 
             return await _mongoDbService.Exists(filter);
         }
