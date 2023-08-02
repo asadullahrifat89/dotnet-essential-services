@@ -128,40 +128,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return userClaims;
         }
 
-        private string GenerateJwtToken(
-            string userId,
-            string[] userClaims,
-            string? issuer,
-            string? audience,
-            byte[] keyBytes,
-            DateTime lifeTime)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim("Id", userId)
-            };
-
-            foreach (var claim in userClaims)
-            {
-                claims.Add(new Claim("Permissions", claim));
-            }
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = lifeTime,
-                Issuer = issuer,
-                Audience = audience,
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var jwtToken = tokenHandler.WriteToken(token);
-
-            return jwtToken;
-        }
-
         #endregion
     }
 }
