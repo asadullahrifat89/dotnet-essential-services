@@ -21,5 +21,7 @@ namespace IdentityCore.Contracts.Declarations.Commands
         public Address Address { get; set; } = new Address();
 
         public string[] Roles { get; set; } = new string[] { };
+
+        public string[] MetaTags { get; set; } = new string[] { };
     }
 }

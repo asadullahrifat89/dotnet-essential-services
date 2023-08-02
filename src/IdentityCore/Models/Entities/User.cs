@@ -21,6 +21,8 @@ namespace IdentityCore.Models.Entities
 
         public Address Address { get; set; } = new Address();
 
+        public string[] MetaTags { get; set; } = new string[] { };
+
         public static User Initialize(CreateUserCommand command)
         {
             var user = new User()
@@ -33,6 +35,7 @@ namespace IdentityCore.Models.Entities
                 Email = command.Email,
                 Password = command.Password.Encrypt(),
                 Address = command.Address,
+                MetaTags = command.MetaTags
             };
 
             return user;
