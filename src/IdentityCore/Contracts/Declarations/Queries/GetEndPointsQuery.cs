@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Declarations.Queries
 {
-    public class GetEndPointsQuery : IRequest<string[]>
+    public class GetEndPointsQuery : IRequest<QueryRecordsResponse<string>>
     {
        
     }

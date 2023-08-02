@@ -44,9 +44,9 @@ namespace IdentityWeb.Controllers
         }
 
         [HttpGet(EndpointRoutes.Action_GetEndPoints)]
-        public async Task<string[]> GetEndPoints()
+        public async Task<QueryRecordsResponse<string>> GetEndPoints([FromQuery] GetEndPointsQuery query)
         {
-            return await _mediator.Send(new GetEndPointsQuery());
+            return await _mediator.Send(query);
         }
         
 

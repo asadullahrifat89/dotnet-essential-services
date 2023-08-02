@@ -11,15 +11,11 @@ namespace IdentityCore.Contracts.Implementations.Queries.Validators
 {
     public class GetEndPointsQueryValidator : AbstractValidator<GetEndPointsQuery>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IEndpointsRepository _endpointsRepository;
 
-        public GetEndPointsQueryValidator(IUserRepository userRepository)
+        public GetEndPointsQueryValidator(IEndpointsRepository  endpointsRepository)
         {
-            _userRepository = userRepository;
-
-            //RuleFor(x => x.UserId).NotNull().NotEmpty();
-
+            _endpointsRepository = endpointsRepository;
         }
-
     }
 }
