@@ -22,7 +22,7 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             RuleFor(x => x.Email).MustAsync(NotBeAnExistingUserEmail).WithMessage("Email already exists.").When(x => !x.Email.IsNullOrBlank());
 
             RuleFor(x => x.Password).NotNull().NotEmpty();
-
+            RuleFor(x => x.Password).Must(BeStrongPassword).WithMessage("Password not strong enough.").When(x => !x.Password.IsNullOrBlank());
             //RuleFor(x => x.ProfileImageUrl).NotNull().NotEmpty();
 
             RuleFor(x => x.PhoneNumber).NotNull().NotEmpty();
@@ -30,8 +30,21 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
 
             RuleFor(x => x.Roles).NotNull();
             RuleFor(x => x).MustAsync(BeAnExistingRole).WithMessage("Role doesn't exist.").When(x => x.Roles != null);
+        }
 
-            //TODO: add strong password policy
+        public static bool BeStrongPassword(string passwd)
+        {
+            if (passwd.IsNullOrBlank() || passwd.Length < 8 || passwd.Length > 14 || !passwd.Any(char.IsUpper) || !passwd.Any(char.IsLower) || passwd.Contains(" "))
+                return false;
+
+            string specialCh = @"%!@#$%^&*()?/>.<,:;'\|}]{[_~`+=-" + "\"";
+            char[] specialChArray = specialCh.ToCharArray();
+            char[] passArray = passwd.ToCharArray();
+
+            if (!passArray.Any(x => specialChArray.Contains(x)))
+                return false;
+
+            return true;
         }
 
         private async Task<bool> NotBeAnExistingUserEmail(string email, CancellationToken token)
