@@ -21,16 +21,25 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             RuleFor(x => x).MustAsync(NotBeAnExistingRole).WithMessage("Role already exists.").When(x => !x.Name.IsNullOrBlank());
 
             RuleFor(x => x.Claims).NotNull();
-            RuleFor(x => x).Must(BeAnExistingClaimPermission).WithMessage("Claim doesn't exist.").When(x => x.Claims != null);
+            RuleFor(x => x).MustAsync(BeAnExistingClaimPermission).WithMessage("Claim doesn't exist.").When(x => x.Claims != null);
         }
 
         private async Task<bool> NotBeAnExistingRole(AddRoleCommand command, CancellationToken arg2)
-        {
+        {   
             return !await _roleRepository.BeAnExistingRole(role: command.Name);
         }
-        private bool BeAnExistingClaimPermission(AddRoleCommand command)
+
+        private async Task<bool> BeAnExistingClaimPermission(AddRoleCommand command, CancellationToken arg2)
         {
-            return command.Claims.All(x => _claimPermissionRepository.BeAnExistingClaimPermission(claim: x));
+            foreach (var claim in command.Claims)
+            {
+                var exists = await _claimPermissionRepository.BeAnExistingClaimPermission(claim);
+
+                if (!exists)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

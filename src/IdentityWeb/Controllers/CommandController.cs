@@ -31,14 +31,8 @@ namespace IdentityWeb.Controllers
 
         #region Methods
 
-        [HttpPost("CreateUser")]
-        public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
-        {
-            return await _mediator.Send(command);
-        }
-
         [AuthorizationNotRequired]
-        [HttpPost("Authenticate")]        
+        [HttpPost("Authenticate")]
         public async Task<ServiceResponse> Authenticate()
         {
             var httpContext = _httpContextAccessor.HttpContext;
@@ -56,14 +50,26 @@ namespace IdentityWeb.Controllers
         }
 
         [AuthorizationNotRequired]
-        [HttpPost("Validate")]       
+        [HttpPost("Validate")]
         public async Task<ServiceResponse> Validate(ValidateTokenCommand command)
         {
             return await _mediator.Send(command);
         }
 
+        [HttpPost("CreateUser")]
+        public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
+        {
+            return await _mediator.Send(command);
+        }        
+
         [HttpPost("AddRole")]
         public async Task<ServiceResponse> AddRole(AddRoleCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPost("AddClaimPermission")]
+        public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
         {
             return await _mediator.Send(command);
         }

@@ -27,9 +27,11 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         #region Methods
 
-        public bool BeAnExistingClaimPermission(string claim)
+        public async Task<bool> BeAnExistingClaimPermission(string claim)
         {
-            return Constants.Claims.Contains(claim);
+            var filter = Builders<ClaimPermission>.Filter.Eq(x => x.Name.ToLowerInvariant(), claim.ToLowerInvariant());
+
+            return await _mongoDbService.Exists(filter);
         }
 
         public async Task<RoleClaimPermissionMap[]> GetClaimsForRoleIds(string[] roleIds)
