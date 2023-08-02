@@ -14,9 +14,9 @@ namespace IdentityCore.Contracts.Implementations.Queries.Handlers
         private readonly ILogger<GetUsersQueryHandler> _logger;
         private readonly GetUsersQueryValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContext _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
-        public GetUsersQueryHandler(ILogger<GetUsersQueryHandler> logger, GetUsersQueryValidator validator, IUserRepository userRepository, IAuthenticationContext authenticationContext)
+        public GetUsersQueryHandler(ILogger<GetUsersQueryHandler> logger, GetUsersQueryValidator validator, IUserRepository userRepository, IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;

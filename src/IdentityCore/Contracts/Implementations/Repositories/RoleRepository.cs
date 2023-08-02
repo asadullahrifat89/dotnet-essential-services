@@ -12,19 +12,21 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         #region Fields
 
         private readonly IMongoDbService _mongoDbService;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public RoleRepository(IMongoDbService mongoDbService)
+        public RoleRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
+            _authenticationContext = authenticationContext;
         }
 
         public async Task<ServiceResponse> AddRole(AddRoleCommand command)
         {
-            var role = Role.Initialize(command);
+            var role = Role.Initialize(command, _authenticationContext.GetAuthenticationContext());
 
             var roleClaimMaps = new List<RoleClaimPermissionMap>();
 

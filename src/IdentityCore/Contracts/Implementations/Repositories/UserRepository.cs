@@ -15,15 +15,17 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         private readonly IMongoDbService _mongoDbService;
         private readonly IRoleRepository _roleRepository;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public UserRepository(IMongoDbService mongoDbService, IRoleRepository roleRepository)
+        public UserRepository(IMongoDbService mongoDbService, IRoleRepository roleRepository, IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _roleRepository = roleRepository;
+            _authenticationContext = authenticationContext;
         }
 
         #endregion
@@ -32,7 +34,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
-            var user = User.Initialize(command);
+            var user = User.Initialize(command, _authenticationContext.GetAuthenticationContext());
 
             var roles = await _roleRepository.GetRolesByNames(command.Roles);
 

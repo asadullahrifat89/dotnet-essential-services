@@ -1,21 +1,20 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Extensions;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace IdentityCore.Models.Entities
 {
     [BsonIgnoreExtraElements]
-    public class Role
+    public class Role : EntityBase
     {
-        [BsonId]
-        public string Id { get; set; } = Guid.NewGuid().ToString();
-
         public string Name { get; set; } = string.Empty;
 
-        public static Role Initialize(AddRoleCommand command)
+        public static Role Initialize(AddRoleCommand command, AuthenticationContext authenticationContext)
         {
             return new Role()
             {
-                Name = command.Name,                 
+                Name = command.Name,
+                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
             };
         }
     }

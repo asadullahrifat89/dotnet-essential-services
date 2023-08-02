@@ -1,9 +1,5 @@
 using IdentityCore.Contracts.Declarations.Commands;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
-using System.Text;
 using IdentityCore.Extensions;
 using Microsoft.OpenApi.Models;
 using IdentityCore;

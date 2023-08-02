@@ -84,7 +84,6 @@ namespace IdentityCore.Contracts.Implementations.Services
 
             // return user id from JWT token if validation successful
             return userId;
-
         }
     }
 }

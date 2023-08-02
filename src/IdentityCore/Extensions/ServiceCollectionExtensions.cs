@@ -9,6 +9,7 @@ using System.Reflection;
 
 namespace IdentityCore.Extensions
 {
+
     public static class ServiceCollectionExtensions
     {
 
@@ -20,7 +21,7 @@ namespace IdentityCore.Extensions
 
         public static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
-            services.AddSingleton<IAuthenticationContext, AuthenticationContext>();
+            services.AddSingleton<IAuthenticationContextProvider, AuthenticationContextProvider>();
 
             var allServices = Assembly.GetAssembly(typeof(MongoDbService))?.GetTypes().Where(type => !type.IsInterface && type.Name.EndsWith("Service"));
 

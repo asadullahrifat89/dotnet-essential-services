@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Services
 {
-    public class AuthenticationContext : IAuthenticationContext
+    public class AuthenticationContextProvider : IAuthenticationContextProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthenticationContext(IHttpContextAccessor httpContextAccessor)
+        public AuthenticationContextProvider(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public (string? RequestUri, User? User) GetAuthenticationContext()
+        public AuthenticationContext GetAuthenticationContext()
         {
             var httpContext = _httpContextAccessor.HttpContext;
 
             if (httpContext is not null)
-                return new((string?)httpContext.Items["RequestUri"], (User?)httpContext.Items["User"]);
+                return new AuthenticationContext((string?)httpContext.Items["RequestUri"], (User?)httpContext.Items["User"]);
             else
-                return ("", default);
+                return new AuthenticationContext();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace IdentityCore.Models.Entities
 
         public string[] MetaTags { get; set; } = new string[] { };
 
-        public static User Initialize(CreateUserCommand command)
+        public static User Initialize(CreateUserCommand command, AuthenticationContext authenticationContext)
         {
             var user = new User()
             {
@@ -35,7 +35,8 @@ namespace IdentityCore.Models.Entities
                 Email = command.Email,
                 Password = command.Password.Encrypt(),
                 Address = command.Address,
-                MetaTags = command.MetaTags
+                MetaTags = command.MetaTags,
+                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
             };
 
             return user;
