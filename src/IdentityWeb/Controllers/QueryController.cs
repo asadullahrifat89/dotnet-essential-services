@@ -9,6 +9,7 @@ namespace IdentityWeb.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    //[AuthorizationNotRequired]
     public class QueryController : ControllerBase
     {
         #region Fields
