@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http.Extensions;
+using IdentityCore.Models.Entities;
 
 namespace IdentityCore.Contracts.Implementations.Services
 {
@@ -22,6 +24,9 @@ namespace IdentityCore.Contracts.Implementations.Services
         public async Task Invoke(HttpContext httpContext, IUserRepository userRepository, IJwtService jwtService)
         {
             var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var requestUri = httpContext.Request.Path.Value;
+
+            httpContext.Items["RequestUri"] = requestUri;
 
             if (!token.IsNullOrBlank())
             {
@@ -36,7 +41,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
                     var user = await userRepository.GetUser(userId);
 
-                    httpContext.Items["User"] = user;
+                    httpContext.Items["User"] = user;                   
                 }
             }
 

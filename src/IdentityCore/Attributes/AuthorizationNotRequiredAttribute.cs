@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace IdentityCore.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class AllowAnonymousAttribute : Attribute
+    public class AuthorizationNotRequiredAttribute : Attribute
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {

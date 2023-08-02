@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityWeb.Controllers
 {
     [ApiController]
-    [Authorize]
+    [AuthorizationRequired]
     [Route("api/[controller]")]
     public class CommandController : ControllerBase
     {
@@ -37,7 +37,7 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(command);
         }
 
-        [AllowAnonymous]
+        [AuthorizationNotRequired]
         [HttpPost("Authenticate")]        
         public async Task<ServiceResponse> Authenticate()
         {
@@ -55,7 +55,7 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(command);
         }
 
-        [AllowAnonymous]
+        [AuthorizationNotRequired]
         [HttpPost("Validate")]       
         public async Task<ServiceResponse> Validate(ValidateTokenCommand command)
         {

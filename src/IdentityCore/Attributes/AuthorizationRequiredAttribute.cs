@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityCore.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class AuthorizeAttribute : Attribute, IAuthorizationFilter
+    public class AuthorizationRequiredAttribute : Attribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             // skip authorization if action is decorated with [AllowAnonymous] attribute
-            var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
+            var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AuthorizationNotRequiredAttribute>().Any();
             if (allowAnonymous)
                 return;
 

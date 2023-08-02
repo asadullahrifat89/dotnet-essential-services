@@ -7,7 +7,7 @@ using IdentityCore.Attributes;
 namespace IdentityWeb.Controllers
 {
     [ApiController]
-    [Authorize]
+    [AuthorizationRequired]
     [Route("api/[controller]")]
 
     public class QueryController : ControllerBase
