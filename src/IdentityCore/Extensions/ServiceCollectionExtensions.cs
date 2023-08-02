@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Contracts.Implementations.Commands.Validators;
 using IdentityCore.Contracts.Implementations.Repositories;
 using IdentityCore.Contracts.Implementations.Services;
@@ -19,7 +20,7 @@ namespace IdentityCore.Extensions
 
         public static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
-            //services.AddSingleton<IMongoDbService, MongoDbService>();
+            services.AddSingleton<IAuthenticationContext, AuthenticationContext>();
 
             var allServices = Assembly.GetAssembly(typeof(MongoDbService))?.GetTypes().Where(type => !type.IsInterface && type.Name.EndsWith("Service"));
 
@@ -31,6 +32,7 @@ namespace IdentityCore.Extensions
                     services.AddSingleton(serviceType, item);
                 }
             }
+
 
             return services;
         }

@@ -2,6 +2,8 @@
 {
     public class QueryRecordsResponse<TRecord>
     {
+        public string RequestUri { get; set; } = string.Empty;
+
         public ErrorResponse Errors { get; set; } = new ErrorResponse();
 
         public QueryResult<TRecord> Result { get; set; } = new QueryResult<TRecord>();
@@ -10,10 +12,12 @@
 
         public QueryRecordsResponse<TRecord> BuildSuccessResponse(
             long count,
-            TRecord[] records)
+            TRecord[] records,
+            string requestUri = "")
         {
             return new QueryRecordsResponse<TRecord>()
             {
+                RequestUri = requestUri,
                 Result = new QueryResult<TRecord>
                 {
                     Count = count,
@@ -22,10 +26,11 @@
             };
         }
 
-        public QueryRecordsResponse<TRecord> BuildErrorResponse(ErrorResponse errors)
+        public QueryRecordsResponse<TRecord> BuildErrorResponse(ErrorResponse errors, string requestUri = "")
         {
             return new QueryRecordsResponse<TRecord>()
             {
+                RequestUri = requestUri,
                 Errors = errors,
                 Result = new QueryResult<TRecord>
                 {
