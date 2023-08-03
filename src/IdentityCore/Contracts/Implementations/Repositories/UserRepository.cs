@@ -81,8 +81,8 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var exixtingUserRoleMaps = _roleRepository.GetUserRoles(command.UserId);
-            
+            var exisitingUserRoleMaps = await _mongoDbService.GetDocuments(Builders<UserRoleMap>.Filter.Eq(x => x.UserId, command.UserId));
+
             var roles = await _roleRepository.GetRolesByNames(command.RoleNames);
             
             var newUserRoleMaps = new List<UserRoleMap>();
@@ -98,17 +98,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
                 newUserRoleMaps.Add(roleMap);
             }
 
-            await _mongoDbService.InsertDocuments(newUserRoleMaps);
+            if (exisitingUserRoleMaps.Any())
+                await _mongoDbService.DeleteDocuments(Builders<UserRoleMap>.Filter.In(x => x.Id, exisitingUserRoleMaps.Select(x => x.Id).ToArray()));
 
-            
-            //var filter = Builders<UserRoleMap>.Filter.And(
-            //Builders<UserRoleMap>.Filter.Eq(x => x.UserId, command.UserId),
-            //Builders<UserRoleMap>.Filter.In(x => x.RoleId, roles.Select(x => x.Id)));
-
-            //await _mongoDbService.DeleteDocuments(filter: filter);
+            if (newUserRoleMaps.Any())
+                await _mongoDbService.InsertDocuments(newUserRoleMaps);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(newUserRoleMaps, authCtx.RequestUri);
-
 
         }
 

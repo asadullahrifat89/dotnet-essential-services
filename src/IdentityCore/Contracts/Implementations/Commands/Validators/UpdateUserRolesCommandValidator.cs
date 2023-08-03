@@ -3,11 +3,7 @@ using IdentityCore.Contracts.Declarations.Commands;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Implementations.Repositories;
 using IdentityCore.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace IdentityCore.Contracts.Implementations.Commands.Validators
 {
@@ -24,20 +20,29 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             RuleFor(x => x.UserId).NotNull().NotEmpty();
             RuleFor(x => x.UserId).MustAsync(BeAnExistingUser).WithMessage("User doesn't exist.").When(x => !x.UserId.IsNullOrBlank());
 
+            RuleFor(x => x).MustAsync(BeAnExistingRole).WithMessage("Role  doesn't exists.").When(x => x.RoleNames != null);
 
-            RuleFor(x => x.RoleNames).NotNull().NotEmpty();
-            //RuleFor(x => x).MustAsync(NotBeAnExistingRole).WithMessage("Role doesn't exist.").When(x => x.RoleNames != null);
-            
-            
         }
-
-  
 
         private async Task<bool> BeAnExistingUser(string userId, CancellationToken arg2)
         {
             return await _userRepository.BeAnExistingUser(userId);
         }
-       
+
+        private async Task<bool> BeAnExistingRole(UpdateUserRolesCommand command, CancellationToken arg2)
+        {
+            foreach (var role in command.RoleNames)
+            {
+                var exists = await _roleRepository.BeAnExistingRole(role);
+
+                if (!exists)
+                    return false;
+            }
+
+            return true;
+        }
 
     }
+
 }
+
