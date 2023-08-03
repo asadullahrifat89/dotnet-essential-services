@@ -19,6 +19,8 @@ namespace IdentityCore
         public const string Action_GetEndPoints = "api/Query/GetEndpoints";
         public const string Action_GetRoles = "api/Query/GetRoles";
 
+        public const string Action_GetClaims = "api/Query/GetClaims";
+
         public static string[] GetEndpointRoutes()
         {
             var endpoints = ClassExtensions.GetConstants(typeof(EndpointRoutes)).Select(x => x.GetValue(x.Name).ToString().ToLower()).ToArray();

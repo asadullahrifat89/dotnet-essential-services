@@ -55,6 +55,12 @@ namespace IdentityWeb.Controllers
         {
             return await _mediator.Send(query);
         }
+
+        [HttpGet(EndpointRoutes.Action_GetClaims)]
+        public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims([FromQuery] GetClaimsQuery query)
+        {
+            return await _mediator.Send(query);
+        }
         
 
         #endregion
