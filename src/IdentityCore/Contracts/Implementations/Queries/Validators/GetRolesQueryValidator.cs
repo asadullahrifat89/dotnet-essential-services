@@ -15,10 +15,7 @@ namespace IdentityCore.Contracts.Implementations.Queries.Validators
 
         public GetRolesQueryValidator(IRoleRepository roleRepository)
         {
-            _roleRepository = roleRepository;
-   
-        }
-
-        
+            _roleRepository = roleRepository;   
+        }        
     }
 }

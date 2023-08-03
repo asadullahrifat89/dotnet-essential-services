@@ -121,7 +121,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var roles = await _mongoDbService.GetDocuments(filter: filter);
 
-            return new QueryRecordsResponse<Role>().BuildSuccessResponse(
+            return Response.BuildQueryRecordsResponse<Role>().BuildSuccessResponse(
                count: count,
                records: roles is not null ? roles.ToArray() : Array.Empty<Role>()
                );
