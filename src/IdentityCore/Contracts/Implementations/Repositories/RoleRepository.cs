@@ -113,6 +113,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
         }
 
 
+
         public async Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query)
         {
             var filter = Builders<Role>.Filter.Empty;
@@ -121,10 +122,37 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var roles = await _mongoDbService.GetDocuments(filter: filter);
 
-            return Response.BuildQueryRecordsResponse<Role>().BuildSuccessResponse(
+            return new QueryRecordsResponse<Role>().BuildSuccessResponse(
                count: count,
-               records: roles is not null ? roles.ToArray() : Array.Empty<Role>());
+               records: roles is not null ? roles.ToArray() : Array.Empty<Role>()
+               );
         }
+
+
+        public async Task<QueryRecordsResponse<Role>> GetRoleByUserId(GetRoleQuery query)
+        {
+            // get user roles from user role map
+
+            var userfilter = Builders<UserRoleMap>.Filter.Eq(x => x.UserId, query.UserId);
+
+            var userRoleMaps = await _mongoDbService.GetDocuments(filter: userfilter);
+
+            var roleIds = userRoleMaps.Select(x => x.RoleId).ToArray();
+
+            // get roles by id from roles collection
+
+            var roleFilter = Builders<Role>.Filter.In(x => x.Id, roleIds);
+
+            var roles = await _mongoDbService.GetDocuments(filter: roleFilter);
+
+            return Response.BuildQueryRecordsResponse<Role>().BuildSuccessResponse(
+                   count: roles.Count(),
+                   records: roles is not null ? roles.ToArray() : Array.Empty<Role>());
+
+          
+        }
+
+        
 
         #endregion
     }
