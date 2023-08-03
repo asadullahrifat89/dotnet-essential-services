@@ -62,9 +62,8 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(query);
         }
 
-
-        [HttpGet(EndpointRoutes.Action_GetRole)]
-        public async Task<QueryRecordsResponse<Role>> GetRole([FromQuery] GetRoleQuery query)
+        [HttpGet(EndpointRoutes.Action_GetUserRoles)]
+        public async Task<QueryRecordsResponse<Role>> GetUserRoles([FromQuery] GetUserRolesQuery query)
         {
             return await _mediator.Send(query);
         }

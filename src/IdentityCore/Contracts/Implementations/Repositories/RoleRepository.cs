@@ -26,6 +26,10 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             _authenticationContext = authenticationContext;
         }
 
+        #endregion
+
+        #region Methods
+
         public async Task<ServiceResponse> AddRole(AddRoleCommand command)
         {
             var role = Role.Initialize(command, _authenticationContext.GetAuthenticationContext());
@@ -112,8 +116,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return results is not null ? results.ToArray() : Array.Empty<UserRoleMap>();
         }
 
-
-
         public async Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query)
         {
             var filter = Builders<Role>.Filter.Empty;
@@ -128,8 +130,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
                );
         }
 
-
-        public async Task<QueryRecordsResponse<Role>> GetRoleByUserId(GetRoleQuery query)
+        public async Task<QueryRecordsResponse<Role>> GetRolesByUserId(GetUserRolesQuery query)
         {
             // get user roles from user role map
 
@@ -149,10 +150,8 @@ namespace IdentityCore.Contracts.Implementations.Repositories
                    count: roles.Count(),
                    records: roles is not null ? roles.ToArray() : Array.Empty<Role>());
 
-          
-        }
 
-        
+        }
 
         #endregion
     }

@@ -16,14 +16,14 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Queries.Handlers
 {
-    public class GetRoleQueryHandler : IRequestHandler<GetRoleQuery, QueryRecordsResponse<Role>>
+    public class GetUserRolesQueryHandler : IRequestHandler<GetUserRolesQuery, QueryRecordsResponse<Role>>
     {
         private readonly ILogger<GetRolesQueryHandler> _logger;
-        private readonly GetRoleQueryValidator _validator;
+        private readonly GetUserRolesQueryValidator _validator;
         private readonly IRoleRepository _roleRepository;
         private readonly IAuthenticationContextProvider _authenticationContext;
 
-        public GetRoleQueryHandler(ILogger<GetRolesQueryHandler> logger, GetRoleQueryValidator validator, IRoleRepository roleRepository, IAuthenticationContextProvider authenticationContext)
+        public GetUserRolesQueryHandler(ILogger<GetRolesQueryHandler> logger, GetUserRolesQueryValidator validator, IRoleRepository roleRepository, IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;
@@ -31,14 +31,14 @@ namespace IdentityCore.Contracts.Implementations.Queries.Handlers
             _authenticationContext = authenticationContext;
         }
 
-        public async Task<QueryRecordsResponse<Role>> Handle(GetRoleQuery request, CancellationToken cancellationToken)
+        public async Task<QueryRecordsResponse<Role>> Handle(GetUserRolesQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _roleRepository.GetRoleByUserId(request);
+                return await _roleRepository.GetRolesByUserId(request);
             }
             catch (Exception ex)
             {

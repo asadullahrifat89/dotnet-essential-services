@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Declarations.Queries
 {
-    public class GetRoleQuery : IRequest<QueryRecordsResponse<Role>>
+    public class GetUserRolesQuery : IRequest<QueryRecordsResponse<Role>>
     {
         public string UserId { get; set; } = string.Empty;
     }

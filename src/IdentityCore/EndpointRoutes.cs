@@ -19,7 +19,7 @@ namespace IdentityCore
         public const string Action_GetEndPoints = "api/Query/GetEndpoints";
 
         public const string Action_GetRoles = "api/Query/GetRoles";
-        public const string Action_GetRole = "api/Query/GetRole";
+        public const string Action_GetUserRoles = "api/Query/GetUserRoles";
 
         public const string Action_GetClaims = "api/Query/GetClaims";
         

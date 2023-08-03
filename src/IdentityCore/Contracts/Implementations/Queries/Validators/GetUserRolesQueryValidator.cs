@@ -11,22 +11,17 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Contracts.Implementations.Queries.Validators
 {
-    public class GetRoleQueryValidator : AbstractValidator<GetRoleQuery>
+    public class GetUserRolesQueryValidator : AbstractValidator<GetUserRolesQuery>
     {
-        private readonly IRoleRepository _roleRepository;
         private readonly IUserRepository _userRepository;
 
-
-
-        public GetRoleQueryValidator(IRoleRepository roleRepository, IUserRepository userRepository)
+        public GetUserRolesQueryValidator(IUserRepository userRepository)
         {
-            _roleRepository = roleRepository;
             _userRepository = userRepository;
+
             RuleFor(x => x.UserId).NotNull().NotEmpty();
             RuleFor(x => x.UserId).MustAsync(BeAnExistingUser).WithMessage("User doesn't exist.").When(x => !x.UserId.IsNullOrBlank());
         }
-
-
 
         private async Task<bool> BeAnExistingUser(string userId, CancellationToken arg2)
         {
