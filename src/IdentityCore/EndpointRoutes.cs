@@ -6,8 +6,9 @@ namespace IdentityCore
     {
         public const string Action_GetUser = "api/Query/GetUser";
         public const string Action_GetUsers = "api/Query/GetUsers";
-
         public const string Action_CreateUser = "api/Command/CreateUser";
+        public const string Action_UpdateUser = "api/Command/UpdateUser";
+
         public const string Action_AddRole = "api/Command/AddRole";
         public const string Action_UpdateRole = "api/Command/UpdateRole";
 

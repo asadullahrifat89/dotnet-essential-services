@@ -60,7 +60,13 @@ namespace IdentityWeb.Controllers
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
             return await _mediator.Send(command);
-        }        
+        }
+
+        [HttpPut(EndpointRoutes.Action_UpdateUser)]
+        public async Task<ServiceResponse> UpdateUser(UpdateUserCommand command)
+        {
+            return await _mediator.Send(command);
+        }
 
         [HttpPost(EndpointRoutes.Action_AddRole)]
         public async Task<ServiceResponse> AddRole(AddRoleCommand command)

@@ -2,6 +2,7 @@
 using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
+using IdentityCore.Contracts.Implementations.Services;
 using IdentityCore.Extensions;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
@@ -35,7 +36,9 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
-            var user = User.Initialize(command, _authenticationContext.GetAuthenticationContext());
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var user = User.Initialize(command, authCtx);
 
             var roles = await _roleRepository.GetRolesByNames(command.Roles);
 
@@ -45,7 +48,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             {
                 var roleMap = new UserRoleMap()
                 {
-
                     UserId = user.Id,
                     RoleId = role.Id,
                 };
@@ -56,7 +58,23 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             await _mongoDbService.InsertDocument(user);
             await _mongoDbService.InsertDocuments(userRoleMaps);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(user);
+            return Response.BuildServiceResponse().BuildSuccessResponse(user, authCtx.RequestUri);
+        }
+
+        public async Task<ServiceResponse> UpdateUser(UpdateUserCommand command)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var update = Builders<User>.Update
+                .Set(x => x.FirstName, command.FirstName)
+                .Set(x => x.LastName, command.LastName)
+                .Set(x => x.ProfileImageUrl, command.ProfileImageUrl)
+                .Set(x => x.Address, command.Address);
+
+            await _mongoDbService.UpdateById(update: update, id: command.UserId);
+            var updatedUser = await _mongoDbService.FindById<User>(command.UserId);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx.RequestUri);
         }
 
         public async Task<bool> BeAnExistingUserEmail(string userEmail)

@@ -32,7 +32,9 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public async Task<ServiceResponse> AddRole(AddRoleCommand command)
         {
-            var role = Role.Initialize(command, _authenticationContext.GetAuthenticationContext());
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var role = Role.Initialize(command, authCtx);
 
             var roleClaimMaps = new List<RoleClaimPermissionMap>();
 
@@ -50,11 +52,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             await _mongoDbService.InsertDocument(role);
             await _mongoDbService.InsertDocuments(roleClaimMaps);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(role);
+            return Response.BuildServiceResponse().BuildSuccessResponse(role, authCtx.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateRole(UpdateRoleCommand command)
         {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
             var existingRole = await _mongoDbService.FindById<Role>(command.RoleId);
 
             var newRoleClaimMaps = new List<RoleClaimPermissionMap>();
@@ -81,7 +85,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             if (newRoleClaimMaps.Any())
                 await _mongoDbService.InsertDocuments(newRoleClaimMaps);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(existingRole);
+            return Response.BuildServiceResponse().BuildSuccessResponse(existingRole, authCtx.RequestUri);
         }
 
         public async Task<bool> BeAnExistingRole(string role)

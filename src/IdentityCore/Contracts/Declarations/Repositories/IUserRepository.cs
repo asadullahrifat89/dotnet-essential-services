@@ -9,6 +9,8 @@ namespace IdentityCore.Contracts.Declarations.Repositories
     {
         Task<ServiceResponse> CreateUser(CreateUserCommand command);
 
+        Task<ServiceResponse> UpdateUser(UpdateUserCommand command);
+
         Task<bool> BeAnExistingUserEmail(string userEmail);
 
         Task<bool> BeAnExistingPhoneNumber(string phoneNumber);
