@@ -15,7 +15,6 @@ namespace IdentityCore.Contracts.Implementations.Commands.Handlers
 {
     public class UpdateUserRolesCommandHandler : IRequestHandler<UpdateUserRolesCommand, ServiceResponse>
     {
-
         #region Fields
 
         private readonly ILogger<UpdateUserRolesCommandHandler> _logger;
@@ -34,7 +33,6 @@ namespace IdentityCore.Contracts.Implementations.Commands.Handlers
         }
 
         #endregion
-
 
         #region Methods
 
