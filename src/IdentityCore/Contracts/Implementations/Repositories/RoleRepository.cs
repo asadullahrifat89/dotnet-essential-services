@@ -123,8 +123,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             return Response.BuildQueryRecordsResponse<Role>().BuildSuccessResponse(
                count: count,
-               records: roles is not null ? roles.ToArray() : Array.Empty<Role>()
-               );
+               records: roles is not null ? roles.ToArray() : Array.Empty<Role>());
         }
 
         #endregion
