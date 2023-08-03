@@ -22,5 +22,7 @@ namespace IdentityCore.Contracts.Declarations.Repositories
         Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query);
 
         Task<QueryRecordsResponse<Role>> GetRolesByUserId(GetUserRolesQuery query);
+
+       
     }
 }

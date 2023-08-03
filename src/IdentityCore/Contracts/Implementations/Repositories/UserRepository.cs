@@ -77,6 +77,41 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx.RequestUri);
         }
 
+        public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var exixtingUserRoleMaps = _roleRepository.GetUserRoles(command.UserId);
+            
+            var roles = await _roleRepository.GetRolesByNames(command.RoleNames);
+            
+            var newUserRoleMaps = new List<UserRoleMap>();
+
+            foreach (var role in roles)
+            {
+                var roleMap = new UserRoleMap()
+                {
+                    UserId = command.UserId,
+                    RoleId = role.Id,
+                };
+
+                newUserRoleMaps.Add(roleMap);
+            }
+
+            await _mongoDbService.InsertDocuments(newUserRoleMaps);
+
+            
+            //var filter = Builders<UserRoleMap>.Filter.And(
+            //Builders<UserRoleMap>.Filter.Eq(x => x.UserId, command.UserId),
+            //Builders<UserRoleMap>.Filter.In(x => x.RoleId, roles.Select(x => x.Id)));
+
+            //await _mongoDbService.DeleteDocuments(filter: filter);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(newUserRoleMaps, authCtx.RequestUri);
+
+
+        }
+
         public async Task<bool> BeAnExistingUserEmail(string userEmail)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Email, userEmail);
@@ -154,6 +189,8 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var filter = Builders<User>.Filter.Eq(x => x.Id, id);
             return await _mongoDbService.Exists(filter);
         }
+
+        
 
         #endregion
     }
