@@ -6,6 +6,7 @@ using IdentityCore.Extensions;
 using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MongoDB.Driver;
+using System.Text;
 
 namespace IdentityCore.Contracts.Implementations.Repositories
 {

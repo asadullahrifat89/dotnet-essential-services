@@ -1,4 +1,5 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Models.Entities;
@@ -109,6 +110,20 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var results = await _mongoDbService.GetDocuments(filter: filter);
 
             return results is not null ? results.ToArray() : Array.Empty<UserRoleMap>();
+        }
+
+
+        public async Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query)
+        {
+            var filter = Builders<Role>.Filter.Empty;
+
+            var count = await _mongoDbService.CountDocuments(filter: filter);
+
+            var roles = await _mongoDbService.GetDocuments(filter: filter);
+
+            return Response.BuildQueryRecordsResponse<Role>().BuildSuccessResponse(
+               count: count,
+               records: roles is not null ? roles.ToArray() : Array.Empty<Role>());
         }
 
         #endregion
