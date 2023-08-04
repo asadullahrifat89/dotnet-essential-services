@@ -3,13 +3,11 @@
 namespace IdentityCore.Models.Entities
 {
     [BsonIgnoreExtraElements]
-    public class EntityBase
+    public class Tenant
     {
         [BsonId]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        public TimeStamp TimeStamp { get; set; } = new TimeStamp();
-
-        public string TenantId { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }

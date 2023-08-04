@@ -28,8 +28,8 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
             RuleFor(x => x.PhoneNumber).NotNull().NotEmpty();
             RuleFor(x => x.PhoneNumber).MustAsync(NotBeAnExistingPhoneNumber).WithMessage("Phone number is already in use.").When(x => !x.Email.IsNullOrBlank());
 
-            RuleFor(x => x.Roles).NotNull();
-            RuleFor(x => x).MustAsync(BeAnExistingRole).WithMessage("Role doesn't exist.").When(x => x.Roles != null);
+            // roles can be nulll or empty as roles can be assigned later on
+            RuleFor(x => x).MustAsync(BeAnExistingRole).WithMessage("Role doesn't exist.").When(x => x.Roles != null && x.Roles.Any());
         }
 
         public static bool BeStrongPassword(string passwd)

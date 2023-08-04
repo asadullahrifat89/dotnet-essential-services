@@ -92,6 +92,10 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(command);
         }
 
+        //TODO: change user password - > send existing password and new password
+
+        //TODO: change user phone number - > send existing phone number and new phone number
+
         #endregion
     }
 }

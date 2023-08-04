@@ -40,23 +40,29 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             var user = User.Initialize(command, authCtx);
 
-            var roles = await _roleRepository.GetRolesByNames(command.Roles);
-
             var userRoleMaps = new List<UserRoleMap>();
 
-            foreach (var role in roles)
+            // if roles were sent map user to role
+            if (command.Roles != null && command.Roles.Any())
             {
-                var roleMap = new UserRoleMap()
-                {
-                    UserId = user.Id,
-                    RoleId = role.Id,
-                };
+                var roles = await _roleRepository.GetRolesByNames(command.Roles);
 
-                userRoleMaps.Add(roleMap);
+                foreach (var role in roles)
+                {
+                    var roleMap = new UserRoleMap()
+                    {
+                        UserId = user.Id,
+                        RoleId = role.Id,
+                    };
+
+                    userRoleMaps.Add(roleMap);
+                }
             }
 
             await _mongoDbService.InsertDocument(user);
-            await _mongoDbService.InsertDocuments(userRoleMaps);
+
+            if (userRoleMaps.Any())
+                await _mongoDbService.InsertDocuments(userRoleMaps);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(user, authCtx?.RequestUri);
         }
@@ -75,7 +81,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var updatedUser = await _mongoDbService.FindById<User>(command.UserId);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
-        }
+        }        
 
         public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
         {
@@ -84,7 +90,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var exisitingUserRoleMaps = await _mongoDbService.GetDocuments(Builders<UserRoleMap>.Filter.Eq(x => x.UserId, command.UserId));
 
             var roles = await _roleRepository.GetRolesByNames(command.RoleNames);
-            
+
             var newUserRoleMaps = new List<UserRoleMap>();
 
             foreach (var role in roles)
@@ -105,7 +111,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
                 await _mongoDbService.InsertDocuments(newUserRoleMaps);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(newUserRoleMaps, authCtx?.RequestUri);
-
         }
 
         public async Task<bool> BeAnExistingUserEmail(string userEmail)
