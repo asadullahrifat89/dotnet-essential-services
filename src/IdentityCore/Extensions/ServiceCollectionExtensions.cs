@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityCore.Contracts.Declarations.Services;
-using IdentityCore.Contracts.Implementations.Commands.Validators;
-using IdentityCore.Contracts.Implementations.Repositories;
-using IdentityCore.Contracts.Implementations.Services;
+using IdentityCore.Declarations.Services;
+using IdentityCore.Implementations.Commands.Validators;
+using IdentityCore.Implementations.Repositories;
+using IdentityCore.Implementations.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 

@@ -1,6 +1,6 @@
 ﻿using IdentityCore;
 using IdentityCore.Attributes;
-using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Declarations.Commands;
 using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -59,8 +59,6 @@ namespace IdentityWeb.Controllers
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
-            //TODO: accept data from form in http context
-
             return await _mediator.Send(command);
         }
 

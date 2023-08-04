@@ -1,4 +1,4 @@
-﻿using IdentityCore.Contracts.Declarations.Commands;
+﻿using IdentityCore.Declarations.Commands;
 using IdentityCore.Extensions;
 
 namespace IdentityCore.Models.Entities

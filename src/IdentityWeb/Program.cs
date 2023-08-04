@@ -1,11 +1,11 @@
-using IdentityCore.Contracts.Declarations.Commands;
 using System.Reflection;
 using IdentityCore.Extensions;
 using Microsoft.OpenApi.Models;
 using IdentityCore;
 using Serilog;
-using IdentityCore.Contracts.Implementations.Services;
-using IdentityCore.Contracts.Declarations.Repositories;
+using IdentityCore.Declarations.Repositories;
+using IdentityCore.Declarations.Commands;
+using IdentityCore.Implementations.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
