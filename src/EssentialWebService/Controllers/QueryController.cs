@@ -6,7 +6,7 @@ using IdentityCore.Declarations.Queries;
 using BaseCore.Models.Responses;
 using BaseCore.Attributes;
 
-namespace IdentityWeb.Controllers
+namespace EssentialWebService.Controllers
 {
     [ApiController]
     [AuthorizationRequired]

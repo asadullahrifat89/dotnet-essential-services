@@ -5,10 +5,10 @@ using IdentityCore.Declarations.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityWeb.Controllers
+namespace EssentialWebService.Controllers
 {
     [ApiController]
-    [AuthorizationRequired]   
+    [AuthorizationRequired]
     //[AuthorizationNotRequired]
     public class CommandController : ControllerBase
     {
