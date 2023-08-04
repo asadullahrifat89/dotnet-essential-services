@@ -32,6 +32,8 @@ namespace EssentialWebService.Controllers
 
         #region Methods
 
+        #region User
+
         [HttpGet(EndpointRoutes.Action_GetUser)]
         public async Task<QueryRecordResponse<UserResponse>> GetUser([FromQuery] GetUserQuery query)
         {
@@ -44,20 +46,12 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(query);
         }
 
-        //[HttpGet(EndpointRoutes.Action_GetEndPoints)]
-        //public async Task<QueryRecordsResponse<string>> GetEndPoints([FromQuery] GetEndPointsQuery query)
-        //{
-        //    return await _mediator.Send(query);
-        //}
+        #endregion        
+
+        #region Role
 
         [HttpGet(EndpointRoutes.Action_GetRoles)]
         public async Task<QueryRecordsResponse<Role>> GetRoles([FromQuery] GetRolesQuery query)
-        {
-            return await _mediator.Send(query);
-        }
-
-        [HttpGet(EndpointRoutes.Action_GetClaims)]
-        public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims([FromQuery] GetClaimsQuery query)
         {
             return await _mediator.Send(query);
         }
@@ -67,6 +61,28 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(query);
         }
+
+        #endregion
+
+        #region Claim
+
+        [HttpGet(EndpointRoutes.Action_GetClaims)]
+        public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims([FromQuery] GetClaimsQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
+        #endregion
+
+        #region Expired
+
+        //[HttpGet(EndpointRoutes.Action_GetEndPoints)]
+        //public async Task<QueryRecordsResponse<string>> GetEndPoints([FromQuery] GetEndPointsQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //} 
+
+        #endregion
 
         #endregion
     }
