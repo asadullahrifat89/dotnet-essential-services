@@ -81,6 +81,19 @@ namespace IdentityCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
         }
 
+        public async Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var update = Builders<User>.Update.Set(x => x.Password, command.NewPassword.Encrypt());
+
+            await _mongoDbService.UpdateById(update: update, id: command.UserId);
+            var updatedUser = await _mongoDbService.FindById<User>(command.UserId);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
+        }
+
+
         public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
@@ -114,6 +127,13 @@ namespace IdentityCore.Implementations.Repositories
         public async Task<bool> BeAnExistingUserEmail(string userEmail)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Email, userEmail);
+
+            return await _mongoDbService.Exists(filter);
+        }
+
+        public async Task<bool> BeValidUserPassword(string userId, string password)
+        {
+            var filter = Builders<User>.Filter.And(Builders<User>.Filter.Eq(x => x.Id, userId), Builders<User>.Filter.Eq(x => x.Password, password.Encrypt()));
 
             return await _mongoDbService.Exists(filter);
         }

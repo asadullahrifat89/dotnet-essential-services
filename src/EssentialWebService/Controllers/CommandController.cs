@@ -62,7 +62,6 @@ namespace EssentialWebService.Controllers
 
         #region User
 
-        [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
@@ -71,6 +70,12 @@ namespace EssentialWebService.Controllers
 
         [HttpPut(EndpointRoutes.Action_UpdateUser)]
         public async Task<ServiceResponse> UpdateUser(UpdateUserCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPut(EndpointRoutes.Action_UpdateUserPassword)]
+        public async Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command)
         {
             return await _mediator.Send(command);
         }
@@ -113,7 +118,7 @@ namespace EssentialWebService.Controllers
 
         //TODO: change user phone number - > send existing phone number and new phone number
 
-        //TODO: change user email - > send existing email and new email
+
 
         //TODO: activate user - > send user id
 
