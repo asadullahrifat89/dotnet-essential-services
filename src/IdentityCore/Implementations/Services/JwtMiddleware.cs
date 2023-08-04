@@ -40,16 +40,22 @@ namespace IdentityCore.Implementations.Services
                     // attach user to context on successful jwt validation
 
                     var user = await userRepository.GetUser(userId);
-                    var roleMaps = await roleRepository.GetUserRoles(userId);
-                    var roleIds = roleMaps.Select(r => r.RoleId).ToArray();
-                    var claimMaps = await claimPermissionRepository.GetClaimsForRoleIds(roleIds);
-                    var claims = await claimPermissionRepository.GetClaimsForClaimNames(claimMaps.Select(x => x.ClaimPermission).ToArray());
 
-                    var requestUris = claims.Select(x => x.RequestUri.ToLower()).ToArray();
-
-                    if (requestUris.Contains(requestUri.ToLower().Trim('/')))
+                    if (user is not null)
                     {
+                        // TODO: do role based authentication later
+
+                        //var roleMaps = await roleRepository.GetUserRoles(userId);
+                        //var roleIds = roleMaps.Select(r => r.RoleId).ToArray();
+                        //var claimMaps = await claimPermissionRepository.GetClaimsForRoleIds(roleIds);
+                        //var claims = await claimPermissionRepository.GetClaimsForClaimNames(claimMaps.Select(x => x.ClaimPermission).ToArray());
+
+                        //var requestUris = claims.Select(x => x.RequestUri.ToLower()).ToArray();
+
+                        //if (requestUris.Contains(requestUri.ToLower().Trim('/')))
+                        //{
                         httpContext.Items["User"] = user;
+                        //} 
                     }
                 }
             }
