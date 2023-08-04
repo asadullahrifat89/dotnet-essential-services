@@ -1,4 +1,5 @@
 ﻿using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Contracts.Declarations.Queries;
 using IdentityCore.Contracts.Declarations.Repositories;
 using IdentityCore.Contracts.Declarations.Services;
 using IdentityCore.Models.Entities;
@@ -23,6 +24,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;
         }
+        #endregion
 
         #region Methods
 
@@ -44,11 +46,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
         {
-            var claimPermission = ClaimPermission.Initialize(command, _authenticationContext.GetAuthenticationContext());
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var claimPermission = ClaimPermission.Initialize(command, authCtx);
 
             await _mongoDbService.InsertDocument(claimPermission);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(claimPermission);
+            return Response.BuildServiceResponse().BuildSuccessResponse(claimPermission, authCtx.RequestUri);
         }
 
         public async Task<ClaimPermission[]> GetClaimsForClaimNames(string[] claimNames)
@@ -60,7 +64,23 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             return results is not null ? results.ToArray() : Array.Empty<ClaimPermission>();
         }
 
-        #endregion
+        public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims(GetClaimsQuery query)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var filter = Builders<ClaimPermission>.Filter.Empty;
+
+            var count = await _mongoDbService.CountDocuments(filter: filter);
+
+            var clams = await _mongoDbService.GetDocuments(filter: filter);
+
+            return Response.BuildQueryRecordsResponse<ClaimPermission>().BuildSuccessResponse(
+               count: count,
+               records: clams is not null ? clams.ToArray() : Array.Empty<ClaimPermission>(), requestUri: authCtx.RequestUri);
+        }
+
+
+
 
         #endregion
     }
