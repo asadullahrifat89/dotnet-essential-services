@@ -97,6 +97,11 @@ namespace IdentityCore.Implementations.Repositories
 
             refreshToken.Jwt = _jwtService.GenerateJwtToken(userId: userId, userClaims: new[] { refreshToken.Id });
 
+            var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.UserId, userId));
+
+            // delete old refresh tokens
+            await _mongoDbService.DeleteDocuments(filter);
+
             // save the refresh token
             await _mongoDbService.InsertDocument(refreshToken);
 
