@@ -36,11 +36,6 @@ namespace IdentityCore.Contracts.Implementations.Services
             var claim = new Claim("Permissions", string.Join(",", userClaimNames));
             claims.Add(claim);
 
-            //foreach (var claim in userClaimNames)
-            //{
-            //    claims.Add(new Claim("Permissions", claim));
-            //}
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
