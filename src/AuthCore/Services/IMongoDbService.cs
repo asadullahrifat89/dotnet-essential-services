@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using System.Text.Json.Serialization;
 
 namespace BaseCore.Services
 {
@@ -53,6 +54,7 @@ namespace BaseCore.Services
         Task DropCollection<T>();
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SortOrder
     {
         None,

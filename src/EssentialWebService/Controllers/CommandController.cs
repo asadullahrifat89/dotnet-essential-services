@@ -114,9 +114,7 @@ namespace EssentialWebService.Controllers
 
         #endregion
 
-        //TODO: change user password - > send existing password and new password
-
-        //TODO: change user phone number - > send existing phone number and new phone number
+        //TODO: forget password - > send email address and then send a link to reset password
 
 
 
