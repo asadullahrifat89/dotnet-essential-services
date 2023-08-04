@@ -15,7 +15,7 @@ namespace IdentityCore.Extensions
 
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
-            services.AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
+            services.AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<AuthenticateCommandValidator>();
             return services;
         }
 

@@ -32,7 +32,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddHttpContextAccessor();
 
 // Add mediator
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateUserCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AuthenticateCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators();
