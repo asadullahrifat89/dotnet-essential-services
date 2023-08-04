@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace IdentityCore.Models.Entities
+namespace BaseCore.Models.Entities
 {
     [BsonIgnoreExtraElements]
     public class Tenant
