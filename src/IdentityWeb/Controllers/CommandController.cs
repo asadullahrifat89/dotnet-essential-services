@@ -1,6 +1,6 @@
 ﻿using IdentityCore;
 using IdentityCore.Attributes;
-using IdentityCore.Contracts.Declarations.Commands;
+using IdentityCore.Declarations.Commands;
 using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityWeb.Controllers
 {
     [ApiController]
-    //[AuthorizationRequired]   
-    [AuthorizationNotRequired]
+    [AuthorizationRequired]   
+    //[AuthorizationNotRequired]
     public class CommandController : ControllerBase
     {
         #region Fields
@@ -50,8 +50,8 @@ namespace IdentityWeb.Controllers
         }
 
         [AuthorizationNotRequired]
-        [HttpPost(EndpointRoutes.Action_Validate)]
-        public async Task<ServiceResponse> Validate(ValidateTokenCommand command)
+        [HttpPost(EndpointRoutes.Action_ValidateToken)]
+        public async Task<ServiceResponse> ValidateToken(ValidateTokenCommand command)
         {
             return await _mediator.Send(command);
         }
@@ -91,6 +91,14 @@ namespace IdentityWeb.Controllers
         {
             return await _mediator.Send(command);
         }
+
+        //TODO: change user password - > send existing password and new password
+
+        //TODO: change user phone number - > send existing phone number and new phone number
+
+        //TODO: change user email - > send existing email and new email
+
+        //TODO: activate user - > send user id
 
         #endregion
     }

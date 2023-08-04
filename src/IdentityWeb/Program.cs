@@ -1,10 +1,11 @@
-using IdentityCore.Contracts.Declarations.Commands;
 using System.Reflection;
 using IdentityCore.Extensions;
 using Microsoft.OpenApi.Models;
 using IdentityCore;
 using Serilog;
-using IdentityCore.Contracts.Implementations.Services;
+using IdentityCore.Declarations.Repositories;
+using IdentityCore.Declarations.Commands;
+using IdentityCore.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +33,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddHttpContextAccessor();
 
 // Add mediator
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateUserCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AuthenticateCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators();

@@ -1,4 +1,4 @@
-﻿using IdentityCore.Contracts.Declarations.Commands;
+﻿using IdentityCore.Declarations.Commands;
 using IdentityCore.Extensions;
 
 namespace IdentityCore.Models.Entities
@@ -13,6 +13,7 @@ namespace IdentityCore.Models.Entities
             {
                 Name = command.Name,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
+                //TenantId = authenticationContext.TenantId,
             };
         } 
     }

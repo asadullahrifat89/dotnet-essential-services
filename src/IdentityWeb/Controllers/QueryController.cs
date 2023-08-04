@@ -1,16 +1,16 @@
-﻿using IdentityCore.Contracts.Declarations.Queries;
-using IdentityCore.Models.Responses;
+﻿using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using IdentityCore.Attributes;
 using IdentityCore;
 using IdentityCore.Models.Entities;
+using IdentityCore.Declarations.Queries;
 
 namespace IdentityWeb.Controllers
 {
     [ApiController]
-    //[AuthorizationRequired]
-    [AuthorizationNotRequired]
+    [AuthorizationRequired]
+    //[AuthorizationNotRequired]
     public class QueryController : ControllerBase
     {
         #region Fields
@@ -44,11 +44,11 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(query);
         }
 
-        [HttpGet(EndpointRoutes.Action_GetEndPoints)]
-        public async Task<QueryRecordsResponse<string>> GetEndPoints([FromQuery] GetEndPointsQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //[HttpGet(EndpointRoutes.Action_GetEndPoints)]
+        //public async Task<QueryRecordsResponse<string>> GetEndPoints([FromQuery] GetEndPointsQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
         [HttpGet(EndpointRoutes.Action_GetRoles)]
         public async Task<QueryRecordsResponse<Role>> GetRoles([FromQuery] GetRolesQuery query)

@@ -1,4 +1,4 @@
-﻿using IdentityCore.Contracts.Declarations.Commands;
+﻿using IdentityCore.Declarations.Commands;
 using IdentityCore.Extensions;
 
 namespace IdentityCore.Models.Entities
@@ -37,6 +37,7 @@ namespace IdentityCore.Models.Entities
                 Address = command.Address,
                 MetaTags = command.MetaTags,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
+                //TenantId = command.TenantId,
             };
 
             return user;
