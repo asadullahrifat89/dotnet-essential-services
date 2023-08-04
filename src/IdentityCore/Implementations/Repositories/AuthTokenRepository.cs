@@ -85,9 +85,11 @@ namespace IdentityCore.Implementations.Repositories
 
             var lifeTime = DateTime.UtcNow.AddSeconds(Convert.ToInt32(_configuration["Jwt:Lifetime"]));
 
-            ClaimPermission[] userClaims = await _claimPermissionRepository.GetUserClaims(userId);
+            //ClaimPermission[] userClaims = await _claimPermissionRepository.GetUserClaims(userId);
 
-            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: userClaims.Select(x => x.Name).ToArray());
+            //string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: userClaims.Select(x => x.Name).ToArray());
+
+            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: Array.Empty<string>());
 
             // create refresh token
             RefreshToken refreshToken = new()
@@ -114,7 +116,7 @@ namespace IdentityCore.Implementations.Repositories
             };
 
             return result;
-        }       
+        }
 
         #endregion
     }
