@@ -15,8 +15,8 @@ namespace IdentityCore.Implementations.Repositories
 
         private readonly IMongoDbService _mongoDbService;
         private readonly IUserRepository _userRepository;
-        private readonly IRoleRepository _roleRepository;
-        private readonly IClaimPermissionRepository _claimPermissionRepository;
+        //private readonly IRoleRepository _roleRepository;
+        //private readonly IClaimPermissionRepository _claimPermissionRepository;
         private readonly IJwtService _jwtService;
         private readonly IConfiguration _configuration;
 
@@ -28,15 +28,15 @@ namespace IdentityCore.Implementations.Repositories
            IMongoDbService mongoDbService,
            IUserRepository userRepository,
            IConfiguration configuration,
-           IRoleRepository roleRepository,
-           IClaimPermissionRepository claimPermissionRepository,
+           //IRoleRepository roleRepository,
+           //IClaimPermissionRepository claimPermissionRepository,
            IJwtService jwtService)
         {
             _mongoDbService = mongoDbService;
             _userRepository = userRepository;
             _configuration = configuration;
-            _roleRepository = roleRepository;
-            _claimPermissionRepository = claimPermissionRepository;
+            //_roleRepository = roleRepository;
+            //_claimPermissionRepository = claimPermissionRepository;
             _jwtService = jwtService;
         }
 
@@ -85,9 +85,11 @@ namespace IdentityCore.Implementations.Repositories
 
             var lifeTime = DateTime.UtcNow.AddSeconds(Convert.ToInt32(_configuration["Jwt:Lifetime"]));
 
-            ClaimPermission[] userClaims = await _claimPermissionRepository.GetUserClaims(userId);
+            //ClaimPermission[] userClaims = await _claimPermissionRepository.GetUserClaims(userId);
 
-            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: userClaims.Select(x => x.Name).ToArray());
+            //string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: userClaims.Select(x => x.Name).ToArray());
+
+            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, claims: Array.Empty<string>());
 
             // create refresh token
             RefreshToken refreshToken = new()
@@ -95,7 +97,7 @@ namespace IdentityCore.Implementations.Repositories
                 UserId = user.Id,
             };
 
-            refreshToken.Jwt = _jwtService.GenerateJwtToken(userId: userId, userClaims: new[] { refreshToken.Id });
+            refreshToken.Jwt = _jwtService.GenerateJwtToken(userId: userId, claims: new[] { refreshToken.Id });
 
             var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.UserId, userId));
 
@@ -114,7 +116,7 @@ namespace IdentityCore.Implementations.Repositories
             };
 
             return result;
-        }       
+        }
 
         #endregion
     }

@@ -33,7 +33,7 @@ namespace BaseCore.Implementations.Services
                 new Claim("Id", userId)
             };
 
-            var claim = new Claim("Permissions", string.Join(",", userClaimNames));
+            var claim = new Claim("Permissions", userClaimNames != null && userClaimNames.Any() ? string.Join(",", userClaimNames) : "");
             claims.Add(claim);
 
             var tokenDescriptor = new SecurityTokenDescriptor
