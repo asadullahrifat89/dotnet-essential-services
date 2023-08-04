@@ -5,6 +5,7 @@ using IdentityCore.Models.Entities;
 using IdentityCore.Declarations.Queries;
 using BaseCore.Models.Responses;
 using BaseCore.Attributes;
+using BaseCommon;
 
 namespace EssentialWebService.Controllers
 {

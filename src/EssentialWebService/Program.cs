@@ -8,6 +8,7 @@ using BaseCore.Middlewares;
 using BaseCore.Middlewares;
 using BaseCore.Extensions;
 using IdentityCore.Implementations.Commands.Validators;
+using BaseCommon;
 
 var builder = WebApplication.CreateBuilder(args);
 

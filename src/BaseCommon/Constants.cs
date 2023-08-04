@@ -1,4 +1,4 @@
-﻿namespace IdentityCore
+﻿namespace BaseCommon
 {
     public static class Constants
     {

@@ -1,4 +1,6 @@
-﻿using BaseCore.Models.Responses;
+﻿using BaseCommon;
+using BaseCore.Extensions;
+using BaseCore.Models.Responses;
 using BaseCore.Services;
 using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
@@ -18,9 +20,16 @@ namespace IdentityCore.Implementations.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var endpoints = EndpointRoutes.GetEndpointRoutes();
+            var endpoints = GetEndpointRoutes();
 
             return Task.FromResult(Response.BuildQueryRecordsResponse<string>().BuildSuccessResponse(count: endpoints.Length, records: endpoints, requestUri: authCtx?.RequestUri));
+        }
+
+        public static string[] GetEndpointRoutes()
+        {
+            var endpoints = ClassExtensions.GetConstants(typeof(EndpointRoutes)).Select(x => x.GetValue(x.Name).ToString().ToLower()).ToArray();
+
+            return endpoints;
         }
     }
 }

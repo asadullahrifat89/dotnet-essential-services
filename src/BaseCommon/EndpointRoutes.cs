@@ -1,6 +1,5 @@
-﻿using BaseCore.Extensions;
-
-namespace IdentityCore
+﻿
+namespace BaseCommon
 {
     public static class EndpointRoutes
     {
@@ -26,11 +25,6 @@ namespace IdentityCore
 
         public const string Action_GetClaims = "api/Query/GetClaims";
 
-        public static string[] GetEndpointRoutes()
-        {
-            var endpoints = ClassExtensions.GetConstants(typeof(EndpointRoutes)).Select(x => x.GetValue(x.Name).ToString().ToLower()).ToArray();
-
-            return endpoints;
-        }
+        
     }
 }

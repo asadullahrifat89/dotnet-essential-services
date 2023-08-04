@@ -4,6 +4,7 @@ using BaseCore.Attributes;
 using IdentityCore.Declarations.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using BaseCommon;
 
 namespace EssentialWebService.Controllers
 {
