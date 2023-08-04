@@ -16,5 +16,7 @@ namespace IdentityCore.Declarations.Repositories
         Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command);
 
         Task<QueryRecordsResponse<ClaimPermission>> GetClaims(GetClaimsQuery query);
+
+        Task<ClaimPermission[]> GetUserClaims(string userId);
     }
 }

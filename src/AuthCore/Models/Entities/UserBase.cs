@@ -27,5 +27,4 @@ namespace BaseCore.Models.Entities
     {
 
     }
-
 }
