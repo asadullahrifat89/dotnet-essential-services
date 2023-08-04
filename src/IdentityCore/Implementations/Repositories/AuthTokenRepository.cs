@@ -89,7 +89,7 @@ namespace IdentityCore.Implementations.Repositories
 
             //string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: userClaims.Select(x => x.Name).ToArray());
 
-            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, userClaims: Array.Empty<string>());
+            string jwtToken = _jwtService.GenerateJwtToken(userId: userId, claims: Array.Empty<string>());
 
             // create refresh token
             RefreshToken refreshToken = new()
@@ -97,7 +97,7 @@ namespace IdentityCore.Implementations.Repositories
                 UserId = user.Id,
             };
 
-            refreshToken.Jwt = _jwtService.GenerateJwtToken(userId: userId, userClaims: new[] { refreshToken.Id });
+            refreshToken.Jwt = _jwtService.GenerateJwtToken(userId: userId, claims: new[] { refreshToken.Id });
 
             var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.UserId, userId));
 
