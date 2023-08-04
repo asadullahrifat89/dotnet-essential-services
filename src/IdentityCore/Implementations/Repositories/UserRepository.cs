@@ -1,6 +1,6 @@
-﻿using BaseCore.Declarations.Services;
-using BaseCore.Extensions;
+﻿using BaseCore.Extensions;
 using BaseCore.Models.Responses;
+using BaseCore.Services;
 using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;

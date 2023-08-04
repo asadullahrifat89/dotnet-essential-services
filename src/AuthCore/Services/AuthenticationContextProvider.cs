@@ -1,8 +1,7 @@
-﻿using BaseCore.Declarations.Services;
-using BaseCore.Models.Entities;
+﻿using BaseCore.Models.Entities;
 using Microsoft.AspNetCore.Http;
 
-namespace BaseCore.Implementations.Services
+namespace BaseCore.Services
 {
     public class AuthenticationContextProvider : IAuthenticationContextProvider
     {

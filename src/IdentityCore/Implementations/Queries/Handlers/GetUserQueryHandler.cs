@@ -1,11 +1,11 @@
-﻿using BaseCore.Declarations.Services;
-using BaseCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
 using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
 using BaseCore.Extensions;
 using IdentityCore.Implementations.Queries.Validators;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using BaseCore.Services;
 
 namespace IdentityCore.Implementations.Queries.Handlers
 {

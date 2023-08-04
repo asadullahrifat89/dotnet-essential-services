@@ -1,4 +1,4 @@
-﻿namespace BaseCore.Declarations.Services
+﻿namespace BaseCore.Services
 {
     public interface IJwtService
     {

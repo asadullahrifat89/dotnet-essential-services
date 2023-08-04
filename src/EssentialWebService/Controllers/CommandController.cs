@@ -31,6 +31,8 @@ namespace EssentialWebService.Controllers
 
         #region Methods
 
+        #region Token
+
         [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_Authenticate)]
         public async Task<ServiceResponse> Authenticate()
@@ -56,6 +58,10 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(command);
         }
 
+        #endregion
+
+        #region User
+
         [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
@@ -69,11 +75,9 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(command);
         }
 
-        [HttpPut(EndpointRoutes.Action_UpdateUserRoles)]
-        public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
-        {
-            return await _mediator.Send(command);
-        }
+        #endregion
+
+        #region Role
 
         [HttpPost(EndpointRoutes.Action_AddRole)]
         public async Task<ServiceResponse> AddRole(AddRoleCommand command)
@@ -87,11 +91,23 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPut(EndpointRoutes.Action_UpdateUserRoles)]
+        public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+        #region Claim
+
         [HttpPost(EndpointRoutes.Action_AddClaimPermission)]
         public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
         {
             return await _mediator.Send(command);
         }
+
+        #endregion
 
         //TODO: change user password - > send existing password and new password
 
