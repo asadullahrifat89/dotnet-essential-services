@@ -50,8 +50,8 @@ namespace IdentityWeb.Controllers
         }
 
         [AuthorizationNotRequired]
-        [HttpPost(EndpointRoutes.Action_Validate)]
-        public async Task<ServiceResponse> Validate(ValidateTokenCommand command)
+        [HttpPost(EndpointRoutes.Action_ValidateToken)]
+        public async Task<ServiceResponse> ValidateToken(ValidateTokenCommand command)
         {
             return await _mediator.Send(command);
         }
