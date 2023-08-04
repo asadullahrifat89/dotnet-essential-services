@@ -4,7 +4,7 @@ using IdentityCore.Extensions;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace IdentityCore.Implementations.Services
+namespace IdentityCore.Middlewares
 {
     public class JwtMiddleware
     {

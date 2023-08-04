@@ -5,7 +5,7 @@ using IdentityCore;
 using Serilog;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Declarations.Commands;
-using IdentityCore.Implementations.Services;
+using IdentityCore.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
