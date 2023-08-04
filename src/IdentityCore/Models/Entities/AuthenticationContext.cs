@@ -8,6 +8,8 @@
 
         public string? AccessToken { get; set; }
 
+        public string TenantId { get; set; }
+
         public AuthenticationContext()
         {
             
@@ -18,6 +20,7 @@
             RequestUri = rquestUri;
             User = user;
             AccessToken = accessToken;
+            TenantId = user?.TenantId;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using IdentityCore.Contracts.Declarations.Services;
+using IdentityCore.Models.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -13,17 +14,19 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         private readonly string _connectionString;
         private readonly string _databaseName;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
         private readonly ILogger<MongoDbService> _logger;
 
         #endregion
 
         #region Ctor
 
-        public MongoDbService(IConfiguration configuration, ILogger<MongoDbService> logger)
+        public MongoDbService(IConfiguration configuration, ILogger<MongoDbService> logger, IAuthenticationContextProvider authenticationContextProvider)
         {
             _databaseName = configuration["ConnectionStrings:DatabaseName"];
             _connectionString = configuration["ConnectionStrings:DatabaseConnectionString"];
             _logger = logger;
+            _authenticationContextProvider = authenticationContextProvider;
         }
 
         #endregion
@@ -49,6 +52,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         public async Task<long> CountDocuments<T>(FilterDefinition<T> filter)
         {
+            filter = AddTenantContext(filter);
             var collection = GetMongoCollection<T>();
             var result = await collection.Find(filter).CountDocumentsAsync();
             return result;
@@ -56,6 +60,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         public async Task<bool> Exists<T>(FilterDefinition<T> filter)
         {
+            filter = AddTenantContext(filter);
             var collection = GetMongoCollection<T>();
             var result = await collection.Find(filter).FirstOrDefaultAsync();
             return result is not null;
@@ -63,6 +68,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         public async Task<T> FindOne<T>(FilterDefinition<T> filter)
         {
+            filter = AddTenantContext(filter);
             var collection = GetMongoCollection<T>();
             var result = await collection.Find(filter).FirstOrDefaultAsync();
             return result;
@@ -77,6 +83,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         public async Task<T> FindOne<T>(FilterDefinition<T> filter, SortOrder sortOrder, string sortFieldName)
         {
+            filter = AddTenantContext(filter);
             var collection = GetMongoCollection<T>();
 
             switch (sortOrder)
@@ -104,6 +111,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         public async Task<List<T>> GetDocuments<T>(FilterDefinition<T> filter)
         {
+            filter = AddTenantContext(filter);
             var collection = GetMongoCollection<T>();
             var result = await collection.Find(filter).ToListAsync();
             return result;
@@ -111,6 +119,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         public async Task<List<T>> GetDocuments<T>(FilterDefinition<T> filter, int skip, int limit)
         {
+            filter = AddTenantContext(filter);
             var collection = GetMongoCollection<T>();
             var result = await collection.Find(filter).Skip(skip).Limit(limit).ToListAsync();
             return result;
@@ -118,6 +127,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         public async Task<List<T>> GetDocuments<T>(FilterDefinition<T> filter, int skip, int limit, SortOrder sortOrder, string sortFieldName)
         {
+            filter = AddTenantContext(filter);
             var collection = GetMongoCollection<T>();
 
             switch (sortOrder)
@@ -145,6 +155,7 @@ namespace IdentityCore.Contracts.Implementations.Services
 
         public async Task<List<T>> GetDocuments<T>(FilterDefinition<T> filter, SortOrder sortOrder, string sortFieldName)
         {
+            filter = AddTenantContext(filter);
             var collection = GetMongoCollection<T>();
 
             switch (sortOrder)
@@ -294,6 +305,13 @@ namespace IdentityCore.Contracts.Implementations.Services
             var collectionName = typeof(T).Name + "s";
 
             await database.DropCollectionAsync(collectionName);
+        }
+
+        private FilterDefinition<T> AddTenantContext<T>(FilterDefinition<T> filter)
+        {
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+            filter &= Builders<T>.Filter.Eq("TenantId", authCtx.TenantId);
+            return filter;
         }
 
         #endregion

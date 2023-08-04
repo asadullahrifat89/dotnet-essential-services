@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using IdentityCore;
 using Serilog;
 using IdentityCore.Contracts.Implementations.Services;
+using IdentityCore.Contracts.Declarations.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

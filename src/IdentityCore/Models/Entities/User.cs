@@ -37,6 +37,7 @@ namespace IdentityCore.Models.Entities
                 Address = command.Address,
                 MetaTags = command.MetaTags,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
+                TenantId = command.TenantId,
             };
 
             return user;

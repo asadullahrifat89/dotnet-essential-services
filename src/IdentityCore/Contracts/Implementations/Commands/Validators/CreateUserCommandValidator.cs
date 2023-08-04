@@ -30,6 +30,8 @@ namespace IdentityCore.Contracts.Implementations.Commands.Validators
 
             // roles can be nulll or empty as roles can be assigned later on
             RuleFor(x => x).MustAsync(BeAnExistingRole).WithMessage("Role doesn't exist.").When(x => x.Roles != null && x.Roles.Any());
+
+            //TODO: validate tenant id
         }
 
         public static bool BeStrongPassword(string passwd)

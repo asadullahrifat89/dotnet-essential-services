@@ -158,9 +158,9 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public async Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContext.GetAuthenticationContext();            
 
-            var user = await _mongoDbService.FindOne<User>(x => x.Id == query.UserId);
+            var user = await _mongoDbService.FindOne<User>(x => x.Id == query.UserId && x.TenantId == authCtx.TenantId);
 
             return user is null
                 ? Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(new ErrorResponse().BuildExternalError("User doesn't exist."), authCtx?.RequestUri)

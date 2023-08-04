@@ -23,5 +23,7 @@ namespace IdentityCore.Contracts.Declarations.Commands
         public string[] Roles { get; set; } = new string[] { };
 
         public string[] MetaTags { get; set; } = new string[] { };
+
+        public string TenantId { get; set; } = string.Empty;
     }
 }

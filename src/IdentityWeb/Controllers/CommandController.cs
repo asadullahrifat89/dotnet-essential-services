@@ -59,6 +59,8 @@ namespace IdentityWeb.Controllers
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
+            //TODO: accept data from form in http context
+
             return await _mediator.Send(command);
         }
 
@@ -95,6 +97,10 @@ namespace IdentityWeb.Controllers
         //TODO: change user password - > send existing password and new password
 
         //TODO: change user phone number - > send existing phone number and new phone number
+
+        //TODO: change user email - > send existing email and new email
+
+        //TODO: activate user - > send user id
 
         #endregion
     }
