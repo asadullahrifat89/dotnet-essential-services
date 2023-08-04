@@ -18,8 +18,8 @@ namespace IdentityCore.Middlewares
         public async Task Invoke(
             HttpContext httpContext,
             IUserRepository userRepository,
-            IRoleRepository roleRepository,
-            IClaimPermissionRepository claimPermissionRepository,
+            //IRoleRepository roleRepository,
+            //IClaimPermissionRepository claimPermissionRepository,
             IJwtService jwtService)
         {
             var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
