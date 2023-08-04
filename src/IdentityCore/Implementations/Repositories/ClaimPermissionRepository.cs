@@ -1,9 +1,9 @@
-﻿using IdentityCore.Declarations.Commands;
+﻿using BaseCore.Declarations.Services;
+using BaseCore.Models.Responses;
+using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
-using IdentityCore.Declarations.Services;
 using IdentityCore.Models.Entities;
-using IdentityCore.Models.Responses;
 using MongoDB.Driver;
 
 namespace IdentityCore.Implementations.Repositories
@@ -14,15 +14,17 @@ namespace IdentityCore.Implementations.Repositories
 
         private readonly IMongoDbService _mongoDbService;
         private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IRoleRepository _roleRepository;
 
         #endregion
 
         #region Ctor
 
-        public ClaimPermissionRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext)
+        public ClaimPermissionRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext, IRoleRepository roleRepository)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;
+            _roleRepository = roleRepository;
         }
         #endregion
 
@@ -77,6 +79,21 @@ namespace IdentityCore.Implementations.Repositories
             return Response.BuildQueryRecordsResponse<ClaimPermission>().BuildSuccessResponse(
                count: count,
                records: clams is not null ? clams.ToArray() : Array.Empty<ClaimPermission>(), requestUri: authCtx?.RequestUri);
+        }
+
+        public async Task<ClaimPermission[]> GetUserClaims(string userId)
+        {
+            // find user roles, then from roles, find claims, then from claims assign in token
+
+            var roles = await _roleRepository.GetUserRoles(userId);
+
+            var roleIds = roles.Select(r => r.RoleId).Distinct().ToArray();
+
+            var roleClaimMaps = await GetClaimsForRoleIds(roleIds);
+
+            var claims = await GetClaimsForClaimNames(roleClaimMaps.Select(x => x.ClaimPermission).Distinct().ToArray());
+
+            return claims;
         }
 
         #endregion

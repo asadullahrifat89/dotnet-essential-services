@@ -1,5 +1,6 @@
 ﻿using IdentityCore.Declarations.Commands;
-using IdentityCore.Extensions;
+using BaseCore.Extensions;
+using BaseCore.Models.Entities;
 
 namespace IdentityCore.Models.Entities
 {

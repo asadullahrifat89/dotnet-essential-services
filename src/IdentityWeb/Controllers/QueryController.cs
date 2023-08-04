@@ -1,10 +1,10 @@
-﻿using IdentityCore.Models.Responses;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using IdentityCore.Attributes;
 using IdentityCore;
 using IdentityCore.Models.Entities;
 using IdentityCore.Declarations.Queries;
+using BaseCore.Models.Responses;
+using BaseCore.Attributes;
 
 namespace IdentityWeb.Controllers
 {

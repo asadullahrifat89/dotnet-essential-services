@@ -1,8 +1,8 @@
-﻿using IdentityCore.Declarations.Commands;
+﻿using BaseCore.Models.Responses;
+using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Repositories;
-using IdentityCore.Extensions;
+using BaseCore.Extensions;
 using IdentityCore.Implementations.Commands.Validators;
-using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

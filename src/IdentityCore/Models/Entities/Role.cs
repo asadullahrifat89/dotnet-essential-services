@@ -1,5 +1,6 @@
 ﻿using IdentityCore.Declarations.Commands;
-using IdentityCore.Extensions;
+using BaseCore.Extensions;
+using BaseCore.Models.Entities;
 
 namespace IdentityCore.Models.Entities
 {
@@ -15,6 +16,6 @@ namespace IdentityCore.Models.Entities
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
                 //TenantId = authenticationContext.TenantId,
             };
-        } 
+        }
     }
 }

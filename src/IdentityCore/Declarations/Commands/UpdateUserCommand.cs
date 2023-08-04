@@ -1,5 +1,5 @@
-﻿using IdentityCore.Models.Entities;
-using IdentityCore.Models.Responses;
+﻿using BaseCore.Models.Entities;
+using BaseCore.Models.Responses;
 using MediatR;
 
 namespace IdentityCore.Declarations.Commands

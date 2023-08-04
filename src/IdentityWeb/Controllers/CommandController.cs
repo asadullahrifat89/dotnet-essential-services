@@ -1,7 +1,7 @@
-﻿using IdentityCore;
-using IdentityCore.Attributes;
+﻿using BaseCore.Models.Responses;
+using IdentityCore;
+using BaseCore.Attributes;
 using IdentityCore.Declarations.Commands;
-using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,6 +56,7 @@ namespace IdentityWeb.Controllers
             return await _mediator.Send(command);
         }
 
+        [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {

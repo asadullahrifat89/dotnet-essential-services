@@ -1,5 +1,5 @@
-﻿using IdentityCore.Declarations.Commands;
-using IdentityCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
+using IdentityCore.Declarations.Commands;
 
 namespace IdentityCore.Declarations.Repositories
 {

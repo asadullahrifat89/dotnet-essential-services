@@ -1,5 +1,5 @@
-﻿using IdentityCore.Models.Requests;
-using IdentityCore.Models.Responses;
+﻿using BaseCore.Models.Requests;
+using BaseCore.Models.Responses;
 
 namespace IdentityCore.Declarations.Queries
 {
