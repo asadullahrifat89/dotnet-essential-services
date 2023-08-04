@@ -1,7 +1,7 @@
-﻿using IdentityCore.Declarations.Queries;
+﻿using BaseCore.Declarations.Services;
+using BaseCore.Models.Responses;
+using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
-using IdentityCore.Declarations.Services;
-using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

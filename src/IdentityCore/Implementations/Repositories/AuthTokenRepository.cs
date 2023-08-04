@@ -1,8 +1,9 @@
-﻿using IdentityCore.Declarations.Commands;
+﻿using BaseCore.Declarations.Services;
+using BaseCore.Models.Entities;
+using BaseCore.Models.Responses;
+using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Repositories;
-using IdentityCore.Declarations.Services;
 using IdentityCore.Models.Entities;
-using IdentityCore.Models.Responses;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 

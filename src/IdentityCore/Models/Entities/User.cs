@@ -1,28 +1,16 @@
-﻿using IdentityCore.Declarations.Commands;
-using IdentityCore.Extensions;
+﻿using BaseCore.Models.Entities;
+using IdentityCore.Declarations.Commands;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BaseCore.Extensions;
 
 namespace IdentityCore.Models.Entities
 {
-    public class User : EntityBase
+    public class User: UserBase
     {
-        public string FirstName { get; set; } = string.Empty;
-
-        public string LastName { get; set; } = string.Empty;
-
-        public string DisplayName { get; set; } = string.Empty;
-
-        public string Email { get; set; } = string.Empty;
-
-        public string Password { get; set; } = string.Empty;
-
-        public string ProfileImageUrl { get; set; } = string.Empty;
-
-        public string PhoneNumber { get; set; } = string.Empty;
-
-        public Address Address { get; set; } = new Address();
-
-        public string[] MetaTags { get; set; } = new string[] { };
-
         public static User Initialize(CreateUserCommand command, AuthenticationContext authenticationContext)
         {
             var user = new User()

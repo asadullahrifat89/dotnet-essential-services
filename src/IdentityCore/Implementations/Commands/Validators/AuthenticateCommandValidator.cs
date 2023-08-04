@@ -1,7 +1,7 @@
-﻿using FluentValidation;
+﻿using BaseCore.Extensions;
+using FluentValidation;
 using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Repositories;
-using IdentityCore.Extensions;
 
 namespace IdentityCore.Implementations.Commands.Validators
 {

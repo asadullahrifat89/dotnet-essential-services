@@ -1,7 +1,7 @@
-﻿using IdentityCore.Declarations.Commands;
+﻿using BaseCore.Models.Responses;
+using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Queries;
 using IdentityCore.Models.Entities;
-using IdentityCore.Models.Responses;
 
 namespace IdentityCore.Declarations.Repositories
 {

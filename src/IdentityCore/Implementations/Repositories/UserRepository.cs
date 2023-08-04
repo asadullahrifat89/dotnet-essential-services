@@ -1,10 +1,10 @@
-﻿using IdentityCore.Declarations.Commands;
+﻿using BaseCore.Declarations.Services;
+using BaseCore.Extensions;
+using BaseCore.Models.Responses;
+using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
-using IdentityCore.Declarations.Services;
-using IdentityCore.Extensions;
 using IdentityCore.Models.Entities;
-using IdentityCore.Models.Responses;
 using MongoDB.Driver;
 
 namespace IdentityCore.Implementations.Repositories

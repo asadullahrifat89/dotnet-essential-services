@@ -1,6 +1,6 @@
-﻿using IdentityCore.Models.Entities;
-using IdentityCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
 using MediatR;
+using IdentityCore.Models.Entities;
 
 namespace IdentityCore.Declarations.Queries
 {

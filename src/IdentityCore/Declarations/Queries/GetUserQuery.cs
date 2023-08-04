@@ -1,4 +1,4 @@
-﻿using IdentityCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
 using MediatR;
 
 namespace IdentityCore.Declarations.Queries

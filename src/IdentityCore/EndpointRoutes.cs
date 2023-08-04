@@ -1,4 +1,4 @@
-﻿using IdentityCore.Extensions;
+﻿using BaseCore.Extensions;
 
 namespace IdentityCore
 {

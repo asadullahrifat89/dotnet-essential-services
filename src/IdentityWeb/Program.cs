@@ -1,11 +1,13 @@
 using System.Reflection;
-using IdentityCore.Extensions;
 using Microsoft.OpenApi.Models;
 using IdentityCore;
 using Serilog;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Declarations.Commands;
-using IdentityCore.Middlewares;
+using BaseCore.Middlewares;
+using BaseCore.Middlewares;
+using BaseCore.Extensions;
+using IdentityCore.Implementations.Commands.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,13 +38,13 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AuthenticateCommand).GetTypeInfo().Assembly));
 
 // Add validators
-builder.Services.AddValidators();
+builder.Services.AddValidators<AuthenticateCommandValidator>();
 
 // Add services
 builder.Services.AddCoreServices();
 
 // Add repositories
-builder.Services.AddRepositories();
+builder.Services.AddRepositories<IAuthTokenRepository>();
 
 builder.Services.AddMvc();
 
