@@ -15,8 +15,8 @@ namespace IdentityCore.Implementations.Repositories
 
         private readonly IMongoDbService _mongoDbService;
         private readonly IUserRepository _userRepository;
-        private readonly IRoleRepository _roleRepository;
-        private readonly IClaimPermissionRepository _claimPermissionRepository;
+        //private readonly IRoleRepository _roleRepository;
+        //private readonly IClaimPermissionRepository _claimPermissionRepository;
         private readonly IJwtService _jwtService;
         private readonly IConfiguration _configuration;
 
@@ -28,15 +28,15 @@ namespace IdentityCore.Implementations.Repositories
            IMongoDbService mongoDbService,
            IUserRepository userRepository,
            IConfiguration configuration,
-           IRoleRepository roleRepository,
-           IClaimPermissionRepository claimPermissionRepository,
+           //IRoleRepository roleRepository,
+           //IClaimPermissionRepository claimPermissionRepository,
            IJwtService jwtService)
         {
             _mongoDbService = mongoDbService;
             _userRepository = userRepository;
             _configuration = configuration;
-            _roleRepository = roleRepository;
-            _claimPermissionRepository = claimPermissionRepository;
+            //_roleRepository = roleRepository;
+            //_claimPermissionRepository = claimPermissionRepository;
             _jwtService = jwtService;
         }
 
