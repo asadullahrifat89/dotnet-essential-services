@@ -116,8 +116,6 @@ namespace EssentialWebService.Controllers
 
         //TODO: forget password - > send email address and then send a link to reset password
 
-
-
         //TODO: activate user - > send user id
 
         #endregion
