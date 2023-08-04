@@ -52,7 +52,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             await _mongoDbService.InsertDocument(claimPermission);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(claimPermission, authCtx.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(claimPermission, authCtx?.RequestUri);
         }
 
         public async Task<ClaimPermission[]> GetClaimsForClaimNames(string[] claimNames)
@@ -76,11 +76,8 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             return Response.BuildQueryRecordsResponse<ClaimPermission>().BuildSuccessResponse(
                count: count,
-               records: clams is not null ? clams.ToArray() : Array.Empty<ClaimPermission>(), requestUri: authCtx.RequestUri);
+               records: clams is not null ? clams.ToArray() : Array.Empty<ClaimPermission>(), requestUri: authCtx?.RequestUri);
         }
-
-
-
 
         #endregion
     }

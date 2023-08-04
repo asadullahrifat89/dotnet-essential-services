@@ -9,8 +9,8 @@ using IdentityCore.Models.Entities;
 namespace IdentityWeb.Controllers
 {
     [ApiController]
-    //[AuthorizationRequired]
-    [AuthorizationNotRequired]
+    [AuthorizationRequired]
+    //[AuthorizationNotRequired]
     public class QueryController : ControllerBase
     {
         #region Fields

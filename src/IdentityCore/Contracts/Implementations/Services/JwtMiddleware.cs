@@ -25,6 +25,7 @@ namespace IdentityCore.Contracts.Implementations.Services
             var token = httpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             var requestUri = httpContext.Request.Path.Value;
 
+            httpContext.Items["AccessToken"] = token;
             httpContext.Items["RequestUri"] = requestUri;
 
             if (!token.IsNullOrBlank())
@@ -47,7 +48,9 @@ namespace IdentityCore.Contracts.Implementations.Services
                     var requestUris = claims.Select(x => x.RequestUri.ToLower()).ToArray();
 
                     if (requestUris.Contains(requestUri.ToLower().Trim('/')))
+                    {
                         httpContext.Items["User"] = user;
+                    }                        
                 }
             }
 

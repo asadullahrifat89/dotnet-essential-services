@@ -58,7 +58,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             await _mongoDbService.InsertDocument(user);
             await _mongoDbService.InsertDocuments(userRoleMaps);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(user, authCtx.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(user, authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateUser(UpdateUserCommand command)
@@ -74,7 +74,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             await _mongoDbService.UpdateById(update: update, id: command.UserId);
             var updatedUser = await _mongoDbService.FindById<User>(command.UserId);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
@@ -104,7 +104,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             if (newUserRoleMaps.Any())
                 await _mongoDbService.InsertDocuments(newUserRoleMaps);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(newUserRoleMaps, authCtx.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(newUserRoleMaps, authCtx?.RequestUri);
 
         }
 
@@ -153,15 +153,19 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public async Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query)
         {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
             var user = await _mongoDbService.FindOne<User>(x => x.Id == query.UserId);
 
             return user is null
-                ? Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(new ErrorResponse().BuildExternalError("User doesn't exist."))
-                : Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user));
+                ? Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(new ErrorResponse().BuildExternalError("User doesn't exist."), authCtx?.RequestUri)
+                : Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user), authCtx?.RequestUri);
         }
 
         public async Task<QueryRecordsResponse<UserResponse>> GetUsers(GetUsersQuery query)
         {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
             var filter = Builders<User>.Filter.Or(
                 Builders<User>.Filter.Where(x => x.FirstName.ToLower().Contains(query.SearchTerm.ToLower())),
                 Builders<User>.Filter.Where(x => x.LastName.ToLower().Contains(query.SearchTerm.ToLower())),
@@ -177,7 +181,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             return new QueryRecordsResponse<UserResponse>().BuildSuccessResponse(
                count: count,
-               records: users is not null ? users.Select(x => UserResponse.Initialize(x)).ToArray() : Array.Empty<UserResponse>());
+               records: users is not null ? users.Select(x => UserResponse.Initialize(x)).ToArray() : Array.Empty<UserResponse>(), authCtx?.RequestUri);
         }
 
         public async Task<bool> BeAnExistingUser(string id)
@@ -185,8 +189,6 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             var filter = Builders<User>.Filter.Eq(x => x.Id, id);
             return await _mongoDbService.Exists(filter);
         }
-
-        
 
         #endregion
     }

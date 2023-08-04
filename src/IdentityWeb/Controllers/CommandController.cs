@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityWeb.Controllers
 {
     [ApiController]
-    //[AuthorizationRequired]   
-    [AuthorizationNotRequired]
+    [AuthorizationRequired]   
+    //[AuthorizationNotRequired]
     public class CommandController : ControllerBase
     {
         #region Fields

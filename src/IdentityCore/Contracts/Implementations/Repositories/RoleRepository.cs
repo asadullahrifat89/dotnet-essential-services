@@ -52,7 +52,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             await _mongoDbService.InsertDocument(role);
             await _mongoDbService.InsertDocuments(roleClaimMaps);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(role, authCtx.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(role, authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateRole(UpdateRoleCommand command)
@@ -85,7 +85,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
             if (newRoleClaimMaps.Any())
                 await _mongoDbService.InsertDocuments(newRoleClaimMaps);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(existingRole, authCtx.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(existingRole, authCtx?.RequestUri);
         }
 
         public async Task<bool> BeAnExistingRole(string role)
@@ -122,6 +122,8 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
         public async Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query)
         {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
             var filter = Builders<Role>.Filter.Empty;
 
             var count = await _mongoDbService.CountDocuments(filter: filter);
@@ -130,12 +132,13 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             return new QueryRecordsResponse<Role>().BuildSuccessResponse(
                count: count,
-               records: roles is not null ? roles.ToArray() : Array.Empty<Role>()
-               );
+               records: roles is not null ? roles.ToArray() : Array.Empty<Role>(), authCtx?.RequestUri);
         }
 
         public async Task<QueryRecordsResponse<Role>> GetRolesByUserId(GetUserRolesQuery query)
         {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
             // get user roles from user role map
 
             var userfilter = Builders<UserRoleMap>.Filter.Eq(x => x.UserId, query.UserId);
@@ -152,9 +155,7 @@ namespace IdentityCore.Contracts.Implementations.Repositories
 
             return Response.BuildQueryRecordsResponse<Role>().BuildSuccessResponse(
                    count: roles.Count(),
-                   records: roles is not null ? roles.ToArray() : Array.Empty<Role>());
-
-
+                   records: roles is not null ? roles.ToArray() : Array.Empty<Role>(), authCtx?.RequestUri);
         }
 
         #endregion

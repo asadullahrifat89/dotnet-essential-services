@@ -18,7 +18,7 @@ namespace IdentityCore.Contracts.Implementations.Services
             var httpContext = _httpContextAccessor.HttpContext;
 
             if (httpContext is not null)
-                return new AuthenticationContext((string?)httpContext.Items["RequestUri"], (User?)httpContext.Items["User"]);
+                return new AuthenticationContext((string?)httpContext.Items["RequestUri"], (User?)httpContext.Items["User"], (string?)httpContext.Items["AccessToken"]);
             else
                 return new AuthenticationContext();
         }
