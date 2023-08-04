@@ -1,1 +1,1 @@
-# dotnet-identity-service
+# dotnet-essential-services
