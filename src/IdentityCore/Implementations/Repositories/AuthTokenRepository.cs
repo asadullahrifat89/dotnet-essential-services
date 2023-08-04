@@ -1,6 +1,6 @@
-﻿using BaseCore.Declarations.Services;
-using BaseCore.Models.Entities;
+﻿using BaseCore.Models.Entities;
 using BaseCore.Models.Responses;
+using BaseCore.Services;
 using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Models.Entities;

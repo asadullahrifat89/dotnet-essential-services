@@ -1,5 +1,4 @@
-﻿using BaseCore.Declarations.Services;
-using BaseCore.Extensions;
+﻿using BaseCore.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver.Linq;
@@ -7,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace BaseCore.Implementations.Services
+namespace BaseCore.Services
 {
     public class JwtService : IJwtService
     {

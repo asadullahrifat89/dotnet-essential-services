@@ -1,5 +1,5 @@
-﻿using BaseCore.Declarations.Services;
-using BaseCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
+using BaseCore.Services;
 using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
 

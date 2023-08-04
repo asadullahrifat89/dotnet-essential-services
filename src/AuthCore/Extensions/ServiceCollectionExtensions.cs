@@ -1,5 +1,4 @@
-﻿using BaseCore.Declarations.Services;
-using BaseCore.Implementations.Services;
+﻿using BaseCore.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;

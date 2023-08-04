@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace BaseCore.Declarations.Services
+namespace BaseCore.Services
 {
     public interface IMongoDbService
     {

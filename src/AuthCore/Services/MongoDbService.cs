@@ -1,10 +1,9 @@
-﻿using BaseCore.Declarations.Services;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace BaseCore.Implementations.Services
+namespace BaseCore.Services
 {
     public class MongoDbService : IMongoDbService
     {
