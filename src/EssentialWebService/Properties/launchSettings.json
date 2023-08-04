@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "IdentityWeb": {
+    "WebService": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
