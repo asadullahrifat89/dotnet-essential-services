@@ -16,7 +16,7 @@ namespace IdentityCore.Models.Entities
                 Name = command.Name,
                 RequestUri = command.RequestUri,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
-                TenantId = authenticationContext.TenantId,
+                //TenantId = authenticationContext.TenantId,
             };
         }
     }

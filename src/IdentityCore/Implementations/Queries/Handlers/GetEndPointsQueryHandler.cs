@@ -1,10 +1,6 @@
-﻿using FluentValidation;
-using IdentityCore.Implementations.Queries.Validators;
-using IdentityCore.Declarations.Queries;
+﻿using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Declarations.Services;
-using IdentityCore.Extensions;
-using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.Extensions.Logging;

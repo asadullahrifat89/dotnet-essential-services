@@ -24,6 +24,6 @@ namespace IdentityCore.Declarations.Commands
 
         public string[] MetaTags { get; set; } = new string[] { };
 
-        public string TenantId { get; set; } = string.Empty;
+        //public string TenantId { get; set; } = string.Empty;
     }
 }

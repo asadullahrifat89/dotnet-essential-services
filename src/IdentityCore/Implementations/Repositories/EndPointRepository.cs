@@ -1,7 +1,6 @@
 ﻿using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Declarations.Services;
-using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 
 namespace IdentityCore.Implementations.Repositories

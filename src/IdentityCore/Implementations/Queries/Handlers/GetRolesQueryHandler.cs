@@ -1,5 +1,4 @@
-﻿using IdentityCore.Implementations.Repositories;
-using IdentityCore.Declarations.Queries;
+﻿using IdentityCore.Declarations.Queries;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Declarations.Services;
 using IdentityCore.Extensions;
@@ -8,11 +7,6 @@ using IdentityCore.Models.Entities;
 using IdentityCore.Models.Responses;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityCore.Implementations.Queries.Handlers
 {

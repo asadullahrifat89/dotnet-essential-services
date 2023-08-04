@@ -10,6 +10,6 @@ namespace IdentityCore.Models.Entities
 
         public TimeStamp TimeStamp { get; set; } = new TimeStamp();
 
-        public string TenantId { get; set; } = string.Empty;
+        //public string TenantId { get; set; } = string.Empty;
     }
 }
