@@ -5,6 +5,7 @@ using IdentityCore.Declarations.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using BaseCommon;
+using BlobCore.Declarations.Commands;
 
 namespace EssentialWebService.Controllers
 {
@@ -109,6 +110,16 @@ namespace EssentialWebService.Controllers
 
         [HttpPost(EndpointRoutes.Action_AddClaimPermission)]
         public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+        #region Blob
+
+        [HttpPost(EndpointRoutes.Action_UploadFile)]
+        public async Task<ServiceResponse> UploadFile(UploadBlobFileCommand command)
         {
             return await _mediator.Send(command);
         }

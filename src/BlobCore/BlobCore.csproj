@@ -14,10 +14,6 @@
     <Folder Include="Declarations\Queries\" />
     <Folder Include="Implementations\Queries\Handlers\" />
     <Folder Include="Implementations\Queries\Validators\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MongoDB.Driver.GridFS" Version="2.20.0" />
-  </ItemGroup>
+  </ItemGroup> 
 
 </Project>

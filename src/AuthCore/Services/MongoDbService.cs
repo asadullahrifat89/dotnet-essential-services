@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Linq;
 
 namespace BaseCore.Services
@@ -36,13 +37,23 @@ namespace BaseCore.Services
         {
             //var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var client = new MongoClient(_connectionString);
-            var database = client.GetDatabase(_databaseName);
-
+            var database = GetMongoDatabase();
             var collectionName = typeof(T).Name + "s";
-
             var collection = database.GetCollection<T>(collectionName);
             return collection;
+        }
+
+        private GridFSBucket GetGridFSBucket()
+        {
+            var database = GetMongoDatabase();
+            return new GridFSBucket(database);
+        }
+
+        private IMongoDatabase GetMongoDatabase()
+        {
+            var client = new MongoClient(_connectionString);
+            var database = client.GetDatabase(_databaseName);
+            return database;
         }
 
         #endregion
@@ -304,6 +315,25 @@ namespace BaseCore.Services
         //    filter &= Builders<T>.Filter.Eq("TenantId", authCtx.TenantId);
         //    return filter;
         //}
+
+        #endregion
+
+        #region Bucket
+
+        public async Task<string> UploadFileStream(string fileName, Stream fileStream)
+        {
+            var bucket = GetGridFSBucket();
+            var id = await bucket.UploadFromStreamAsync(fileName, fileStream);
+            return id.ToString();
+        }
+
+        public async Task<byte[]?> DownloadFileBytes(string fileId)
+        {
+            var bucket = GetGridFSBucket();
+            var bytes = await bucket.DownloadAsBytesAsync(fileId);
+
+            return bytes;
+        }
 
         #endregion
 
