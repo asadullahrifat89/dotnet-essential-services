@@ -36,8 +36,8 @@ namespace EssentialWebService.Controllers
         #region Token
 
         [AuthorizationNotRequired]
-        [HttpPost(EndpointRoutes.Action_Authenticate)]
-        public async Task<ServiceResponse> Authenticate()
+        [HttpPost(EndpointRoutes.Action_AuthenticateToken)]
+        public async Task<ServiceResponse> AuthenticateToken()
         {
             var httpContext = _httpContextAccessor.HttpContext;
 

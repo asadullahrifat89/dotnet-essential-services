@@ -16,7 +16,7 @@ namespace BaseCommon
         public const string Action_AddClaimPermission = "api/Command/AddClaimPermission";
 
         public const string Action_ValidateToken = "api/Command/ValidateToken";
-        public const string Action_Authenticate = "api/Command/Authenticate";
+        public const string Action_AuthenticateToken = "api/Command/AuthenticateToken";
 
         public const string Action_GetEndPoints = "api/Query/GetEndpoints";
 
