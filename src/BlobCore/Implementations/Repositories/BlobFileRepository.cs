@@ -1,13 +1,7 @@
-﻿using BaseCore.Models.Entities;
-using BaseCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
 using BaseCore.Services;
 using BlobCore.Declarations.Commands;
 using BlobCore.Declarations.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlobCore.Implementations.Repositories
 {
