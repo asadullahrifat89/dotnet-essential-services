@@ -64,6 +64,7 @@ namespace EssentialWebService.Controllers
 
         #region User
 
+        [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
