@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AuthCore\BaseCore.csproj" />
-    <ProjectReference Include="..\BaseCommon\BaseCommon.csproj" />
   </ItemGroup>
 
 </Project>
