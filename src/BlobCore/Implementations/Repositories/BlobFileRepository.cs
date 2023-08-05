@@ -43,7 +43,7 @@ namespace BlobCore.Implementations.Repositories
 
                 blobFile = new BlobFile()
                 {
-                    Name = file.Name,
+                    Name = file.FileName,
                     BucketObjectId = bucketId,
                     Extension = extension,
                     TimeStamp = authctx.BuildCreatedByTimeStamp(),

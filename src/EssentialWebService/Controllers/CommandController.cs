@@ -119,9 +119,9 @@ namespace EssentialWebService.Controllers
         #region Blob
 
         [HttpPost(EndpointRoutes.Action_UploadFile)]
-        public async Task<ServiceResponse> UploadFile(UploadBlobFileCommand command)
+        public async Task<ServiceResponse> UploadFile(IFormFile file)
         {
-            return await _mediator.Send(command);
+            return await _mediator.Send(new UploadBlobFileCommand() { FormFile = file });
         }
 
         #endregion
