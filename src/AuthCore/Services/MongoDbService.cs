@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Linq;
@@ -322,17 +323,31 @@ namespace BaseCore.Services
 
         public async Task<string> UploadFileStream(string fileName, Stream fileStream)
         {
-            var bucket = GetGridFSBucket();
-            var id = await bucket.UploadFromStreamAsync(fileName, fileStream);
-            return id.ToString();
+            try
+            {
+                var bucket = GetGridFSBucket();
+                var id = await bucket.UploadFromStreamAsync(fileName, fileStream);
+                return id.ToString();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<byte[]?> DownloadFileBytes(string fileId)
         {
-            var bucket = GetGridFSBucket();
-            var bytes = await bucket.DownloadAsBytesAsync(fileId);
+            try
+            {
+                var bucket = GetGridFSBucket();
+                var bytes = await bucket.DownloadAsBytesAsync(new ObjectId(fileId));
 
-            return bytes;
+                return bytes;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         #endregion
