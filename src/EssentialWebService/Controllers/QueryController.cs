@@ -48,7 +48,7 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(query);
         }
 
-        #endregion        
+        #endregion
 
         #region Role
 

@@ -38,6 +38,8 @@ namespace BlobCore.Implementations.Repositories
             var file = command.FormFile;
             var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
 
+            var contentType = ContentTypeExtensions.GetContentType(extension);
+
             var blobFile = new BlobFile();
 
             using (var stream = file.OpenReadStream())
@@ -50,7 +52,7 @@ namespace BlobCore.Implementations.Repositories
                     BucketObjectId = bucketId,
                     Extension = extension,
                     TimeStamp = authctx.BuildCreatedByTimeStamp(),
-                    ContentType = file.ContentType,
+                    ContentType = contentType,
                 };
 
                 await _mongoDbService.InsertDocument(blobFile);

@@ -339,9 +339,9 @@ namespace BaseCore.Services
         {
             try
             {
+                var id = new ObjectId(fileId);
                 var bucket = GetGridFSBucket();
-                var bytes = await bucket.DownloadAsBytesAsync(new ObjectId(fileId));
-
+                var bytes = await bucket.DownloadAsBytesAsync(id);
                 return bytes;
             }
             catch (Exception)
