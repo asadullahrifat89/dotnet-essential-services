@@ -8,12 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AuthCore\BaseCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Declarations\Queries\" />
-    <Folder Include="Implementations\Queries\Handlers\" />
-    <Folder Include="Implementations\Queries\Validators\" />
   </ItemGroup> 
 
 </Project>
