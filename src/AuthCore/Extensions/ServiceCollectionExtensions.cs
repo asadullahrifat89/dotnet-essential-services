@@ -6,10 +6,8 @@ using System.Reflection;
 
 namespace BaseCore.Extensions
 {
-
     public static class ServiceCollectionExtensions
     {
-
         public static IServiceCollection AddValidators<T>(this IServiceCollection services)
         {
             services.AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<T>();

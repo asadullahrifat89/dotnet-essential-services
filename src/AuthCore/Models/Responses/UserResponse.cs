@@ -20,6 +20,8 @@ namespace BaseCore.Models.Responses
 
         public Address Address { get; set; } = new Address();
 
+        public UserSatus UserStatus { get; set; }
+
         public static UserResponse Initialize(UserBase user)
         {
             return new UserResponse()
@@ -31,7 +33,8 @@ namespace BaseCore.Models.Responses
                 Email = user.Email,
                 ProfileImageUrl = user.ProfileImageUrl,
                 PhoneNumber = user.PhoneNumber,
-                Address = user.Address
+                Address = user.Address,
+                UserStatus = user.UserSatus,
             };
         }
     }

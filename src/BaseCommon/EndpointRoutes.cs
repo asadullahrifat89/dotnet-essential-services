@@ -1,6 +1,5 @@
-﻿using BaseCore.Extensions;
-
-namespace IdentityCore
+﻿
+namespace BaseCommon
 {
     public static class EndpointRoutes
     {
@@ -8,6 +7,7 @@ namespace IdentityCore
         public const string Action_GetUsers = "api/Query/GetUsers";
         public const string Action_CreateUser = "api/Command/CreateUser";
         public const string Action_UpdateUser = "api/Command/UpdateUser";
+        public const string Action_UpdateUserPassword = "api/Command/UpdateUserPassword";
         public const string Action_UpdateUserRoles = "api/Command/UpdateUserRoles";
 
         public const string Action_AddRole = "api/Command/AddRole";
@@ -25,11 +25,8 @@ namespace IdentityCore
 
         public const string Action_GetClaims = "api/Query/GetClaims";
 
-        public static string[] GetEndpointRoutes()
-        {
-            var endpoints = ClassExtensions.GetConstants(typeof(EndpointRoutes)).Select(x => x.GetValue(x.Name).ToString().ToLower()).ToArray();
-
-            return endpoints;
-        }
+        public const string Action_UploadFile = "api/Command/UploadFile";
+        public const string Action_DownloadFile = "api/Command/DownloadFile";
+        public const string Action_GetFile = "api/Query/GetFile";
     }
 }

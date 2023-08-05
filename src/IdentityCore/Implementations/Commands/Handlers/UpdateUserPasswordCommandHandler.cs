@@ -2,19 +2,19 @@
 using IdentityCore.Declarations.Commands;
 using IdentityCore.Declarations.Repositories;
 using BaseCore.Extensions;
-using IdentityCore.Implementations.Commands.Validators;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using BaseCore.Services;
+using IdentityCore.Implementations.Commands.Validators;
 
 namespace IdentityCore.Implementations.Commands.Handlers
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ServiceResponse>
+    public class UpdateUserPasswordCommandHandler : IRequestHandler<UpdateUserPasswordCommand, ServiceResponse>
     {
         #region Fields
 
-        private readonly ILogger<CreateUserCommandHandler> _logger;
-        private readonly CreateUserCommandValidator _validator;
+        private readonly ILogger<UpdateUserPasswordCommandHandler> _logger;
+        private readonly UpdateUserPasswordCommandValidator _validator;
         private readonly IUserRepository _userRepository;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
@@ -22,7 +22,7 @@ namespace IdentityCore.Implementations.Commands.Handlers
 
         #region Ctor
 
-        public CreateUserCommandHandler(ILogger<CreateUserCommandHandler> logger, CreateUserCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProvider authenticationContextProvider)
+        public UpdateUserPasswordCommandHandler(ILogger<UpdateUserPasswordCommandHandler> logger, UpdateUserPasswordCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;
@@ -34,14 +34,14 @@ namespace IdentityCore.Implementations.Commands.Handlers
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _userRepository.CreateUser(request);
+                return await _userRepository.UpdateUserPassword(request);
             }
             catch (Exception ex)
             {

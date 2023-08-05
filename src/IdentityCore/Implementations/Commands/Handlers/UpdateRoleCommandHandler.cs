@@ -20,7 +20,10 @@ namespace IdentityCore.Implementations.Commands.Handlers
 
         #region Ctor
 
-        public UpdateRoleCommandHandler(ILogger<UpdateRoleCommandHandler> logger, UpdateRoleCommandValidator validator, IRoleRepository roleRepository)
+        public UpdateRoleCommandHandler(
+            ILogger<UpdateRoleCommandHandler> logger,
+            UpdateRoleCommandValidator validator,
+            IRoleRepository roleRepository)
         {
             _logger = logger;
             _validator = validator;

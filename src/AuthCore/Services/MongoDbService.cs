@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Linq;
 
 namespace BaseCore.Services
@@ -36,13 +38,23 @@ namespace BaseCore.Services
         {
             //var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var client = new MongoClient(_connectionString);
-            var database = client.GetDatabase(_databaseName);
-
+            var database = GetMongoDatabase();
             var collectionName = typeof(T).Name + "s";
-
             var collection = database.GetCollection<T>(collectionName);
             return collection;
+        }
+
+        private GridFSBucket GetGridFSBucket()
+        {
+            var database = GetMongoDatabase();
+            return new GridFSBucket(database);
+        }
+
+        private IMongoDatabase GetMongoDatabase()
+        {
+            var client = new MongoClient(_connectionString);
+            var database = client.GetDatabase(_databaseName);
+            return database;
         }
 
         #endregion
@@ -304,6 +316,39 @@ namespace BaseCore.Services
         //    filter &= Builders<T>.Filter.Eq("TenantId", authCtx.TenantId);
         //    return filter;
         //}
+
+        #endregion
+
+        #region Bucket
+
+        public async Task<string> UploadFileStream(string fileName, Stream fileStream)
+        {
+            try
+            {
+                var bucket = GetGridFSBucket();
+                var id = await bucket.UploadFromStreamAsync(fileName, fileStream);
+                return id.ToString();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<byte[]?> DownloadFileBytes(string fileId)
+        {
+            try
+            {
+                var id = new ObjectId(fileId);
+                var bucket = GetGridFSBucket();
+                var bytes = await bucket.DownloadAsBytesAsync(id);
+                return bytes;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         #endregion
 

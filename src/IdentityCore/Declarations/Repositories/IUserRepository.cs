@@ -19,6 +19,8 @@ namespace IdentityCore.Declarations.Repositories
 
         Task<bool> BeValidUser(string userEmail, string password);
 
+        Task<bool> BeValidUserPassword(string userId, string password);
+
         Task<User> GetUser(string userEmail, string password);
 
         Task<User> GetUser(string userId);
@@ -29,5 +31,6 @@ namespace IdentityCore.Declarations.Repositories
 
         Task<bool> BeAnExistingUser(string userId);
 
+        Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command);
     }
 }

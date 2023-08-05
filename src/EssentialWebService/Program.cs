@@ -8,6 +8,10 @@ using BaseCore.Middlewares;
 using BaseCore.Middlewares;
 using BaseCore.Extensions;
 using IdentityCore.Implementations.Commands.Validators;
+using BaseCommon;
+using BlobCore.Implementations.Commands.Validators;
+using BlobCore.Declarations.Repositories;
+using BlobCore.Declarations.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,15 +40,18 @@ builder.Services.AddHttpContextAccessor();
 
 // Add mediator
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AuthenticateCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UploadBlobFileCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
+builder.Services.AddValidators<UploadBlobFileCommandValidator>();
 
 // Add services
 builder.Services.AddCoreServices();
 
 // Add repositories
 builder.Services.AddRepositories<IAuthTokenRepository>();
+builder.Services.AddRepositories<IBlobFileRepository>();
 
 builder.Services.AddMvc();
 

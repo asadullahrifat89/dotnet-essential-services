@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using System.Text.Json.Serialization;
 
 namespace BaseCore.Services
 {
@@ -51,8 +52,13 @@ namespace BaseCore.Services
         Task<bool> UpsertById<T>(T document, string id);
 
         Task DropCollection<T>();
+
+        Task<string> UploadFileStream(string fileName, Stream stream);
+
+        Task<byte[]?> DownloadFileBytes(string fileId);
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SortOrder
     {
         None,

@@ -5,6 +5,8 @@ using IdentityCore.Models.Entities;
 using IdentityCore.Declarations.Queries;
 using BaseCore.Models.Responses;
 using BaseCore.Attributes;
+using BaseCommon;
+using BlobCore.Declarations.Queries;
 
 namespace EssentialWebService.Controllers
 {
@@ -46,7 +48,7 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(query);
         }
 
-        #endregion        
+        #endregion
 
         #region Role
 
@@ -70,6 +72,18 @@ namespace EssentialWebService.Controllers
         public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims([FromQuery] GetClaimsQuery query)
         {
             return await _mediator.Send(query);
+        }
+
+        #endregion
+
+        #region Blob
+
+        [HttpGet(EndpointRoutes.Action_DownloadFile)]
+        public async Task<IActionResult> DownloadFile([FromQuery] DownloadBlobFileQuery query)
+        {
+            var blobFileResponse = await _mediator.Send(query);
+
+            return File(blobFileResponse.Bytes, blobFileResponse.ContentType);
         }
 
         #endregion

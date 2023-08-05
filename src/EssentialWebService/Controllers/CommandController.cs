@@ -4,6 +4,8 @@ using BaseCore.Attributes;
 using IdentityCore.Declarations.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using BaseCommon;
+using BlobCore.Declarations.Commands;
 
 namespace EssentialWebService.Controllers
 {
@@ -62,7 +64,6 @@ namespace EssentialWebService.Controllers
 
         #region User
 
-        [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
@@ -71,6 +72,12 @@ namespace EssentialWebService.Controllers
 
         [HttpPut(EndpointRoutes.Action_UpdateUser)]
         public async Task<ServiceResponse> UpdateUser(UpdateUserCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPut(EndpointRoutes.Action_UpdateUserPassword)]
+        public async Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command)
         {
             return await _mediator.Send(command);
         }
@@ -109,11 +116,17 @@ namespace EssentialWebService.Controllers
 
         #endregion
 
-        //TODO: change user password - > send existing password and new password
+        #region Blob
 
-        //TODO: change user phone number - > send existing phone number and new phone number
+        [HttpPost(EndpointRoutes.Action_UploadFile)]
+        public async Task<ServiceResponse> UploadFile(IFormFile file)
+        {
+            return await _mediator.Send(new UploadBlobFileCommand() { FormFile = file });
+        }
 
-        //TODO: change user email - > send existing email and new email
+        #endregion
+
+        //TODO: forget password - > send email address and then send a link to reset password
 
         //TODO: activate user - > send user id
 
