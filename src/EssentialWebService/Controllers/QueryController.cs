@@ -7,6 +7,7 @@ using BaseCore.Models.Responses;
 using BaseCore.Attributes;
 using BaseCommon;
 using BlobCore.Declarations.Queries;
+using BlobCore.Models.Entities;
 
 namespace EssentialWebService.Controllers
 {
@@ -84,6 +85,12 @@ namespace EssentialWebService.Controllers
             var blobFileResponse = await _mediator.Send(query);
 
             return File(blobFileResponse.Bytes, blobFileResponse.ContentType);
+        }
+
+        [HttpGet(EndpointRoutes.Action_GetFile)]
+        public async Task<QueryRecordResponse<BlobFile>> GetBlobFiles([FromQuery] GetBlobFileQuery query)
+        {
+            return await _mediator.Send(query);
         }
 
         #endregion
