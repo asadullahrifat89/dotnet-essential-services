@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,6 +8,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AuthCore\BaseCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Declarations\Queries\" />
+    <Folder Include="Implementations\Commands\Handlers\" />
+    <Folder Include="Implementations\Commands\Validators\" />
+    <Folder Include="Implementations\Queries\Handlers\" />
+    <Folder Include="Implementations\Queries\Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver.GridFS" Version="2.20.0" />
   </ItemGroup>
 
 </Project>

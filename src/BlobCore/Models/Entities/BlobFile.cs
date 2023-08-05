@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlobCore.Models.Entities
 {
-    public class File : EntityBase
+    public class BlobFile : EntityBase
     {
         public string Name { get; set; } = string.Empty;
 
