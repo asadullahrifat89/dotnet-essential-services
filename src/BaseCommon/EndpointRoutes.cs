@@ -28,6 +28,8 @@ namespace BaseCommon
         public const string Action_UploadFile = "api/Command/UploadFile";
         public const string Action_DownloadFile = "api/Command/DownloadFile";
         public const string Action_GetFile = "api/Query/GetFile";
+
+        public const string Action_CreateTemplate = "api/Command/CreateTemplate";
         
         public const string Action_GetEmailTemplate = "api/Query/GetEmailTemplate";
     }

@@ -1,5 +1,7 @@
 ﻿using BaseCore.Models.Responses;
 using EmailCore.Declarations.Commands;
+using EmailCore.Models.Entities;
+using MongoDB.Driver;
 using EmailCore.Declarations.Queries;
 using EmailCore.Models.Entities;
 using System;
@@ -14,7 +16,8 @@ namespace EmailCore.Declarations.Repositories
     {
         Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command);
         Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(GetEmailTemplateQuery query);
-
+        
+        Task<bool> BeAnExistingEmailTemplate(string templateName);
         Task<bool>BeAnExistingEmailTemplate(string templateId);
     }
 }

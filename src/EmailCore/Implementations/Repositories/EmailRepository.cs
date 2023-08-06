@@ -6,11 +6,10 @@ using EmailCore.Declarations.Queries;
 using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EmailCore.Models.Entities;
+using MongoDB.Driver;
+
+
 
 namespace EmailCore.Implementations.Repositories
 {
@@ -22,7 +21,6 @@ namespace EmailCore.Implementations.Repositories
         private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
-            
 
         #region Ctor
 
@@ -32,13 +30,21 @@ namespace EmailCore.Implementations.Repositories
             _authenticationContext = authenticationContext;
         }
 
+       
         #endregion
 
         #region Methods
 
-        public Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command)
+        public async Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command)
         {
-            throw new NotImplementedException();
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var template = EmailTemplate.Initialize(command, authCtx);
+
+
+            await _mongoDbService.InsertDocument(template);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(template, authCtx?.RequestUri);
         }
 
         public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(GetEmailTemplateQuery query)
@@ -49,10 +55,15 @@ namespace EmailCore.Implementations.Repositories
 
             var emailTemplate = await _mongoDbService.FindOne(filter);
 
-            return emailTemplate == null ?Response.BuildQueryRecordResponse<EmailTemplate>().BuildErrorResponse(new ErrorResponse().BuildExternalError("Template doesn't exist."), authCtx?.RequestUri) : Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(emailTemplate, authCtx?.RequestUri);
+            return emailTemplate == null ? Response.BuildQueryRecordResponse<EmailTemplate>().BuildErrorResponse(new ErrorResponse().BuildExternalError("Template doesn't exist."), authCtx?.RequestUri) : Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(emailTemplate, authCtx?.RequestUri);
         }
 
-        public async Task<bool> BeAnExistingEmailTemplate(string templateId)
+        public async Task<bool> BeAnExistingEmailTemplate(string templateName)
+        {
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Name, templateName); return await _mongoDbService.Exists<EmailTemplate>(filter);
+        }
+
+        public async Task<bool> BeAnExistingEmailTemplateById(string templateId)
         {
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
 
@@ -60,5 +71,7 @@ namespace EmailCore.Implementations.Repositories
         }
         #endregion
 
+
+
+
     }
-}
