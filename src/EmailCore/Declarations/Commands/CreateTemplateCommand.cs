@@ -1,4 +1,6 @@
-﻿using EmailCore.Models.Entities;
+﻿using BaseCore.Models.Responses;
+using EmailCore.Models.Entities;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EmailCore.Declarations.Commands
 {
-    public class CreateTemplateCommand
+    public class CreateTemplateCommand : IRequest<ServiceResponse>
     {
         public string Name { get; set; } = string.Empty;
 

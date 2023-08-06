@@ -1,4 +1,6 @@
-﻿using BaseCore.Models.Entities;
+﻿using BaseCore.Extensions;
+using BaseCore.Models.Entities;
+using EmailCore.Declarations.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,25 @@ namespace EmailCore.Models.Entities
         public EmailTemplateType EmailTemplateType { get; set; } = EmailTemplateType.Text;
 
         public string[] Tags { get; set; } = new string[] { };
+
+        public TimeStamp TimeStamp { get; set; } = new TimeStamp();
+
+
+
+        public static EmailTemplate Initialize(CreateTemplateCommand command, AuthenticationContext authenticationContext)
+        {
+            var EmailTemplate = new EmailTemplate()
+            {
+                Name = command.Name,
+                Body = command.Body,
+                EmailTemplateType = command.EmailTemplateType,
+                Tags = command.Tags,
+                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
+          
+            };
+
+            return EmailTemplate;
+        }
     }
 
     public enum EmailTemplateType
@@ -23,4 +44,6 @@ namespace EmailCore.Models.Entities
         Text,
         HTML
     }
+
+
 }
