@@ -3,7 +3,6 @@ using EmailCore.Declarations.Commands;
 using EmailCore.Models.Entities;
 using MongoDB.Driver;
 using EmailCore.Declarations.Queries;
-using EmailCore.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

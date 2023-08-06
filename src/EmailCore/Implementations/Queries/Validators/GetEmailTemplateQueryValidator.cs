@@ -14,13 +14,13 @@ namespace EmailCore.Implementations.Queries.Validators
             _emailRepository = emailRepository;
 
             RuleFor(x => x.TemplateId).NotNull().NotEmpty();
-            RuleFor(x => x.TemplateId).MustAsync(BeAnExistingEmailTemplate).WithMessage("Template doesn't exist.").When(x => !x.TemplateId.IsNullOrBlank());
+            RuleFor(x => x.TemplateId).MustAsync(BeAnExistingEmailTemplateById).WithMessage("Template doesn't exist.").When(x => !x.TemplateId.IsNullOrBlank());
            
         }
 
-        private Task<bool> BeAnExistingEmailTemplate(string templateId, CancellationToken token)
+        private Task<bool> BeAnExistingEmailTemplateById(string templateId, CancellationToken arg2)
         {
-            return _emailRepository.BeAnExistingEmailTemplate(templateId);
+            return _emailRepository.BeAnExistingEmailTemplateById(templateId);
         }
     }
 }

@@ -6,8 +6,6 @@ using EmailCore.Declarations.Queries;
 using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
 using MongoDB.Driver;
-using EmailCore.Models.Entities;
-using MongoDB.Driver;
 
 
 
@@ -30,7 +28,7 @@ namespace EmailCore.Implementations.Repositories
             _authenticationContext = authenticationContext;
         }
 
-       
+
         #endregion
 
         #region Methods
@@ -75,3 +73,4 @@ namespace EmailCore.Implementations.Repositories
 
 
     }
+}
