@@ -14,7 +14,7 @@ namespace EmailCore.Implementations.Queries.Handlers
 {
     public class GetEmailTemplateQueryHandler : IRequestHandler<GetEmailTemplateQuery, QueryRecordResponse<EmailTemplate>>
     {
-        private readonly IEmailRepository _emailRepository;
+        private readonly IEmailTemplateRepository _emailRepository;
         private readonly IAuthenticationContextProvider _authenticationContext;
         private readonly ILogger<GetEmailTemplateQueryHandler> _logger;
         private readonly GetEmailTemplateQueryValidator _validator;
@@ -22,7 +22,7 @@ namespace EmailCore.Implementations.Queries.Handlers
         public GetEmailTemplateQueryHandler(
             ILogger<GetEmailTemplateQueryHandler> logger,
             GetEmailTemplateQueryValidator validator,
-            IEmailRepository emailRepository,
+            IEmailTemplateRepository emailRepository,
             IAuthenticationContextProvider authenticationContext)
         {
              _logger = logger;

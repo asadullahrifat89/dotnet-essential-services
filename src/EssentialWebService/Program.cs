@@ -46,16 +46,12 @@ builder.Services.AddHttpContextAccessor();
 // Add mediator
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AuthenticateCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UploadBlobFileCommand).GetTypeInfo().Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateTemplateCommand).GetTypeInfo().Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetEmailTemplateQuery).GetTypeInfo().Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UpdateTemplateCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateEmailTemplateCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
 builder.Services.AddValidators<UploadBlobFileCommandValidator>();
-builder.Services.AddValidators<CreateTemplateCommand>();
-builder.Services.AddValidators<GetEmailTemplateQueryValidator>();
-builder.Services.AddValidators<UpdateTemplateCommandValidator>();
+builder.Services.AddValidators<CreateEmailTemplateCommand>();
 
 // Add services
 builder.Services.AddCoreServices();
@@ -63,7 +59,7 @@ builder.Services.AddCoreServices();
 // Add repositories
 builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
-builder.Services.AddRepositories<IEmailRepository>();
+builder.Services.AddRepositories<IEmailTemplateRepository>();
 
 builder.Services.AddMvc();
 

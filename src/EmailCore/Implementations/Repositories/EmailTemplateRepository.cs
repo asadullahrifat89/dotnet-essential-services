@@ -1,4 +1,5 @@
-﻿using BaseCore.Models.Entities;
+﻿using BaseCore.Extensions;
+using BaseCore.Models.Entities;
 using BaseCore.Models.Responses;
 using BaseCore.Services;
 using EmailCore.Declarations.Commands;
@@ -8,10 +9,9 @@ using EmailCore.Models.Entities;
 using MongoDB.Driver;
 
 
-
 namespace EmailCore.Implementations.Repositories
 {
-    public class EmailRepository : IEmailRepository
+    public class EmailTemplateRepository : IEmailTemplateRepository
     {
         #region Fields
 
@@ -22,7 +22,7 @@ namespace EmailCore.Implementations.Repositories
 
         #region Ctor
 
-        public EmailRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext)
+        public EmailTemplateRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;
@@ -33,12 +33,11 @@ namespace EmailCore.Implementations.Repositories
 
         #region Methods
 
-        public async Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command)
+        public async Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command)
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
             var template = EmailTemplate.Initialize(command, authCtx);
-
 
             await _mongoDbService.InsertDocument(template);
 
@@ -53,20 +52,20 @@ namespace EmailCore.Implementations.Repositories
 
             var emailTemplate = await _mongoDbService.FindOne(filter);
 
-            return emailTemplate == null ? Response.BuildQueryRecordResponse<EmailTemplate>().BuildErrorResponse(new ErrorResponse().BuildExternalError("Template doesn't exist."), authCtx?.RequestUri) : Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(emailTemplate, authCtx?.RequestUri);
+            return Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(emailTemplate, authCtx?.RequestUri);
         }
 
-        public async Task<ServiceResponse> UpdateTemplate(UpdateTemplateCommand command)
+        public async Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command)
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
-
-
 
             var update = Builders<EmailTemplate>.Update
                 .Set(x => x.Name, command.Name)
                 .Set(x => x.Body, command.Body)
                 .Set(x => x.EmailTemplateType, command.EmailTemplateType)
-                .Set(x => x.Tags, command.Tags);
+                .Set(x => x.Tags, command.Tags)
+                .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
+                .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
             await _mongoDbService.UpdateById(update: update, id: command.TemplateId);
 
@@ -75,22 +74,18 @@ namespace EmailCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedTemplate, authCtx?.RequestUri);
         }
 
-
         public async Task<bool> BeAnExistingEmailTemplate(string templateName)
         {
-            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Name, templateName); return await _mongoDbService.Exists<EmailTemplate>(filter);
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Name.ToLower(), templateName.ToLower());
+            return await _mongoDbService.Exists<EmailTemplate>(filter);
         }
 
         public async Task<bool> BeAnExistingEmailTemplateById(string templateId)
         {
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
-
             return await _mongoDbService.Exists<EmailTemplate>(filter);
         }
+
         #endregion
-
-
-
-
     }
 }

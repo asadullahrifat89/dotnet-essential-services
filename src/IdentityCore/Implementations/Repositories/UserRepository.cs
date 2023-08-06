@@ -73,7 +73,9 @@ namespace IdentityCore.Implementations.Repositories
                 .Set(x => x.FirstName, command.FirstName)
                 .Set(x => x.LastName, command.LastName)
                 .Set(x => x.ProfileImageUrl, command.ProfileImageUrl)
-                .Set(x => x.Address, command.Address);
+                .Set(x => x.Address, command.Address)
+                .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
+                .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
             await _mongoDbService.UpdateById(update: update, id: command.UserId);
             var updatedUser = await _mongoDbService.FindById<User>(command.UserId);
@@ -182,9 +184,7 @@ namespace IdentityCore.Implementations.Repositories
 
             var user = await _mongoDbService.FindOne(filter);
 
-            return user is null
-                ? Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(new ErrorResponse().BuildExternalError("User doesn't exist."), authCtx?.RequestUri)
-                : Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user), authCtx?.RequestUri);
+            return Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user), authCtx?.RequestUri);
         }
 
         public async Task<QueryRecordsResponse<UserResponse>> GetUsers(GetUsersQuery query)

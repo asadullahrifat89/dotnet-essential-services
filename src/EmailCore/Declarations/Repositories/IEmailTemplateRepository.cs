@@ -11,14 +11,16 @@ using System.Threading.Tasks;
 
 namespace EmailCore.Declarations.Repositories
 {
-    public interface IEmailRepository
+    public interface IEmailTemplateRepository
     {
-        Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command);
+        Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command);
+
         Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(GetEmailTemplateQuery query);
 
-        Task<ServiceResponse> UpdateTemplate(UpdateTemplateCommand command);
+        Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command);
 
         Task<bool> BeAnExistingEmailTemplate(string templateName);
+
         Task<bool> BeAnExistingEmailTemplateById(string templateId);
     }
 }

@@ -105,7 +105,6 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(query);
         }
-         
 
         #endregion
 

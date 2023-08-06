@@ -1,14 +1,16 @@
 ﻿using BaseCore.Models.Responses;
 using EmailCore.Models.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EmailCore.Declarations.Commands
 {
-    public class UpdateTemplateCommand : IRequest<ServiceResponse>
+    public class CreateEmailTemplateCommand : IRequest<ServiceResponse>
     {
-        public string TemplateId { get; set; } = string.Empty;
-
         public string Name { get; set; } = string.Empty;
 
         public string Body { get; set; } = string.Empty;

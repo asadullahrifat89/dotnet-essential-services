@@ -1,15 +1,16 @@
 ﻿using BaseCore.Extensions;
 using EmailCore.Declarations.Commands;
 using EmailCore.Declarations.Repositories;
+using EmailCore.Models.Entities;
 using FluentValidation;
 
 namespace EmailCore.Implementations.Commands.Validators
 {
-    public class UpdateTemplateCommandValidator : AbstractValidator<UpdateTemplateCommand>
+    public class UpdateEmailTemplateCommandValidator : AbstractValidator<UpdateEmailTemplateCommand>
     {
-        private readonly IEmailRepository _emailRepository;
+        private readonly IEmailTemplateRepository _emailRepository;
 
-        public UpdateTemplateCommandValidator(IEmailRepository emailRepository)
+        public UpdateEmailTemplateCommandValidator(IEmailTemplateRepository emailRepository)
         {
             _emailRepository = emailRepository;
 
@@ -17,6 +18,9 @@ namespace EmailCore.Implementations.Commands.Validators
             RuleFor(x => x.Name).NotNull().NotEmpty();
             RuleFor(x => x.Body).NotNull().NotEmpty();
             RuleFor(x => x.Tags).NotNull().NotEmpty();
+
+            RuleFor(x => x.EmailTemplateType).NotNull();
+            RuleFor(x => x.EmailTemplateType).Must(x => x == EmailTemplateType.Text || x == EmailTemplateType.HTML).WithMessage("Invalid email template type.").When(x => x.EmailTemplateType != null);
         }
 
         private async Task<bool> BeAnExistingTemplate(string templateId, CancellationToken arg2)

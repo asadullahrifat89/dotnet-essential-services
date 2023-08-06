@@ -131,16 +131,15 @@ namespace EssentialWebService.Controllers
         
         #region EmailTemplate
 
-        [HttpPost(EndpointRoutes.Action_CreateTemplate)]
-        
-        public async Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command)
+        [HttpPost(EndpointRoutes.Action_CreateEmailTemplate)]        
+        public async Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command)
         {
             return await _mediator.Send(command);
         }
 
 
-        [HttpPut(EndpointRoutes.Action_UpdateTemplate)]
-        public async Task<ServiceResponse> UpdateTemplate(UpdateTemplateCommand command)
+        [HttpPut(EndpointRoutes.Action_UpdateEmailTemplate)]
+        public async Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command)
         {
             return await _mediator.Send(command);
         }

@@ -14,20 +14,24 @@ using System.Threading.Tasks;
 
 namespace EmailCore.Implementations.Queries.Handlers
 {
-    public class CreateTemplateCommandHandler : IRequestHandler<CreateTemplateCommand, ServiceResponse>
+    public class CreateEmailTemplateCommandHandler : IRequestHandler<CreateEmailTemplateCommand, ServiceResponse>
     {
         #region Fields
 
-        private readonly ILogger<CreateTemplateCommandHandler> _logger;
-        private readonly CreateTemplateCommandValidator _validator;
-        private readonly IEmailRepository _emailRepository;
+        private readonly ILogger<CreateEmailTemplateCommandHandler> _logger;
+        private readonly CreateEmailTemplateCommandValidator _validator;
+        private readonly IEmailTemplateRepository _emailRepository;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public CreateTemplateCommandHandler(ILogger<CreateTemplateCommandHandler> logger, CreateTemplateCommandValidator validator, IEmailRepository emailRepository, IAuthenticationContextProvider authenticationContextProvider)
+        public CreateEmailTemplateCommandHandler(
+            ILogger<CreateEmailTemplateCommandHandler> logger,
+            CreateEmailTemplateCommandValidator validator,
+            IEmailTemplateRepository emailRepository,
+            IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;
@@ -39,14 +43,14 @@ namespace EmailCore.Implementations.Queries.Handlers
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(CreateTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(CreateEmailTemplateCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _emailRepository.CreateTemplate(request);
+                return await _emailRepository.CreateEmailTemplate(request);
             }
             catch (Exception ex)
             {
