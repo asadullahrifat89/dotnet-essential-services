@@ -8,12 +8,15 @@ using BaseCore.Attributes;
 using BaseCommon;
 using BlobCore.Declarations.Queries;
 using BlobCore.Models.Entities;
+using EmailCore.Declarations.Queries;
+using EmailCore.Models.Entities;
+
 
 namespace EssentialWebService.Controllers
 {
     [ApiController]
-    [AuthorizationRequired]
-    //[AuthorizationNotRequired]
+    //[AuthorizationRequired]
+    [AuthorizationNotRequired]
     public class QueryController : ControllerBase
     {
         #region Fields
@@ -92,6 +95,17 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(query);
         }
+
+        #endregion
+
+        #region EmailTemplate
+
+        [HttpGet(EndpointRoutes.Action_GetEmailTemplate)]
+        public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate([FromQuery] GetEmailTemplateQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+         
 
         #endregion
 
