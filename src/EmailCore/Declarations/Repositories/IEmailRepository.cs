@@ -18,6 +18,6 @@ namespace EmailCore.Declarations.Repositories
         Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(GetEmailTemplateQuery query);
         
         Task<bool> BeAnExistingEmailTemplate(string templateName);
-        Task<bool>BeAnExistingEmailTemplate(string templateId);
+        Task<bool> BeAnExistingEmailTemplateById(string templateId);
     }
 }
