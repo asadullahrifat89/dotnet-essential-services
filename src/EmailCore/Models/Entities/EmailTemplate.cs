@@ -20,6 +20,7 @@ namespace EmailCore.Models.Entities
         public string[] Tags { get; set; } = new string[] { };
 
 
+
         public static EmailTemplate Initialize(CreateTemplateCommand command, AuthenticationContext authenticationContext)
         {
             var EmailTemplate = new EmailTemplate()
@@ -28,7 +29,6 @@ namespace EmailCore.Models.Entities
                 Body = command.Body,
                 EmailTemplateType = command.EmailTemplateType,
                 Tags = command.Tags,
-                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
           
             };
 

@@ -10,4 +10,5 @@
     <ProjectReference Include="..\AuthCore\BaseCore.csproj" />
   </ItemGroup>
 
+
 </Project>

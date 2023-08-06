@@ -6,6 +6,7 @@ using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
 using MongoDB.Driver;
 
+
 namespace EmailCore.Implementations.Repositories
 {
     public class EmailRepository : IEmailRepository
@@ -25,6 +26,7 @@ namespace EmailCore.Implementations.Repositories
             _authenticationContext = authenticationContext;
         }
 
+       
         #endregion
 
         #region Methods
@@ -64,6 +66,12 @@ namespace EmailCore.Implementations.Repositories
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
 
             return await _mongoDbService.Exists(filter);
+        }
+
+
+        public async Task<bool> BeAnExistingEmailTemplate(string templateName) 
+        { 
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Name, templateName); return await _mongoDbService.Exists<EmailTemplate>(filter); 
         }
 
 
