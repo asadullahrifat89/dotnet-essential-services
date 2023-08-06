@@ -6,12 +6,14 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using BaseCommon;
 using BlobCore.Declarations.Commands;
+using EmailCore.Declarations.Commands;
+using MongoDB.Driver;
 
 namespace EssentialWebService.Controllers
 {
     [ApiController]
-    [AuthorizationRequired]
-    //[AuthorizationNotRequired]
+    //[AuthorizationRequired]
+    [AuthorizationNotRequired]
     public class CommandController : ControllerBase
     {
         #region Fields
@@ -123,6 +125,16 @@ namespace EssentialWebService.Controllers
         public async Task<ServiceResponse> UploadFile(IFormFile file)
         {
             return await _mediator.Send(new UploadBlobFileCommand() { FormFile = file });
+        }
+
+        #endregion
+        
+        #region EmailTemplate
+
+        [HttpPut(EndpointRoutes.Action_UpdateTemplate)]
+        public async Task<ServiceResponse> UpdateTemplate(UpdateTemplateCommand command)
+        {
+            return await _mediator.Send(command);
         }
 
         #endregion

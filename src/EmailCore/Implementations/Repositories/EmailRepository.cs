@@ -4,11 +4,7 @@ using BaseCore.Services;
 using EmailCore.Declarations.Commands;
 using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace EmailCore.Implementations.Repositories
 {
@@ -43,6 +39,33 @@ namespace EmailCore.Implementations.Repositories
 
             return Response.BuildServiceResponse().BuildSuccessResponse(template, authCtx?.RequestUri);
         }
+
+        public async Task<ServiceResponse> UpdateTemplate(UpdateTemplateCommand command)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+
+
+            var update = Builders<EmailTemplate>.Update
+                .Set(x => x.Name, command.Name)
+                .Set(x => x.Body, command.Body)
+                .Set(x => x.EmailTemplateType, command.EmailTemplateType)
+                .Set(x => x.Tags, command.Tags);
+
+            await _mongoDbService.UpdateById(update: update, id: command.TemplateId);
+
+            var updatedTemplate = await _mongoDbService.FindById<EmailTemplate>(command.TemplateId);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(updatedTemplate, authCtx?.RequestUri);
+        }
+
+        public async Task<bool> BeAnExistingTemplate(string templateId)
+        {
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
+
+            return await _mongoDbService.Exists(filter);
+        }
+
 
         #endregion
     }

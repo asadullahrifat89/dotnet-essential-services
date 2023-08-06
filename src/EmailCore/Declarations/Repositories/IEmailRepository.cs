@@ -11,5 +11,9 @@ namespace EmailCore.Declarations.Repositories
     public interface IEmailRepository
     {
         Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command);
+
+        Task<ServiceResponse> UpdateTemplate(UpdateTemplateCommand command);
+
+        Task<bool> BeAnExistingTemplate(string  templateId);
     }
 }
