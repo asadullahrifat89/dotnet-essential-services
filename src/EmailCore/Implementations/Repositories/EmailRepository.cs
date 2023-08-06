@@ -6,8 +6,6 @@ using EmailCore.Declarations.Queries;
 using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
 using MongoDB.Driver;
-using EmailCore.Models.Entities;
-using MongoDB.Driver;
 
 
 
