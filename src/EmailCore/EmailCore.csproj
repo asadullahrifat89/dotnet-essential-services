@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Declarations\" />
-    <Folder Include="Implementations\" />
+    <Folder Include="Declarations\Repositories\" />
+    <Folder Include="Implementations\Repositories\" />
   </ItemGroup>
 
 </Project>

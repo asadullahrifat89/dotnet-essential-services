@@ -28,6 +28,19 @@ namespace EmailCore.Models.Entities
         public string Body { get; set; } = string.Empty;
 
         public string Category { get; set; } = string.Empty;
+
+        public string EmailTemplateId { get; set; } = string.Empty;
+
+        public EmailSendStatus EmailSendStatus { get; set; } = EmailSendStatus.Pending;
+
+        public int SendingAttempt { get; set; }
+    }
+
+    public enum EmailSendStatus
+    {
+        Pending,
+        Sent,
+        Failed,
     }
 
     public class EmailContact
