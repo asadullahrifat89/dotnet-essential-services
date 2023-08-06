@@ -22,5 +22,7 @@ namespace EmailCore.Declarations.Repositories
         Task<bool> BeAnExistingEmailTemplate(string templateName);
 
         Task<bool> BeAnExistingEmailTemplateById(string templateId);
+
+        Task<EmailTemplate> GetEmailTemplate(string templateId);
     }
 }

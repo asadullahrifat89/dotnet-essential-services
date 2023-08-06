@@ -86,6 +86,17 @@ namespace EmailCore.Implementations.Repositories
             return await _mongoDbService.Exists<EmailTemplate>(filter);
         }
 
+        public async Task<EmailTemplate> GetEmailTemplate(string templateId)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
+
+            var emailTemplate = await _mongoDbService.FindOne(filter);
+
+            return emailTemplate;
+        }
+
         #endregion
     }
 }

@@ -33,6 +33,8 @@ namespace EmailCore.Models.Entities
 
         public string EmailTemplateId { get; set; } = string.Empty;
 
+        public IDictionary<string, string> TagValues { get; set; } = new Dictionary<string, string>();
+
         public EmailSendStatus EmailSendStatus { get; set; } = EmailSendStatus.Pending;
 
         public int SendingAttempt { get; set; } = 0;
@@ -51,6 +53,7 @@ namespace EmailCore.Models.Entities
                 CustomVariables = command.CustomVariables,
                 Headers = command.Headers,
                 To = command.To,
+                TagValues = command.TagValues,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
             };
 

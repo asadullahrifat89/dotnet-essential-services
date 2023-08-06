@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using MailKit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using BaseCore.Extensions;
 
 namespace EmailCore.Implementations.Services
 {
@@ -29,6 +30,9 @@ namespace EmailCore.Implementations.Services
         {
             try
             {
+                if (!emailMessage.EmailTemplateId.IsNullOrBlank() && emailTemplate is null)
+                    throw new Exception($"Email template not found by id: {emailMessage.EmailTemplateId}.");
+
                 using (var mimeMessage = new MimeMessage())
                 {
                     var emailFrom = new MailboxAddress(emailMessage.From.Name, emailMessage.From.Email);
@@ -56,16 +60,19 @@ namespace EmailCore.Implementations.Services
 
                     var emailBodyBuilder = new BodyBuilder();
 
-                    switch (emailTemplate.EmailTemplateType)
+                    if (emailTemplate is not null)
                     {
-                        case EmailTemplateType.Text:
-                            emailBodyBuilder.TextBody = emailMessage.Body;
-                            break;
-                        case EmailTemplateType.HTML:
-                            emailBodyBuilder.HtmlBody = emailMessage.Body;
-                            break;
-                        default:
-                            break;
+                        switch (emailTemplate.EmailTemplateType)
+                        {
+                            case EmailTemplateType.Text:
+                                emailBodyBuilder.TextBody = emailMessage.Body;
+                                break;
+                            case EmailTemplateType.HTML:
+                                emailBodyBuilder.HtmlBody = emailMessage.Body;
+                                break;
+                            default:
+                                break;
+                        }
                     }
 
                     mimeMessage.Body = emailBodyBuilder.ToMessageBody();

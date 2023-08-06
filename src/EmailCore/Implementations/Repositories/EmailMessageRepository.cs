@@ -1,4 +1,5 @@
-﻿using BaseCore.Models.Responses;
+﻿using BaseCore.Extensions;
+using BaseCore.Models.Responses;
 using BaseCore.Services;
 using EmailCore.Declarations.Commands;
 using EmailCore.Declarations.Repositories;
@@ -14,16 +15,18 @@ namespace EmailCore.Implementations.Repositories
         private readonly IMongoDbService _mongoDbService;
         private readonly IAuthenticationContextProvider _authenticationContext;
         private readonly IConfiguration _configuration;
+        private readonly IEmailTemplateRepository _emailTemplateRepository;
 
         #endregion
 
         #region Ctor
 
-        public EmailMessageRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext, IConfiguration configuration)
+        public EmailMessageRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext, IConfiguration configuration, IEmailTemplateRepository emailTemplateRepository)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;
             _configuration = configuration;
+            _emailTemplateRepository = emailTemplateRepository;
         }
 
         #endregion
@@ -34,20 +37,42 @@ namespace EmailCore.Implementations.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var message = EmailMessage.Initialize(command, authCtx);
+            var emailMessage = EmailMessage.Initialize(command, authCtx);
 
             var senderName = _configuration["MailSettings:SenderName"];
             var senderEmail = _configuration["MailSettings:SenderEmail"];
 
-            message.From = new EmailContact()
+            emailMessage.From = new EmailContact()
             {
                 Email = senderEmail,
-                Name = senderName
+                Name = senderName,
             };
 
-            await _mongoDbService.InsertDocument(message);
+            // replace tags
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(message, authCtx?.RequestUri);
+            if (!emailMessage.EmailTemplateId.IsNullOrBlank())
+            {
+                var emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateId);
+
+                var body = emailMessage.Body;
+
+                foreach (var tag in emailTemplate.Tags)
+                {
+                    var sourceTag = "{" + $"{tag}" + "}";
+
+                    if (body.Contains(sourceTag) && emailMessage.TagValues.ContainsKey(tag))
+                        body = body.Replace(sourceTag, emailMessage.TagValues[tag]);
+                }
+            }
+
+            await _mongoDbService.InsertDocument(emailMessage);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(emailMessage, authCtx?.RequestUri);
+        }
+
+        public Task<EmailMessage[]> GetEmailMessagesForSending()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

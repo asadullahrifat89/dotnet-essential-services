@@ -25,5 +25,7 @@ namespace EmailCore.Declarations.Commands
         public string Category { get; set; } = string.Empty;
 
         public string EmailTemplateId { get; set; } = string.Empty;
+
+        public IDictionary<string, string> TagValues { get; set; } = new Dictionary<string, string>();
     }
 }

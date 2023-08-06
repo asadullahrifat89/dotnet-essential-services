@@ -16,7 +16,9 @@ using EmailCore.Implementations.Commands.Validators;
 using EmailCore.Declarations.Repositories;
 using EmailCore.Implementations.Queries.Validators;
 using EmailCore.Declarations.Queries;
-
+using BaseCore.Services;
+using EmailCore.Declarations.Services;
+using EmailCore.Implementations.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +56,10 @@ builder.Services.AddValidators<UploadBlobFileCommandValidator>();
 builder.Services.AddValidators<CreateEmailTemplateCommand>();
 
 // Add services
-builder.Services.AddCoreServices();
+builder.Services.AddCoreServices<IMongoDbService>();
+builder.Services.AddCoreServices<IEmailSenderService>();
+
+builder.Services.AddHostedService<EmailSenderHostedService>();
 
 // Add repositories
 builder.Services.AddRepositories<IAuthTokenRepository>();
