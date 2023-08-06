@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Declarations\Commands\" />
+    <Folder Include="Declarations\Repositories\" />
+    <Folder Include="Declarations\Queries\" />
     <Folder Include="Declarations\Repositories\" />
     <Folder Include="Implementations\Repositories\" />
   </ItemGroup>
