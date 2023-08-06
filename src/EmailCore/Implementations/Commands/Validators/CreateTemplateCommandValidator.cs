@@ -21,16 +21,17 @@ namespace EmailCore.Implementations.Commands.Validators
            
             RuleFor(x => x.Name).NotNull().NotEmpty();
             RuleFor(x => x.Body).NotNull().NotEmpty();
-            RuleFor(x => x.EmailTemplateType).NotNull().NotEmpty();
             RuleFor(x => x.Tags).NotNull().NotEmpty();
 
-           // RuleFor(x => x.Name).MustAsync(NotBeAnExistingUserEmail).WithMessage("Email Template already exists.").When(x => !x.Name.IsNullOrBlank());
+            RuleFor(x => x.Name).MustAsync(NotBeAnExistingUserEmailTemplate).WithMessage("Email Template already exists.").When(x => !x.Name.IsNullOrBlank());
         }
 
-        private async Task<bool> NotBeAnExistingUserEmail(string templateName, CancellationToken token)
+        private async Task<bool> NotBeAnExistingUserEmailTemplate(string name, CancellationToken token)
         {
-            return !await _emailRepository.BeAnExistingEmailTemplate(templateName);
+            return !await _emailRepository.BeAnExistingEmailTemplate(name);
         }
+
+    
 
 
     }

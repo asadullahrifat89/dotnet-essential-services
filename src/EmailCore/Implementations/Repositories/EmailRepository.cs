@@ -42,7 +42,10 @@ namespace EmailCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(template, authCtx?.RequestUri);
         }
 
-        public async Task<bool> BeAnExistingEmailTemplate(string templateId) { var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId); return await _mongoDbService.Exists<EmailTemplate>(filter); }
+        public async Task<bool> BeAnExistingEmailTemplate(string templateName) 
+        { 
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Name, templateName); return await _mongoDbService.Exists<EmailTemplate>(filter); 
+        }
 
 
         #endregion

@@ -14,6 +14,6 @@ namespace EmailCore.Declarations.Repositories
     {
         Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command);
 
-        Task<bool> BeAnExistingEmailTemplate(string templateId);
+        Task<bool> BeAnExistingEmailTemplate(string templateName);
     }
 }

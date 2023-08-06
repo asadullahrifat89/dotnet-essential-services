@@ -12,6 +12,8 @@ using BaseCommon;
 using BlobCore.Implementations.Commands.Validators;
 using BlobCore.Declarations.Repositories;
 using BlobCore.Declarations.Commands;
+using EmailCore.Declarations.Commands;
+using EmailCore.Declarations.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,10 +43,12 @@ builder.Services.AddHttpContextAccessor();
 // Add mediator
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AuthenticateCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UploadBlobFileCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateTemplateCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
 builder.Services.AddValidators<UploadBlobFileCommandValidator>();
+builder.Services.AddValidators<CreateTemplateCommand>();
 
 // Add services
 builder.Services.AddCoreServices();
@@ -52,6 +56,7 @@ builder.Services.AddCoreServices();
 // Add repositories
 builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
+builder.Services.AddRepositories<IEmailRepository>();
 
 builder.Services.AddMvc();
 
