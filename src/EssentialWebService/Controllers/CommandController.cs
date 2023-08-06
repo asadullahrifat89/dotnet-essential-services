@@ -6,12 +6,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using BaseCommon;
 using BlobCore.Declarations.Commands;
+using EmailCore.Declarations.Commands;
 
 namespace EssentialWebService.Controllers
 {
     [ApiController]
-    [AuthorizationRequired]
-    //[AuthorizationNotRequired]
+    //[AuthorizationRequired]
+    [AuthorizationNotRequired]
     public class CommandController : ControllerBase
     {
         #region Fields
@@ -126,6 +127,20 @@ namespace EssentialWebService.Controllers
         }
 
         #endregion
+        
+        #region EmailTemplate
+
+        [HttpPost(EndpointRoutes.Action_CreateTemplate)]
+        
+        public async Task<ServiceResponse> CreateTemplate(CreateTemplateCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+
+
 
         //TODO: forget password - > send email address and then send a link to reset password
 
