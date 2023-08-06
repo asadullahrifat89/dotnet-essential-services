@@ -6,31 +6,26 @@ using EmailCore.Declarations.Repositories;
 using EmailCore.Implementations.Commands.Validators;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmailCore.Implementations.Commands.Handlers
 {
-    public class CreateEmailTemplateCommandHandler : IRequestHandler<CreateEmailTemplateCommand, ServiceResponse>
+    public class EnqueueEmailMessageCommandHandler : IRequestHandler<EnqueueEmailMessageCommand, ServiceResponse>
     {
         #region Fields
 
-        private readonly ILogger<CreateEmailTemplateCommandHandler> _logger;
-        private readonly CreateEmailTemplateCommandValidator _validator;
-        private readonly IEmailTemplateRepository _emailRepository;
+        private readonly ILogger<EnqueueEmailMessageCommandHandler> _logger;
+        private readonly EnqueueEmailMessageCommandValidator _validator;
+        private readonly IEmailMessageRepository _emailRepository;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public CreateEmailTemplateCommandHandler(
-            ILogger<CreateEmailTemplateCommandHandler> logger,
-            CreateEmailTemplateCommandValidator validator,
-            IEmailTemplateRepository emailRepository,
+        public EnqueueEmailMessageCommandHandler(
+            ILogger<EnqueueEmailMessageCommandHandler> logger,
+            EnqueueEmailMessageCommandValidator validator,
+            IEmailMessageRepository emailRepository,
             IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
@@ -43,14 +38,14 @@ namespace EmailCore.Implementations.Commands.Handlers
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(CreateEmailTemplateCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(EnqueueEmailMessageCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _emailRepository.CreateEmailTemplate(request);
+                return await _emailRepository.EnqueueEmailMessage(request);
             }
             catch (Exception ex)
             {

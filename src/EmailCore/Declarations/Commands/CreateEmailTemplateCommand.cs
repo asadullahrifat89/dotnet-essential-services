@@ -19,4 +19,5 @@ namespace EmailCore.Declarations.Commands
 
         public string[] Tags { get; set; } = new string[] { };
     }
+
 }

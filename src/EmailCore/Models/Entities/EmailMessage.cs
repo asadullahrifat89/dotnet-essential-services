@@ -1,4 +1,6 @@
-﻿using BaseCore.Models.Entities;
+﻿using BaseCore.Extensions;
+using BaseCore.Models.Entities;
+using EmailCore.Declarations.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +35,27 @@ namespace EmailCore.Models.Entities
 
         public EmailSendStatus EmailSendStatus { get; set; } = EmailSendStatus.Pending;
 
-        public int SendingAttempt { get; set; }
+        public int SendingAttempt { get; set; } = 0;
+
+        public static EmailMessage Initialize(EnqueueEmailMessageCommand command, AuthenticationContext authenticationContext)
+        {
+            var emailMessage = new EmailMessage()
+            {
+                Subject = command.Subject,
+                Body = command.Body,
+                Category = command.Category,
+                EmailTemplateId = command.EmailTemplateId,
+                CC = command.CC,
+                BCC = command.BCC,
+                Attachments = command.Attachments,
+                CustomVariables = command.CustomVariables,
+                Headers = command.Headers,
+                To = command.To,
+                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
+            };
+
+            return emailMessage;
+        }
     }
 
     public enum EmailSendStatus
