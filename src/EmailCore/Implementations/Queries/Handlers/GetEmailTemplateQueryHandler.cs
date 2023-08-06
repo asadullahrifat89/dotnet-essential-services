@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using EmailCore.Implementations.Queries.Validators;
 using BaseCore.Extensions;
 
+
+
 namespace EmailCore.Implementations.Queries.Handlers
 {
     public class GetEmailTemplateQueryHandler : IRequestHandler<GetEmailTemplateQuery, QueryRecordResponse<EmailTemplate>>
@@ -41,8 +43,7 @@ namespace EmailCore.Implementations.Queries.Handlers
             catch(Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordResponse<EmailTemplate>().BuildErrorResponse(
-                                                          Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordResponse<EmailTemplate>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
             }
         }
     }

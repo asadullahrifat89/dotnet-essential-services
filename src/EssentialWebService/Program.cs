@@ -5,13 +5,15 @@ using Serilog;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Declarations.Commands;
 using BaseCore.Middlewares;
-using BaseCore.Middlewares;
 using BaseCore.Extensions;
 using IdentityCore.Implementations.Commands.Validators;
 using BaseCommon;
 using BlobCore.Implementations.Commands.Validators;
 using BlobCore.Declarations.Repositories;
 using BlobCore.Declarations.Commands;
+using EmailCore.Implementations.Queries.Validators;
+using EmailCore.Declarations.Queries;
+using EmailCore.Declarations.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,10 +43,12 @@ builder.Services.AddHttpContextAccessor();
 // Add mediator
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AuthenticateCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UploadBlobFileCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetEmailTemplateQuery).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
 builder.Services.AddValidators<UploadBlobFileCommandValidator>();
+builder.Services.AddValidators<GetEmailTemplateQueryValidator>();
 
 // Add services
 builder.Services.AddCoreServices();
@@ -52,6 +56,7 @@ builder.Services.AddCoreServices();
 // Add repositories
 builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
+builder.Services.AddRepositories<IEmailRepository>();
 
 builder.Services.AddMvc();
 
