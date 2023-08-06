@@ -25,10 +25,11 @@ namespace BaseCore.Extensions
                 foreach (var item in allServices)
                 {
                     Type serviceType = item.GetTypeInfo().ImplementedInterfaces.First();
-                    services.AddSingleton(serviceType, item);
+
+                    if (serviceType is not null)
+                        services.AddSingleton(serviceType, item);
                 }
             }
-
 
             return services;
         }
@@ -42,7 +43,9 @@ namespace BaseCore.Extensions
                 foreach (var item in allRepositories)
                 {
                     Type serviceType = item.GetTypeInfo().ImplementedInterfaces.First();
-                    services.AddSingleton(serviceType, item);
+
+                    if (serviceType is not null)
+                        services.AddSingleton(serviceType, item);
                 }
             }
 
