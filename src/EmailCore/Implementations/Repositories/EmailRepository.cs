@@ -2,9 +2,13 @@
 using BaseCore.Models.Responses;
 using BaseCore.Services;
 using EmailCore.Declarations.Commands;
+using EmailCore.Declarations.Queries;
 using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
 using MongoDB.Driver;
+using EmailCore.Models.Entities;
+using MongoDB.Driver;
+
 
 
 namespace EmailCore.Implementations.Repositories
@@ -26,7 +30,7 @@ namespace EmailCore.Implementations.Repositories
             _authenticationContext = authenticationContext;
         }
 
-       
+
         #endregion
 
         #region Methods
@@ -37,9 +41,21 @@ namespace EmailCore.Implementations.Repositories
 
             var template = EmailTemplate.Initialize(command, authCtx);
 
+
             await _mongoDbService.InsertDocument(template);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(template, authCtx?.RequestUri);
+        }
+
+        public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(GetEmailTemplateQuery query)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, query.TemplateId);
+
+            var emailTemplate = await _mongoDbService.FindOne(filter);
+
+            return emailTemplate == null ? Response.BuildQueryRecordResponse<EmailTemplate>().BuildErrorResponse(new ErrorResponse().BuildExternalError("Template doesn't exist."), authCtx?.RequestUri) : Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(emailTemplate, authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateTemplate(UpdateTemplateCommand command)
@@ -61,20 +77,22 @@ namespace EmailCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedTemplate, authCtx?.RequestUri);
         }
 
-        public async Task<bool> BeAnExistingTemplate(string templateId)
+
+        public async Task<bool> BeAnExistingEmailTemplate(string templateName)
+        {
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Name, templateName); return await _mongoDbService.Exists<EmailTemplate>(filter);
+        }
+
+        public async Task<bool> BeAnExistingEmailTemplateById(string templateId)
         {
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbService.Exists<EmailTemplate>(filter);
         }
-
-
-        public async Task<bool> BeAnExistingEmailTemplate(string templateName) 
-        { 
-            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Name, templateName); return await _mongoDbService.Exists<EmailTemplate>(filter); 
-        }
-
-
         #endregion
+
+
+
+
     }
 }
