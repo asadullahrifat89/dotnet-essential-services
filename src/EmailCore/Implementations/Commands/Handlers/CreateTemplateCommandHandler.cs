@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmailCore.Implementations.Queries.Validators
+namespace EmailCore.Implementations.Commands.Handlers
 {
-    public class CreateTemplateCommandValidator
+    public class CreateTemplateCommandHandler
     {
-
     }
 }
