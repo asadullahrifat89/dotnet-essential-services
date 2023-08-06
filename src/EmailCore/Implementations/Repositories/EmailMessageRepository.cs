@@ -5,6 +5,7 @@ using EmailCore.Declarations.Commands;
 using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace EmailCore.Implementations.Repositories
 {
@@ -21,7 +22,11 @@ namespace EmailCore.Implementations.Repositories
 
         #region Ctor
 
-        public EmailMessageRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext, IConfiguration configuration, IEmailTemplateRepository emailTemplateRepository)
+        public EmailMessageRepository(
+            IMongoDbService mongoDbService,
+            IAuthenticationContextProvider authenticationContext,
+            IConfiguration configuration,
+            IEmailTemplateRepository emailTemplateRepository)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;
@@ -70,9 +75,31 @@ namespace EmailCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(emailMessage, authCtx?.RequestUri);
         }
 
-        public Task<EmailMessage[]> GetEmailMessagesForSending()
+        public async Task<List<EmailMessage>> GetEmailMessagesForSending()
         {
-            throw new NotImplementedException();
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var retryThreshold = Convert.ToInt32(_configuration["MailSettings:RetryThreshold"]);
+
+            var filter = Builders<EmailMessage>.Filter.In(x => x.EmailSendStatus, new EmailSendStatus[] { EmailSendStatus.Pending, EmailSendStatus.Failed });
+
+            if (retryThreshold > 0)
+                filter &= Builders<EmailMessage>.Filter.Lt(x => x.SendingAttempt, retryThreshold);
+
+            var emailMessages = await _mongoDbService.GetDocuments(filter: filter, skip: 0, limit: 10, sortOrder: SortOrder.Descending, sortFieldName: "EmailSendStatus");
+
+            return emailMessages;
+        }
+
+        public async Task<bool> UpdateEmailMessageStatus(string emailMessageId, EmailSendStatus emailSendStatus)
+        {
+            var update = emailSendStatus == EmailSendStatus.Failed 
+                ? Builders<EmailMessage>.Update.Set(x => x.EmailSendStatus, emailSendStatus).Inc(x => x.SendingAttempt, 1)
+                : Builders<EmailMessage>.Update.Set(x => x.EmailSendStatus, emailSendStatus);
+
+            await _mongoDbService.UpdateById(update: update, id: emailMessageId);
+
+            return true;
         }
 
         #endregion

@@ -1,6 +1,4 @@
-﻿using BaseCore.Extensions;
-using BaseCore.Models.Entities;
-using BaseCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
 using BaseCore.Services;
 using EmailCore.Declarations.Commands;
 using EmailCore.Declarations.Queries;

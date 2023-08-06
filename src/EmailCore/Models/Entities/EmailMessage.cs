@@ -1,11 +1,6 @@
 ﻿using BaseCore.Extensions;
 using BaseCore.Models.Entities;
 using EmailCore.Declarations.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmailCore.Models.Entities
 {

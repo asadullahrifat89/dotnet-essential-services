@@ -1,14 +1,8 @@
 ﻿using BaseCore.Extensions;
 using EmailCore.Declarations.Commands;
-using EmailCore.Declarations.Queries;
 using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmailCore.Implementations.Commands.Validators
 {

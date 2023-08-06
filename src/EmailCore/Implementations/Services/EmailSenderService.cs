@@ -1,14 +1,6 @@
 ﻿using EmailCore.Declarations.Services;
 using EmailCore.Models.Entities;
 using MimeKit;
-using Org.BouncyCastle.Asn1.Pkcs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using MailKit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using BaseCore.Extensions;

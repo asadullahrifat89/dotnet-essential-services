@@ -5,9 +5,6 @@ using EmailCore.Implementations.Commands.Validators;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using BaseCore.Extensions;
-using BaseCore.Services;
-using Amazon.Runtime.Internal;
-using System.Threading;
 
 namespace EmailCore.Implementations.Commands.Handlers
 {

@@ -8,6 +8,8 @@ namespace EmailCore.Declarations.Repositories
     {
         Task<ServiceResponse> EnqueueEmailMessage(EnqueueEmailMessageCommand command);
 
-        Task<EmailMessage[]> GetEmailMessagesForSending();
+        Task<List<EmailMessage>> GetEmailMessagesForSending();
+
+        Task<bool> UpdateEmailMessageStatus(string emailMessageId, EmailSendStatus emailSendStatus);
     }
 }

@@ -2,13 +2,9 @@
 using EmailCore.Declarations.Repositories;
 using EmailCore.Declarations.Services;
 using EmailCore.Models.Entities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmailCore.Implementations.Services
 {
@@ -18,23 +14,28 @@ namespace EmailCore.Implementations.Services
         private readonly ILogger<EmailSenderHostedService> _logger;
         private readonly IEmailMessageRepository _emailMessageRepository;
         private readonly IEmailTemplateRepository _emailTemplateRepository;
+        private readonly int _enqueuedEmailMessageProcessingIntervalInSeconds;
 
         public EmailSenderHostedService(
             IEmailSenderService emailSenderService,
             ILogger<EmailSenderHostedService> logger,
             IEmailMessageRepository emailMessageRepository,
-            IEmailTemplateRepository emailTemplateRepository)
+            IEmailTemplateRepository emailTemplateRepository,
+            IConfiguration configuration)
         {
             _emailSenderService = emailSenderService;
             _logger = logger;
             _emailMessageRepository = emailMessageRepository;
             _emailTemplateRepository = emailTemplateRepository;
+            _enqueuedEmailMessageProcessingIntervalInSeconds = Convert.ToInt32(configuration["MailSettings:EnqueuedEmailMessageProcessingIntervalInSeconds"]);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                EmailMessage emailMessageinProcess = null;
+
                 try
                 {
                     // Fetch email messages from the database
@@ -43,6 +44,8 @@ namespace EmailCore.Implementations.Services
                     foreach (var emailMessage in emailMessages)
                     {
                         // Send the email using the EmailSender service
+
+                        emailMessageinProcess = emailMessage;
 
                         EmailTemplate emailTemplate = null;
 
@@ -55,27 +58,29 @@ namespace EmailCore.Implementations.Services
 
                         if (result)
                         {
-                            // TODO: update email message as status  = sent
+                            await _emailMessageRepository.UpdateEmailMessageStatus(emailTemplate.Id, EmailSendStatus.Sent);
                         }
                         else
                         {
-                            // TODO: update email message as status  = failed and retry count ++;
+                            await _emailMessageRepository.UpdateEmailMessageStatus(emailTemplate.Id, EmailSendStatus.Failed);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     // Handle exceptions here, for example, log the error
+                    if (emailMessageinProcess is not null)
+                        await _emailMessageRepository.UpdateEmailMessageStatus(emailMessageinProcess.Id, EmailSendStatus.Failed);
 
                     _logger.LogError(ex.Message, ex);
                 }
 
                 // Wait for some time before checking for new emails again
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(_enqueuedEmailMessageProcessingIntervalInSeconds), stoppingToken);
             }
         }
 
-        private async Task<EmailMessage[]> GetEmailMessagesFromDatabase()
+        private async Task<List<EmailMessage>> GetEmailMessagesFromDatabase()
         {
             var emailMessages = await _emailMessageRepository.GetEmailMessagesForSending();
 
