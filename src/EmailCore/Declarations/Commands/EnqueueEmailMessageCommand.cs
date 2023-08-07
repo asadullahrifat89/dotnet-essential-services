@@ -22,9 +22,7 @@ namespace EmailCore.Declarations.Commands
 
         public EmailBody EmailBody { get; set; } = new EmailBody();
 
-        public EmailBodyType EmailBodyType { get; set; }
-
-        public EmailBodyContentType EmailBodyContentType { get; set; } = EmailBodyContentType.Text;
+        public EmailBodyType EmailBodyType { get; set; }        
 
         public string Category { get; set; } = string.Empty;
 
