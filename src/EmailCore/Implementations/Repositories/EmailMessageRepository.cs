@@ -68,6 +68,8 @@ namespace EmailCore.Implementations.Repositories
                     if (body.Contains(sourceTag) && emailMessage.TagValues.ContainsKey(tag))
                         body = body.Replace(sourceTag, emailMessage.TagValues[tag]);
                 }
+
+                emailMessage.Body = body;
             }
 
             await _mongoDbService.InsertDocument(emailMessage);

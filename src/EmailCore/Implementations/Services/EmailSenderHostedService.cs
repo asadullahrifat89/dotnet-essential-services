@@ -58,11 +58,11 @@ namespace EmailCore.Implementations.Services
 
                         if (result)
                         {
-                            await _emailMessageRepository.UpdateEmailMessageStatus(emailTemplate.Id, EmailSendStatus.Sent);
+                            await _emailMessageRepository.UpdateEmailMessageStatus(emailMessage.Id, EmailSendStatus.Sent);
                         }
                         else
                         {
-                            await _emailMessageRepository.UpdateEmailMessageStatus(emailTemplate.Id, EmailSendStatus.Failed);
+                            await _emailMessageRepository.UpdateEmailMessageStatus(emailMessage.Id, EmailSendStatus.Failed);
                         }
                     }
                 }
