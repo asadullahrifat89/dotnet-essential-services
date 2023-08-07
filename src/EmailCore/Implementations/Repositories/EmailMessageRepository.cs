@@ -56,22 +56,67 @@ namespace EmailCore.Implementations.Repositories
 
             // replace tags
 
-            if (!emailMessage.EmailTemplateId.IsNullOrBlank() && emailMessage.EmailBodyType == EmailBodyType.Templated)
+            switch (emailMessage.EmailBodyType)
             {
-                var emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateId);
+                case EmailBodyType.NonTemplated:
+                    {
+                        var body = emailMessage.EmailBody.Content;
 
-                var body = emailTemplate.Body;
+                        switch (emailMessage.EmailBody.EmailBodyContentType)
+                        {
+                            case EmailBodyContentType.Text:
+                                {
+                                    emailMessage.EmailBody.Content = body;
+                                }
+                                break;
+                            case EmailBodyContentType.HTML:
+                                {
+                                    string decodedHtml = WebUtility.HtmlDecode(body);
+                                    emailMessage.EmailBody.Content = decodedHtml;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    break;
+                case EmailBodyType.Templated:
+                    {
+                        if (!emailMessage.EmailTemplateId.IsNullOrBlank())
+                        {
+                            var emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateId);
 
-                foreach (var tag in emailTemplate.Tags)
-                {
-                    var sourceTag = "{" + $"{tag}" + "}";
+                            var body = emailTemplate.Body;
 
-                    if (body.Contains(sourceTag) && emailMessage.TagValues.ContainsKey(tag))
-                        body = body.Replace(sourceTag, emailMessage.TagValues[tag]);
-                }
+                            foreach (var tag in emailTemplate.Tags)
+                            {
+                                var sourceTag = "{" + $"{tag}" + "}";
 
-                string decodedHtml = WebUtility.HtmlDecode(body);
-                emailMessage.EmailBody.Content = decodedHtml;
+                                if (body.Contains(sourceTag) && emailMessage.TagValues.ContainsKey(tag))
+                                    body = body.Replace(sourceTag, emailMessage.TagValues[tag]);
+                            }
+
+                            switch (emailTemplate.EmailBodyContentType)
+                            {
+                                case EmailBodyContentType.Text:
+                                    {
+                                        emailMessage.EmailBody.Content = body;
+                                    }
+                                    break;
+                                case EmailBodyContentType.HTML:
+                                    {
+                                        string decodedHtml = WebUtility.HtmlDecode(body);
+                                        emailMessage.EmailBody.Content = decodedHtml;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
 
             await _mongoDbService.InsertDocument(emailMessage);
@@ -97,7 +142,7 @@ namespace EmailCore.Implementations.Repositories
 
         public async Task<bool> UpdateEmailMessageStatus(string emailMessageId, EmailSendStatus emailSendStatus)
         {
-            var update = emailSendStatus == EmailSendStatus.Failed 
+            var update = emailSendStatus == EmailSendStatus.Failed
                 ? Builders<EmailMessage>.Update.Set(x => x.EmailSendStatus, emailSendStatus).Inc(x => x.SendingAttempt, 1)
                 : Builders<EmailMessage>.Update.Set(x => x.EmailSendStatus, emailSendStatus);
 
