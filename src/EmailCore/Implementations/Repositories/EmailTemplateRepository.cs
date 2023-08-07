@@ -74,7 +74,7 @@ namespace EmailCore.Implementations.Repositories
 
         public async Task<bool> BeAnExistingEmailTemplate(string templateName)
         {
-            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Name.ToLower(), templateName.ToLower());
+            var filter = Builders<EmailTemplate>.Filter.Where(x => x.Name.ToLower().Equals(templateName.ToLower()));
             return await _mongoDbService.Exists<EmailTemplate>(filter);
         }
 
