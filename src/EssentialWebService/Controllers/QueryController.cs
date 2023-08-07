@@ -15,8 +15,7 @@ using EmailCore.Models.Entities;
 namespace EssentialWebService.Controllers
 {
     [ApiController]
-    //[AuthorizationRequired]
-    [AuthorizationNotRequired]
+    [AuthorizationRequired]    
     public class QueryController : ControllerBase
     {
         #region Fields

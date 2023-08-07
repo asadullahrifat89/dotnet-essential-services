@@ -12,8 +12,7 @@ using MongoDB.Driver;
 namespace EssentialWebService.Controllers
 {
     [ApiController]
-    //[AuthorizationRequired]
-    [AuthorizationNotRequired]
+    [AuthorizationRequired]
     public class CommandController : ControllerBase
     {
         #region Fields
@@ -65,8 +64,7 @@ namespace EssentialWebService.Controllers
         #endregion
 
         #region User
-
-        [AuthorizationNotRequired]
+        
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
@@ -128,10 +126,10 @@ namespace EssentialWebService.Controllers
         }
 
         #endregion
-        
+
         #region EmailTemplate
 
-        [HttpPost(EndpointRoutes.Action_CreateEmailTemplate)]        
+        [HttpPost(EndpointRoutes.Action_CreateEmailTemplate)]
         public async Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command)
         {
             return await _mediator.Send(command);
