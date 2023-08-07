@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlobCore\BlobCore.csproj" />
+    <ProjectReference Include="..\EmailCore\EmailCore.csproj" />
     <ProjectReference Include="..\IdentityCore\IdentityCore.csproj" />
   </ItemGroup>
 

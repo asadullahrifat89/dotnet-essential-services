@@ -6,12 +6,13 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using BaseCommon;
 using BlobCore.Declarations.Commands;
+using EmailCore.Declarations.Commands;
+using MongoDB.Driver;
 
 namespace EssentialWebService.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    //[AuthorizationNotRequired]
     public class CommandController : ControllerBase
     {
         #region Fields
@@ -36,8 +37,8 @@ namespace EssentialWebService.Controllers
         #region Token
 
         [AuthorizationNotRequired]
-        [HttpPost(EndpointRoutes.Action_Authenticate)]
-        public async Task<ServiceResponse> Authenticate()
+        [HttpPost(EndpointRoutes.Action_AuthenticateToken)]
+        public async Task<ServiceResponse> AuthenticateToken()
         {
             var httpContext = _httpContextAccessor.HttpContext;
 
@@ -63,7 +64,7 @@ namespace EssentialWebService.Controllers
         #endregion
 
         #region User
-
+        
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
@@ -122,6 +123,33 @@ namespace EssentialWebService.Controllers
         public async Task<ServiceResponse> UploadFile(IFormFile file)
         {
             return await _mediator.Send(new UploadBlobFileCommand() { FormFile = file });
+        }
+
+        #endregion
+
+        #region EmailTemplate
+
+        [HttpPost(EndpointRoutes.Action_CreateEmailTemplate)]
+        public async Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+
+        [HttpPut(EndpointRoutes.Action_UpdateEmailTemplate)]
+        public async Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+        #region EmailMessage
+
+        [HttpPost(EndpointRoutes.Action_EnqueueEmailMessage)]
+        public async Task<ServiceResponse> EnqueueEmailMessage(EnqueueEmailMessageCommand command)
+        {
+            return await _mediator.Send(command);
         }
 
         #endregion

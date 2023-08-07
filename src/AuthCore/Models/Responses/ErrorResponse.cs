@@ -2,6 +2,11 @@
 {
     public class ErrorResponse
     {
+        public ErrorResponse()
+        {
+            
+        }
+
         public string[] Errors { get; set; } = new string[] { };
 
         public ErrorResponse BuildExternalError(params string[] error)

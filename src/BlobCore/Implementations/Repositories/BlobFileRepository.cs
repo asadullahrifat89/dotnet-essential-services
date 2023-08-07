@@ -77,6 +77,17 @@ namespace BlobCore.Implementations.Repositories
             return await _mongoDbService.Exists<BlobFile>(filter);
         }
 
+        public async Task<QueryRecordResponse<BlobFile>> GetBlobFile(GetBlobFileQuery query)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var filter = Builders<BlobFile>.Filter.Eq(x => x.Id, query.FileId);
+
+            var blobFile = await _mongoDbService.FindOne(filter);
+
+            return Response.BuildQueryRecordResponse<BlobFile>().BuildSuccessResponse(blobFile, authCtx?.RequestUri);
+        }
+
         #endregion
     }
 }
