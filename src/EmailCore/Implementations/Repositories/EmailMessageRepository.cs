@@ -6,6 +6,7 @@ using EmailCore.Declarations.Repositories;
 using EmailCore.Models.Entities;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
+using System.Net;
 
 namespace EmailCore.Implementations.Repositories
 {
@@ -69,7 +70,8 @@ namespace EmailCore.Implementations.Repositories
                         body = body.Replace(sourceTag, emailMessage.TagValues[tag]);
                 }
 
-                emailMessage.EmailBody.Content = body;
+                string decodedHtml = WebUtility.HtmlDecode(body);
+                emailMessage.EmailBody.Content = decodedHtml;
             }
 
             await _mongoDbService.InsertDocument(emailMessage);

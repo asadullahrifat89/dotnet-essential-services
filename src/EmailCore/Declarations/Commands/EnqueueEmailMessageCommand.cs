@@ -1,7 +1,6 @@
 ﻿using BaseCore.Models.Responses;
 using EmailCore.Models.Entities;
 using MediatR;
-using System.Text.Json.Serialization;
 
 namespace EmailCore.Declarations.Commands
 {

@@ -1,7 +1,6 @@
 ﻿using BaseCore.Extensions;
 using BaseCore.Models.Entities;
 using EmailCore.Declarations.Commands;
-using System.Text.Json.Serialization;
 
 namespace EmailCore.Models.Entities
 {
