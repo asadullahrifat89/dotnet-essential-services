@@ -49,9 +49,9 @@ namespace EmailCore.Implementations.Services
 
                         EmailTemplate emailTemplate = null;
 
-                        if (!emailMessage.EmailTemplateId.IsNullOrBlank())
+                        if (!emailMessage.EmailTemplateConfiguration.EmailTemplateId.IsNullOrBlank())
                         {
-                            emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateId);
+                            emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateConfiguration.EmailTemplateId);
                         }
 
                         var result = await _emailSenderService.SendEmailAsync(emailMessage, emailTemplate);

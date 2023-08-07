@@ -82,9 +82,9 @@ namespace EmailCore.Implementations.Repositories
                     break;
                 case EmailBodyType.Templated:
                     {
-                        if (!emailMessage.EmailTemplateId.IsNullOrBlank())
+                        if (!emailMessage.EmailTemplateConfiguration.EmailTemplateId.IsNullOrBlank())
                         {
-                            var emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateId);
+                            var emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateConfiguration.EmailTemplateId);
 
                             var body = emailTemplate.Body;
 
@@ -92,8 +92,8 @@ namespace EmailCore.Implementations.Repositories
                             {
                                 var sourceTag = "{" + $"{tag}" + "}";
 
-                                if (body.Contains(sourceTag) && emailMessage.TagValues.ContainsKey(tag))
-                                    body = body.Replace(sourceTag, emailMessage.TagValues[tag]);
+                                if (body.Contains(sourceTag) && emailMessage.EmailTemplateConfiguration.TagValues.ContainsKey(tag))
+                                    body = body.Replace(sourceTag, emailMessage.EmailTemplateConfiguration.TagValues[tag]);
                             }
 
                             switch (emailTemplate.EmailBodyContentType)

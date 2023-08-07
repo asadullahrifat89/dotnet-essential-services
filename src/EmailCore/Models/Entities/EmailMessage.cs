@@ -29,9 +29,7 @@ namespace EmailCore.Models.Entities
 
         public string Category { get; set; } = string.Empty;
 
-        public string EmailTemplateId { get; set; } = string.Empty;
-
-        public IDictionary<string, string> TagValues { get; set; } = new Dictionary<string, string>();
+        public EmailTemplateConfiguration EmailTemplateConfiguration { get; set; } = new EmailTemplateConfiguration();
 
         public EmailSendStatus EmailSendStatus { get; set; } = EmailSendStatus.Pending;
 
@@ -45,19 +43,25 @@ namespace EmailCore.Models.Entities
                 EmailBody = command.EmailBody,
                 EmailBodyType = command.EmailBodyType,
                 Category = command.Category,
-                EmailTemplateId = command.EmailTemplateId,
+                EmailTemplateConfiguration = command.EmailTemplateConfiguration,                
                 CC = command.CC,
                 BCC = command.BCC,
                 Attachments = command.Attachments,
                 CustomVariables = command.CustomVariables,
                 Headers = command.Headers,
-                To = command.To,
-                TagValues = command.TagValues,
+                To = command.To,                
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
             };
 
             return emailMessage;
         }
+    }
+
+    public class EmailTemplateConfiguration
+    {
+        public string EmailTemplateId { get; set; } = string.Empty;
+
+        public IDictionary<string, string> TagValues { get; set; } = new Dictionary<string, string>();
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

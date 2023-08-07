@@ -22,8 +22,13 @@ namespace EmailCore.Implementations.Services
         {
             try
             {
-                if (!emailMessage.EmailTemplateId.IsNullOrBlank() && emailTemplate is null)
-                    throw new Exception($"Email template not found by id: {emailMessage.EmailTemplateId}.");
+                // if email template configuration and email template id is provided in the email message but the actual email template is not found while sending this email, throw exception
+                if (emailMessage.EmailTemplateConfiguration is not null
+                    && !emailMessage.EmailTemplateConfiguration.EmailTemplateId.IsNullOrBlank()
+                    && emailTemplate is null)
+                {
+                    throw new Exception($"Email template not found by id: {emailMessage.EmailTemplateConfiguration.EmailTemplateId}.");
+                }                    
 
                 using (var mimeMessage = new MimeMessage())
                 {
