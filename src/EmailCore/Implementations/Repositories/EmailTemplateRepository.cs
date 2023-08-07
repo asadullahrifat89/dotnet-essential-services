@@ -60,7 +60,7 @@ namespace EmailCore.Implementations.Repositories
             var update = Builders<EmailTemplate>.Update
                 .Set(x => x.Name, command.Name)
                 .Set(x => x.Body, command.Body)
-                .Set(x => x.EmailTemplateType, command.EmailTemplateType)
+                .Set(x => x.EmailBodyContentType, command.EmailBodyContentType)
                 .Set(x => x.Tags, command.Tags)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);

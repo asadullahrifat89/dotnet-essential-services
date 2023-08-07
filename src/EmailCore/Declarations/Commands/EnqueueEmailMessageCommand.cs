@@ -1,6 +1,7 @@
 ﻿using BaseCore.Models.Responses;
 using EmailCore.Models.Entities;
 using MediatR;
+using System.Text.Json.Serialization;
 
 namespace EmailCore.Declarations.Commands
 {
@@ -20,12 +21,18 @@ namespace EmailCore.Declarations.Commands
 
         public string Subject { get; set; } = string.Empty;
 
-        public string Body { get; set; } = string.Empty;
+        public EmailBody EmailBody { get; set; } = new EmailBody();
+
+        public EmailBodyType EmailBodyType { get; set; }
+
+        public EmailBodyContentType EmailBodyContentType { get; set; } = EmailBodyContentType.Text;
 
         public string Category { get; set; } = string.Empty;
 
         public string EmailTemplateId { get; set; } = string.Empty;
 
         public IDictionary<string, string> TagValues { get; set; } = new Dictionary<string, string>();
-    }
+    }    
+
+   
 }

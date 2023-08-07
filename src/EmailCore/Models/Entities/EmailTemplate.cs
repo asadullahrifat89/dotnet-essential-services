@@ -11,7 +11,7 @@ namespace EmailCore.Models.Entities
 
         public string Body { get; set; } = string.Empty;
 
-        public EmailTemplateType EmailTemplateType { get; set; } = EmailTemplateType.Text;
+        public EmailBodyContentType EmailBodyContentType { get; set; } = EmailBodyContentType.Text;
 
         public string[] Tags { get; set; } = new string[] { };
 
@@ -21,19 +21,12 @@ namespace EmailCore.Models.Entities
             {
                 Name = command.Name,
                 Body = command.Body,
-                EmailTemplateType = command.EmailTemplateType,
+                EmailBodyContentType = command.EmailBodyContentType,
                 Tags = command.Tags,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
             };
 
             return EmailTemplate;
         }
-    }
-
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum EmailTemplateType
-    {
-        Text,
-        HTML
-    }
+    }  
 }

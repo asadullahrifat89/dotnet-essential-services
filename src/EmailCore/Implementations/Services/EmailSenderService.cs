@@ -52,19 +52,43 @@ namespace EmailCore.Implementations.Services
 
                     var emailBodyBuilder = new BodyBuilder();
 
-                    if (emailTemplate is not null)
+                    switch (emailMessage.EmailBodyType)
                     {
-                        switch (emailTemplate.EmailTemplateType)
-                        {
-                            case EmailTemplateType.Text:
-                                emailBodyBuilder.TextBody = emailMessage.Body;
-                                break;
-                            case EmailTemplateType.HTML:
-                                emailBodyBuilder.HtmlBody = emailMessage.Body;
-                                break;
-                            default:
-                                break;
-                        }
+                        case EmailBodyType.NonTemplated:
+                            {
+                                switch (emailMessage.EmailBody.EmailBodyContentType)
+                                {
+                                    case EmailBodyContentType.Text:
+                                        emailBodyBuilder.TextBody = emailMessage.EmailBody.Content;
+                                        break;
+                                    case EmailBodyContentType.HTML:
+                                        emailBodyBuilder.HtmlBody = emailMessage.EmailBody.Content;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            break;
+                        case EmailBodyType.Templated:
+                            {
+                                if (emailTemplate is not null)
+                                {
+                                    switch (emailTemplate.EmailBodyContentType)
+                                    {
+                                        case EmailBodyContentType.Text:
+                                            emailBodyBuilder.TextBody = emailMessage.EmailBody.Content;
+                                            break;
+                                        case EmailBodyContentType.HTML:
+                                            emailBodyBuilder.HtmlBody = emailMessage.EmailBody.Content;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            break;
                     }
 
                     mimeMessage.Body = emailBodyBuilder.ToMessageBody();

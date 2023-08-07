@@ -23,7 +23,9 @@ namespace EmailCore.Models.Entities
 
         public string Subject { get; set; } = string.Empty;
 
-        public string Body { get; set; } = string.Empty;
+        public EmailBody EmailBody { get; set; } = new EmailBody();
+
+        public EmailBodyType EmailBodyType { get; set; }
 
         public string Category { get; set; } = string.Empty;
 
@@ -40,7 +42,8 @@ namespace EmailCore.Models.Entities
             var emailMessage = new EmailMessage()
             {
                 Subject = command.Subject,
-                Body = command.Body,
+                EmailBody = command.EmailBody,
+                EmailBodyType = command.EmailBodyType,
                 Category = command.Category,
                 EmailTemplateId = command.EmailTemplateId,
                 CC = command.CC,
@@ -63,6 +66,27 @@ namespace EmailCore.Models.Entities
         Pending,
         Sent,
         Failed,
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum EmailBodyType
+    {
+        NonTemplated,
+        Templated,
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum EmailBodyContentType
+    {
+        Text,
+        HTML,
+    }
+
+    public class EmailBody
+    {
+        public string Content { get; set; } = string.Empty;
+
+        public EmailBodyContentType EmailBodyContentType { get; set; } = EmailBodyContentType.Text;
     }
 
     public class EmailContact

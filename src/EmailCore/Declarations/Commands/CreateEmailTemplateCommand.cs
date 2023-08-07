@@ -10,7 +10,7 @@ namespace EmailCore.Declarations.Commands
 
         public string Body { get; set; } = string.Empty;
 
-        public EmailTemplateType EmailTemplateType { get; set; } = EmailTemplateType.Text;
+        public EmailBodyContentType EmailBodyContentType { get; set; } = EmailBodyContentType.Text;
 
         public string[] Tags { get; set; } = new string[] { };
     }

@@ -1,6 +1,7 @@
 ﻿using BaseCore.Extensions;
 using EmailCore.Declarations.Commands;
 using EmailCore.Declarations.Repositories;
+using EmailCore.Models.Entities;
 using FluentValidation;
 
 namespace EmailCore.Implementations.Commands.Validators
@@ -14,11 +15,18 @@ namespace EmailCore.Implementations.Commands.Validators
             _emailRepository = emailRepository;
 
             RuleFor(x => x.To).NotNull().NotEmpty();
-            RuleFor(x => x.Body).NotNull().NotEmpty();
             RuleFor(x => x.Subject).NotNull().NotEmpty();
-            RuleFor(x => x.Body).NotNull().NotEmpty();
-            
+
             RuleFor(x => x.EmailTemplateId).MustAsync(BeAnExistingEmailTemplateById).WithMessage("Email Template doesn't exists.").When(x => !x.EmailTemplateId.IsNullOrBlank());
+
+            RuleFor(x => x.EmailBodyType).NotNull();
+            RuleFor(x => x.EmailBodyType).Must(x => x == EmailBodyType.NonTemplated || x == EmailBodyType.Templated).WithMessage("Invalid email body type.");
+
+            RuleFor(x => x).Must(x => !x.EmailTemplateId.IsNullOrBlank()).WithMessage("Pls send an email template id if body is empty.").When(x => x.EmailBody.Content.IsNullOrBlank() || x.EmailBodyType == EmailBodyType.Templated);
+
+            RuleFor(x => x).Must(x => !x.EmailBody.Content.IsNullOrBlank()).WithMessage("Pls send an email body id if email template is empty.").When(x => x.EmailTemplateId.IsNullOrBlank() || x.EmailBodyType == EmailBodyType.NonTemplated);
+
+            RuleFor(x => x).Must(x => x.EmailBody.Content.IsNullOrBlank() || x.EmailTemplateId.IsNullOrBlank()).WithMessage("Pls send either an email body or an email template id and not both.").When(x => !x.EmailBody.Content.IsNullOrBlank() && !x.EmailTemplateId.IsNullOrBlank());
         }
 
         private async Task<bool> BeAnExistingEmailTemplateById(string emailTemplateId, CancellationToken token)

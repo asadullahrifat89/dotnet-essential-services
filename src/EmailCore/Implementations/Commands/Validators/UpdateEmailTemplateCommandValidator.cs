@@ -19,8 +19,8 @@ namespace EmailCore.Implementations.Commands.Validators
             RuleFor(x => x.Body).NotNull().NotEmpty();
             RuleFor(x => x.Tags).NotNull().NotEmpty();
 
-            RuleFor(x => x.EmailTemplateType).NotNull();
-            RuleFor(x => x.EmailTemplateType).Must(x => x == EmailTemplateType.Text || x == EmailTemplateType.HTML).WithMessage("Invalid email template type.").When(x => x.EmailTemplateType != null);
+            RuleFor(x => x.EmailBodyContentType).NotNull();
+            RuleFor(x => x.EmailBodyContentType).Must(x => x == EmailBodyContentType.Text || x == EmailBodyContentType.HTML).WithMessage("Invalid email template type.").When(x => x.EmailBodyContentType != null);
         }
 
         private async Task<bool> BeAnExistingTemplate(string templateId, CancellationToken arg2)

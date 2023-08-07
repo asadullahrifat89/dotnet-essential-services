@@ -55,11 +55,11 @@ namespace EmailCore.Implementations.Repositories
 
             // replace tags
 
-            if (!emailMessage.EmailTemplateId.IsNullOrBlank())
+            if (!emailMessage.EmailTemplateId.IsNullOrBlank() && emailMessage.EmailBodyType == EmailBodyType.Templated)
             {
                 var emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateId);
 
-                var body = emailMessage.Body;
+                var body = emailTemplate.Body;
 
                 foreach (var tag in emailTemplate.Tags)
                 {
@@ -69,7 +69,7 @@ namespace EmailCore.Implementations.Repositories
                         body = body.Replace(sourceTag, emailMessage.TagValues[tag]);
                 }
 
-                emailMessage.Body = body;
+                emailMessage.EmailBody.Content = body;
             }
 
             await _mongoDbService.InsertDocument(emailMessage);
