@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using IdentityCore;
 using IdentityCore.Models.Entities;
 using IdentityCore.Declarations.Queries;
 using BaseCore.Models.Responses;

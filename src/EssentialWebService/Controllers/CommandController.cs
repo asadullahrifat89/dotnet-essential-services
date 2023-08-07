@@ -1,5 +1,4 @@
 ﻿using BaseCore.Models.Responses;
-using IdentityCore;
 using BaseCore.Attributes;
 using IdentityCore.Declarations.Commands;
 using MediatR;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using BaseCommon;
 using BlobCore.Declarations.Commands;
 using EmailCore.Declarations.Commands;
-using MongoDB.Driver;
 
 namespace EssentialWebService.Controllers
 {

@@ -5,6 +5,7 @@ using EmailCore.Models.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Net.Mail;
 
 namespace EmailCore.Implementations.Services
 {
@@ -34,44 +35,44 @@ namespace EmailCore.Implementations.Services
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                EmailMessage emailMessageinProcess = null;
-
                 try
                 {
+                    var batch = new List<(EmailMessage? EmailMessage, EmailTemplate? EmailTemplate)>();
+
                     // Fetch email messages from the database
                     var emailMessages = await GetEmailMessagesFromDatabase();
 
+                    // Prepare a batch of emails to be sent
                     foreach (var emailMessage in emailMessages)
                     {
-                        // Send the email using the EmailSender service
-
-                        emailMessageinProcess = emailMessage;
-
-                        EmailTemplate emailTemplate = null;
+                        EmailTemplate? emailTemplate = null;
 
                         if (!emailMessage.EmailTemplateConfiguration.EmailTemplateId.IsNullOrBlank())
                         {
                             emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateConfiguration.EmailTemplateId);
                         }
 
-                        var result = await _emailSenderService.SendEmailAsync(emailMessage, emailTemplate);
-
-                        if (result)
-                        {
-                            await _emailMessageRepository.UpdateEmailMessageStatus(emailMessage.Id, EmailSendStatus.Sent);
-                        }
-                        else
-                        {
-                            await _emailMessageRepository.UpdateEmailMessageStatus(emailMessage.Id, EmailSendStatus.Failed);
-                        }
+                        batch.Add((emailMessage, emailTemplate));
                     }
+
+                    if (batch.Any())
+                    {
+                        // Send the email batch
+                        var result = await _emailSenderService.SendEmailBatch(batch, async (result) =>
+                        {
+                            if (result.IsSuccess)
+                            {
+                                await _emailMessageRepository.UpdateEmailMessageStatus(result.EmailMessage.Id, EmailSendStatus.Sent);
+                            }
+                            else
+                            {
+                                await _emailMessageRepository.UpdateEmailMessageStatus(result.EmailMessage.Id, EmailSendStatus.Failed);
+                            }
+                        });
+                    }                  
                 }
                 catch (Exception ex)
                 {
-                    // Handle exceptions here, for example, log the error
-                    if (emailMessageinProcess is not null)
-                        await _emailMessageRepository.UpdateEmailMessageStatus(emailMessageinProcess.Id, EmailSendStatus.Failed);
-
                     _logger.LogError(ex.Message, ex);
                 }
 

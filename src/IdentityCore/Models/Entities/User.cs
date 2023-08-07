@@ -1,10 +1,5 @@
 ﻿using BaseCore.Models.Entities;
 using IdentityCore.Declarations.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BaseCore.Extensions;
 
 namespace IdentityCore.Models.Entities

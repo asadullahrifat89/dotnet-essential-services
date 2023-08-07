@@ -1,6 +1,5 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
-using IdentityCore;
 using Serilog;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Declarations.Commands;
@@ -12,10 +11,7 @@ using BlobCore.Implementations.Commands.Validators;
 using BlobCore.Declarations.Repositories;
 using BlobCore.Declarations.Commands;
 using EmailCore.Declarations.Commands;
-using EmailCore.Implementations.Commands.Validators;
 using EmailCore.Declarations.Repositories;
-using EmailCore.Implementations.Queries.Validators;
-using EmailCore.Declarations.Queries;
 using BaseCore.Services;
 using EmailCore.Declarations.Services;
 using EmailCore.Implementations.Services;
