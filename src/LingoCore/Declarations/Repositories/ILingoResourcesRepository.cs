@@ -9,7 +9,7 @@ namespace LingoCore.Declarations.Repositories
     {
         Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command);
 
-        Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query);
+        Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query);
       
         Task<bool> BeAnExistingLanguage(string languageCode);
       

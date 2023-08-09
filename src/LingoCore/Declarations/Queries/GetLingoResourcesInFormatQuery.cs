@@ -4,7 +4,7 @@ using MediatR;
 
 namespace LingoCore.Declarations.Queries
 {
-    public class GetLingoResourcesInFormatQuery : IRequest<QueryRecordsResponse<LingoResource>>
+    public class GetLingoResourcesInFormatQuery : IRequest<QueryRecordResponse<Dictionary<string, string>>>
     {
         public string AppId { get; set; } = string.Empty;
 

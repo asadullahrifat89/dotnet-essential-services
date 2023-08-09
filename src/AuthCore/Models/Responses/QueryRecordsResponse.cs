@@ -39,6 +39,8 @@
                 },
             };
         }
+
+        
     }
 
     public class QueryResult<TRecord>

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace LingoCore.Implementations.Queries.Handlers
 {
-    public class GetLingoResourcesInFormatQueryHandler : IRequestHandler<GetLingoResourcesInFormatQuery, QueryRecordsResponse<LingoResource>>
+    public class GetLingoResourcesInFormatQueryHandler : IRequestHandler<GetLingoResourcesInFormatQuery, QueryRecordResponse<Dictionary<string, string>>>
     {
 
         #region Fields
@@ -45,7 +45,7 @@ namespace LingoCore.Implementations.Queries.Handlers
         #endregion
 
         #region Methods
-        public async Task<QueryRecordsResponse<LingoResource>> Handle(GetLingoResourcesInFormatQuery request, CancellationToken cancellationToken)
+        public async Task<QueryRecordResponse<Dictionary<string, string>>> Handle(GetLingoResourcesInFormatQuery request, CancellationToken cancellationToken)
         {
             try
             {
@@ -57,9 +57,11 @@ namespace LingoCore.Implementations.Queries.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordsResponse<LingoResource>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
             }
         }
+
+        
 
         #endregion
     }

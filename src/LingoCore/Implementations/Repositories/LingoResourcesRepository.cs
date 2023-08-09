@@ -6,6 +6,8 @@ using LingoCore.Declarations.Queries;
 using LingoCore.Declarations.Repositories;
 using LingoCore.Models.Entities;
 using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LingoCore.Implementations.Repositories
 {
@@ -48,7 +50,7 @@ namespace LingoCore.Implementations.Repositories
             return _mongoDbService.Exists<LingoResource>(filter);
         }
 
-        public async Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query)
+        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query)
         {
             var format = query.Format.ToLower();
 
@@ -56,10 +58,7 @@ namespace LingoCore.Implementations.Repositories
             {
                 return await GetLingoResourcesInJson(query);
             }
-            else if (format.Equals("xml"))
-            {
-                return Response.BuildQueryRecordsResponse<LingoResource>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError("XML format is not supported yet", _authenticationContextProvider.GetAuthenticationContext().RequestUri));
-            }
+      
             else
             {
                 return await GetLingoResourcesInJson(query);
@@ -67,20 +66,24 @@ namespace LingoCore.Implementations.Repositories
 
         }
 
-        private async Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInJson(GetLingoResourcesInFormatQuery query)
+        private async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInJson(GetLingoResourcesInFormatQuery query)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<LingoResource>.Filter.Where(x => x.AppId.Equals(query.AppId) && x.LanguageCode.Equals(query.LanguageCode));
+            var languageCode = query.LanguageCode.ToLower();
 
-            var lingoResources = await _mongoDbService.GetDocuments(filter: filter);
+            var filter = Builders<LingoResource>.Filter.Where(lr => lr.LanguageCode == languageCode);
+
+            var resources = await _mongoDbService.GetDocuments(filter);
+
+            var result = resources.ToDictionary(x => x.ResourceKey, x => x.ResourceValue);
 
             var count = await _mongoDbService.CountDocuments(filter: filter);
-
-            return new QueryRecordsResponse<LingoResource>().BuildSuccessResponse(
-               count: count,
-               records: lingoResources is not null ? lingoResources.ToArray() : Array.Empty<LingoResource>(), authCtx?.RequestUri);
+ 
+            return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildSuccessResponse(result, authCtx?.RequestUri);
         }
+
+
 
         #endregion
     }
