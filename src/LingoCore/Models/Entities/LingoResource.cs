@@ -15,9 +15,10 @@ namespace LingoCore.Models.Entities
         public string ResourceValue { get; set; } = string.Empty;
 
 
-        public static LingoResource Initialize(AddLingoResourcesCommand command, AuthenticationContext authenticationContext)
+        public static List<LingoResource> Initialize(AddLingoResourcesCommand command, AuthenticationContext authenticationContext)
         {
             var resourcesKey = command.ResourceKeys.Select(x => x.ResourceKey).Distinct();
+            var lingoResources = new List<LingoResource>();
 
             foreach (var resourceKey in resourcesKey)
             {
@@ -34,11 +35,11 @@ namespace LingoCore.Models.Entities
                         TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
                     };
 
-                    return lingoResource;
+                    lingoResources.Add(lingoResource);
                 }
             }
 
-            return null;
+            return lingoResources;
         }
     }
 }
