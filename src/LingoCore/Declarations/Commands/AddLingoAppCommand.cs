@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LingoCore.Declarations.Commands
 {
-    internal class AddLingoAppCommand
+    public class AddLingoAppCommand
     {
+        public string AppName { get; set; } = string.Empty;
     }
 }

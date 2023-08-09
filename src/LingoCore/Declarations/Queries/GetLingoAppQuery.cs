@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BaseCore.Models.Responses;
+using LingoCore.Models.Entities;
+using MediatR;
 
 namespace LingoCore.Declarations.Queries
 {
-    public class GetLingoAppQuery
+    public class GetLingoAppQuery: IRequest<QueryRecordResponse<LingoApp>>
     {
+        public string AppId { get; set; } = string.Empty;
     }
 }

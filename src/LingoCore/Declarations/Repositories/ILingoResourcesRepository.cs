@@ -1,13 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BaseCore.Models.Responses;
+using LingoCore.Declarations.Commands;
+using LingoCore.Declarations.Queries;
+using LingoCore.Models.Entities;
 
 namespace LingoCore.Declarations.Repositories
 {
-    public class ILingoResourcesRepository
+    public interface ILingoResourcesRepository
     {
+        Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command);
 
+        Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command);
+
+        Task<QueryRecordResponse<LingoApp>> GetLingoApp(GetLingoAppQuery query);
+
+        Task<QueryRecordResponse<LingoResource>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query);
+
+        Task<bool> BeAnExistingLingApp(string appName);
     }
 }
