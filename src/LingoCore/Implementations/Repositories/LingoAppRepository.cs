@@ -45,9 +45,16 @@ namespace LingoCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(lingoApp, authCtx?.RequestUri);
         }
 
-        public Task<QueryRecordResponse<LingoApp>> GetLingoApp(GetLingoAppQuery query)
+        public async Task<QueryRecordResponse<LingoApp>> GetLingoApp(GetLingoAppQuery query)
         {
-            throw new NotImplementedException();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+            var filter = Builders<LingoApp>.Filter.Where(x => x.Id.Equals(query.AppId));
+
+            var user = await _mongoDbService.FindOne(filter);
+
+            return Response.BuildQueryRecordResponse<LingoApp>().BuildSuccessResponse(user, authCtx?.RequestUri);
+
         }
 
         public Task<bool> BeAnExistingLingoApp(string appName)

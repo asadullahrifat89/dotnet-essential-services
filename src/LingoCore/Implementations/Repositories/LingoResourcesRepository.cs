@@ -73,13 +73,13 @@ namespace LingoCore.Implementations.Repositories
 
             var filter = Builders<LingoResource>.Filter.Where(x => x.AppId.Equals(query.AppId) && x.LanguageCode.Equals(query.LanguageCode));
 
-            var LingoResources = await _mongoDbService.GetDocuments(filter: filter);
+            var lingoResources = await _mongoDbService.GetDocuments(filter: filter);
 
             var count = await _mongoDbService.CountDocuments(filter: filter);
 
             return new QueryRecordsResponse<LingoResource>().BuildSuccessResponse(
                count: count,
-               records: LingoResources is not null ? LingoResources.ToArray() : Array.Empty<LingoResource>(), authCtx?.RequestUri);
+               records: lingoResources is not null ? lingoResources.ToArray() : Array.Empty<LingoResource>(), authCtx?.RequestUri);
         }
 
         #endregion

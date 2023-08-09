@@ -126,6 +126,13 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(query);
         }
 
+        [HttpGet(EndpointRoutes.Action_GetLingoApp)]
+
+        public async Task<QueryRecordResponse<LingoApp>> GetLingoApp([FromQuery] GetLingoAppQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
 
         #endregion
 
