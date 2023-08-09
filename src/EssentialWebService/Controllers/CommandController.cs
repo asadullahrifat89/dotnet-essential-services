@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using BaseCommon;
 using BlobCore.Declarations.Commands;
 using EmailCore.Declarations.Commands;
+using LingoCore.Declarations.Commands;
 
 namespace EssentialWebService.Controllers
 {
@@ -149,6 +150,17 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(command);
         }
+
+        #endregion
+
+        #region LingoResource
+
+        [HttpPost(EndpointRoutes.Action_AddLingoApp)]
+        public async Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
 
         #endregion
 

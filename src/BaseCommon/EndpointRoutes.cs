@@ -33,5 +33,11 @@ namespace BaseCommon
         public const string Action_UpdateEmailTemplate = "api/Command/UpdateEmailTemplate";
 
         public const string Action_EnqueueEmailMessage = "api/Command/EnqueueEmailMessage";
+
+        public const string Action_AddLingoApp = "api/Command/AddLingoApp";
+        public const string Action_AddLingoResources = "api/Command/AddLingoResources";
+        public const string Action_GetLingoApp = "api/Query/GetLingoApp";
+        public const string Action_GetLingoResourcesInFormat = "api/Query/GetLingoResourcesInFormat";
+
     }
 }

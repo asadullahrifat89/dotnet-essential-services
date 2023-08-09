@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BaseCore.Models.Responses;
+using MediatR;
 
 namespace LingoCore.Declarations.Commands
 {
-    public class AddLingoAppCommand
+    public class AddLingoAppCommand : IRequest<ServiceResponse>
     {
-        public string AppName { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }
