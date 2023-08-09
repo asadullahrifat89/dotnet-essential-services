@@ -161,6 +161,11 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPost(EndpointRoutes.Action_AddLingoResources)]
+        public async Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command)
+        {
+            return await _mediator.Send(command);
+        }
 
         #endregion
 

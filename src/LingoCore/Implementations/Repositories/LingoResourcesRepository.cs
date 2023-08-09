@@ -28,6 +28,7 @@ namespace LingoCore.Implementations.Repositories
         #endregion
 
         #region Methods
+
         public async Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
@@ -39,14 +40,27 @@ namespace LingoCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(lingoApp, authCtx?.RequestUri);
         }
 
-        public Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command)
+        public async Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command)
         {
-            throw new NotImplementedException();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+            var lingoResource = LingoResource.Initialize(command, authCtx);
+
+            await _mongoDbService.InsertDocuments(lingoResource);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(lingoResource, authCtx?.RequestUri);
         }
 
         public Task<bool> BeAnExistingLingApp(string appName)
         {
             var filter = Builders<LingoApp>.Filter.Where(x => x.Name.ToLower().Equals(appName.ToLower()));
+
+            return _mongoDbService.Exists<LingoApp>(filter);
+        }
+
+        public Task<bool> BeAnExistingLingoAppById(string appId)
+        {
+            var filter = Builders<LingoApp>.Filter.Where(x => x.Id.Equals(appId));
 
             return _mongoDbService.Exists<LingoApp>(filter);
         }
@@ -60,6 +74,7 @@ namespace LingoCore.Implementations.Repositories
         {
             throw new NotImplementedException();
         }
+        
         #endregion
     }
 }
