@@ -9,7 +9,6 @@ namespace LingoCore.Declarations.Commands
 
         public List<ResourceKeyEntry> ResourceKeys { get; set; } = new List<ResourceKeyEntry>();
 
-
         public class ResourceKeyEntry
         {
             public string ResourceKey { get; set; } = string.Empty;
