@@ -18,12 +18,17 @@ namespace LingoCore.Implementations.Queries.Handlers
 {
     public class GetLingoResourcesInFormatQueryHandler : IRequestHandler<GetLingoResourcesInFormatQuery, QueryRecordsResponse<LingoResource>>
     {
+
+        #region Fields
+
         private readonly ILogger<GetLingoResourcesInFormatQueryHandler> _logger;
         private readonly GetLingoResourcesInFormatQueryValidator _validator;
         private readonly ILingoResourcesRepository _lingoResourceRepository;
         private readonly IAuthenticationContextProvider _authenticationContext;
 
+        #endregion
 
+        #region Ctor
 
         public GetLingoResourcesInFormatQueryHandler(
             ILogger<GetLingoResourcesInFormatQueryHandler> logger,
@@ -37,6 +42,9 @@ namespace LingoCore.Implementations.Queries.Handlers
             _authenticationContext = authenticationContext;
         }
 
+        #endregion
+
+        #region Methods
         public async Task<QueryRecordsResponse<LingoResource>> Handle(GetLingoResourcesInFormatQuery request, CancellationToken cancellationToken)
         {
             try
@@ -52,5 +60,7 @@ namespace LingoCore.Implementations.Queries.Handlers
                 return Response.BuildQueryRecordsResponse<LingoResource>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
             }
         }
+
+        #endregion
     }
 }

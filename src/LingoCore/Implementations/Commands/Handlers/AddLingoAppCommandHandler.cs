@@ -18,7 +18,7 @@ namespace LingoCore.Implementations.Commands.Handlers
 
         private readonly AddLingoAppCommandValidator _validator;
 
-        private readonly ILingoResourcesRepository _lingoResourcesRepository;
+        private readonly ILingoAppRepository _lingoAppRepository;
 
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
@@ -29,12 +29,12 @@ namespace LingoCore.Implementations.Commands.Handlers
         public AddLingoAppCommandHandler(
             ILogger<AddLingoAppCommandHandler> logger,
             AddLingoAppCommandValidator validator,
-            ILingoResourcesRepository lingoResourcesRepository,
+            ILingoAppRepository lingoAppRepository,
             IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;
-            _lingoResourcesRepository = lingoResourcesRepository;
+            _lingoAppRepository = lingoAppRepository;
             _authenticationContextProvider = authenticationContextProvider;
         }
 
@@ -49,7 +49,7 @@ namespace LingoCore.Implementations.Commands.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _lingoResourcesRepository.AddLingoApp(request);
+                return await _lingoAppRepository.AddLingoApp(request);
             }
             catch (Exception ex)
             {

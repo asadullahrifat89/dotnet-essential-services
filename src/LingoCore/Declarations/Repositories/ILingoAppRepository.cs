@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LingoCore.Declarations.Repositories
 {
-    internal interface ILingoAppRepository
+    public interface ILingoAppRepository
     {
   
 

@@ -2,11 +2,6 @@
 using FluentValidation;
 using LingoCore.Declarations.Queries;
 using LingoCore.Declarations.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LingoCore.Implementations.Queries.Validators
 {
@@ -14,9 +9,12 @@ namespace LingoCore.Implementations.Queries.Validators
     {
         private readonly ILingoResourcesRepository _lingoResourcesRepository;
 
-        public GetLingoResourcesInFormatQueryValidator( ILingoResourcesRepository lingoResourcesRepository)
+        private readonly ILingoAppRepository _lingoAppRepository;
+
+        public GetLingoResourcesInFormatQueryValidator( ILingoResourcesRepository lingoResourcesRepository, ILingoAppRepository lingoAppRepository)
         {
             _lingoResourcesRepository = lingoResourcesRepository;
+            _lingoAppRepository = lingoAppRepository;
 
             RuleFor(x => x.AppId).NotNull().NotEmpty();
             RuleFor(x => x.AppId).MustAsync(BeAnExistingLingoApp).WithMessage("LingoApp ID doesn't exist.").When(x => !x.AppId.IsNullOrBlank());
@@ -29,9 +27,8 @@ namespace LingoCore.Implementations.Queries.Validators
 
         private async Task<bool> BeAnExistingLingoApp(string appId, CancellationToken token)
         {
-            return await _lingoResourcesRepository.BeAnExistingLingoAppById(appId);
+            return await _lingoAppRepository.BeAnExistingLingoAppById(appId);
         }
-
 
         private async Task<bool> BeAnExistingLanguage(string languageCode, CancellationToken token)
         {

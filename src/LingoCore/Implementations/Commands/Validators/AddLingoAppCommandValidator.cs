@@ -7,11 +7,11 @@ namespace LingoCore.Implementations.Commands.Validators
 {
     public class AddLingoAppCommandValidator: AbstractValidator<AddLingoAppCommand>
     {
-        private readonly ILingoResourcesRepository _lingoResourcesRepository;
+        private readonly ILingoAppRepository _lingoAppRepository;
 
-        public AddLingoAppCommandValidator(ILingoResourcesRepository lingoResourcesRepository)
+        public AddLingoAppCommandValidator(ILingoAppRepository lingoAppRepository)
         {
-            _lingoResourcesRepository = lingoResourcesRepository;
+            _lingoAppRepository = lingoAppRepository;
 
             RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("Name is required");
 
@@ -20,7 +20,7 @@ namespace LingoCore.Implementations.Commands.Validators
 
         private async Task<bool> NotBeAnExistingLingoApp(string appName, CancellationToken token)
         {
-            return !await _lingoResourcesRepository.BeAnExistingLingoApp(appName);
+            return !await _lingoAppRepository.BeAnExistingLingoApp(appName);
         }
     }
 }
