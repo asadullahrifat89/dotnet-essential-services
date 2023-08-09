@@ -121,7 +121,7 @@ namespace EssentialWebService.Controllers
 
         [HttpGet(EndpointRoutes.Action_GetLingoResourcesInFormat)]
         
-        public async Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInFormat([FromQuery] GetLingoResourcesInFormatQuery query)
+        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat([FromQuery] GetLingoResourcesInFormatQuery query)
         {
             return await _mediator.Send(query);
         }

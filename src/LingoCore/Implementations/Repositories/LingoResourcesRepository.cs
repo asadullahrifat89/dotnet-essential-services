@@ -12,7 +12,7 @@ namespace LingoCore.Implementations.Repositories
     public class LingoResourcesRepository : ILingoResourcesRepository
     {
         #region Fields
-        
+
         private readonly IMongoDbService _mongoDbService;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
@@ -48,40 +48,33 @@ namespace LingoCore.Implementations.Repositories
             return _mongoDbService.Exists<LingoResource>(filter);
         }
 
-        public async Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query)
+        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query)
         {
             var format = query.Format.ToLower();
 
-            if (format.Equals("json"))
+            switch (format)
             {
-                return await GetLingoResourcesInJson(query);
+                case "json":
+                    return await GetLingoResourcesInJson(query);
+                default:
+                    return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError("Format is not supported yet", _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
-            else if (format.Equals("xml"))
-            {
-                return Response.BuildQueryRecordsResponse<LingoResource>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError("XML format is not supported yet", _authenticationContextProvider.GetAuthenticationContext().RequestUri));
-            }
-            else
-            {
-                return await GetLingoResourcesInJson(query);
-            }
-
         }
 
-        private async Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInJson(GetLingoResourcesInFormatQuery query)
+        private async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInJson(GetLingoResourcesInFormatQuery query)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<LingoResource>.Filter.Where(x => x.AppId.Equals(query.AppId) && x.LanguageCode.Equals(query.LanguageCode));
+            var filter = Builders<LingoResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(query.LanguageCode.ToLower()));
 
-            var lingoResources = await _mongoDbService.GetDocuments(filter: filter);
+            var lingoResources = await _mongoDbService.GetDocuments(filter);
 
-            var count = await _mongoDbService.CountDocuments(filter: filter);
+            var lingoResourcesInJson = lingoResources.ToDictionary(x => x.ResourceKey, x => x.ResourceValue);
 
-            return new QueryRecordsResponse<LingoResource>().BuildSuccessResponse(
-               count: count,
-               records: lingoResources is not null ? lingoResources.ToArray() : Array.Empty<LingoResource>(), authCtx?.RequestUri);
+            return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildSuccessResponse(lingoResourcesInJson, authCtx?.RequestUri);
         }
-
+        
         #endregion
     }
+
 }

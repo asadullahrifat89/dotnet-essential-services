@@ -1,22 +1,15 @@
-﻿using Amazon.Runtime.Internal.Util;
-using BaseCore.Extensions;
+﻿using BaseCore.Extensions;
 using BaseCore.Models.Responses;
 using BaseCore.Services;
 using LingoCore.Declarations.Queries;
 using LingoCore.Declarations.Repositories;
 using LingoCore.Implementations.Queries.Validators;
-using LingoCore.Models.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LingoCore.Implementations.Queries.Handlers
 {
-    public class GetLingoResourcesInFormatQueryHandler : IRequestHandler<GetLingoResourcesInFormatQuery, QueryRecordsResponse<LingoResource>>
+    public class GetLingoResourcesInFormatQueryHandler : IRequestHandler<GetLingoResourcesInFormatQuery, QueryRecordResponse<Dictionary<string, string>>>
     {
 
         #region Fields
@@ -45,7 +38,7 @@ namespace LingoCore.Implementations.Queries.Handlers
         #endregion
 
         #region Methods
-        public async Task<QueryRecordsResponse<LingoResource>> Handle(GetLingoResourcesInFormatQuery request, CancellationToken cancellationToken)
+        public async Task<QueryRecordResponse<Dictionary<string, string>>> Handle(GetLingoResourcesInFormatQuery request, CancellationToken cancellationToken)
         {
             try
             {
@@ -57,7 +50,7 @@ namespace LingoCore.Implementations.Queries.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordsResponse<LingoResource>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
             }
         }
 
