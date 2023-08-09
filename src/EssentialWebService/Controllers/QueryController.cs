@@ -9,7 +9,8 @@ using BlobCore.Declarations.Queries;
 using BlobCore.Models.Entities;
 using EmailCore.Declarations.Queries;
 using EmailCore.Models.Entities;
-
+using LingoCore.Models.Entities;
+using LingoCore.Declarations.Queries;
 
 namespace EssentialWebService.Controllers
 {
@@ -113,6 +114,18 @@ namespace EssentialWebService.Controllers
         //{
         //    return await _mediator.Send(query);
         //} 
+
+        #endregion
+
+        #region LingoResources
+
+        [HttpGet(EndpointRoutes.Action_GetLingoResourcesInFormat)]
+        
+        public async Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInFormat([FromQuery] GetLingoResourcesInFormatQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
 
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using BaseCore.Models.Responses;
+﻿using BaseCore.Models.Entities;
+using BaseCore.Models.Responses;
 using BaseCore.Services;
 using LingoCore.Declarations.Commands;
 using LingoCore.Declarations.Queries;
@@ -51,7 +52,14 @@ namespace LingoCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(lingoResource, authCtx?.RequestUri);
         }
 
-        public Task<bool> BeAnExistingLingApp(string appName)
+        public Task<bool> BeAnExistingLanguage(string languageCode)
+        {
+            var filter = Builders<LingoResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()));
+
+            return _mongoDbService.Exists<LingoResource>(filter);
+        }
+
+        public Task<bool> BeAnExistingLingoApp(string appName)
         {
             var filter = Builders<LingoApp>.Filter.Where(x => x.Name.ToLower().Equals(appName.ToLower()));
 
@@ -70,9 +78,20 @@ namespace LingoCore.Implementations.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<QueryRecordResponse<LingoResource>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query)
+        public async Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query)
         {
-            throw new NotImplementedException();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+            var filter = Builders<LingoResource>.Filter.Where(x => x.AppId.Equals(query.AppId) && x.LanguageCode.Equals(query.LanguageCode));
+
+            var LingoResources =  await _mongoDbService.GetDocuments(filter: filter);
+
+            var count =  await _mongoDbService.CountDocuments(filter: filter);
+
+            return new QueryRecordsResponse<LingoResource>().BuildSuccessResponse(
+               count: count,
+               records: LingoResources is not null ? LingoResources.ToArray() : Array.Empty<LingoResource>(), authCtx?.RequestUri);
+
         }
         
         #endregion

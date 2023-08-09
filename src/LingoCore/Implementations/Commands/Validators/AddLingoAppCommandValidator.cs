@@ -20,7 +20,7 @@ namespace LingoCore.Implementations.Commands.Validators
 
         private async Task<bool> NotBeAnExistingLingoApp(string appName, CancellationToken token)
         {
-            return !await _lingoResourcesRepository.BeAnExistingLingApp(appName);
+            return !await _lingoResourcesRepository.BeAnExistingLingoApp(appName);
         }
     }
 }

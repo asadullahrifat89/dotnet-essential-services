@@ -13,10 +13,13 @@ namespace LingoCore.Declarations.Repositories
 
         Task<QueryRecordResponse<LingoApp>> GetLingoApp(GetLingoAppQuery query);
 
-        Task<QueryRecordResponse<LingoResource>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query);
+        Task<QueryRecordsResponse<LingoResource>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query);
 
-        Task<bool> BeAnExistingLingApp(string appName);
+        Task<bool> BeAnExistingLingoApp(string appName);
 
         Task<bool> BeAnExistingLingoAppById(string appId);
+
+        Task<bool> BeAnExistingLanguage(string languageCode);
+      
     }
 }
