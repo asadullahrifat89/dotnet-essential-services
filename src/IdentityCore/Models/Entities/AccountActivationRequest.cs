@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Models.Entities
 {
-    public class AcountActivationRequest
+    public class AccountActivationRequest
     {
         public string Email = string.Empty;
         public string ActivationKey = string.Empty;
