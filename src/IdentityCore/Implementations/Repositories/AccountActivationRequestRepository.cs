@@ -67,68 +67,61 @@ namespace IdentityCore.Implementations.Repositories
         public async Task<ServiceResponse> VerifyAccountActivationRequest(VerifyUserAccountActivationRequestCommand command)
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
+            var email = command.Email;
+            var activationKey = command.ActivationKey;
 
-            var filter = Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, command.Email);
+            var activationRequest = await GetAccountActivationRequest(email);
 
-            var accountActivationRequest = await _mongoDbService.FindOne<AccountActivationRequest>(filter);
-
-            if (accountActivationRequest != null)
-            {
-                if (accountActivationRequest.ActivationKey == command.ActivationKey)
-                {
-                    if(accountActivationRequest.ActivationKeyStatus != ActivationKeyStatus.Expired)
-                    {
-                        var user = await _userRepository.GetUserByEmail(command.Email);
-
-                        var userFilter = Builders<User>.Filter.Eq(x => x.Email, command.Email);
-
-                        if (user != null)
-                        {
-                            var updateStatus = Builders<User>.Update
-                                .Set(x => x.UserStatus, UserStatus.Active);
-
-                            await _mongoDbService.UpdateDocument(update: updateStatus, filter: userFilter);
-
-                            // set activation key status to expired
-
-                            var updateActivationKeyStatus = Builders<AccountActivationRequest>.Update
-                                .Set(x => x.ActivationKeyStatus, ActivationKeyStatus.Expired);
-
-                            await _mongoDbService.UpdateDocument(update: updateActivationKeyStatus, filter: filter);
-
-                            // update password using updatePassword method
-
-                            var updatePassword = new UpdateUserPasswordCommand
-                            {
-                                UserId = user.Id,
-                                NewPassword = command.Password
-                            };
-
-                            return await _userRepository.UpdateUserPassword(updatePassword);
-
-                        }
-                        else
-                        {
-                            return Response.BuildServiceResponse().BuildErrorResponse("User not found");
-                        }
-                        
-                    }
-                    else
-                    {
-                        return Response.BuildServiceResponse().BuildErrorResponse("Activation Key expired");
-                    };
-                }
-                else
-                {
-                    return Response.BuildServiceResponse().BuildErrorResponse("Invalid activation code");
-                }
-            }
-            else
+            if (activationRequest == null)
             {
                 return Response.BuildServiceResponse().BuildErrorResponse("Account activation request not found");
             }
 
-            #endregion
+            if (activationRequest.ActivationKey != activationKey)
+            {
+                return Response.BuildServiceResponse().BuildErrorResponse("Invalid activation code");
+            }
+
+            if (activationRequest.ActivationKeyStatus == ActivationKeyStatus.Expired)
+            {
+                return Response.BuildServiceResponse().BuildErrorResponse("Activation Key expired");
+            }
+
+            var user = await _userRepository.GetUserByEmail(email);
+
+            if (user == null)
+            {
+                return Response.BuildServiceResponse().BuildErrorResponse("User not found");
+            }
+
+            await ActivateUserAndExpireActivationKey(user, activationRequest, command.Password);
+
+            var updatePasswordCommand = new UpdateUserPasswordCommand
+            {
+                UserId = user.Id,
+                NewPassword = command.Password
+            };
+
+            return await _userRepository.UpdateUserPassword(updatePasswordCommand);
         }
+
+        private async Task<AccountActivationRequest> GetAccountActivationRequest(string email)
+        {
+            var filter = Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, email);
+            return await _mongoDbService.FindOne<AccountActivationRequest>(filter);
+        }
+
+        private async Task ActivateUserAndExpireActivationKey(User user, AccountActivationRequest activationRequest, string newPassword)
+        {
+            var userFilter = Builders<User>.Filter.Eq(x => x.Email, user.Email);
+            var updateStatus = Builders<User>.Update.Set(x => x.UserStatus, UserStatus.Active);
+            await _mongoDbService.UpdateDocument(update: updateStatus, filter: userFilter);
+
+            var activationKeyFilter = Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, activationRequest.Email);
+            var updateActivationKeyStatus = Builders<AccountActivationRequest>.Update.Set(x => x.ActivationKeyStatus, ActivationKeyStatus.Expired);
+            await _mongoDbService.UpdateDocument(update: updateActivationKeyStatus, filter: activationKeyFilter);
+        }
+
+        #endregion
     }
 }
