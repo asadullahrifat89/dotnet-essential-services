@@ -20,14 +20,9 @@ namespace BaseCore.Models.Entities
 
         public Address Address { get; set; } = new Address();
 
-        public UserSatus UserSatus { get; set; } = UserSatus.Active;
+        public UserSatus UserSatus { get; set; } = UserSatus.Inactive;
 
         public string[] MetaTags { get; set; } = new string[] { };
-
-    }
-
-    internal class User : UserBase
-    {
 
     }
 
