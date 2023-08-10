@@ -11,9 +11,10 @@ using System.Xml.Linq;
 
 namespace IdentityCore.Models.Entities
 {
-    public class AccountActivationRequest
+ 
+    public class AccountActivationRequest : EntityBase
     {
-        public string Email = string.Empty;
+        public string Email { get; set; } = string.Empty;
 
         public string ActivationKey = generateActivatioKey();
 

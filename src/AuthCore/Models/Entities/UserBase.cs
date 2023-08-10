@@ -26,6 +26,8 @@ namespace BaseCore.Models.Entities
 
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+
     internal class User : UserBase
     {
 
