@@ -7,7 +7,7 @@ namespace IdentityCore.Declarations.Commands
 {
     public class SendUserAccountActivationRequestCommand : IRequest<ServiceResponse>
     {
-        public string Email = string.Empty;
+        public string Email { get; set; } = string.Empty;
     }
     
 }

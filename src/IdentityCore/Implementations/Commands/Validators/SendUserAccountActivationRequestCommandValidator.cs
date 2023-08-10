@@ -9,15 +9,11 @@ namespace IdentityCore.Implementations.Commands.Validators
     public class SendUserAccountActivationRequestCommandValidator : AbstractValidator<SendUserAccountActivationRequestCommand>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAccountActivationRequest _accountActivationReques;
-
-        public SendUserAccountActivationRequestCommandValidator(
-            IUserRepository userRepository,
-            IAccountActivationRequest accountActivationReques)
+    
+        public SendUserAccountActivationRequestCommandValidator(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _accountActivationReques = accountActivationReques;
-
+          
             RuleFor(x => x.Email).NotNull().NotEmpty();
             RuleFor(x => x).MustAsync(BeAnExistingUser).WithMessage("User doesn't exist.").When(x => !x.Email.IsNullOrBlank());
 
