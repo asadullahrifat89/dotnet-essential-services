@@ -15,7 +15,7 @@ using LingoCore.Declarations.Queries;
 namespace EssentialWebService.Controllers
 {
     [ApiController]
-    [AuthorizationRequired]    
+    [AuthorizationRequired]
     public class QueryController : ControllerBase
     {
         #region Fields
@@ -120,7 +120,7 @@ namespace EssentialWebService.Controllers
         #region LingoResources
 
         [HttpGet(EndpointRoutes.Action_GetLingoResourcesInFormat)]
-        
+
         public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat([FromQuery] GetLingoResourcesInFormatQuery query)
         {
             return await _mediator.Send(query);
@@ -132,7 +132,6 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(query);
         }
-
 
         #endregion
 
