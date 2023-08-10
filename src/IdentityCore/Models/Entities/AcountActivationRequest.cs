@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace IdentityCore.Models.Entities
@@ -14,10 +15,11 @@ namespace IdentityCore.Models.Entities
 
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ActivationStatus
     {
-        Activated ,
-        Expired 
+        Activated = 0,
+        Expired = 1,
     }
 
 }
