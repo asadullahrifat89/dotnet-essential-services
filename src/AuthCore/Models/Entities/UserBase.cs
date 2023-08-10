@@ -26,11 +26,6 @@ namespace BaseCore.Models.Entities
 
     }
 
-    internal class User : UserBase
-    {
-
-    }
-
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum UserSatus
     {
