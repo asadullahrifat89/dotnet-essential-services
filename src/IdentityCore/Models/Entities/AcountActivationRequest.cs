@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Models.Entities
 {
-    public class ActivationRequests
+    public class AcountActivationRequest
     {
         public string Email = string.Empty;
         public string ActivationKey = string.Empty;
-        public ActivationStatus ActivationStatus = ActivationStatus.Expired;
+        public ActivationStatus ActivationStatus = ActivationStatus.Activated;
 
     }
 
