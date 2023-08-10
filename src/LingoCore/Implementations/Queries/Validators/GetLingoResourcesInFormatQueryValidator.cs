@@ -11,15 +11,16 @@ namespace LingoCore.Implementations.Queries.Validators
 
         private readonly ILingoAppRepository _lingoAppRepository;
 
-        public GetLingoResourcesInFormatQueryValidator( ILingoResourcesRepository lingoResourcesRepository, ILingoAppRepository lingoAppRepository)
+        public GetLingoResourcesInFormatQueryValidator(ILingoResourcesRepository lingoResourcesRepository, ILingoAppRepository lingoAppRepository)
         {
             _lingoResourcesRepository = lingoResourcesRepository;
             _lingoAppRepository = lingoAppRepository;
 
             RuleFor(x => x.AppId).NotNull().NotEmpty();
-            RuleFor(x => x.AppId).MustAsync(BeAnExistingLingoApp).WithMessage("LingoApp ID doesn't exist.").When(x => !x.AppId.IsNullOrBlank());
+            RuleFor(x => x.AppId).MustAsync(BeAnExistingLingoApp).WithMessage("LingoApp Id doesn't exist.").When(x => !x.AppId.IsNullOrBlank());
 
             RuleFor(x => x.Format).NotNull().NotEmpty();
+            RuleFor(x => x.Format).Must(x => x == "json").WithMessage("Format not supported.").When(x => !x.Format.IsNullOrBlank());
 
             RuleFor(x => x.LanguageCode).NotNull().NotEmpty();
             RuleFor(x => x.LanguageCode).MustAsync(BeAnExistingLanguage).WithMessage("Language code doesn't exist.").When(x => !x.LanguageCode.IsNullOrBlank());

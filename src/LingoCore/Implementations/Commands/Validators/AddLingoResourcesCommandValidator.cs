@@ -13,9 +13,9 @@ namespace LingoCore.Implementations.Commands.Validators
         {
             _lingoAppRepository = lingoAppRepository;
 
-            RuleFor(x => x.AppId).NotNull().NotEmpty().WithMessage("App ID is required");
-
+            RuleFor(x => x.AppId).NotNull().NotEmpty().WithMessage("App Id is required");
             RuleFor(x => x.AppId).MustAsync(BeAnExistingLingoApp).WithMessage("Lingo app does not exist").When(x => !x.AppId.IsNullOrBlank());
+            RuleFor(x => x.ResourceKeys).Must(x => x.Count < 11).WithMessage("You can not send more than 10 resources.").When(x => x.ResourceKeys is not null);
         }
 
         private async Task<bool> BeAnExistingLingoApp(string appId, CancellationToken token)

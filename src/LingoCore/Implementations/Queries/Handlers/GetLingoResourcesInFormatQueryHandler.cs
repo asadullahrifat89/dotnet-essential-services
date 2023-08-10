@@ -11,7 +11,6 @@ namespace LingoCore.Implementations.Queries.Handlers
 {
     public class GetLingoResourcesInFormatQueryHandler : IRequestHandler<GetLingoResourcesInFormatQuery, QueryRecordResponse<Dictionary<string, string>>>
     {
-
         #region Fields
 
         private readonly ILogger<GetLingoResourcesInFormatQueryHandler> _logger;
@@ -53,8 +52,6 @@ namespace LingoCore.Implementations.Queries.Handlers
                 return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
             }
         }
-
-        
 
         #endregion
     }

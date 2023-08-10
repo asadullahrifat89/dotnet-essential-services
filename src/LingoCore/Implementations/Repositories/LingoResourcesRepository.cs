@@ -56,7 +56,7 @@ namespace LingoCore.Implementations.Repositories
                 case "json":
                     return await GetLingoResourcesInJson(query);
                 default:
-                    return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError("Format is not supported yet", _authenticationContextProvider.GetAuthenticationContext().RequestUri));
+                    return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError("Format is not supported yet.", _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
 
