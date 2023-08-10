@@ -169,6 +169,13 @@ namespace IdentityCore.Implementations.Repositories
             return await _mongoDbService.FindOne(filter);
         }
 
+        public async Task<User> GetUserByEmail(string userEmail)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.Email, userEmail);
+
+            return await _mongoDbService.FindOne(filter);
+        }
+
         public async Task<User> GetUser(string userId)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
