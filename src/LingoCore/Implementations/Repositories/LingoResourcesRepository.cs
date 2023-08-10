@@ -6,6 +6,8 @@ using LingoCore.Declarations.Queries;
 using LingoCore.Declarations.Repositories;
 using LingoCore.Models.Entities;
 using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LingoCore.Implementations.Repositories
 {
