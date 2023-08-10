@@ -169,10 +169,6 @@ namespace EssentialWebService.Controllers
 
         #endregion
 
-        //TODO: forget password - > send email address and then send a link to reset password
-
-        //TODO: activate user - > send user id
-
 
         #region AccountActivationRequest
 
@@ -181,6 +177,11 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(command);
         }
+
+
+        //TODO: forget password - > send email address and then send a link to reset password
+
+        //TODO: activate user - > send user id
 
 
         #endregion
