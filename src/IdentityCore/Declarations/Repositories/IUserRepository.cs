@@ -23,8 +23,6 @@ namespace IdentityCore.Declarations.Repositories
 
         Task<User> GetUser(string userEmail, string password);
 
-        Task<User> GetUserByEmail(string userEmail);
-
         Task<User> GetUser(string userId);
 
         Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query);
@@ -33,6 +31,12 @@ namespace IdentityCore.Declarations.Repositories
 
         Task<bool> BeAnExistingUser(string userId);
 
+        Task<User> GetUserByEmail(string userEmail);
+
         Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command);
+
+        Task<bool> ActivateUser(string id);
+
+        Task<ServiceResponse> UpdateUserPasswordById(string userId, string password);
     }
 }

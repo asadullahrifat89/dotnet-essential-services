@@ -8,8 +8,7 @@ using MongoDB.Driver;
 
 namespace IdentityCore.Implementations.Repositories
 {
-    public class AccountActivationRequestRepository : IAccountActivationRequest
-
+    public class AccountActivationRequestRepository : IAccountActivationRequestRepository
     {
         #region Fields
 
@@ -36,23 +35,22 @@ namespace IdentityCore.Implementations.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var accountActivationRequest = AccountActivationRequest.Initialize(command, authCtx);
+            var accountActivationRequest = AccountActivationRequest.Initialize(command);
 
-            var filter = Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, command.Email);
+            var filter = Builders<AccountActivationRequest>.Filter.And(
+                Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, command.Email),
+                Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
 
-            var alreadyExistsAccountActivationRequest = await _mongoDbService.FindOne<AccountActivationRequest>(filter);
+            var alreadyExistsAccountActivationRequest = await _mongoDbService.FindOne(filter);
 
-            if (alreadyExistsAccountActivationRequest != null)
+            if (alreadyExistsAccountActivationRequest is not null)
             {
-
-                var newAccountActivationRequest = AccountActivationRequest.Initialize(command, authCtx);
-
                 var update = Builders<AccountActivationRequest>.Update
-                    .Set(x => x.ActivationKey, newAccountActivationRequest.ActivationKey);
+                    .Set(x => x.ActivationKey, accountActivationRequest.ActivationKey);
 
-                await _mongoDbService.UpdateDocument(update: update, filter: filter);
+                var updatedAccountActivationRequest = await _mongoDbService.UpdateById(update: update, alreadyExistsAccountActivationRequest.Id);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(newAccountActivationRequest, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(updatedAccountActivationRequest, authCtx?.RequestUri);
             }
             else
             {
@@ -60,66 +58,57 @@ namespace IdentityCore.Implementations.Repositories
 
                 return Response.BuildServiceResponse().BuildSuccessResponse(accountActivationRequest, authCtx?.RequestUri);
             }
-
-
         }
 
         public async Task<ServiceResponse> VerifyAccountActivationRequest(VerifyUserAccountActivationRequestCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
             var email = command.Email;
-            var activationKey = command.ActivationKey;
 
-            var activationRequest = await GetAccountActivationRequest(email);
-
-            if (activationRequest == null)
-            {
-                return Response.BuildServiceResponse().BuildErrorResponse("Account activation request not found");
-            }
-
-            if (activationRequest.ActivationKey != activationKey)
-            {
-                return Response.BuildServiceResponse().BuildErrorResponse("Invalid activation code");
-            }
-
-            if (activationRequest.ActivationKeyStatus == ActivationKeyStatus.Expired)
-            {
-                return Response.BuildServiceResponse().BuildErrorResponse("Activation Key expired");
-            }
+            var activationRequest = await GetActiveAccountActivationRequest(email);
 
             var user = await _userRepository.GetUserByEmail(email);
 
-            if (user == null)
+            var expired = await ExpireActivationKey(activationRequest.Id);
+
+            if (expired)
             {
-                return Response.BuildServiceResponse().BuildErrorResponse("User not found");
+                var activated = await _userRepository.ActivateUser(user.Id);
+
+                if (activated)
+                {
+                    return await _userRepository.UpdateUserPasswordById(user.Id, command.Password);
+                }
+                else
+                {
+                    return Response.BuildServiceResponse().BuildErrorResponse("Account activation failed.");
+                }
             }
-
-            await ActivateUserAndExpireActivationKey(user, activationRequest, command.Password);
-
-            var updatePasswordCommand = new UpdateUserPasswordCommand
+            else
             {
-                UserId = user.Id,
-                NewPassword = command.Password
-            };
-
-            return await _userRepository.UpdateUserPassword(updatePasswordCommand);
+                return Response.BuildServiceResponse().BuildErrorResponse("Account activation failed.");
+            }
         }
 
-        private async Task<AccountActivationRequest> GetAccountActivationRequest(string email)
+        private async Task<AccountActivationRequest> GetActiveAccountActivationRequest(string email)
         {
-            var filter = Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, email);
-            return await _mongoDbService.FindOne<AccountActivationRequest>(filter);
+            var filter = Builders<AccountActivationRequest>.Filter.And(Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, email), Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
+            return await _mongoDbService.FindOne(filter);
         }
 
-        private async Task ActivateUserAndExpireActivationKey(User user, AccountActivationRequest activationRequest, string newPassword)
+        private async Task<bool> ExpireActivationKey(string id)
         {
-            var userFilter = Builders<User>.Filter.Eq(x => x.Email, user.Email);
-            var updateStatus = Builders<User>.Update.Set(x => x.UserStatus, UserStatus.Active);
-            await _mongoDbService.UpdateDocument(update: updateStatus, filter: userFilter);
+            var update = Builders<AccountActivationRequest>.Update.Set(x => x.ActivationKeyStatus, ActivationKeyStatus.Expired);
+            var updatedAccountActivationRequest = await _mongoDbService.UpdateById(update: update, id);
+            return updatedAccountActivationRequest is not null;
+        }
 
-            var activationKeyFilter = Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, activationRequest.Email);
-            var updateActivationKeyStatus = Builders<AccountActivationRequest>.Update.Set(x => x.ActivationKeyStatus, ActivationKeyStatus.Expired);
-            await _mongoDbService.UpdateDocument(update: updateActivationKeyStatus, filter: activationKeyFilter);
+        public async Task<bool> BeAnExistingActivationKey(string activationKey)
+        {
+            var filter = Builders<AccountActivationRequest>.Filter.And(
+                Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKey, activationKey),
+                Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
+
+            return await _mongoDbService.Exists(filter);
         }
 
         #endregion

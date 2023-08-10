@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace IdentityCore.Declarations.Repositories
 {
-    public interface IAccountActivationRequest
+    public interface IAccountActivationRequestRepository
     {
+        Task<bool> BeAnExistingActivationKey(string activationKey);
+
         Task<ServiceResponse> CreateAccountActivationRequest(SendUserAccountActivationRequestCommand command);
 
         Task<ServiceResponse> VerifyAccountActivationRequest(VerifyUserAccountActivationRequestCommand command);

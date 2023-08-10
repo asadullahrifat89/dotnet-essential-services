@@ -20,7 +20,7 @@ namespace IdentityCore.Implementations.Commands.Handlers
 
         private readonly ILogger<SendUserAccountActivationRequestCommandHandler> _logger;
         private readonly SendUserAccountActivationRequestCommandValidator _validator;
-        private readonly IAccountActivationRequest _accountActivationRequest;
+        private readonly IAccountActivationRequestRepository _accountActivationRequest;
 
         #endregion
 
@@ -29,7 +29,7 @@ namespace IdentityCore.Implementations.Commands.Handlers
         public SendUserAccountActivationRequestCommandHandler(
             ILogger<SendUserAccountActivationRequestCommandHandler> logger,
             SendUserAccountActivationRequestCommandValidator validator,
-            IAccountActivationRequest accountActivationRequest)
+            IAccountActivationRequestRepository accountActivationRequest)
         {
             _logger = logger;
             _validator = validator;

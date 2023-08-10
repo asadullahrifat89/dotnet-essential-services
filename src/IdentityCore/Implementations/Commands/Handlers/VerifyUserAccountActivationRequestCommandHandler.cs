@@ -14,19 +14,23 @@ namespace IdentityCore.Implementations.Commands.Handlers
 
         private readonly ILogger<SendUserAccountActivationRequestCommandHandler> _logger;
         private readonly VerifyUserAccountActivationRequestCommandValidator _validator;
-        private readonly IAccountActivationRequest _accountActivationRequest;
+        private readonly IAccountActivationRequestRepository _accountActivationRequest;
 
         #endregion
 
+        #region Ctor
+
         public VerifyUserAccountActivationRequestCommandHandler(
-            ILogger<SendUserAccountActivationRequestCommandHandler> logger,
-            VerifyUserAccountActivationRequestCommandValidator validator,
-            IAccountActivationRequest accountActivationRequest)
+           ILogger<SendUserAccountActivationRequestCommandHandler> logger,
+           VerifyUserAccountActivationRequestCommandValidator validator,
+           IAccountActivationRequestRepository accountActivationRequest)
         {
             _logger = logger;
             _validator = validator;
             _accountActivationRequest = accountActivationRequest;
         }
+
+        #endregion
 
         #region Methods
 

@@ -1,4 +1,5 @@
 ﻿using BaseCore.Extensions;
+using BaseCore.Models.Entities;
 using BaseCore.Models.Responses;
 using BaseCore.Services;
 using IdentityCore.Declarations.Commands;
@@ -85,16 +86,19 @@ namespace IdentityCore.Implementations.Repositories
 
         public async Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command)
         {
+            return await UpdateUserPasswordById(command.UserId, command.NewPassword);
+        }
+
+        public async Task<ServiceResponse> UpdateUserPasswordById(string userId, string password)
+        {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var update = Builders<User>.Update.Set(x => x.Password, command.NewPassword.Encrypt());
+            var update = Builders<User>.Update.Set(x => x.Password, password.Encrypt());
 
-            await _mongoDbService.UpdateById(update: update, id: command.UserId);
-            var updatedUser = await _mongoDbService.FindById<User>(command.UserId);
+            var updatedUser = await _mongoDbService.UpdateById(update: update, id: userId);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
         }
-
 
         public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
         {
@@ -220,6 +224,14 @@ namespace IdentityCore.Implementations.Repositories
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, id);
             return await _mongoDbService.Exists(filter);
+        }
+
+        public async Task<bool> ActivateUser(string id)
+        {
+            var updateStatus = Builders<User>.Update.Set(x => x.UserStatus, UserStatus.Active);
+            var updatedUser = await _mongoDbService.UpdateById(update: updateStatus, id);
+
+            return updatedUser is not null;
         }
 
         #endregion
