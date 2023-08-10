@@ -14,13 +14,12 @@ namespace LingoCore.Models.Entities
 
         public string ResourceValue { get; set; } = string.Empty;
 
-
         public static List<LingoResource> Initialize(AddLingoResourcesCommand command, AuthenticationContext authenticationContext)
         {
-            var resourcesKey = command.ResourceKeys.Select(x => x.ResourceKey).Distinct();
+            var resourcesKeys = command.ResourceKeys.Select(x => x.ResourceKey).Distinct();
             var lingoResources = new List<LingoResource>();
 
-            foreach (var resourceKey in resourcesKey)
+            foreach (var resourceKey in resourcesKeys)
             {
                 var foundResourceKey = command.ResourceKeys.FirstOrDefault(x => x.ResourceKey.Equals(resourceKey));
 

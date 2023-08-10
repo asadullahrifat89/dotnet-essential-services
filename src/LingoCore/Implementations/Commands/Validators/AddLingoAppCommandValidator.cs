@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using LingoCore.Declarations.Commands;
 using LingoCore.Declarations.Repositories;
-using SharpCompress.Archives;
 
 namespace LingoCore.Implementations.Commands.Validators
 {

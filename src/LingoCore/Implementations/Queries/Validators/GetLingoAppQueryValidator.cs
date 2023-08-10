@@ -2,11 +2,6 @@
 using FluentValidation;
 using LingoCore.Declarations.Queries;
 using LingoCore.Declarations.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LingoCore.Implementations.Queries.Validators
 {

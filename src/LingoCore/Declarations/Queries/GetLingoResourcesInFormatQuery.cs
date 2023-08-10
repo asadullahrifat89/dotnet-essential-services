@@ -1,5 +1,4 @@
 ﻿using BaseCore.Models.Responses;
-using LingoCore.Models.Entities;
 using MediatR;
 
 namespace LingoCore.Declarations.Queries

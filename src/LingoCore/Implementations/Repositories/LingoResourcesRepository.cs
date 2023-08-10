@@ -33,11 +33,11 @@ namespace LingoCore.Implementations.Repositories
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var lingoResource = LingoResource.Initialize(command, authCtx);
+            var lingoResources = LingoResource.Initialize(command, authCtx);
 
-            await _mongoDbService.InsertDocuments(lingoResource);
+            await _mongoDbService.InsertDocuments(lingoResources);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(lingoResource, authCtx?.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(lingoResources, authCtx?.RequestUri);
         }
 
         public Task<bool> BeAnExistingLanguage(string languageCode)
@@ -72,8 +72,7 @@ namespace LingoCore.Implementations.Repositories
 
             return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildSuccessResponse(lingoResourcesInJson, authCtx?.RequestUri);
         }
-        
+
         #endregion
     }
-
 }

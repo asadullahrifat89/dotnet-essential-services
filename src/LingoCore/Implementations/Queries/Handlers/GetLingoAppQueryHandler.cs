@@ -7,11 +7,6 @@ using LingoCore.Implementations.Queries.Validators;
 using LingoCore.Models.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LingoCore.Implementations.Queries.Handlers
 {
