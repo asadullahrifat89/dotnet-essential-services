@@ -1,6 +1,5 @@
 ﻿using BaseCore.Extensions;
 using BaseCore.Models.Entities;
-using BaseCore.Models.Responses;
 using LingoCore.Declarations.Commands;
 
 namespace LingoCore.Models.Entities

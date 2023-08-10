@@ -1,13 +1,10 @@
-﻿using BaseCore.Models.Entities;
-using BaseCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
 using BaseCore.Services;
 using LingoCore.Declarations.Commands;
 using LingoCore.Declarations.Queries;
 using LingoCore.Declarations.Repositories;
 using LingoCore.Models.Entities;
 using MongoDB.Driver;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LingoCore.Implementations.Repositories
 {
