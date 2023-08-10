@@ -1,5 +1,4 @@
-﻿using BaseCore.Models.Entities;
-using BaseCore.Models.Responses;
+﻿using BaseCore.Models.Responses;
 using MediatR;
 
 

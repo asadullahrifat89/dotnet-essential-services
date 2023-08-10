@@ -11,5 +11,7 @@ namespace IdentityCore.Declarations.Repositories
     public interface IAccountActivationRequest
     {
         Task<ServiceResponse> CreateAccountActivationRequest(SendUserAccountActivationRequestCommand command);
+
+        Task<ServiceResponse> VerifyAccountActivationRequest(VerifyUserAccountActivationRequestCommand command);
     }
 }

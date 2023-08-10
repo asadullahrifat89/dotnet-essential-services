@@ -1,24 +1,17 @@
-﻿using BaseCore.Extensions;
-using BaseCore.Models.Entities;
+﻿using BaseCore.Models.Entities;
 using IdentityCore.Declarations.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace IdentityCore.Models.Entities
 {
- 
+
     public class AccountActivationRequest : EntityBase
     {
         public string Email { get; set; } = string.Empty;
 
         public string ActivationKey = generateActivatioKey();
 
-        public ActivationStatus ActivationKeyStatus = ActivationStatus.Activated;
+        public ActivationKeyStatus ActivationKeyStatus = ActivationKeyStatus.Activated;
 
 
         public static string generateActivatioKey()
@@ -41,7 +34,7 @@ namespace IdentityCore.Models.Entities
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum ActivationStatus
+    public enum ActivationKeyStatus
     {
         Activated = 0,
         Expired = 1,

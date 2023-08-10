@@ -63,7 +63,7 @@ namespace EssentialWebService.Controllers
         #endregion
 
         #region User
-        
+
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
@@ -169,7 +169,6 @@ namespace EssentialWebService.Controllers
 
         #endregion
 
-
         #region AccountActivationRequest
 
         [HttpPost(EndpointRoutes.Action_SendUserAccountActivationRequest)]
@@ -178,13 +177,17 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPost(EndpointRoutes.Action_VerifyUserAccountActivationRequest)]
+        public async Task<ServiceResponse> VerifyUserAccountActivationRequest(VerifyUserAccountActivationRequestCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
 
         //TODO: forget password - > send email address and then send a link to reset password
 
         //TODO: activate user - > send user id
-
-
-        #endregion
 
         #endregion
     }

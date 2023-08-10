@@ -23,6 +23,8 @@ namespace IdentityCore.Declarations.Repositories
 
         Task<User> GetUser(string userEmail, string password);
 
+        Task<User> GetUserByEmail(string userEmail);
+
         Task<User> GetUser(string userId);
 
         Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query);

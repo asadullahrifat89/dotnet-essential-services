@@ -40,6 +40,6 @@ namespace BaseCommon
         public const string Action_GetLingoResourcesInFormat = "api/Query/GetLingoResourcesInFormat";
 
         public const string Action_SendUserAccountActivationRequest = "api/Command/SendUserAccountActivationRequest";
-
+        public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";
     }
 }
