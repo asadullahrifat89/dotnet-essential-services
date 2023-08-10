@@ -173,6 +173,18 @@ namespace EssentialWebService.Controllers
 
         //TODO: activate user - > send user id
 
+
+        #region AccountActivationRequest
+
+        [HttpPost(EndpointRoutes.Action_SendUserAccountActivationRequest)]
+        public async Task<ServiceResponse> SendUserAccountActivationRequest(SendUserAccountActivationRequestCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+
+        #endregion
+
         #endregion
     }
 }

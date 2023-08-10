@@ -20,13 +20,19 @@ namespace BaseCore.Models.Entities
 
         public Address Address { get; set; } = new Address();
 
-        public UserSatus UserSatus { get; set; } = UserSatus.Active;
+        public UserSatus UserSatus { get; set; } = UserSatus.Inactive;
 
         public string[] MetaTags { get; set; } = new string[] { };
 
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
+
+    internal class User : UserBase
+    {
+
+    }
+
     public enum UserSatus
     {
         Active = 0,
