@@ -6,6 +6,7 @@ namespace BaseCommon
         public const string Action_GetUser = "api/Query/GetUser";
         public const string Action_GetUsers = "api/Query/GetUsers";
         public const string Action_CreateUser = "api/Command/CreateUser";
+        public const string Action_SubmitUser = "api/Command/SubmitUser";
         public const string Action_UpdateUser = "api/Command/UpdateUser";
         public const string Action_UpdateUserPassword = "api/Command/UpdateUserPassword";
         public const string Action_UpdateUserRoles = "api/Command/UpdateUserRoles";
@@ -33,5 +34,13 @@ namespace BaseCommon
         public const string Action_UpdateEmailTemplate = "api/Command/UpdateEmailTemplate";
 
         public const string Action_EnqueueEmailMessage = "api/Command/EnqueueEmailMessage";
+
+        public const string Action_AddLingoApp = "api/Command/AddLingoApp";
+        public const string Action_AddLingoResources = "api/Command/AddLingoResources";
+        public const string Action_GetLingoApp = "api/Query/GetLingoApp";
+        public const string Action_GetLingoResourcesInFormat = "api/Query/GetLingoResourcesInFormat";
+
+        public const string Action_SendUserAccountActivationRequest = "api/Command/SendUserAccountActivationRequest";
+        public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";
     }
 }

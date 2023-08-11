@@ -1,5 +1,4 @@
-﻿using BaseCore.Extensions;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace BaseCore.Models.Entities
 {
@@ -21,11 +20,13 @@ namespace BaseCore.Models.Entities
 
         public Address Address { get; set; } = new Address();
 
-        public UserSatus UserSatus { get; set; } = UserSatus.Active;
+        public UserStatus UserStatus { get; set; } = UserStatus.Inactive;
 
         public string[] MetaTags { get; set; } = new string[] { };
 
     }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
 
     internal class User : UserBase
     {
@@ -33,7 +34,7 @@ namespace BaseCore.Models.Entities
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum UserSatus
+    public enum UserStatus
     {
         Active = 0,
         Inactive = 1,

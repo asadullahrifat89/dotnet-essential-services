@@ -1,6 +1,5 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
-using IdentityCore;
 using Serilog;
 using IdentityCore.Declarations.Repositories;
 using IdentityCore.Declarations.Commands;
@@ -12,13 +11,13 @@ using BlobCore.Implementations.Commands.Validators;
 using BlobCore.Declarations.Repositories;
 using BlobCore.Declarations.Commands;
 using EmailCore.Declarations.Commands;
-using EmailCore.Implementations.Commands.Validators;
 using EmailCore.Declarations.Repositories;
-using EmailCore.Implementations.Queries.Validators;
-using EmailCore.Declarations.Queries;
 using BaseCore.Services;
 using EmailCore.Declarations.Services;
 using EmailCore.Implementations.Services;
+using LingoCore.Declarations.Repositories;
+using LingoCore.Implementations.Commands.Validators;
+using LingoCore.Declarations.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,11 +48,13 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AuthenticateCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UploadBlobFileCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateEmailTemplateCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddLingoAppCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
 builder.Services.AddValidators<UploadBlobFileCommandValidator>();
 builder.Services.AddValidators<CreateEmailTemplateCommand>();
+builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 // Add services
 builder.Services.AddCoreServices<IMongoDbService>();
@@ -65,6 +66,7 @@ builder.Services.AddHostedService<EmailSenderHostedService>();
 builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
 builder.Services.AddRepositories<IEmailTemplateRepository>();
+builder.Services.AddRepositories<ILingoResourcesRepository>();
 
 builder.Services.AddMvc();
 

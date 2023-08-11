@@ -20,7 +20,7 @@ namespace BaseCore.Models.Responses
 
         public Address Address { get; set; } = new Address();
 
-        public UserSatus UserStatus { get; set; }
+        public UserStatus UserStatus { get; set; }
 
         public static UserResponse Initialize(UserBase user)
         {
@@ -34,7 +34,7 @@ namespace BaseCore.Models.Responses
                 ProfileImageUrl = user.ProfileImageUrl,
                 PhoneNumber = user.PhoneNumber,
                 Address = user.Address,
-                UserStatus = user.UserSatus,
+                UserStatus = user.UserStatus,
             };
         }
     }

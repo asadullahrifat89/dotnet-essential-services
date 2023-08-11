@@ -38,7 +38,7 @@
                     Records = new TRecord[] { },
                 },
             };
-        }
+        }  
     }
 
     public class QueryResult<TRecord>

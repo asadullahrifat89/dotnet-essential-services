@@ -1,5 +1,4 @@
 ﻿using BaseCore.Models.Responses;
-using IdentityCore;
 using BaseCore.Attributes;
 using IdentityCore.Declarations.Commands;
 using MediatR;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using BaseCommon;
 using BlobCore.Declarations.Commands;
 using EmailCore.Declarations.Commands;
-using MongoDB.Driver;
+using LingoCore.Declarations.Commands;
 
 namespace EssentialWebService.Controllers
 {
@@ -64,7 +63,7 @@ namespace EssentialWebService.Controllers
         #endregion
 
         #region User
-        
+
         [HttpPost(EndpointRoutes.Action_CreateUser)]
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
@@ -79,6 +78,13 @@ namespace EssentialWebService.Controllers
 
         [HttpPut(EndpointRoutes.Action_UpdateUserPassword)]
         public async Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [AuthorizationNotRequired]
+        [HttpPost(EndpointRoutes.Action_SubmitUser)]
+        public async Task<ServiceResponse> SubmitUser(SubmitUserCommand command)
         {
             return await _mediator.Send(command);
         }
@@ -148,6 +154,40 @@ namespace EssentialWebService.Controllers
 
         [HttpPost(EndpointRoutes.Action_EnqueueEmailMessage)]
         public async Task<ServiceResponse> EnqueueEmailMessage(EnqueueEmailMessageCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+        #region LingoResource
+
+        [HttpPost(EndpointRoutes.Action_AddLingoApp)]
+        public async Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPost(EndpointRoutes.Action_AddLingoResources)]
+        public async Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+        #region AccountActivationRequest
+
+        [AuthorizationNotRequired]
+        [HttpPost(EndpointRoutes.Action_SendUserAccountActivationRequest)]
+        public async Task<ServiceResponse> SendUserAccountActivationRequest(SendUserAccountActivationRequestCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [AuthorizationNotRequired]
+        [HttpPost(EndpointRoutes.Action_VerifyUserAccountActivationRequest)]
+        public async Task<ServiceResponse> VerifyUserAccountActivationRequest(VerifyUserAccountActivationRequestCommand command)
         {
             return await _mediator.Send(command);
         }

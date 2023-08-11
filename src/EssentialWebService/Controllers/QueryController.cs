@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using IdentityCore;
 using IdentityCore.Models.Entities;
 using IdentityCore.Declarations.Queries;
 using BaseCore.Models.Responses;
@@ -10,12 +9,13 @@ using BlobCore.Declarations.Queries;
 using BlobCore.Models.Entities;
 using EmailCore.Declarations.Queries;
 using EmailCore.Models.Entities;
-
+using LingoCore.Models.Entities;
+using LingoCore.Declarations.Queries;
 
 namespace EssentialWebService.Controllers
 {
     [ApiController]
-    [AuthorizationRequired]    
+    [AuthorizationRequired]
     public class QueryController : ControllerBase
     {
         #region Fields
@@ -114,6 +114,24 @@ namespace EssentialWebService.Controllers
         //{
         //    return await _mediator.Send(query);
         //} 
+
+        #endregion
+
+        #region LingoResources
+
+        [HttpGet(EndpointRoutes.Action_GetLingoResourcesInFormat)]
+
+        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat([FromQuery] GetLingoResourcesInFormatQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
+        [HttpGet(EndpointRoutes.Action_GetLingoApp)]
+
+        public async Task<QueryRecordResponse<LingoApp>> GetLingoApp([FromQuery] GetLingoAppQuery query)
+        {
+            return await _mediator.Send(query);
+        }
 
         #endregion
 
