@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobCore", "BlobCore\BlobCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailCore", "EmailCore\EmailCore.csproj", "{4CF6F0D4-85B7-41EF-84B3-51FCDB5613A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LingoCore", "LingoCore\LingoCore.csproj", "{A481C939-C2EB-4923-8874-76CE854FF012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LingoCore", "LingoCore\LingoCore.csproj", "{A481C939-C2EB-4923-8874-76CE854FF012}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalCore", "SignalCore\SignalCore.csproj", "{EA78CDDC-3810-4210-97D4-7F612341BE34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{A481C939-C2EB-4923-8874-76CE854FF012}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A481C939-C2EB-4923-8874-76CE854FF012}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A481C939-C2EB-4923-8874-76CE854FF012}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA78CDDC-3810-4210-97D4-7F612341BE34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA78CDDC-3810-4210-97D4-7F612341BE34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA78CDDC-3810-4210-97D4-7F612341BE34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA78CDDC-3810-4210-97D4-7F612341BE34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
