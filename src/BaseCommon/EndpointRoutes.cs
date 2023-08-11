@@ -6,6 +6,7 @@ namespace BaseCommon
         public const string Action_GetUser = "api/Query/GetUser";
         public const string Action_GetUsers = "api/Query/GetUsers";
         public const string Action_CreateUser = "api/Command/CreateUser";
+        public const string Action_SubmitUser = "api/Command/SubmitUser";
         public const string Action_UpdateUser = "api/Command/UpdateUser";
         public const string Action_UpdateUserPassword = "api/Command/UpdateUserPassword";
         public const string Action_UpdateUserRoles = "api/Command/UpdateUserRoles";

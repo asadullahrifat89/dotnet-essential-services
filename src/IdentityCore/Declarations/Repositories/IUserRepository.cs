@@ -38,5 +38,7 @@ namespace IdentityCore.Declarations.Repositories
         Task<bool> ActivateUser(string id);
 
         Task<ServiceResponse> UpdateUserPasswordById(string userId, string password);
+
+        Task<ServiceResponse> SubmitUser(SubmitUserCommand request);
     }
 }

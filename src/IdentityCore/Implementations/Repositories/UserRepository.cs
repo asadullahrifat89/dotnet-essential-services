@@ -234,6 +234,17 @@ namespace IdentityCore.Implementations.Repositories
             return updatedUser is not null;
         }
 
+        public async Task<ServiceResponse> SubmitUser(SubmitUserCommand command)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var user = User.Initialize(command, authCtx);
+
+            await _mongoDbService.InsertDocument(user);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(user, authCtx?.RequestUri);
+        }
+
         #endregion
     }
 }

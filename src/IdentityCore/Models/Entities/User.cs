@@ -19,6 +19,21 @@ namespace IdentityCore.Models.Entities
                 Password = command.Password.Encrypt(),
                 Address = command.Address,
                 MetaTags = command.MetaTags,
+                UserStatus = UserStatus.Inactive,
+                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
+                //TenantId = command.TenantId,
+            };
+
+            return user;
+        }
+
+        public static User Initialize(SubmitUserCommand command, AuthenticationContext authenticationContext)
+        {
+            var user = new User()
+            {               
+                Email = command.Email,              
+                MetaTags = command.MetaTags,
+                UserStatus = UserStatus.Inactive,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
                 //TenantId = command.TenantId,
             };

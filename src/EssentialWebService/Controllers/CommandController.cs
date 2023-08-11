@@ -82,6 +82,13 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(command);
         }
 
+        [AuthorizationNotRequired]
+        [HttpPost(EndpointRoutes.Action_SubmitUser)]
+        public async Task<ServiceResponse> SubmitUser(SubmitUserCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
         #endregion
 
         #region Role
