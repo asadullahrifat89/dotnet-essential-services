@@ -178,12 +178,14 @@ namespace EssentialWebService.Controllers
 
         #region AccountActivationRequest
 
+        [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_SendUserAccountActivationRequest)]
         public async Task<ServiceResponse> SendUserAccountActivationRequest(SendUserAccountActivationRequestCommand command)
         {
             return await _mediator.Send(command);
         }
 
+        [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_VerifyUserAccountActivationRequest)]
         public async Task<ServiceResponse> VerifyUserAccountActivationRequest(VerifyUserAccountActivationRequestCommand command)
         {
