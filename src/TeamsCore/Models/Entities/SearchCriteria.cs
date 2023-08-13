@@ -13,7 +13,7 @@ namespace TeamsCore.Models.Entities
 
         public string Description { get; set; } = string.Empty;
 
-        public string Icon { get; set; } = string.Empty;
+        public string IconUrl { get; set; } = string.Empty;
 
         public SearchCriteriaType SearchCriteriaType { get; set; }
 
