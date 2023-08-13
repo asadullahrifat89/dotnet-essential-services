@@ -1,9 +1,4 @@
 ﻿using BaseCore.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TeamsCore.Models.Entities
 {
@@ -16,6 +11,8 @@ namespace TeamsCore.Models.Entities
         public string ManPower { get; set; } = string.Empty;
 
         public string Experience { get; set; } = string.Empty;
+
+        public string EmploymentType { get; set; } = string.Empty;
 
         public ProductCostType ProductCostType { get; set; }
 
