@@ -3,7 +3,7 @@ using TeamsCore.Models.Responses;
 
 namespace TeamsCore.Models.Entities
 {
-    public class Quote : EntityBase
+    public class QuoteRequest : EntityBase
     {
         public string Title { get; set; } = string.Empty;
 
@@ -22,7 +22,6 @@ namespace TeamsCore.Models.Entities
         public string OfferUrl { get; set; } = string.Empty;
 
         public MeetingDetails MeetingDetails { get; set; } = new MeetingDetails();
-
     }
 
     public class MeetingDetails
