@@ -24,8 +24,8 @@ namespace TeamsCore.Models.Entities
                 Name = command.Name,
                 Description = command.Description,
                 IconUrl = command.IconUrl,
-                SearchCriteriaType = command.SearchCriteriaType,
-                SkillsetType = command.SkillsetType,
+                SearchCriteriaType = command?.SearchCriteriaType ?? SearchCriteriaType.Discipline,
+                SkillsetType = command?.SkillsetType ?? SkillsetType.Generic,
                 TimeStamp = authCtx.BuildCreatedByTimeStamp(),
             };
 

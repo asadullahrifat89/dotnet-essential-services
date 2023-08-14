@@ -14,14 +14,16 @@ namespace TeamsCore.Implementations.Commands.Validators
         {
             _searchCriteriaRepository = searchCriteriaRepository;
 
-            RuleFor(x => x.Name).NotNull().NotEmpty();
+            RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("Name must not be empty");
             RuleFor(x => x).MustAsync(NotBeAnExistingSearchCriteria).WithMessage("Name already exists.").When(x => !x.Name.IsNullOrBlank());
 
-            RuleFor(x => x.Description).NotNull().NotEmpty();
+            RuleFor(x => x.Description).NotNull().NotEmpty().WithMessage("Description must not be empty");
 
-            RuleFor(x => x.SearchCriteriaType).NotNull().NotEmpty().IsInEnum();
+            RuleFor(x => x.IconUrl).NotNull().NotEmpty().WithMessage("IconUrl must not be empty");
 
-            RuleFor(x => x.SkillsetType).NotNull().NotEmpty().IsInEnum();
+            RuleFor(x => x.SearchCriteriaType).NotNull().NotEmpty().IsInEnum().WithMessage("SearchCriteria Type is not acceptable");
+
+            RuleFor(x => x.SkillsetType).NotNull().NotEmpty().IsInEnum().WithMessage("Skillset Type is not acceptable");
         }
 
         private async Task<bool> NotBeAnExistingSearchCriteria(AddSearchCriteriaCommand command, CancellationToken token)

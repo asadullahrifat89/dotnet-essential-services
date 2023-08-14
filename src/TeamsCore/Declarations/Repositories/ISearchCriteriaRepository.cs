@@ -1,5 +1,7 @@
 ﻿using BaseCore.Models.Responses;
 using TeamsCore.Declarations.Commands;
+using TeamsCore.Declarations.Queries;
+using TeamsCore.Models.Entities;
 
 namespace TeamsCore.Declarations.Repositories
 {
@@ -7,6 +9,11 @@ namespace TeamsCore.Declarations.Repositories
     {
         Task<ServiceResponse> AddSearchCriteria(AddSearchCriteriaCommand command);
 
+        Task<QueryRecordResponse<SearchCriteria>> GetSearchCriteria(GetSearchCriteriaQuery request);
+
         Task<bool> BeAnExistingSearchCriteria(string searchCriteria);
+
+        Task<bool> BeAnExistingSearchCriteriaById(string searchCriteriaId);
+
     }
 }

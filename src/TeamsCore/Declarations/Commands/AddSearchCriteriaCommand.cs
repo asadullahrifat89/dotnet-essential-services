@@ -12,8 +12,8 @@ namespace TeamsCore.Declarations.Commands
 
         public string IconUrl { get; set; } = string.Empty;
 
-        public SearchCriteriaType SearchCriteriaType { get; set; }
+        public SearchCriteriaType? SearchCriteriaType { get; set; }
 
-        public SkillsetType SkillsetType { get; set; }
+        public SkillsetType? SkillsetType { get; set; }
     }
 }

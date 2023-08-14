@@ -24,10 +24,10 @@ namespace TeamsCore.Implementations.Commands.Handlers
         #region Ctor
 
         public AddSearchCriteriaCommandHandler(
-                       ISearchCriteriaRepository searchCriteriaRepository,
-                                  AddSearchCriteriaCommandValidator validator,
-                                             IAuthenticationContextProvider authenticationContextProvider,
-                                                        ILogger<AddSearchCriteriaCommandHandler> logger)
+            ISearchCriteriaRepository searchCriteriaRepository,
+            AddSearchCriteriaCommandValidator validator,
+            IAuthenticationContextProvider authenticationContextProvider,
+            ILogger<AddSearchCriteriaCommandHandler> logger)
         {
             _searchCriteriaRepository = searchCriteriaRepository;
             _validator = validator;
