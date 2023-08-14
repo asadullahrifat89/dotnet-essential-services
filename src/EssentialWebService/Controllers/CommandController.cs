@@ -7,6 +7,7 @@ using BaseCommon;
 using BlobCore.Declarations.Commands;
 using EmailCore.Declarations.Commands;
 using LingoCore.Declarations.Commands;
+using TeamsCore.Declarations.Commands;
 
 namespace EssentialWebService.Controllers
 {
@@ -191,6 +192,63 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(command);
         }
+
+        #endregion
+
+        #region TeamCore
+
+        #region SearchCriteria
+
+        [HttpPost(EndpointRoutes.Action_AddSearchCriteria)]
+        public async Task<ServiceResponse> AddSearchCriteria(AddSearchCriteriaCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPut(EndpointRoutes.Action_UpdateSearchCriteria)]
+        public async Task<ServiceResponse> UpdateSearchCriteria(UpdateSearchCriteriaCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+        #region Project
+
+        [HttpPost(EndpointRoutes.Action_AddProject)]
+
+        public async Task<ServiceResponse> AddProject(AddProjectCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+
+        [HttpPut(EndpointRoutes.Action_UpdateProject)]
+
+        public async Task<ServiceResponse> UpdateProject(UpdateProjectCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+        #region Product
+
+        [HttpPost(EndpointRoutes.Action_AddProduct)]
+
+        public async Task<ServiceResponse> AddProduct(AddProductCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPut(EndpointRoutes.Action_UpdateProduct)]
+
+        public async Task<ServiceResponse> UpdateProduct(UpdateProductCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
 
         #endregion
 

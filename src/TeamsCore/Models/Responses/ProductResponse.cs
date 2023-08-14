@@ -7,6 +7,26 @@ namespace TeamsCore.Models.Responses
         public AttachedSearchCriteria[] AttachedSearchCriterias { get; set; } = new AttachedSearchCriteria[0];
 
         public AttachedProject[] AttachedProjects { get; set; } = new AttachedProject[0];
+
+        public static ProductResponse Initialize(Product product)
+        {
+            var productResponse = new ProductResponse()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                ManPower = product.ManPower,
+                Experience = product.Experience,
+                EmploymentType = product.EmploymentType,
+                ProductCostType = product.ProductCostType,
+                IconUrl = product.IconUrl,
+                BannerUrl = product.BannerUrl,
+                TimeStamp = product.TimeStamp,
+            };
+
+            // search in ProductSearchCriteriaMap and make AttachedSearchCriteria[] AttachedSearchCriterias
+            return productResponse;
+        }
     }
 
     public class AttachedSearchCriteria

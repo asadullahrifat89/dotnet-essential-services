@@ -1,11 +1,18 @@
 ﻿using BaseCore.Models.Responses;
 using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TeamsCore.Models.Entities;
 
 namespace TeamsCore.Declarations.Commands
 {
-    public class AddProductCommand : IRequest<ServiceResponse>
+    public class UpdateProductCommand : IRequest<ServiceResponse>
     {
+        public string ProductId { get; set; } = string.Empty;
+
         public string Name { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
@@ -23,6 +30,5 @@ namespace TeamsCore.Declarations.Commands
         public string BannerUrl { get; set; } = string.Empty;
 
         public string[] LinkedSearchCriteriaIds { get; set; } = new string[0];
-
     }
 }

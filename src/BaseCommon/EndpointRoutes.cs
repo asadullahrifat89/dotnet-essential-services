@@ -42,5 +42,20 @@ namespace BaseCommon
 
         public const string Action_SendUserAccountActivationRequest = "api/Command/SendUserAccountActivationRequest";
         public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";
+
+        public const string Action_AddSearchCriteria = "api/Command/AddSearchCriteria";
+        public const string Action_UpdateSearchCriteria = "api/Command/UpdateSearchCriteria";
+        public const string Action_GetSearchCriteria = "api/Query/GetSearchCriteria";
+        public const string Action_GetSearchCriterias = "api/Query/GetSearchCriterias";
+
+        public const string Action_AddProject = "api/Command/AddProject";
+        public const string Action_GetProject = "api/Query/GetProject";
+        public const string Action_UpdateProject = "api/Query/UpdateProject";
+        public const string Action_GetProjects = "api/Query/GetProjects";
+        
+        public const string Action_AddProduct = "api/Command/AddProduct";
+        public const string Action_GetProduct = "api/Query/GetProduct";
+        public const string Action_UpdateProduct = "api/Command/UpdateProduct";
+        public const string Action_GetProducts = "api/Query/GetProducts";
     }
 }

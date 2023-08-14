@@ -28,6 +28,7 @@
     <ProjectReference Include="..\EmailCore\EmailCore.csproj" />
     <ProjectReference Include="..\IdentityCore\IdentityCore.csproj" />
     <ProjectReference Include="..\LingoCore\LingoCore.csproj" />
+    <ProjectReference Include="..\TeamsCore\TeamsCore.csproj" />
   </ItemGroup>
 
 </Project>
