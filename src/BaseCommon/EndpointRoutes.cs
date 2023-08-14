@@ -42,5 +42,7 @@ namespace BaseCommon
 
         public const string Action_SendUserAccountActivationRequest = "api/Command/SendUserAccountActivationRequest";
         public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";
+
+        public const string Action_AddSearchCriteria = "api/Command/AddSearchCriteria";
     }
 }

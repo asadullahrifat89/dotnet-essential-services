@@ -7,6 +7,7 @@ using BaseCommon;
 using BlobCore.Declarations.Commands;
 using EmailCore.Declarations.Commands;
 using LingoCore.Declarations.Commands;
+using TeamsCore.Declarations.Commands;
 
 namespace EssentialWebService.Controllers
 {
@@ -191,6 +192,21 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(command);
         }
+
+        #endregion
+
+        #region TeamCore
+
+        #region SearchCriteria
+
+        [HttpPost(EndpointRoutes.Action_AddSearchCriteria)]
+        public async Task<ServiceResponse> AddSearchCriteria(AddSearchCriteriaCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
 
         #endregion
 
