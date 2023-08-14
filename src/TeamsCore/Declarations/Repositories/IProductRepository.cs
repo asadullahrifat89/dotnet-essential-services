@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TeamsCore.Declarations.Commands;
 using TeamsCore.Declarations.Queries;
 using TeamsCore.Models.Entities;
+using TeamsCore.Models.Responses;
 
 namespace TeamsCore.Declarations.Repositories
 {
@@ -20,6 +21,6 @@ namespace TeamsCore.Declarations.Repositories
 
         Task<ServiceResponse> UpdateProduct(UpdateProductCommand command);
 
-        Task<QueryRecordsResponse<Product>> GetAllProducts(GetProductsQuery query);
+        Task<ProductResponse> GetAllProducts(GetProductsQuery query);
     }
 }
