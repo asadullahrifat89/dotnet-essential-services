@@ -158,6 +158,27 @@ namespace EssentialWebService.Controllers
 
         #endregion
 
+        #endregion 
+        
+        #region Projects
+
+        [HttpGet(EndpointRoutes.Action_GetProject)]
+
+        public async Task<QueryRecordResponse<Project>> GetProject([FromQuery] GetProjectQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
+
+        [HttpGet(EndpointRoutes.Action_GetProjects)]
+        public async Task<QueryRecordsResponse<Project>> GetProjects([FromQuery] GetProjectsQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
+
+        #endregion
+
         #endregion
     }
 }

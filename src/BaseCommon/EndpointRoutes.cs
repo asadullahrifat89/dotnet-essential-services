@@ -47,5 +47,10 @@ namespace BaseCommon
         public const string Action_UpdateSearchCriteria = "api/Command/UpdateSearchCriteria";
         public const string Action_GetSearchCriteria = "api/Query/GetSearchCriteria";
         public const string Action_GetSearchCriterias = "api/Query/GetSearchCriterias";
+
+        public const string Action_AddProject = "api/Command/AddProject";
+        public const string Action_GetProject = "api/Query/GetProject";
+        public const string Action_UpdateProject = "api/Query/UpdateProject";
+        public const string Action_GetProjects = "api/Query/GetProjects";
     }
 }
