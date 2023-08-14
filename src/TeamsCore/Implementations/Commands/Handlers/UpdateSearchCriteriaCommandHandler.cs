@@ -1,9 +1,6 @@
 ﻿using BaseCore.Extensions;
 using BaseCore.Models.Responses;
 using BaseCore.Services;
-using BaseCore.Extensions;
-using BaseCore.Models.Responses;
-using BaseCore.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using TeamsCore.Declarations.Commands;
