@@ -202,11 +202,16 @@ namespace IdentityCore.Implementations.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var filter = Builders<User>.Filter.Or(
-                Builders<User>.Filter.Where(x => x.FirstName.ToLower().Contains(query.SearchTerm.ToLower())),
-                Builders<User>.Filter.Where(x => x.LastName.ToLower().Contains(query.SearchTerm.ToLower())),
-                Builders<User>.Filter.Where(x => x.DisplayName.ToLower().Contains(query.SearchTerm.ToLower())),
-                Builders<User>.Filter.Where(x => x.Email.ToLower().Contains(query.SearchTerm.ToLower())));
+            var filter = Builders<User>.Filter.Empty;
+
+            if (!query.SearchTerm.IsNullOrBlank())
+            {
+                filter &= Builders<User>.Filter.Or(
+                    Builders<User>.Filter.Where(x => x.FirstName.ToLower().Contains(query.SearchTerm.ToLower())),
+                    Builders<User>.Filter.Where(x => x.LastName.ToLower().Contains(query.SearchTerm.ToLower())),
+                    Builders<User>.Filter.Where(x => x.DisplayName.ToLower().Contains(query.SearchTerm.ToLower())),
+                    Builders<User>.Filter.Where(x => x.Email.ToLower().Contains(query.SearchTerm.ToLower()))); 
+            }
 
             var count = await _mongoDbService.CountDocuments(filter: filter);
 
