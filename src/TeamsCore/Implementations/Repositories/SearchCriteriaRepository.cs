@@ -1,4 +1,5 @@
-﻿using BaseCore.Models.Responses;
+﻿using BaseCore.Extensions;
+using BaseCore.Models.Responses;
 using BaseCore.Services;
 using MongoDB.Driver;
 using TeamsCore.Declarations.Commands;
@@ -63,6 +64,40 @@ namespace TeamsCore.Implementations.Repositories
             var result = await _mongoDbService.FindOne(filter);
 
             return Response.BuildQueryRecordResponse<SearchCriteria>().BuildSuccessResponse(result, authCtx?.RequestUri);
+        }
+
+        public async Task<QueryRecordsResponse<SearchCriteria>> GetSearchCriterias(GetSearchCriteriasQuery query)
+        {
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+            var filter = Builders<SearchCriteria>.Filter.Empty;
+
+            if(!query.SearchTerm.IsNullOrBlank())
+            {
+                filter &= Builders<SearchCriteria>.Filter.Or(
+                                       Builders<SearchCriteria>.Filter.Where(x => x.Name.ToLower().Contains(query.SearchTerm.ToLower())),
+                                                          Builders<SearchCriteria>.Filter.Where(x => x.Description.ToLower().Contains(query.SearchTerm.ToLower())));
+            }
+
+            if (query.SearchCriteriaType.HasValue)
+            {
+                filter &= Builders<SearchCriteria>.Filter.Eq(x => x.SearchCriteriaType, query.SearchCriteriaType);
+            }
+
+            if (query.SkillsetType.HasValue)
+            {
+                filter &= Builders<SearchCriteria>.Filter.Eq(x => x.SkillsetType, query.SkillsetType);
+            }
+
+            var count = await _mongoDbService.CountDocuments(filter: filter);
+
+            var searchCriterias = await _mongoDbService.GetDocuments(
+                filter: filter,
+                skip: query.PageIndex * query.PageSize,
+                limit: query.PageSize);
+
+            return new QueryRecordsResponse<SearchCriteria>().BuildSuccessResponse(
+                count: count,
+                records: searchCriterias is not null ? searchCriterias.Select(x => SearchCriteria.Initialize(x)).ToArray() : Array.Empty<SearchCriteria>(), authCtx?.RequestUri);
         }
 
         #endregion

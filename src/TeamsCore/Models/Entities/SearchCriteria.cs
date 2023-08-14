@@ -31,6 +31,20 @@ namespace TeamsCore.Models.Entities
 
             return searchCriteria;
         }
+
+        public static SearchCriteria Initialize(SearchCriteria searchCriteria)
+        {
+            return new SearchCriteria()
+            {
+                Id = searchCriteria.Id,
+                Name = searchCriteria.Name,
+                Description = searchCriteria.Description,
+                IconUrl = searchCriteria.IconUrl,
+                SearchCriteriaType = searchCriteria.SearchCriteriaType,
+                SkillsetType = searchCriteria.SkillsetType,
+                TimeStamp = searchCriteria.TimeStamp
+            };
+        }
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

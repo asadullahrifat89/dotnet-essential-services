@@ -148,6 +148,12 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(query);
         }
 
+        [HttpGet(EndpointRoutes.Action_GetSearchCriterias)]
+        public async Task<QueryRecordsResponse<SearchCriteria>> GetSearchCriterias([FromQuery] GetSearchCriteriasQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
         #endregion
 
         #endregion

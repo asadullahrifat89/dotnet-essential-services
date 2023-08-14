@@ -11,9 +11,10 @@ namespace TeamsCore.Declarations.Repositories
 
         Task<QueryRecordResponse<SearchCriteria>> GetSearchCriteria(GetSearchCriteriaQuery request);
 
+        Task<QueryRecordsResponse<SearchCriteria>> GetSearchCriterias(GetSearchCriteriasQuery request);
+
         Task<bool> BeAnExistingSearchCriteria(string searchCriteria);
 
         Task<bool> BeAnExistingSearchCriteriaById(string searchCriteriaId);
-
     }
 }
