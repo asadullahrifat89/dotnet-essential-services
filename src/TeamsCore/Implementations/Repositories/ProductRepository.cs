@@ -56,23 +56,7 @@ namespace TeamsCore.Implementations.Repositories
 
             var product = Product.Initialize(command, authCtx);
 
-            var productSearchCriteriaMaps = new List<ProductSearchCriteriaMap>();
-
-            if (command.LinkedSearchCriteriaIds != null && command.LinkedSearchCriteriaIds.Any())
-            {
-                var searchCriteriaIds = command.LinkedSearchCriteriaIds;
-
-                foreach (var searchCriteriaId in searchCriteriaIds)
-                {
-                    var productProjectMap = new ProductSearchCriteriaMap()
-                    {
-                        ProductId = product.Id,
-                        SearchCriteriaId = searchCriteriaId
-                    };
-
-                    productSearchCriteriaMaps.Add(productProjectMap);
-                }
-            }
+            var productSearchCriteriaMaps = CreateProductSearchCriteriaMaps(command.LinkedSearchCriteriaIds, product.Id);
 
             await _mongoDbService.InsertDocument(product);
 
@@ -90,23 +74,7 @@ namespace TeamsCore.Implementations.Repositories
 
             var existingProduct = await _mongoDbService.FindOne(filter);
 
-            var newProductSearchCriteriaMaps = new List<ProductSearchCriteriaMap>();
-
-            if (command.LinkedSearchCriteriaIds != null && command.LinkedSearchCriteriaIds.Any())
-            {
-                var searchCriteriaIds = command.LinkedSearchCriteriaIds;
-
-                foreach (var searchCriteriaId in searchCriteriaIds)
-                {
-                    var productSearchCriteriaMap = new ProductSearchCriteriaMap()
-                    {
-                        ProductId = command.ProductId,
-                        SearchCriteriaId = searchCriteriaId
-                    };
-
-                    newProductSearchCriteriaMaps.Add(productSearchCriteriaMap);
-                }
-            }
+            var newProductSearchCriteriaMaps = CreateProductSearchCriteriaMaps(command.LinkedSearchCriteriaIds, command.ProductId);
 
             var existingProductSearchCriteriaMaps = await _mongoDbService.GetDocuments(filter);
 
@@ -137,7 +105,30 @@ namespace TeamsCore.Implementations.Repositories
             var updateProduct = await _mongoDbService.UpdateById(update, existingProduct.Id);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updateProduct, authCtx?.RequestUri);
-        } 
+        }
+
+        private List<ProductSearchCriteriaMap> CreateProductSearchCriteriaMaps(string[] LinkedSearchCriteriaIds, string ProductId)
+        {
+            var productSearchCriteriaMaps = new List<ProductSearchCriteriaMap>();
+
+            if (LinkedSearchCriteriaIds != null && LinkedSearchCriteriaIds.Any())
+            {
+                var searchCriteriaIds = LinkedSearchCriteriaIds;
+
+                foreach (var searchCriteriaId in searchCriteriaIds)
+                {
+                    var productProjectMap = new ProductSearchCriteriaMap()
+                    {
+                        ProductId = ProductId,
+                        SearchCriteriaId = searchCriteriaId
+                    };
+
+                    productSearchCriteriaMaps.Add(productProjectMap);
+                }
+            }
+
+            return productSearchCriteriaMaps;
+        }
 
         #endregion
     }
