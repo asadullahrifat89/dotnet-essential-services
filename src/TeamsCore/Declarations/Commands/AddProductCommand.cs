@@ -24,6 +24,6 @@ namespace TeamsCore.Declarations.Commands
 
         public string[] LinkedSearchCriteriaIds { get; set; } = new string[0];
 
-        public string[] LinkedProjectIds { get; set; } = new string[0];
+        //public string[] LinkedProjectIds { get; set; } = new string[0];
     }
 }
