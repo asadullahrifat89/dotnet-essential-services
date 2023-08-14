@@ -235,11 +235,16 @@ namespace EssentialWebService.Controllers
 
         #endregion
 
+        #region Product
 
+        [HttpPost(EndpointRoutes.Action_AddProduct)]
 
+        public async Task<ServiceResponse> AddProduct(AddProductCommand command)
+        {
+            return await _mediator.Send(command);
+        }
 
-
-
+        #endregion
 
 
         //TODO: forget password - > send email address and then send a link to reset password
