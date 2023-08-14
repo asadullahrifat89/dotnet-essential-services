@@ -9,6 +9,8 @@ namespace TeamsCore.Declarations.Repositories
     {
         Task<ServiceResponse> AddSearchCriteria(AddSearchCriteriaCommand command);
 
+        Task<ServiceResponse> UpdateSearchCriteria(UpdateSearchCriteriaCommand command);
+
         Task<QueryRecordResponse<SearchCriteria>> GetSearchCriteria(GetSearchCriteriaQuery request);
 
         Task<QueryRecordsResponse<SearchCriteria>> GetSearchCriterias(GetSearchCriteriasQuery request);

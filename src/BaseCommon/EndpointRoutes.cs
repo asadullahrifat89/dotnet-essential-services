@@ -44,6 +44,7 @@ namespace BaseCommon
         public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";
 
         public const string Action_AddSearchCriteria = "api/Command/AddSearchCriteria";
+        public const string Action_UpdateSearchCriteria = "api/Command/UpdateSearchCriteria";
         public const string Action_GetSearchCriteria = "api/Query/GetSearchCriteria";
         public const string Action_GetSearchCriterias = "api/Query/GetSearchCriterias";
     }

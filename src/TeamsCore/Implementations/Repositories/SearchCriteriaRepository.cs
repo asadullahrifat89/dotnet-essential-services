@@ -100,6 +100,25 @@ namespace TeamsCore.Implementations.Repositories
                 records: searchCriterias is not null ? searchCriterias.Select(x => SearchCriteria.Initialize(x)).ToArray() : Array.Empty<SearchCriteria>(), authCtx?.RequestUri);
         }
 
+        public async Task<ServiceResponse> UpdateSearchCriteria(UpdateSearchCriteriaCommand command)
+        {
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+            var filter = Builders<SearchCriteria>.Filter.Where(x => x.Id.Equals(command.Id));
+
+            var updateSearchCriteria = Builders<SearchCriteria>.Update
+                .Set(x => x.Name, command.Name)
+                .Set(x => x.Description, command.Description)
+                .Set(x => x.SkillsetType, command.SkillsetType)
+                .Set(x => x.SearchCriteriaType, command.SearchCriteriaType)
+                .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
+                .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
+
+            await _mongoDbService.UpdateById(update: updateSearchCriteria, id: command.Id);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(updateSearchCriteria, authCtx?.RequestUri);
+        }
+
         #endregion
     }
 }

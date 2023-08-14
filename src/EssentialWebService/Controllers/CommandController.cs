@@ -205,6 +205,12 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPut(EndpointRoutes.Action_UpdateSearchCriteria)]
+        public async Task<ServiceResponse> UpdateSearchCriteria(UpdateSearchCriteriaCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
         #endregion
 
 
