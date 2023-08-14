@@ -44,7 +44,7 @@ namespace TeamsCore.Implementations.Repositories
 
             var productProjectMaps = new List<ProductProjectMap>();
 
-            // if roles were sent map user to role
+     
             if (command.LinkedProductIds != null && command.LinkedProductIds.Any())
             {
                 //var products = await _productRepository.GetRolesByIds(command.LinkedProductIds);
