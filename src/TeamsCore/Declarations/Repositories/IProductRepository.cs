@@ -16,5 +16,7 @@ namespace TeamsCore.Declarations.Repositories
         Task<Product[]> GetRolesByIds(string[] ids);
 
         Task<ServiceResponse> AddProduct(AddProductCommand command);
+
+        Task<ServiceResponse> UpdateProduct(UpdateProductCommand command);
     }
 }

@@ -25,7 +25,7 @@ namespace TeamsCore.Implementations.Repositories
 
         #region Ctor
 
-        public ProjectRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext,  IProductRepository productRepository)
+        public ProjectRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext, IProductRepository productRepository)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;
@@ -44,7 +44,7 @@ namespace TeamsCore.Implementations.Repositories
 
             var productProjectMaps = new List<ProductProjectMap>();
 
-     
+
             if (command.LinkedProductIds != null && command.LinkedProductIds.Any())
             {
                 //var products = await _productRepository.GetRolesByIds(command.LinkedProductIds);
@@ -141,8 +141,6 @@ namespace TeamsCore.Implementations.Repositories
             if (newProductProjectMaps.Any())
                 await _mongoDbService.InsertDocuments(newProductProjectMaps);
 
-
-
             var update = Builders<Project>.Update
                 .Set(x => x.Name, command.Name)
                 .Set(x => x.Description, command.Description)
@@ -150,7 +148,7 @@ namespace TeamsCore.Implementations.Repositories
                 .Set(x => x.IconUrl, command.IconUrl)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
-        
+
             var updatedProject = await _mongoDbService.UpdateById(update: update, id: command.ProjectId);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedProject, authCtx?.RequestUri);

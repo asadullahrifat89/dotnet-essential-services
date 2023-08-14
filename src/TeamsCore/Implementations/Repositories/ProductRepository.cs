@@ -34,8 +34,7 @@ namespace TeamsCore.Implementations.Repositories
 
         #region Methods
 
-
-        public async Task<Product[]>  GetRolesByIds(string[] ids)
+        public async Task<Product[]> GetRolesByIds(string[] ids)
         {
             var filter = Builders<Product>.Filter.In(x => x.Id, ids);
 
@@ -43,7 +42,6 @@ namespace TeamsCore.Implementations.Repositories
 
             return results is not null ? results.ToArray() : Array.Empty<Product>();
         }
-
 
         public async Task<bool> BeAnExistingProductId(string productId)
         {
@@ -84,6 +82,62 @@ namespace TeamsCore.Implementations.Repositories
             return Response.BuildServiceResponse().BuildSuccessResponse(product, authCtx?.RequestUri);
         }
 
+        public async Task<ServiceResponse> UpdateProduct(UpdateProductCommand command)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var filter = Builders<Product>.Filter.Where(x => x.Id == command.ProductId);
+
+            var existingProduct = await _mongoDbService.FindOne(filter);
+
+            var newProductSearchCriteriaMaps = new List<ProductSearchCriteriaMap>();
+
+            if (command.LinkedSearchCriteriaIds != null && command.LinkedSearchCriteriaIds.Any())
+            {
+                var searchCriteriaIds = command.LinkedSearchCriteriaIds;
+
+                foreach (var searchCriteriaId in searchCriteriaIds)
+                {
+                    var productSearchCriteriaMap = new ProductSearchCriteriaMap()
+                    {
+                        ProductId = command.ProductId,
+                        SearchCriteriaId = searchCriteriaId
+                    };
+
+                    newProductSearchCriteriaMaps.Add(productSearchCriteriaMap);
+                }
+            }
+
+            var existingProductSearchCriteriaMaps = await _mongoDbService.GetDocuments(filter);
+
+            if (existingProductSearchCriteriaMaps is not null && existingProductSearchCriteriaMaps.Any())
+            {
+                var existingProductSearchCriteriaMapIds = existingProductSearchCriteriaMaps.Select(x => x.Id).ToArray();
+
+                var deleteFilter = Builders<ProductSearchCriteriaMap>.Filter.In(x => x.Id, existingProductSearchCriteriaMapIds);
+
+                await _mongoDbService.DeleteDocuments(deleteFilter);
+            }
+
+            if (newProductSearchCriteriaMaps.Any())
+                await _mongoDbService.InsertDocuments(newProductSearchCriteriaMaps);
+
+            var update = Builders<Product>.Update
+                .Set(x => x.Name, command.Name)
+                .Set(x => x.Description, command.Description)
+                .Set(x => x.ManPower, command.ManPower)
+                .Set(x => x.Experience, command.Experience)
+                .Set(x => x.EmploymentType, command.EmploymentType)
+                .Set(x => x.ProductCostType, command.ProductCostType)
+                .Set(x => x.IconUrl, command.IconUrl)
+                .Set(x => x.BannerUrl, command.BannerUrl)
+                .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
+                .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
+
+            var updateProduct = await _mongoDbService.UpdateById(update, existingProduct.Id);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(updateProduct, authCtx?.RequestUri);
+        } 
 
         #endregion
     }
