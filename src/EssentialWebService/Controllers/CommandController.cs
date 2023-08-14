@@ -213,13 +213,10 @@ namespace EssentialWebService.Controllers
 
         #endregion
 
-
-        #endregion
-
         #region Project
 
         [HttpPost(EndpointRoutes.Action_AddProject)]
-        
+
         public async Task<ServiceResponse> AddProject(AddProjectCommand command)
         {
             return await _mediator.Send(command);
@@ -244,8 +241,16 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPut(EndpointRoutes.Action_UpdateProduct)]
+
+        public async Task<ServiceResponse> UpdateProduct(UpdateProductCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
         #endregion
 
+        #endregion
 
         //TODO: forget password - > send email address and then send a link to reset password
 

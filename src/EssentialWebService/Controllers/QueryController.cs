@@ -156,10 +156,6 @@ namespace EssentialWebService.Controllers
 
         #endregion
 
-        #endregion
-
-        #endregion 
-        
         #region Projects
 
         [HttpGet(EndpointRoutes.Action_GetProject)]
@@ -176,6 +172,9 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(query);
         }
 
+        #endregion
+
+        #endregion
 
         #endregion
     }
