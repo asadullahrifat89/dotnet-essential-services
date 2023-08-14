@@ -11,6 +11,8 @@ using EmailCore.Declarations.Queries;
 using EmailCore.Models.Entities;
 using LingoCore.Models.Entities;
 using LingoCore.Declarations.Queries;
+using TeamsCore.Models.Entities;
+using TeamsCore.Declarations.Queries;
 
 namespace EssentialWebService.Controllers
 {
@@ -129,6 +131,17 @@ namespace EssentialWebService.Controllers
         [HttpGet(EndpointRoutes.Action_GetLingoApp)]
 
         public async Task<QueryRecordResponse<LingoApp>> GetLingoApp([FromQuery] GetLingoAppQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
+        #endregion 
+        
+        #region Projects
+
+        [HttpGet(EndpointRoutes.Action_GetProject)]
+
+        public async Task<QueryRecordResponse<Project>> GetProject([FromQuery] GetProjectQuery query)
         {
             return await _mediator.Send(query);
         }
