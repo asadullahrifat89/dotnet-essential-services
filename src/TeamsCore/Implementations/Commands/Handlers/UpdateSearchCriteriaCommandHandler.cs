@@ -1,7 +1,9 @@
 ﻿using BaseCore.Extensions;
 using BaseCore.Models.Responses;
 using BaseCore.Services;
-using FluentValidation;
+using BaseCore.Extensions;
+using BaseCore.Models.Responses;
+using BaseCore.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using TeamsCore.Declarations.Commands;
@@ -15,9 +17,9 @@ namespace TeamsCore.Implementations.Commands.Handlers
         #region Fields
 
         private readonly ISearchCriteriaRepository _searchCriteriaRepository;
-        private readonly AddSearchCriteriaCommandValidator _validator;
+        private readonly UpdateSearchCriteriaCommandValidator _validator;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
-        private readonly ILogger<AddSearchCriteriaCommandHandler> _logger;
+        private readonly ILogger<UpdateSearchCriteriaCommandHandler> _logger;
 
         #endregion
 
@@ -25,10 +27,10 @@ namespace TeamsCore.Implementations.Commands.Handlers
 
         public UpdateSearchCriteriaCommandHandler(
             ISearchCriteriaRepository searchCriteriaRepository,
-            AddSearchCriteriaCommandValidator validator,
+            UpdateSearchCriteriaCommandValidator validator,
             IAuthenticationContextProvider authenticationContextProvider,
             ILogger<UpdateSearchCriteriaCommandHandler> logger)
-        {
+        {   
             _searchCriteriaRepository = searchCriteriaRepository;
             _validator = validator;
             _authenticationContextProvider = authenticationContextProvider;
@@ -45,6 +47,7 @@ namespace TeamsCore.Implementations.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 return await _searchCriteriaRepository.UpdateSearchCriteria(request);
+                
             }
             catch (Exception ex)
             {
