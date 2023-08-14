@@ -16,10 +16,10 @@ namespace TeamsCore.Implementations.Commands.Validators
         public AddProjectCommandValidator(IProductRepository productRepository)
         {
             _productRepository = productRepository;
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.");
-            RuleFor(x => x.Description).NotEmpty().WithMessage("Description is required.");
-            RuleFor(x => x.Link).NotEmpty().WithMessage("Link is required.");
-            RuleFor(x => x.IconUrl).NotEmpty().WithMessage("IconUrl is required.");
+            RuleFor(x => x.Name).NotNull().NotEmpty();
+            RuleFor(x => x.Description).NotNull().NotEmpty();
+            RuleFor(x => x.Link).NotNull().NotEmpty();
+            RuleFor(x => x.IconUrl).NotNull().NotEmpty();
 
             RuleFor(x => x.LinkedProductIds).NotEmpty().WithMessage("LinkedProductIds is required.");
 

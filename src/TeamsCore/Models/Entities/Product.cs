@@ -1,5 +1,6 @@
 ﻿using BaseCore.Extensions;
 using BaseCore.Models.Entities;
+using System.Text.Json.Serialization;
 using TeamsCore.Declarations.Commands;
 
 namespace TeamsCore.Models.Entities
@@ -42,14 +43,12 @@ namespace TeamsCore.Models.Entities
         }
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ProductCostType
     {
         Low,
         Medium,
         High
     }
-
-
-
-   
+ 
 }
