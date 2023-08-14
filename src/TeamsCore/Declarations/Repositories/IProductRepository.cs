@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeamsCore.Declarations.Commands;
+using TeamsCore.Declarations.Queries;
 using TeamsCore.Models.Entities;
 
 namespace TeamsCore.Declarations.Repositories
@@ -18,5 +19,7 @@ namespace TeamsCore.Declarations.Repositories
         Task<ServiceResponse> AddProduct(AddProductCommand command);
 
         Task<ServiceResponse> UpdateProduct(UpdateProductCommand command);
+
+        Task<QueryRecordsResponse<Product>> GetAllProducts(GetProductsQuery query);
     }
 }

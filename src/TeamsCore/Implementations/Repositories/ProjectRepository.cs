@@ -1,11 +1,6 @@
 ﻿using BaseCore.Models.Responses;
 using BaseCore.Services;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TeamsCore.Declarations.Commands;
 using TeamsCore.Declarations.Queries;
 using TeamsCore.Declarations.Repositories;

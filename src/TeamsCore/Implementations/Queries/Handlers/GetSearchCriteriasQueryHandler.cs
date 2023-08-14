@@ -1,5 +1,4 @@
-﻿using Amazon.Runtime.Internal;
-using BaseCore.Extensions;
+﻿using BaseCore.Extensions;
 using BaseCore.Models.Responses;
 using BaseCore.Services;
 using MediatR;

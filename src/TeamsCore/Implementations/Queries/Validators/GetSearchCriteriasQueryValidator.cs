@@ -7,12 +7,8 @@ namespace TeamsCore.Implementations.Queries.Validators
 {
     public class GetSearchCriteriasQueryValidator : AbstractValidator<GetSearchCriteriasQuery>
     {
-        private readonly ISearchCriteriaRepository _searchCriteriaRepository;
-        
-        public GetSearchCriteriasQueryValidator(ISearchCriteriaRepository searchCriteriaRepository)
+        public GetSearchCriteriasQueryValidator()
         {
-            _searchCriteriaRepository = searchCriteriaRepository;
-
             RuleFor(x => x.PageIndex).GreaterThanOrEqualTo(0);
 
             RuleFor(x => x.PageSize).GreaterThan(0);
