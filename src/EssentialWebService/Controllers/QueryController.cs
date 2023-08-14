@@ -14,6 +14,7 @@ using LingoCore.Declarations.Queries;
 using TeamsCore.Declarations.Commands;
 using TeamsCore.Models.Entities;
 using TeamsCore.Declarations.Queries;
+using TeamsCore.Models.Responses;
 
 namespace EssentialWebService.Controllers
 {
@@ -176,6 +177,11 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(query);
         }
 
+        [HttpGet(EndpointRoutes.Action_GetProduct)]
+        public async Task<QueryRecordResponse<ProductResponse>> GetProduct([FromQuery] GetProductQuery query)
+        {
+            return await _mediator.Send(query);
+        }
 
         #endregion
     }

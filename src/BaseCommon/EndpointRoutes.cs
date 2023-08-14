@@ -54,5 +54,6 @@ namespace BaseCommon
         public const string Action_GetProjects = "api/Query/GetProjects";
         
         public const string Action_AddProduct = "api/Command/AddProduct";
+        public const string Action_GetProduct = "api/Query/GetProduct";
     }
 }
