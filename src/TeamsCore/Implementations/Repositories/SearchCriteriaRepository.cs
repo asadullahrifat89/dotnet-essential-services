@@ -45,15 +45,18 @@ namespace TeamsCore.Implementations.Repositories
         {
             var filter = Builders<SearchCriteria>.Filter.Where(x => x.Name.ToLower().Equals(searchCriteria.ToLower()));
 
-            return await _mongoDbService.Exists<SearchCriteria>(filter);
+            return await _mongoDbService.Exists(filter);
         }
 
         public async Task<bool> BeAnExistingSearchCriteriaById(string searchCriteriaId)
         {
-            var filter = Builders<SearchCriteria>.Filter.Where(x => x.Id.Equals(searchCriteriaId));
+            var filter = Builders<SearchCriteria>.Filter.Where(x => x.Id == searchCriteriaId);
 
-            return await _mongoDbService.Exists<SearchCriteria>(filter);
+            var res = await _mongoDbService.Exists(filter);
+
+            return res;
         }
+
 
         public async Task<QueryRecordResponse<SearchCriteria>> GetSearchCriteria(GetSearchCriteriaQuery request)
         {

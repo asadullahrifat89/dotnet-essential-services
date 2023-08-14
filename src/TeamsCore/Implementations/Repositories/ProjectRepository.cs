@@ -76,6 +76,8 @@ namespace TeamsCore.Implementations.Repositories
         {
             var filter = Builders<Project>.Filter.Where(x => x.Id == projectId);
 
+            var res = await _mongoDbService.Exists(filter);
+
             return await _mongoDbService.Exists(filter);
         }
 
