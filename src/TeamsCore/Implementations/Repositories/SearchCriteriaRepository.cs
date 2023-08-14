@@ -104,11 +104,10 @@ namespace TeamsCore.Implementations.Repositories
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<SearchCriteria>.Filter.Where(x => x.Id.Equals(command.Id));
-
             var updateSearchCriteria = Builders<SearchCriteria>.Update
                 .Set(x => x.Name, command.Name)
                 .Set(x => x.Description, command.Description)
+                .Set(x => x.IconUrl, command.IconUrl)
                 .Set(x => x.SkillsetType, command.SkillsetType)
                 .Set(x => x.SearchCriteriaType, command.SearchCriteriaType)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
@@ -116,7 +115,9 @@ namespace TeamsCore.Implementations.Repositories
 
             await _mongoDbService.UpdateById(update: updateSearchCriteria, id: command.Id);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(updateSearchCriteria, authCtx?.RequestUri);
+            var updatedSearchCriteria = await _mongoDbService.FindById<SearchCriteria>(command.Id);
+
+            return Response.BuildServiceResponse().BuildSuccessResponse(updatedSearchCriteria, authCtx?.RequestUri);
         }
 
         #endregion
