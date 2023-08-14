@@ -1,4 +1,6 @@
-﻿using BaseCore.Models.Entities;
+﻿using BaseCore.Extensions;
+using BaseCore.Models.Entities;
+using TeamsCore.Declarations.Commands;
 
 namespace TeamsCore.Models.Entities
 {
@@ -19,6 +21,25 @@ namespace TeamsCore.Models.Entities
         public string IconUrl { get; set; } = string.Empty;
 
         public string BannerUrl { get; set; } = string.Empty;
+
+
+        public static Product Initialize(AddProductCommand command, AuthenticationContext authenticationContext)
+        {
+            var product = new Product()
+            {
+                Name = command.Name,
+                Description = command.Description,
+                ManPower = command.ManPower,
+                Experience = command.Experience,
+                EmploymentType = command.EmploymentType,
+                ProductCostType = command.ProductCostType,
+                IconUrl = command.IconUrl,
+                BannerUrl = command.BannerUrl,
+                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
+            };
+
+            return product;
+        }
     }
 
     public enum ProductCostType
@@ -27,4 +48,8 @@ namespace TeamsCore.Models.Entities
         Medium,
         High
     }
+
+
+
+   
 }

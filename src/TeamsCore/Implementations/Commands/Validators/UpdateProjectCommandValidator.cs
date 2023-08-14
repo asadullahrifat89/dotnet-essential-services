@@ -18,6 +18,11 @@ namespace TeamsCore.Implementations.Commands.Validators
             _productRepository = productRepository;
 
             RuleFor(x => x.ProjectId).NotNull().NotEmpty();
+            RuleFor(x => x.Name).NotNull().NotEmpty();
+            RuleFor(x => x.Description).NotNull().NotEmpty();
+            RuleFor(x => x.Link).NotEmpty().NotNull().NotEmpty();
+            RuleFor(x => x.IconUrl).NotEmpty().NotNull().NotEmpty();
+            RuleFor(x => x.LinkedProductIds).NotNull().NotEmpty();
 
             RuleFor(x => x).MustAsync(BeAnExistingProject).WithMessage("Project doesn't exist.").When(x => !x.ProjectId.IsNullOrBlank());
 
