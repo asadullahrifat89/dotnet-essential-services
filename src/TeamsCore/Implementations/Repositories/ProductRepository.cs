@@ -127,10 +127,82 @@ namespace TeamsCore.Implementations.Repositories
             return productSearchCriteriaMaps;
         }
 
-        public async Task<QueryRecordsResponse<ProductResponse>> GetProducts(GetProductsQuery query)
+        public async Task<QueryRecordResponse<ProductResponse>> GetProduct(GetProductQuery query)
         {
-            throw new NotImplementedException();
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var filter = Builders<Product>.Filter.Eq(x => x.Id, query.ProductId);
+
+            var product = await _mongoDbService.FindOne(filter);
+
+            var productResponse = new ProductResponse();
+
+            productResponse.Name = product.Name;
+            productResponse.Description = product.Description;
+            productResponse.ManPower = product.ManPower;
+            productResponse.Experience = product.Experience;
+            productResponse.EmploymentType = product.EmploymentType;
+            productResponse.ProductCostType = product.ProductCostType;
+            productResponse.IconUrl = product.IconUrl;
+            productResponse.BannerUrl = product.BannerUrl;
+            await RetriveAttachedSearchCriterias(query, productResponse);
+            await RetriveAttachtedProjects(query, productResponse);
+
+            return Response.BuildQueryRecordResponse<ProductResponse>().BuildSuccessResponse(productResponse, authCtx?.RequestUri);
         }
+
+        private async Task RetriveAttachtedProjects(GetProductQuery query, ProductResponse productResponse)
+        {
+            var projectFilter = Builders<ProductProjectMap>.Filter.Eq(x => x.ProductId, query.ProductId);
+            var productProjectMaps = await _mongoDbService.GetDocuments(filter: projectFilter);
+
+            if (productProjectMaps.Any())
+            {
+                var projectIds = productProjectMaps.Select(x => x.ProjectId).ToArray();
+
+                var projectFilter2 = Builders<Project>.Filter.In(x => x.Id, projectIds);
+
+                var projects = await _mongoDbService.GetDocuments(filter: projectFilter2);
+
+                if (projects.Any())
+                {
+                    productResponse.AttachedProjects = projects.Select(x => new AttachedProject()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IconUrl = x.IconUrl,
+                        Description = x.Description,
+                        Link = x.Link
+                    }).ToArray();
+                }
+            }
+        }
+
+        private async Task RetriveAttachedSearchCriterias(GetProductQuery query, ProductResponse productResponse)
+        {
+            var searchCriteriaFilter = Builders<ProductSearchCriteriaMap>.Filter.Eq(x => x.ProductId, query.ProductId);
+            var searchCriteriaMaps = await _mongoDbService.GetDocuments(filter: searchCriteriaFilter);
+
+            if (searchCriteriaMaps.Any())
+            {
+                var searchCriteriaIds = searchCriteriaMaps.Select(x => x.SearchCriteriaId).ToArray();
+
+                var searchCriteriaFilter2 = Builders<SearchCriteria>.Filter.In(x => x.Id, searchCriteriaIds);
+
+                var searchCriterias = await _mongoDbService.GetDocuments(filter: searchCriteriaFilter2);
+
+                if (searchCriterias.Any())
+                {
+                    productResponse.AttachedSearchCriterias = searchCriterias.Select(x => new AttachedSearchCriteria()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        IconUrl = x.IconUrl
+                    }).ToArray();
+                }
+            }
+        }
+
 
         #endregion
     }

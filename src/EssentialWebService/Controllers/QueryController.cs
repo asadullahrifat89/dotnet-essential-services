@@ -183,9 +183,11 @@ namespace EssentialWebService.Controllers
             return await _mediator.Send(query);
         }
 
-        #endregion
-
-        #endregion
+        [HttpGet(EndpointRoutes.Action_GetProduct)]
+        public async Task<QueryRecordResponse<ProductResponse>> GetProduct([FromQuery] GetProductQuery query)
+        {
+            return await _mediator.Send(query);
+        }
 
         #endregion
     }
