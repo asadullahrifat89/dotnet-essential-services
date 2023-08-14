@@ -1,6 +1,7 @@
 ﻿using BaseCore.Models.Entities;
 using BaseCore.Extensions;
 using TeamsCore.Declarations.Commands;
+using BaseCore.Models.Responses;
 
 namespace TeamsCore.Models.Entities
 {
@@ -28,6 +29,19 @@ namespace TeamsCore.Models.Entities
             };
 
             return project;
+        }
+        public static Project Initialize(Project project)
+        {
+            return new Project()
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Description = project.Description,
+                Link = project.Link,
+                IconUrl = project.IconUrl,
+                LinkedProductIds = project.LinkedProductIds,
+                TimeStamp = project.TimeStamp,
+            };
         }
     }
 

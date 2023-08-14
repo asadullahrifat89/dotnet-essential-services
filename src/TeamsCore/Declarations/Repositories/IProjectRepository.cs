@@ -14,5 +14,7 @@ namespace TeamsCore.Declarations.Repositories
         Task<QueryRecordResponse<Project>> GetProject(GetProjectQuery query);
 
         Task<ServiceResponse> UpdateProject(UpdateProjectCommand command);
+
+        Task<QueryRecordsResponse<Project>> GetProjects(GetProjectsQuery query);
     }
 }

@@ -91,6 +91,25 @@ namespace TeamsCore.Implementations.Repositories
 
         }
 
+        public async Task<QueryRecordsResponse<Project>> GetProjects(GetProjectsQuery query)
+        {
+            var authCtx = _authenticationContext.GetAuthenticationContext();
+
+            var filter = Builders<Project>.Filter.Where(x => x.Name.ToLower().Contains(query.SearchTerm.ToLower()));
+
+            var count = await _mongoDbService.CountDocuments(filter: filter);
+
+            var projects = await _mongoDbService.GetDocuments(filter: filter, skip: query.PageIndex * query.PageSize, limit: query.PageSize);
+
+
+            return new QueryRecordsResponse<Project>().BuildSuccessResponse(
+               count: count,
+               records: projects is not null ? projects.Select(x => Project.Initialize(x)).ToArray() : Array.Empty<Project>(), authCtx?.RequestUri);
+
+
+
+        }
+
         public async Task<ServiceResponse> UpdateProject(UpdateProjectCommand command)
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
