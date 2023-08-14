@@ -21,6 +21,6 @@ namespace TeamsCore.Declarations.Repositories
 
         Task<ServiceResponse> UpdateProduct(UpdateProductCommand command);
 
-        Task<ProductResponse> GetAllProducts(GetProductsQuery query);
+        Task<QueryRecordsResponse<ProductResponse>> GetProducts(GetProductsQuery query);
     }
 }

@@ -1,9 +1,12 @@
-﻿using BaseCore.Models.Responses;
+﻿using BaseCore.Extensions;
+using BaseCore.Models.Responses;
 using BaseCore.Services;
 using MongoDB.Driver;
 using TeamsCore.Declarations.Commands;
+using TeamsCore.Declarations.Queries;
 using TeamsCore.Declarations.Repositories;
 using TeamsCore.Models.Entities;
+using TeamsCore.Models.Responses;
 
 namespace TeamsCore.Implementations.Repositories
 {
@@ -111,17 +114,22 @@ namespace TeamsCore.Implementations.Repositories
 
                 foreach (var searchCriteriaId in searchCriteriaIds)
                 {
-                    var productProjectMap = new ProductSearchCriteriaMap()
+                    var productSearchCriteriaMap = new ProductSearchCriteriaMap()
                     {
                         ProductId = ProductId,
                         SearchCriteriaId = searchCriteriaId
                     };
 
-                    productSearchCriteriaMaps.Add(productProjectMap);
+                    productSearchCriteriaMaps.Add(productSearchCriteriaMap);
                 }
             }
 
             return productSearchCriteriaMaps;
+        }
+
+        public async Task<QueryRecordsResponse<ProductResponse>> GetProducts(GetProductsQuery query)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
