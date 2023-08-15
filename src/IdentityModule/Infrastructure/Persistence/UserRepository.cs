@@ -99,13 +99,13 @@ namespace IdentityModule.Infrastructure.Persistence
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
         }
 
-        public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
+        public async Task<ServiceResponse> UpdateUserRoles(string userId, string[] roleNames)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var exisitingUserRoleMaps = await _mongoDbContextProvider.GetDocuments(Builders<UserRoleMap>.Filter.Eq(x => x.UserId, command.UserId));
+            var exisitingUserRoleMaps = await _mongoDbContextProvider.GetDocuments(Builders<UserRoleMap>.Filter.Eq(x => x.UserId, userId));
 
-            var roles = await _roleRepository.GetRolesByNames(command.RoleNames);
+            var roles = await _roleRepository.GetRolesByNames(roleNames);
 
             var newUserRoleMaps = new List<UserRoleMap>();
 
@@ -113,7 +113,7 @@ namespace IdentityModule.Infrastructure.Persistence
             {
                 var roleMap = new UserRoleMap()
                 {
-                    UserId = command.UserId,
+                    UserId = userId,
                     RoleId = role.Id,
                 };
 

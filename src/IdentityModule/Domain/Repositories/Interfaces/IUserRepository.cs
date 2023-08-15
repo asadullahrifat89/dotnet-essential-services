@@ -12,7 +12,7 @@ namespace IdentityModule.Domain.Repositories.Interfaces
 
         Task<ServiceResponse> UpdateUser(User user);
 
-        Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command);
+        Task<ServiceResponse> UpdateUserRoles(string userId, string[] roleNames);
 
         Task<bool> BeAnExistingUserEmail(string userEmail);
 
