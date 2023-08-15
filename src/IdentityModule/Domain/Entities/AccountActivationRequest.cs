@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace IdentityModule.Domain.Entities
 {
-    public class AccountActivationRequest : EntityBase
+    public class AccountActivationRequest : BaseEntity
     {
         public string Email { get; set; } = string.Empty;
 
