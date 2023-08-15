@@ -33,14 +33,14 @@ namespace IdentityModule.Application.Commands.Handlers
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(UpdateRoleCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                var validationResult = await _validator.ValidateAsync(command, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _roleRepository.UpdateRole(request);
+                return await _roleRepository.UpdateRole(command.RoleId, command.Claims);
             }
             catch (Exception ex)
             {

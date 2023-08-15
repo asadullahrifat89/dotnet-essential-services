@@ -31,15 +31,13 @@ namespace IdentityModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> AddRole(AddRoleCommand command)
+        public async Task<ServiceResponse> AddRole(Role role, string[] claims)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
-            var role = AddRoleCommand.Initialize(command, authCtx);
-
+            
             var roleClaimMaps = new List<RoleClaimPermissionMap>();
 
-            foreach (var claim in command.Claims.Distinct())
+            foreach (var claim in claims.Distinct())
             {
                 var roleClaimMap = new RoleClaimPermissionMap()
                 {
@@ -56,21 +54,21 @@ namespace IdentityModule.Infrastructure.Persistence
             return Response.BuildServiceResponse().BuildSuccessResponse(role, authCtx?.RequestUri);
         }
 
-        public async Task<ServiceResponse> UpdateRole(UpdateRoleCommand command)
+        public async Task<ServiceResponse> UpdateRole(string roleId, string[] claims)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var existingRole = await _mongoDbContextProvider.FindById<Role>(command.RoleId);
+            var existingRole = await _mongoDbContextProvider.FindById<Role>(roleId);
 
             var newRoleClaimMaps = new List<RoleClaimPermissionMap>();
 
-            if (command.Claims is not null && command.Claims.Any())
+            if (claims is not null && claims.Any())
             {
-                foreach (var claim in command.Claims.Distinct())
+                foreach (var claim in claims.Distinct())
                 {
                     var roleClaimMap = new RoleClaimPermissionMap()
                     {
-                        RoleId = command.RoleId,
+                        RoleId = roleId,
                         ClaimPermission = claim
                     };
 
@@ -78,7 +76,7 @@ namespace IdentityModule.Infrastructure.Persistence
                 }
             }
 
-            var existingRoleClaimMaps = await _mongoDbContextProvider.GetDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, command.RoleId));
+            var existingRoleClaimMaps = await _mongoDbContextProvider.GetDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, roleId));
 
             if (existingRoleClaimMaps != null && existingRoleClaimMaps.Any())
                 await _mongoDbContextProvider.DeleteDocuments(Builders<RoleClaimPermissionMap>.Filter.In(x => x.Id, existingRoleClaimMaps.Select(x => x.Id).ToArray()));

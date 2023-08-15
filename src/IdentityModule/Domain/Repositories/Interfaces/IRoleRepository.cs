@@ -11,9 +11,9 @@ namespace IdentityModule.Domain.Repositories.Interfaces
 
         Task<bool> BeAnExistingRoleById(string id);
 
-        Task<ServiceResponse> AddRole(AddRoleCommand command);
+        Task<ServiceResponse> AddRole(Role role, string[] claims);
 
-        Task<ServiceResponse> UpdateRole(UpdateRoleCommand command);
+        Task<ServiceResponse> UpdateRole(string roleId, string[] claims);
 
         Task<Role[]> GetRolesByNames(string[] names);
 
