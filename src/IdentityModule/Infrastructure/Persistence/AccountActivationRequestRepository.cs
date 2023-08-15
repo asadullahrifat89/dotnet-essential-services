@@ -58,11 +58,9 @@ namespace IdentityModule.Infrastructure.Persistence
             }
         }
 
-        public async Task<ServiceResponse> VerifyAccountActivationRequest(VerifyUserAccountActivationRequestCommand command)
+        public async Task<ServiceResponse> VerifyAccountActivationRequest(string email, string activationKey, string password)
         {
-            var email = command.Email;
-
-            var activationRequest = await GetActiveAccountActivationRequest(email);
+            var activationRequest = await GetActiveAccountActivationRequestForEmailAndKey(email: email, activationKey: activationKey);
 
             var user = await _userRepository.GetUserByEmail(email);
 
@@ -74,7 +72,7 @@ namespace IdentityModule.Infrastructure.Persistence
 
                 if (activated)
                 {
-                    return await _userRepository.UpdateUserPasswordById(user.Id, command.Password);
+                    return await _userRepository.UpdateUserPasswordById(user.Id, password);
                 }
                 else
                 {
@@ -87,9 +85,13 @@ namespace IdentityModule.Infrastructure.Persistence
             }
         }
 
-        private async Task<AccountActivationRequest> GetActiveAccountActivationRequest(string email)
+        private async Task<AccountActivationRequest> GetActiveAccountActivationRequestForEmailAndKey(string email, string activationKey)
         {
-            var filter = Builders<AccountActivationRequest>.Filter.And(Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, email), Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
+            var filter = Builders<AccountActivationRequest>.Filter.And(
+                Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, email),                
+                Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKey, activationKey),
+                Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
+
             return await _mongoDbContextProvider.FindOne(filter);
         }
 

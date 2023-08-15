@@ -10,6 +10,6 @@ namespace IdentityModule.Domain.Repositories.Interfaces
 
         Task<ServiceResponse> CreateAccountActivationRequest(AccountActivationRequest accountActivationRequest);
 
-        Task<ServiceResponse> VerifyAccountActivationRequest(VerifyUserAccountActivationRequestCommand command);
+        Task<ServiceResponse> VerifyAccountActivationRequest(string email, string activationKey, string password);
     }
 }
