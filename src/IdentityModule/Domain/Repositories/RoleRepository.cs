@@ -14,8 +14,8 @@ namespace IdentityModule.Domain.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -23,8 +23,8 @@ namespace IdentityModule.Domain.Repositories
 
         public RoleRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
-            _mongoDbService = mongoDbService;
-            _authenticationContext = authenticationContext;
+            _mongoDbContextProvider = mongoDbService;
+            _authenticationContextProvider = authenticationContext;
         }
 
         #endregion
@@ -33,7 +33,7 @@ namespace IdentityModule.Domain.Repositories
 
         public async Task<ServiceResponse> AddRole(AddRoleCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var role = AddRoleCommand.Initialize(command, authCtx);
 
@@ -50,17 +50,17 @@ namespace IdentityModule.Domain.Repositories
                 roleClaimMaps.Add(roleClaimMap);
             }
 
-            await _mongoDbService.InsertDocument(role);
-            await _mongoDbService.InsertDocuments(roleClaimMaps);
+            await _mongoDbContextProvider.InsertDocument(role);
+            await _mongoDbContextProvider.InsertDocuments(roleClaimMaps);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(role, authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateRole(UpdateRoleCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var existingRole = await _mongoDbService.FindById<Role>(command.RoleId);
+            var existingRole = await _mongoDbContextProvider.FindById<Role>(command.RoleId);
 
             var newRoleClaimMaps = new List<RoleClaimPermissionMap>();
 
@@ -78,13 +78,13 @@ namespace IdentityModule.Domain.Repositories
                 }
             }
 
-            var existingRoleClaimMaps = await _mongoDbService.GetDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, command.RoleId));
+            var existingRoleClaimMaps = await _mongoDbContextProvider.GetDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, command.RoleId));
 
             if (existingRoleClaimMaps != null && existingRoleClaimMaps.Any())
-                await _mongoDbService.DeleteDocuments(Builders<RoleClaimPermissionMap>.Filter.In(x => x.Id, existingRoleClaimMaps.Select(x => x.Id).ToArray()));
+                await _mongoDbContextProvider.DeleteDocuments(Builders<RoleClaimPermissionMap>.Filter.In(x => x.Id, existingRoleClaimMaps.Select(x => x.Id).ToArray()));
 
             if (newRoleClaimMaps.Any())
-                await _mongoDbService.InsertDocuments(newRoleClaimMaps);
+                await _mongoDbContextProvider.InsertDocuments(newRoleClaimMaps);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(existingRole, authCtx?.RequestUri);
         }
@@ -93,21 +93,21 @@ namespace IdentityModule.Domain.Repositories
         {
             var filter = Builders<Role>.Filter.Eq(x => x.Name, role);
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<bool> BeAnExistingRoleById(string id)
         {
             var filter = Builders<Role>.Filter.Eq(x => x.Id, id);
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<Role[]> GetRolesByNames(string[] names)
         {
             var filter = Builders<Role>.Filter.In(x => x.Name, names);
 
-            var results = await _mongoDbService.GetDocuments(filter: filter);
+            var results = await _mongoDbContextProvider.GetDocuments(filter: filter);
 
             return results is not null ? results.ToArray() : Array.Empty<Role>();
         }
@@ -116,20 +116,20 @@ namespace IdentityModule.Domain.Repositories
         {
             var filter = Builders<UserRoleMap>.Filter.Eq(x => x.UserId, userId);
 
-            var results = await _mongoDbService.GetDocuments(filter: filter);
+            var results = await _mongoDbContextProvider.GetDocuments(filter: filter);
 
             return results is not null ? results.ToArray() : Array.Empty<UserRoleMap>();
         }
 
         public async Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var filter = Builders<Role>.Filter.Empty;
 
-            var count = await _mongoDbService.CountDocuments(filter: filter);
+            var count = await _mongoDbContextProvider.CountDocuments(filter: filter);
 
-            var roles = await _mongoDbService.GetDocuments(filter: filter);
+            var roles = await _mongoDbContextProvider.GetDocuments(filter: filter);
 
             return new QueryRecordsResponse<Role>().BuildSuccessResponse(
                count: count,
@@ -138,13 +138,13 @@ namespace IdentityModule.Domain.Repositories
 
         public async Task<QueryRecordsResponse<Role>> GetRolesByUserId(GetUserRolesQuery query)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             // get user roles from user role map
 
             var userfilter = Builders<UserRoleMap>.Filter.Eq(x => x.UserId, query.UserId);
 
-            var userRoleMaps = await _mongoDbService.GetDocuments(filter: userfilter);
+            var userRoleMaps = await _mongoDbContextProvider.GetDocuments(filter: userfilter);
 
             var roleIds = userRoleMaps.Select(x => x.RoleId).ToArray();
 
@@ -152,7 +152,7 @@ namespace IdentityModule.Domain.Repositories
 
             var roleFilter = Builders<Role>.Filter.In(x => x.Id, roleIds);
 
-            var roles = await _mongoDbService.GetDocuments(filter: roleFilter);
+            var roles = await _mongoDbContextProvider.GetDocuments(filter: roleFilter);
 
             return Response.BuildQueryRecordsResponse<Role>().BuildSuccessResponse(
                    count: roles.Count(),

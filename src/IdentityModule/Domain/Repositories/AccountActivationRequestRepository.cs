@@ -12,9 +12,9 @@ namespace IdentityModule.Domain.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -22,8 +22,8 @@ namespace IdentityModule.Domain.Repositories
 
         public AccountActivationRequestRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext, IUserRepository userRepository)
         {
-            _mongoDbService = mongoDbService;
-            _authenticationContext = authenticationContext;
+            _mongoDbContextProvider = mongoDbService;
+            _authenticationContextProvider = authenticationContext;
             _userRepository = userRepository;
         }
 
@@ -33,7 +33,7 @@ namespace IdentityModule.Domain.Repositories
 
         public async Task<ServiceResponse> CreateAccountActivationRequest(SendUserAccountActivationRequestCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var accountActivationRequest = SendUserAccountActivationRequestCommand.Initialize(command);
 
@@ -41,20 +41,20 @@ namespace IdentityModule.Domain.Repositories
                 Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, command.Email),
                 Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
 
-            var alreadyExistsAccountActivationRequest = await _mongoDbService.FindOne(filter);
+            var alreadyExistsAccountActivationRequest = await _mongoDbContextProvider.FindOne(filter);
 
             if (alreadyExistsAccountActivationRequest is not null)
             {
                 var update = Builders<AccountActivationRequest>.Update
                     .Set(x => x.ActivationKey, accountActivationRequest.ActivationKey);
 
-                var updatedAccountActivationRequest = await _mongoDbService.UpdateById(update: update, alreadyExistsAccountActivationRequest.Id);
+                var updatedAccountActivationRequest = await _mongoDbContextProvider.UpdateById(update: update, alreadyExistsAccountActivationRequest.Id);
 
                 return Response.BuildServiceResponse().BuildSuccessResponse(updatedAccountActivationRequest, authCtx?.RequestUri);
             }
             else
             {
-                await _mongoDbService.InsertDocument(accountActivationRequest);
+                await _mongoDbContextProvider.InsertDocument(accountActivationRequest);
 
                 return Response.BuildServiceResponse().BuildSuccessResponse(accountActivationRequest, authCtx?.RequestUri);
             }
@@ -92,13 +92,13 @@ namespace IdentityModule.Domain.Repositories
         private async Task<AccountActivationRequest> GetActiveAccountActivationRequest(string email)
         {
             var filter = Builders<AccountActivationRequest>.Filter.And(Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, email), Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
-            return await _mongoDbService.FindOne(filter);
+            return await _mongoDbContextProvider.FindOne(filter);
         }
 
         private async Task<bool> ExpireActivationKey(string id)
         {
             var update = Builders<AccountActivationRequest>.Update.Set(x => x.ActivationKeyStatus, ActivationKeyStatus.Expired);
-            var updatedAccountActivationRequest = await _mongoDbService.UpdateById(update: update, id);
+            var updatedAccountActivationRequest = await _mongoDbContextProvider.UpdateById(update: update, id);
             return updatedAccountActivationRequest is not null;
         }
 
@@ -108,7 +108,7 @@ namespace IdentityModule.Domain.Repositories
                 Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKey, activationKey),
                 Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         #endregion

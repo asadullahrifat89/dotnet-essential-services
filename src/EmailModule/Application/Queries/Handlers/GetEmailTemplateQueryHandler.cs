@@ -12,7 +12,7 @@ namespace EmailModule.Application.Queries.Handlers
     public class GetEmailTemplateQueryHandler : IRequestHandler<GetEmailTemplateQuery, QueryRecordResponse<EmailTemplate>>
     {
         private readonly IEmailTemplateRepository _emailRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
         private readonly ILogger<GetEmailTemplateQueryHandler> _logger;
         private readonly GetEmailTemplateQueryValidator _validator;
 
@@ -25,7 +25,7 @@ namespace EmailModule.Application.Queries.Handlers
             _logger = logger;
             _validator = validator;
             _emailRepository = emailRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
         public async Task<QueryRecordResponse<EmailTemplate>> Handle(GetEmailTemplateQuery request, CancellationToken cancellationToken)
@@ -40,7 +40,7 @@ namespace EmailModule.Application.Queries.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordResponse<EmailTemplate>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordResponse<EmailTemplate>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
     }

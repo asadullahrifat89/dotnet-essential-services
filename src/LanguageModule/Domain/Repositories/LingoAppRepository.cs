@@ -13,7 +13,7 @@ namespace LanguageModule.Domain.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
@@ -22,7 +22,7 @@ namespace LanguageModule.Domain.Repositories
 
         public LingoAppRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContextProvider)
         {
-            _mongoDbService = mongoDbService;
+            _mongoDbContextProvider = mongoDbService;
             _authenticationContextProvider = authenticationContextProvider;
         }
 
@@ -36,7 +36,7 @@ namespace LanguageModule.Domain.Repositories
 
             var lingoApp = AddLingoAppCommand.Initialize(command, authCtx);
 
-            await _mongoDbService.InsertDocument(lingoApp);
+            await _mongoDbContextProvider.InsertDocument(lingoApp);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(lingoApp, authCtx?.RequestUri);
         }
@@ -47,7 +47,7 @@ namespace LanguageModule.Domain.Repositories
 
             var filter = Builders<LingoApp>.Filter.Where(x => x.Id.Equals(query.AppId));
 
-            var user = await _mongoDbService.FindOne(filter);
+            var user = await _mongoDbContextProvider.FindOne(filter);
 
             return Response.BuildQueryRecordResponse<LingoApp>().BuildSuccessResponse(user, authCtx?.RequestUri);
 
@@ -57,14 +57,14 @@ namespace LanguageModule.Domain.Repositories
         {
             var filter = Builders<LingoApp>.Filter.Where(x => x.Name.ToLower().Equals(appName.ToLower()));
 
-            return _mongoDbService.Exists(filter);
+            return _mongoDbContextProvider.Exists(filter);
         }
 
         public Task<bool> BeAnExistingLingoAppById(string appId)
         {
             var filter = Builders<LingoApp>.Filter.Where(x => x.Id.Equals(appId));
 
-            return _mongoDbService.Exists(filter);
+            return _mongoDbContextProvider.Exists(filter);
         }
 
         #endregion

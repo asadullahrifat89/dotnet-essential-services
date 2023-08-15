@@ -14,7 +14,7 @@ namespace IdentityModule.Application.Queries.Handlers
         private readonly ILogger<GetUserQueryHandler> _logger;
         private readonly GetUserQueryValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         public GetUserQueryHandler(
             ILogger<GetUserQueryHandler> logger,
@@ -25,7 +25,7 @@ namespace IdentityModule.Application.Queries.Handlers
             _logger = logger;
             _validator = validator;
             _userRepository = userRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
         public async Task<QueryRecordResponse<UserResponse>> Handle(GetUserQuery request, CancellationToken cancellationToken)
@@ -41,7 +41,7 @@ namespace IdentityModule.Application.Queries.Handlers
             {
                 _logger.LogError(ex, ex.Message);
                 return Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(
-                    Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                    Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
     }

@@ -15,8 +15,8 @@ namespace EmailModule.Infrastructure.Persistence
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
         private readonly IConfiguration _configuration;
         private readonly IEmailTemplateRepository _emailTemplateRepository;
 
@@ -30,8 +30,8 @@ namespace EmailModule.Infrastructure.Persistence
             IConfiguration configuration,
             IEmailTemplateRepository emailTemplateRepository)
         {
-            _mongoDbService = mongoDbService;
-            _authenticationContext = authenticationContext;
+            _mongoDbContextProvider = mongoDbService;
+            _authenticationContextProvider = authenticationContext;
             _configuration = configuration;
             _emailTemplateRepository = emailTemplateRepository;
         }
@@ -42,7 +42,7 @@ namespace EmailModule.Infrastructure.Persistence
 
         public async Task<ServiceResponse> EnqueueEmailMessage(EnqueueEmailMessageCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var emailMessage = EnqueueEmailMessageCommand.Initialize(command, authCtx);
 
@@ -120,14 +120,14 @@ namespace EmailModule.Infrastructure.Persistence
                     break;
             }
 
-            await _mongoDbService.InsertDocument(emailMessage);
+            await _mongoDbContextProvider.InsertDocument(emailMessage);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(emailMessage, authCtx?.RequestUri);
         }
 
         public async Task<List<EmailMessage>> GetEmailMessagesForSending()
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var retryThreshold = Convert.ToInt32(_configuration["MailSettings:RetryThreshold"]);
 
@@ -136,7 +136,7 @@ namespace EmailModule.Infrastructure.Persistence
             if (retryThreshold > 0)
                 filter &= Builders<EmailMessage>.Filter.Lt(x => x.SendingAttempt, retryThreshold);
 
-            var emailMessages = await _mongoDbService.GetDocuments(filter: filter, skip: 0, limit: 10, sortOrder: SortOrder.Descending, sortFieldName: "EmailSendStatus");
+            var emailMessages = await _mongoDbContextProvider.GetDocuments(filter: filter, skip: 0, limit: 10, sortOrder: SortOrder.Descending, sortFieldName: "EmailSendStatus");
 
             return emailMessages;
         }
@@ -147,7 +147,7 @@ namespace EmailModule.Infrastructure.Persistence
                 ? Builders<EmailMessage>.Update.Set(x => x.EmailSendStatus, emailSendStatus).Inc(x => x.SendingAttempt, 1)
                 : Builders<EmailMessage>.Update.Set(x => x.EmailSendStatus, emailSendStatus);
 
-            await _mongoDbService.UpdateById(update: update, id: emailMessageId);
+            await _mongoDbContextProvider.UpdateById(update: update, id: emailMessageId);
 
             return true;
         }

@@ -14,8 +14,8 @@ namespace EmailModule.Infrastructure.Persistence
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -23,8 +23,8 @@ namespace EmailModule.Infrastructure.Persistence
 
         public EmailTemplateRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
-            _mongoDbService = mongoDbService;
-            _authenticationContext = authenticationContext;
+            _mongoDbContextProvider = mongoDbService;
+            _authenticationContextProvider = authenticationContext;
         }
 
 
@@ -34,29 +34,29 @@ namespace EmailModule.Infrastructure.Persistence
 
         public async Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var template = CreateEmailTemplateCommand.Initialize(command, authCtx);
 
-            await _mongoDbService.InsertDocument(template);
+            await _mongoDbContextProvider.InsertDocument(template);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(template, authCtx?.RequestUri);
         }
 
         public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(GetEmailTemplateQuery query)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, query.TemplateId);
 
-            var emailTemplate = await _mongoDbService.FindOne(filter);
+            var emailTemplate = await _mongoDbContextProvider.FindOne(filter);
 
             return Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(emailTemplate, authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var update = Builders<EmailTemplate>.Update
                 .Set(x => x.Name, command.Name)
@@ -67,9 +67,9 @@ namespace EmailModule.Infrastructure.Persistence
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
-            await _mongoDbService.UpdateById(update: update, id: command.TemplateId);
+            await _mongoDbContextProvider.UpdateById(update: update, id: command.TemplateId);
 
-            var updatedTemplate = await _mongoDbService.FindById<EmailTemplate>(command.TemplateId);
+            var updatedTemplate = await _mongoDbContextProvider.FindById<EmailTemplate>(command.TemplateId);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedTemplate, authCtx?.RequestUri);
         }
@@ -77,22 +77,22 @@ namespace EmailModule.Infrastructure.Persistence
         public async Task<bool> BeAnExistingEmailTemplate(string templateName)
         {
             var filter = Builders<EmailTemplate>.Filter.Where(x => x.Name.ToLower().Equals(templateName.ToLower()));
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<bool> BeAnExistingEmailTemplateById(string templateId)
         {
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<EmailTemplate> GetEmailTemplate(string templateId)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
 
-            var emailTemplate = await _mongoDbService.FindOne(filter);
+            var emailTemplate = await _mongoDbContextProvider.FindOne(filter);
 
             return emailTemplate;
         }

@@ -17,8 +17,8 @@ namespace BlobModule.Infrastructure.Persistence
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -26,8 +26,8 @@ namespace BlobModule.Infrastructure.Persistence
 
         public BlobFileRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
-            _mongoDbService = mongoDbService;
-            _authenticationContext = authenticationContext;
+            _mongoDbContextProvider = mongoDbService;
+            _authenticationContextProvider = authenticationContext;
         }
 
         #endregion
@@ -36,7 +36,7 @@ namespace BlobModule.Infrastructure.Persistence
 
         public async Task<ServiceResponse> UploadBlobFile(IFormFile formFile)
         {
-            var authctx = _authenticationContext.GetAuthenticationContext();
+            var authctx = _authenticationContextProvider.GetAuthenticationContext();
 
             var file = formFile;
             var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
@@ -47,7 +47,7 @@ namespace BlobModule.Infrastructure.Persistence
 
             using (var stream = file.OpenReadStream())
             {
-                var bucketId = await _mongoDbService.UploadFileStream(file.Name, stream);
+                var bucketId = await _mongoDbContextProvider.UploadFileStream(file.Name, stream);
 
                 blobFile = new BlobFile()
                 {
@@ -58,7 +58,7 @@ namespace BlobModule.Infrastructure.Persistence
                     ContentType = contentType,
                 };
 
-                await _mongoDbService.InsertDocument(blobFile);
+                await _mongoDbContextProvider.InsertDocument(blobFile);
             }
 
             return Response.BuildServiceResponse().BuildSuccessResponse(blobFile, authctx.RequestUri);
@@ -66,9 +66,9 @@ namespace BlobModule.Infrastructure.Persistence
 
         public async Task<BlobFileResponse> DownloadBlobFile(string fileId)
         {
-            var blobFile = await _mongoDbService.FindById<BlobFile>(fileId);
+            var blobFile = await _mongoDbContextProvider.FindById<BlobFile>(fileId);
 
-            var bytes = await _mongoDbService.DownloadFileBytes(blobFile.BucketObjectId);
+            var bytes = await _mongoDbContextProvider.DownloadFileBytes(blobFile.BucketObjectId);
 
             return BlobFileResponse.Initialize(blobFile, bytes);
         }
@@ -77,16 +77,16 @@ namespace BlobModule.Infrastructure.Persistence
         {
             var filter = Builders<BlobFile>.Filter.Eq(x => x.Id, fileId);
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<QueryRecordResponse<BlobFile>> GetBlobFile(string fileId)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var filter = Builders<BlobFile>.Filter.Eq(x => x.Id, fileId);
 
-            var blobFile = await _mongoDbService.FindOne(filter);
+            var blobFile = await _mongoDbContextProvider.FindOne(filter);
 
             return Response.BuildQueryRecordResponse<BlobFile>().BuildSuccessResponse(blobFile, authCtx?.RequestUri);
         }

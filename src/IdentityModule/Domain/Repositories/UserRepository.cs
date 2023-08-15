@@ -15,9 +15,9 @@ namespace IdentityModule.Domain.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
         private readonly IRoleRepository _roleRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -25,9 +25,9 @@ namespace IdentityModule.Domain.Repositories
 
         public UserRepository(IMongoDbContextProvider mongoDbService, IRoleRepository roleRepository, IAuthenticationContextProvider authenticationContext)
         {
-            _mongoDbService = mongoDbService;
+            _mongoDbContextProvider = mongoDbService;
             _roleRepository = roleRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
         #endregion
@@ -36,7 +36,7 @@ namespace IdentityModule.Domain.Repositories
 
         public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var user = CreateUserCommand.Initialize(command, authCtx);
 
@@ -59,17 +59,17 @@ namespace IdentityModule.Domain.Repositories
                 }
             }
 
-            await _mongoDbService.InsertDocument(user);
+            await _mongoDbContextProvider.InsertDocument(user);
 
             if (userRoleMaps.Any())
-                await _mongoDbService.InsertDocuments(userRoleMaps);
+                await _mongoDbContextProvider.InsertDocuments(userRoleMaps);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(user, authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateUser(UpdateUserCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var update = Builders<User>.Update
                 .Set(x => x.FirstName, command.FirstName)
@@ -79,8 +79,8 @@ namespace IdentityModule.Domain.Repositories
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
-            await _mongoDbService.UpdateById(update: update, id: command.UserId);
-            var updatedUser = await _mongoDbService.FindById<User>(command.UserId);
+            await _mongoDbContextProvider.UpdateById(update: update, id: command.UserId);
+            var updatedUser = await _mongoDbContextProvider.FindById<User>(command.UserId);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
         }
@@ -92,20 +92,20 @@ namespace IdentityModule.Domain.Repositories
 
         public async Task<ServiceResponse> UpdateUserPasswordById(string userId, string password)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var update = Builders<User>.Update.Set(x => x.Password, password.Encrypt());
 
-            var updatedUser = await _mongoDbService.UpdateById(update: update, id: userId);
+            var updatedUser = await _mongoDbContextProvider.UpdateById(update: update, id: userId);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var exisitingUserRoleMaps = await _mongoDbService.GetDocuments(Builders<UserRoleMap>.Filter.Eq(x => x.UserId, command.UserId));
+            var exisitingUserRoleMaps = await _mongoDbContextProvider.GetDocuments(Builders<UserRoleMap>.Filter.Eq(x => x.UserId, command.UserId));
 
             var roles = await _roleRepository.GetRolesByNames(command.RoleNames);
 
@@ -123,10 +123,10 @@ namespace IdentityModule.Domain.Repositories
             }
 
             if (exisitingUserRoleMaps.Any())
-                await _mongoDbService.DeleteDocuments(Builders<UserRoleMap>.Filter.In(x => x.Id, exisitingUserRoleMaps.Select(x => x.Id).ToArray()));
+                await _mongoDbContextProvider.DeleteDocuments(Builders<UserRoleMap>.Filter.In(x => x.Id, exisitingUserRoleMaps.Select(x => x.Id).ToArray()));
 
             if (newUserRoleMaps.Any())
-                await _mongoDbService.InsertDocuments(newUserRoleMaps);
+                await _mongoDbContextProvider.InsertDocuments(newUserRoleMaps);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(newUserRoleMaps, authCtx?.RequestUri);
         }
@@ -135,21 +135,21 @@ namespace IdentityModule.Domain.Repositories
         {
             var filter = Builders<User>.Filter.Eq(x => x.Email, userEmail);
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<bool> BeValidUserPassword(string userId, string password)
         {
             var filter = Builders<User>.Filter.And(Builders<User>.Filter.Eq(x => x.Id, userId), Builders<User>.Filter.Eq(x => x.Password, password.Encrypt()));
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<bool> BeAnExistingPhoneNumber(string phoneNumber)
         {
             var filter = Builders<User>.Filter.Eq(x => x.PhoneNumber, phoneNumber);
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<bool> BeValidUser(string userEmail, string password)
@@ -160,7 +160,7 @@ namespace IdentityModule.Domain.Repositories
                     Builders<User>.Filter.Eq(x => x.Email, userEmail),
                     Builders<User>.Filter.Eq(x => x.Password, encryptedPassword));
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<User> GetUser(string userEmail, string password)
@@ -171,37 +171,37 @@ namespace IdentityModule.Domain.Repositories
                    Builders<User>.Filter.Eq(x => x.Email, userEmail),
                    Builders<User>.Filter.Eq(x => x.Password, encryptedPassword));
 
-            return await _mongoDbService.FindOne(filter);
+            return await _mongoDbContextProvider.FindOne(filter);
         }
 
         public async Task<User> GetUserByEmail(string userEmail)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Email, userEmail);
 
-            return await _mongoDbService.FindOne(filter);
+            return await _mongoDbContextProvider.FindOne(filter);
         }
 
         public async Task<User> GetUser(string userId)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
 
-            return await _mongoDbService.FindOne(filter);
+            return await _mongoDbContextProvider.FindOne(filter);
         }
 
         public async Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var filter = Builders<User>.Filter.Eq(x => x.Id, query.UserId);
 
-            var user = await _mongoDbService.FindOne(filter);
+            var user = await _mongoDbContextProvider.FindOne(filter);
 
             return Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user), authCtx?.RequestUri);
         }
 
         public async Task<QueryRecordsResponse<UserResponse>> GetUsers(GetUsersQuery query)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var filter = Builders<User>.Filter.Empty;
 
@@ -214,9 +214,9 @@ namespace IdentityModule.Domain.Repositories
                     Builders<User>.Filter.Where(x => x.Email.ToLower().Contains(query.SearchTerm.ToLower())));
             }
 
-            var count = await _mongoDbService.CountDocuments(filter: filter);
+            var count = await _mongoDbContextProvider.CountDocuments(filter: filter);
 
-            var users = await _mongoDbService.GetDocuments(
+            var users = await _mongoDbContextProvider.GetDocuments(
                 filter: filter,
                 skip: query.PageIndex * query.PageSize,
                 limit: query.PageSize);
@@ -229,24 +229,24 @@ namespace IdentityModule.Domain.Repositories
         public async Task<bool> BeAnExistingUser(string id)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, id);
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<bool> ActivateUser(string id)
         {
             var updateStatus = Builders<User>.Update.Set(x => x.UserStatus, UserStatus.Active);
-            var updatedUser = await _mongoDbService.UpdateById(update: updateStatus, id);
+            var updatedUser = await _mongoDbContextProvider.UpdateById(update: updateStatus, id);
 
             return updatedUser is not null;
         }
 
         public async Task<ServiceResponse> SubmitUser(SubmitUserCommand command)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var user = SubmitUserCommand.Initialize(command, authCtx);
 
-            await _mongoDbService.InsertDocument(user);
+            await _mongoDbContextProvider.InsertDocument(user);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(user, authCtx?.RequestUri);
         }

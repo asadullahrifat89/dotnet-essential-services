@@ -13,7 +13,7 @@ namespace LanguageModule.Domain.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
@@ -22,7 +22,7 @@ namespace LanguageModule.Domain.Repositories
 
         public LingoResourcesRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContextProvider)
         {
-            _mongoDbService = mongoDbService;
+            _mongoDbContextProvider = mongoDbService;
             _authenticationContextProvider = authenticationContextProvider;
         }
 
@@ -36,7 +36,7 @@ namespace LanguageModule.Domain.Repositories
 
             var lingoResources = AddLingoResourcesCommand.Initialize(command, authCtx);
 
-            await _mongoDbService.InsertDocuments(lingoResources);
+            await _mongoDbContextProvider.InsertDocuments(lingoResources);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(lingoResources, authCtx?.RequestUri);
         }
@@ -45,7 +45,7 @@ namespace LanguageModule.Domain.Repositories
         {
             var filter = Builders<LingoResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()));
 
-            return _mongoDbService.Exists(filter);
+            return _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query)
@@ -67,7 +67,7 @@ namespace LanguageModule.Domain.Repositories
 
             var filter = Builders<LingoResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(query.LanguageCode.ToLower()));
 
-            var lingoResources = await _mongoDbService.GetDocuments(filter);
+            var lingoResources = await _mongoDbContextProvider.GetDocuments(filter);
 
             var lingoResourcesInJson = lingoResources.ToDictionary(x => x.ResourceKey, x => x.ResourceValue);
 

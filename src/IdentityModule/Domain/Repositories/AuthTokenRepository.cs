@@ -13,7 +13,7 @@ namespace IdentityModule.Domain.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbContextProvider _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
         private readonly IUserRepository _userRepository;
         //private readonly IRoleRepository _roleRepository;
         //private readonly IClaimPermissionRepository _claimPermissionRepository;
@@ -32,7 +32,7 @@ namespace IdentityModule.Domain.Repositories
            //IClaimPermissionRepository claimPermissionRepository,
            IJwtService jwtService)
         {
-            _mongoDbService = mongoDbService;
+            _mongoDbContextProvider = mongoDbService;
             _userRepository = userRepository;
             _configuration = configuration;
             //_roleRepository = roleRepository;
@@ -57,14 +57,14 @@ namespace IdentityModule.Domain.Repositories
         {
             var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.Jwt, refreshToken));
 
-            return await _mongoDbService.Exists(filter);
+            return await _mongoDbContextProvider.Exists(filter);
         }
 
         public async Task<ServiceResponse> ValidateToken(ValidateTokenCommand command)
         {
             var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.Jwt, command.RefreshToken));
 
-            var refreshToken = await _mongoDbService.FindOne(filter);
+            var refreshToken = await _mongoDbContextProvider.FindOne(filter);
 
             var user = await _userRepository.GetUser(userId: refreshToken.UserId);
 
@@ -74,7 +74,7 @@ namespace IdentityModule.Domain.Repositories
             AuthToken result = await GenerateAuthToken(user: user);
 
             // delete the old refresh token
-            await _mongoDbService.DeleteById<RefreshToken>(refreshToken.Id);
+            await _mongoDbContextProvider.DeleteById<RefreshToken>(refreshToken.Id);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(result);
         }
@@ -102,10 +102,10 @@ namespace IdentityModule.Domain.Repositories
             var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.UserId, userId));
 
             // delete old refresh tokens
-            await _mongoDbService.DeleteDocuments(filter);
+            await _mongoDbContextProvider.DeleteDocuments(filter);
 
             // save the refresh token
-            await _mongoDbService.InsertDocument(refreshToken);
+            await _mongoDbContextProvider.InsertDocument(refreshToken);
 
             // return the auth token with refresh token
             var result = new AuthToken()

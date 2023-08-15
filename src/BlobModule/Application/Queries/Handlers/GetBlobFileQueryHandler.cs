@@ -14,7 +14,7 @@ namespace BlobModule.Application.Queries.Handlers
         private readonly ILogger<GetBlobFileQueryHandler> _logger;
         private readonly GetBlobFileQueryValidator _validator;
         private readonly IBlobFileRepository _blobFileRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         public GetBlobFileQueryHandler(ILogger<GetBlobFileQueryHandler> logger,
             GetBlobFileQueryValidator validator,
@@ -24,7 +24,7 @@ namespace BlobModule.Application.Queries.Handlers
             _logger = logger;
             _validator = validator;
             _blobFileRepository = blobFileRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
 
@@ -41,7 +41,7 @@ namespace BlobModule.Application.Queries.Handlers
             {
                 _logger.LogError(ex, ex.Message);
                 return Response.BuildQueryRecordResponse<BlobFile>().BuildErrorResponse(
-                                       Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                                       Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
     }

@@ -12,14 +12,14 @@ namespace BlobModule.Application.Queries.Handlers
     {
         private readonly ILogger<DownloadBlobFileQueryHandler> _logger;
         private readonly DownloadBlobFileQueryValidator _validator;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
         private readonly IBlobFileRepository _blobFileRepository;
 
         public DownloadBlobFileQueryHandler(ILogger<DownloadBlobFileQueryHandler> logger, DownloadBlobFileQueryValidator validator, IAuthenticationContextProvider authenticationContext, IBlobFileRepository blobFileRepository)
         {
             _logger = logger;
             _validator = validator;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
             _blobFileRepository = blobFileRepository;
         }
 

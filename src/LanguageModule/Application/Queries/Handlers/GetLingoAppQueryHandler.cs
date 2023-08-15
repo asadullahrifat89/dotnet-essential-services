@@ -15,7 +15,7 @@ namespace LanguageModule.Application.Queries.Handlers
         private readonly ILogger<GetLingoAppQueryHandler> _logger;
         private readonly GetLingoAppQueryValidator _validator;
         private readonly ILingoAppRepository _lingoAppRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         public GetLingoAppQueryHandler(
             ILogger<GetLingoAppQueryHandler> logger, GetLingoAppQueryValidator validator,
@@ -24,7 +24,7 @@ namespace LanguageModule.Application.Queries.Handlers
             _logger = logger;
             _validator = validator;
             _lingoAppRepository = lingoAppRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
         public async Task<QueryRecordResponse<LingoApp>> Handle(GetLingoAppQuery request, CancellationToken cancellationToken)
@@ -39,7 +39,7 @@ namespace LanguageModule.Application.Queries.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordResponse<LingoApp>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordResponse<LingoApp>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
 
             }
         }
