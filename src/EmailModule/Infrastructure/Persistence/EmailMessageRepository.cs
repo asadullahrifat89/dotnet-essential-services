@@ -40,11 +40,9 @@ namespace EmailModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> EnqueueEmailMessage(EnqueueEmailMessageCommand command)
+        public async Task<ServiceResponse> EnqueueEmailMessage(EmailMessage emailMessage)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
-            var emailMessage = EnqueueEmailMessageCommand.Initialize(command, authCtx);
 
             var senderName = _configuration["MailSettings:SenderName"];
             var senderEmail = _configuration["MailSettings:SenderEmail"];
@@ -85,7 +83,7 @@ namespace EmailModule.Infrastructure.Persistence
                     {
                         if (!emailMessage.EmailTemplateConfiguration.EmailTemplateId.IsNullOrBlank())
                         {
-                            var emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateConfiguration.EmailTemplateId);
+                            var emailTemplate = await _emailTemplateRepository.GetEmailTemplateById(emailMessage.EmailTemplateConfiguration.EmailTemplateId);
 
                             var body = emailTemplate.Body;
 

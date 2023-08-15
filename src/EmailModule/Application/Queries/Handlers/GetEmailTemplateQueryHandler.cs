@@ -35,7 +35,7 @@ namespace EmailModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _emailRepository.GetEmailTemplate(request);
+                return await _emailRepository.GetEmailTemplate(request.TemplateId);
             }
             catch (Exception ex)
             {

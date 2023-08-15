@@ -7,9 +7,9 @@ namespace EmailModule.Domain.Repositories.Interfaces
 {
     public interface IEmailTemplateRepository
     {
-        Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command);
+        Task<ServiceResponse> CreateEmailTemplate(EmailTemplate emailTemplate);
 
-        Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(GetEmailTemplateQuery query);
+        Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(string templateId);
 
         Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command);
 
@@ -17,6 +17,6 @@ namespace EmailModule.Domain.Repositories.Interfaces
 
         Task<bool> BeAnExistingEmailTemplateById(string templateId);
 
-        Task<EmailTemplate> GetEmailTemplate(string templateId);
+        Task<EmailTemplate> GetEmailTemplateById(string templateId);
     }
 }

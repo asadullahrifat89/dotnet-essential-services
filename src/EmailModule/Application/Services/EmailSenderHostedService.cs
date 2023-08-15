@@ -48,7 +48,7 @@ namespace EmailModule.Application.Services
 
                         if (!emailMessage.EmailTemplateConfiguration.EmailTemplateId.IsNullOrBlank())
                         {
-                            emailTemplate = await _emailTemplateRepository.GetEmailTemplate(emailMessage.EmailTemplateConfiguration.EmailTemplateId);
+                            emailTemplate = await _emailTemplateRepository.GetEmailTemplateById(emailMessage.EmailTemplateConfiguration.EmailTemplateId);
                         }
 
                         batch.Add((emailMessage, emailTemplate));

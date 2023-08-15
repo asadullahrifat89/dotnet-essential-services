@@ -32,22 +32,20 @@ namespace EmailModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command)
+        public async Task<ServiceResponse> CreateEmailTemplate(EmailTemplate emailTemplate)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var template = CreateEmailTemplateCommand.Initialize(command, authCtx);
+            await _mongoDbContextProvider.InsertDocument(emailTemplate);
 
-            await _mongoDbContextProvider.InsertDocument(template);
-
-            return Response.BuildServiceResponse().BuildSuccessResponse(template, authCtx?.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(emailTemplate, authCtx?.RequestUri);
         }
 
-        public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(GetEmailTemplateQuery query)
+        public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(string templateId)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, query.TemplateId);
+            var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
 
             var emailTemplate = await _mongoDbContextProvider.FindOne(filter);
 
@@ -86,7 +84,7 @@ namespace EmailModule.Infrastructure.Persistence
             return await _mongoDbContextProvider.Exists(filter);
         }
 
-        public async Task<EmailTemplate> GetEmailTemplate(string templateId)
+        public async Task<EmailTemplate> GetEmailTemplateById(string templateId)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 

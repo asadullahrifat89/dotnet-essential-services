@@ -6,7 +6,7 @@ namespace EmailModule.Domain.Repositories.Interfaces
 {
     public interface IEmailMessageRepository
     {
-        Task<ServiceResponse> EnqueueEmailMessage(EnqueueEmailMessageCommand command);
+        Task<ServiceResponse> EnqueueEmailMessage(EmailMessage emailMessage);
 
         Task<List<EmailMessage>> GetEmailMessagesForSending();
 

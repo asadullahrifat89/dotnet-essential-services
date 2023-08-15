@@ -5,6 +5,7 @@ using EmailModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 
 namespace EmailModule.Application.Commands.Handlers
 {
@@ -37,14 +38,18 @@ namespace EmailModule.Application.Commands.Handlers
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(EnqueueEmailMessageCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(EnqueueEmailMessageCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                var validationResult = await _validator.ValidateAsync(command, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _emailRepository.EnqueueEmailMessage(request);
+                var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+                var emailMessage = EnqueueEmailMessageCommand.Initialize(command, authCtx);
+
+                return await _emailRepository.EnqueueEmailMessage(emailMessage);
             }
             catch (Exception ex)
             {
