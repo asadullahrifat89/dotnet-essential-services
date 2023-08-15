@@ -30,15 +30,13 @@ namespace LanguageModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command)
+        public async Task<ServiceResponse> AddLingoResources(List<LanguageResource> languageResources)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();            
 
-            var lingoResources = AddLingoResourcesCommand.Initialize(command, authCtx);
+            await _mongoDbContextProvider.InsertDocuments(languageResources);
 
-            await _mongoDbContextProvider.InsertDocuments(lingoResources);
-
-            return Response.BuildServiceResponse().BuildSuccessResponse(lingoResources, authCtx?.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(languageResources, authCtx?.RequestUri);
         }
 
         public Task<bool> BeAnExistingLanguage(string languageCode)

@@ -6,6 +6,7 @@ using LanguageModule.Application.Commands.Validators;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 
 namespace LanguageModule.Application.Commands.Handlers
 {
@@ -41,14 +42,17 @@ namespace LanguageModule.Application.Commands.Handlers
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(AddLingoResourcesCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(AddLingoResourcesCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                var validationResult = await _validator.ValidateAsync(command, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _lingoResourcesRepository.AddLingoResources(request);
+                var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+                var lingoResources = AddLingoResourcesCommand.Initialize(command, authCtx);
+
+                return await _lingoResourcesRepository.AddLingoResources(lingoResources);
             }
             catch (Exception ex)
             {
