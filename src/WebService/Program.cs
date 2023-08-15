@@ -2,16 +2,11 @@ using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using IdentityModule.Declarations.Commands;
-using EmailModule.Declarations.Commands;
 using LanguageModule.Declarations.Commands;
 using IdentityModule.Implementations.Commands.Validators;
 using LanguageModule.Implementations.Commands.Validators;
-using EmailModule.Declarations.Services;
-using EmailModule.Implementations.Services;
 using IdentityModule.Declarations.Repositories;
-using EmailModule.Declarations.Repositories;
 using LanguageModule.Declarations.Repositories;
-using EmailModule.Implementations.Commands.Validators;
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Repositories.Interfaces;
 using BaseModule.Application.Middlewares;
@@ -19,6 +14,10 @@ using BlobModule.Application.Commands;
 using BaseModule.Domain.Repositories.Interfaces;
 using BaseModule.Infrastructure.Services.Interfaces;
 using CommonModule.Infrastructure.Constants;
+using EmailModule.Domain.Repositories.Interfaces;
+using EmailModule.Infrastructure.Services.Interfaces;
+using EmailModule.Infrastructure.Services.Implementations;
+using EmailModule.Application.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 

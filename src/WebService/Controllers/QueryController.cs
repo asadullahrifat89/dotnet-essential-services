@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using IdentityModule.Declarations.Queries;
 using IdentityModule.Models.Entities;
-using EmailModule.Models.Entities;
-using EmailModule.Declarations.Queries;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Models.Entities;
 using BaseModule.Infrastructure.Attributes;
@@ -11,6 +9,8 @@ using BlobModule.Domain.Entities;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries;
 using CommonModule.Infrastructure.Constants;
+using EmailModule.Domain.Entities;
+using EmailModule.Application.Queries;
 
 namespace WebService.Controllers
 {
@@ -99,11 +99,11 @@ namespace WebService.Controllers
 
         #region EmailTemplate
 
-        [HttpGet(EndpointRoutes.Action_GetEmailTemplate)]
-        public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate([FromQuery] GetEmailTemplateQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //[HttpGet(EndpointRoutes.Action_GetEmailTemplate)]
+        //public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate([FromQuery] GetEmailTemplateQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
         #endregion
 

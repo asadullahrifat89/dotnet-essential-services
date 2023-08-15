@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using IdentityModule.Declarations.Commands;
-using EmailModule.Declarations.Commands;
 using LanguageModule.Declarations.Commands;
 using BaseModule.Infrastructure.Attributes;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Commands;
 using CommonModule.Infrastructure.Constants;
+using EmailModule.Application.Commands;
 
 namespace WebService.Controllers
 {
@@ -135,28 +135,28 @@ namespace WebService.Controllers
 
         #region EmailTemplate
 
-        [HttpPost(EndpointRoutes.Action_CreateEmailTemplate)]
-        public async Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command)
-        {
-            return await _mediator.Send(command);
-        }
+        //[HttpPost(EndpointRoutes.Action_CreateEmailTemplate)]
+        //public async Task<ServiceResponse> CreateEmailTemplate(CreateEmailTemplateCommand command)
+        //{
+        //    return await _mediator.Send(command);
+        //}
 
 
-        [HttpPut(EndpointRoutes.Action_UpdateEmailTemplate)]
-        public async Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command)
-        {
-            return await _mediator.Send(command);
-        }
+        //[HttpPut(EndpointRoutes.Action_UpdateEmailTemplate)]
+        //public async Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command)
+        //{
+        //    return await _mediator.Send(command);
+        //}
 
         #endregion
 
         #region EmailMessage
 
-        [HttpPost(EndpointRoutes.Action_EnqueueEmailMessage)]
-        public async Task<ServiceResponse> EnqueueEmailMessage(EnqueueEmailMessageCommand command)
-        {
-            return await _mediator.Send(command);
-        }
+        //[HttpPost(EndpointRoutes.Action_EnqueueEmailMessage)]
+        //public async Task<ServiceResponse> EnqueueEmailMessage(EnqueueEmailMessageCommand command)
+        //{
+        //    return await _mediator.Send(command);
+        //}
 
         #endregion
 

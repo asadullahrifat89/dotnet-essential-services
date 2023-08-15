@@ -14,5 +14,9 @@
     <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\DTOs\" />
+  </ItemGroup>
+
 
 </Project>
