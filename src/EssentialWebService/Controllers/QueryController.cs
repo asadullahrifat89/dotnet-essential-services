@@ -11,10 +11,6 @@ using EmailCore.Declarations.Queries;
 using EmailCore.Models.Entities;
 using LingoCore.Models.Entities;
 using LingoCore.Declarations.Queries;
-using TeamsCore.Declarations.Commands;
-using TeamsCore.Models.Entities;
-using TeamsCore.Declarations.Queries;
-using TeamsCore.Models.Responses;
 
 namespace EssentialWebService.Controllers
 {
@@ -136,60 +132,6 @@ namespace EssentialWebService.Controllers
         {
             return await _mediator.Send(query);
         }
-
-        #endregion
-
-        #region TeamCore
-
-        #region SearchCriteria
-
-        [HttpGet(EndpointRoutes.Action_GetSearchCriteria)]
-        public async Task<QueryRecordResponse<SearchCriteria>> GetSearchCriteria([FromQuery] GetSearchCriteriaQuery query)
-        {
-            return await _mediator.Send(query);
-        }
-
-        [HttpGet(EndpointRoutes.Action_GetSearchCriterias)]
-        public async Task<QueryRecordsResponse<SearchCriteria>> GetSearchCriterias([FromQuery] GetSearchCriteriasQuery query)
-        {
-            return await _mediator.Send(query);
-        }
-
-        #endregion
-
-        #region Projects
-
-        [HttpGet(EndpointRoutes.Action_GetProject)]
-
-        public async Task<QueryRecordResponse<Project>> GetProject([FromQuery] GetProjectQuery query)
-        {
-            return await _mediator.Send(query);
-        }
-
-
-        [HttpGet(EndpointRoutes.Action_GetProjects)]
-        public async Task<QueryRecordsResponse<Project>> GetProjects([FromQuery] GetProjectsQuery query)
-        {
-            return await _mediator.Send(query);
-        }
-
-        #endregion
-
-        #region Products
-
-        [HttpGet(EndpointRoutes.Action_GetProducts)]
-        public async Task<QueryRecordsResponse<ProductResponse>> GetProducts([FromQuery] GetProductsQuery query)
-        {
-            return await _mediator.Send(query);
-        }
-
-        [HttpGet(EndpointRoutes.Action_GetProduct)]
-        public async Task<QueryRecordResponse<ProductResponse>> GetProduct([FromQuery] GetProductQuery query)
-        {
-            return await _mediator.Send(query);
-        }
-
-        #endregion
 
         #endregion
 

@@ -18,9 +18,6 @@ using EmailCore.Implementations.Services;
 using LingoCore.Declarations.Repositories;
 using LingoCore.Implementations.Commands.Validators;
 using LingoCore.Declarations.Commands;
-using TeamsCore.Declarations.Commands;
-using TeamsCore.Implementations.Commands.Validators;
-using TeamsCore.Declarations.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,14 +49,12 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Aut
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UploadBlobFileCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateEmailTemplateCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddLingoAppCommand).GetTypeInfo().Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProjectCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
 builder.Services.AddValidators<UploadBlobFileCommandValidator>();
 builder.Services.AddValidators<CreateEmailTemplateCommand>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
-builder.Services.AddValidators<AddProjectCommandValidator>();
 
 // Add services
 builder.Services.AddCoreServices<IMongoDbService>();
@@ -72,8 +67,6 @@ builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
 builder.Services.AddRepositories<IEmailTemplateRepository>();
 builder.Services.AddRepositories<ILingoResourcesRepository>();
-builder.Services.AddRepositories<IProjectRepository>();
-builder.Services.AddRepositories<ISearchCriteriaRepository>();
 
 builder.Services.AddMvc();
 
