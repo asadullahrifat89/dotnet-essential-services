@@ -1,23 +1,25 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using BaseModule.Middlewares;
-using BaseModule.Services;
-using BaseModule.Extensions;
-using CommonModule;
-using IdentityModule.Declarations.Commands;
-using BlobModule.Declarations.Commands;
-using EmailModule.Declarations.Commands;
-using LanguageModule.Declarations.Commands;
-using IdentityModule.Implementations.Commands.Validators;
-using BlobModule.Implementations.Commands.Validators;
-using LanguageModule.Implementations.Commands.Validators;
-using EmailModule.Declarations.Services;
-using EmailModule.Implementations.Services;
-using IdentityModule.Declarations.Repositories;
-using BlobModule.Declarations.Repositories;
-using EmailModule.Declarations.Repositories;
-using LanguageModule.Declarations.Repositories;
+using BaseModule.Infrastructure.Extensions;
+using BlobModule.Domain.Repositories.Interfaces;
+using BlobModule.Application.Commands;
+using BaseModule.Domain.Repositories.Interfaces;
+using CommonModule.Infrastructure.Constants;
+using EmailModule.Domain.Repositories.Interfaces;
+using EmailModule.Infrastructure.Services.Interfaces;
+using EmailModule.Infrastructure.Services.Implementations;
+using EmailModule.Application.Commands;
+using BlobModule.Application.Commands.Validators;
+using IdentityModule.Application.Commands;
+using IdentityModule.Domain.Repositories.Interfaces;
+using EmailModule.Application.Commands.Validators;
+using IdentityModule.Application.Commands.Validators;
+using IdentityModule.Infrastructure.Services.Interfaces;
+using LanguageModule.Domain.Repositories.Interfaces;
+using LanguageModule.Application.Commands;
+using LanguageModule.Application.Commands.Validators;
+using IdentityModule.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,16 +55,17 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Add
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
 builder.Services.AddValidators<UploadBlobFileCommandValidator>();
-builder.Services.AddValidators<CreateEmailTemplateCommand>();
+builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 // Add services
-builder.Services.AddCoreServices<IMongoDbService>();
+builder.Services.AddCoreServices<IAuthenticationContextProviderService>();
 builder.Services.AddCoreServices<IEmailSenderService>();
 
 builder.Services.AddHostedService<EmailSenderHostedService>();
 
 // Add repositories
+builder.Services.AddRepositories<IMongoDbRepository>();
 builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
 builder.Services.AddRepositories<IEmailTemplateRepository>();
@@ -75,7 +78,7 @@ builder.Services.AddControllers();
 
 var environemntVariable = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-if (environemntVariable != null && Constants.AllowedSwaggerEnvironments.Contains(environemntVariable))
+if (environemntVariable != null && CommonConstants.AllowedSwaggerEnvironments.Contains(environemntVariable))
 {
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
@@ -123,7 +126,7 @@ builder.Logging.AddSerilog(logger);
 // App build
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment() || Constants.AllowedSwaggerEnvironments.Contains(environemntVariable))
+if (app.Environment.IsDevelopment() || CommonConstants.AllowedSwaggerEnvironments.Contains(environemntVariable))
 {
     app.UseSwagger();
     app.UseSwaggerUI();

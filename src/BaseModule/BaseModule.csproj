@@ -23,4 +23,9 @@
     <ProjectReference Include="..\CommonModule\CommonModule.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Services\" />
+    <Folder Include="Presentation\" />
+  </ItemGroup>
+
 </Project>

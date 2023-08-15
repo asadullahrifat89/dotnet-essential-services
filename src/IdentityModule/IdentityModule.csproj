@@ -7,17 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Implementations\Services\**" />
-    <EmbeddedResource Remove="Implementations\Services\**" />
-    <None Remove="Implementations\Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Declarations\Queries\GetEndPointsQuery.cs" />
-    <Compile Remove="Declarations\Repositories\IEndpointsRepository.cs" />
-    <Compile Remove="Implementations\Queries\Handlers\GetEndPointsQueryHandler.cs" />
-    <Compile Remove="Implementations\Queries\Validators\GetEndPointsQueryValidator.cs" />
-    <Compile Remove="Implementations\Repositories\EndPointRepository.cs" />
+    <Compile Remove="Application\Queries\Handlers\GetEndPointsQueryHandler.cs" />
+    <Compile Remove="Application\Queries\Validators\GetEndPointsQueryValidator.cs" />
   </ItemGroup>
 
   <ItemGroup>    
