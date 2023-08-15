@@ -1,7 +1,7 @@
 ﻿using BaseModule.Domain.Entities;
 using System.Text.Json.Serialization;
 
-namespace SearchCriteriaModule.Domain.Entities
+namespace ProductSearchCriteriaModule.Domain.Entities
 {
     public class ProductSearchCriteria : EntityBase
     {

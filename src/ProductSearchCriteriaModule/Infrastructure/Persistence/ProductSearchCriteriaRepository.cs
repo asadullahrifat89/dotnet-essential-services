@@ -3,10 +3,10 @@ using BaseModule.Application.Providers.Interfaces;
 using BaseModule.Infrastructure.Extensions;
 using IdentityModule.Application.Providers.Interfaces;
 using MongoDB.Driver;
-using SearchCriteriaModule.Domain.Entities;
-using SearchCriteriaModule.Domain.Repositories.Interfaces;
+using ProductSearchCriteriaModule.Domain.Entities;
+using ProductSearchCriteriaModule.Domain.Repositories.Interfaces;
 
-namespace SearchCriteriaModule.Infrastructure.Persistence
+namespace ProductSearchCriteriaModule.Infrastructure.Persistence
 {
     public class ProductSearchCriteriaRepository : IProductSearchCriteriaRepository
     {
@@ -29,7 +29,7 @@ namespace SearchCriteriaModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> AddSearchCriteria(ProductSearchCriteria searchCriteria)
+        public async Task<ServiceResponse> AddProductSearchCriteria(ProductSearchCriteria searchCriteria)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
@@ -38,7 +38,7 @@ namespace SearchCriteriaModule.Infrastructure.Persistence
             return Response.BuildServiceResponse().BuildSuccessResponse(searchCriteria, authCtx?.RequestUri);
         }
 
-        public async Task<ServiceResponse> UpdateSearchCriteria(ProductSearchCriteria searchCriteria)
+        public async Task<ServiceResponse> UpdateProductSearchCriteria(ProductSearchCriteria searchCriteria)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
@@ -58,14 +58,14 @@ namespace SearchCriteriaModule.Infrastructure.Persistence
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedSearchCriteria, authCtx?.RequestUri);
         }
 
-        public async Task<bool> BeAnExistingSearchCriteria(string searchCriteria)
+        public async Task<bool> BeAnExistingProductSearchCriteria(string searchCriteria)
         {
             var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Name.ToLower().Equals(searchCriteria.ToLower()));
 
             return await _mongoDbService.Exists(filter);
         }
 
-        public async Task<bool> BeAnExistingSearchCriteriaById(string searchCriteriaId)
+        public async Task<bool> BeAnExistingProductSearchCriteriaById(string searchCriteriaId)
         {
             var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Id == searchCriteriaId);
 
@@ -74,7 +74,7 @@ namespace SearchCriteriaModule.Infrastructure.Persistence
             return exists;
         }
 
-        public async Task<QueryRecordResponse<ProductSearchCriteria>> GetSearchCriteria(string searchCriteriaId)
+        public async Task<QueryRecordResponse<ProductSearchCriteria>> GetProductSearchCriteria(string searchCriteriaId)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
@@ -85,7 +85,7 @@ namespace SearchCriteriaModule.Infrastructure.Persistence
             return Response.BuildQueryRecordResponse<ProductSearchCriteria>().BuildSuccessResponse(result, authCtx?.RequestUri);
         }
 
-        public async Task<QueryRecordsResponse<ProductSearchCriteria>> GetSearchCriterias(
+        public async Task<QueryRecordsResponse<ProductSearchCriteria>> GetProductSearchCriterias(
             string searchTerm,
             int pageIndex,
             int pageSize,
