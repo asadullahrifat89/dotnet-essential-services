@@ -1,6 +1,6 @@
-﻿namespace CommonModule
+﻿namespace CommonModule.Infrastructure.Constants
 {
-    public static class Constants
+    public static class CommonConstants
     {
         public static string[] Client_Origins = new string[]
         {

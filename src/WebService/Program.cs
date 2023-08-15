@@ -1,7 +1,6 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using CommonModule;
 using IdentityModule.Declarations.Commands;
 using EmailModule.Declarations.Commands;
 using LanguageModule.Declarations.Commands;
@@ -19,6 +18,7 @@ using BaseModule.Application.Middlewares;
 using BlobModule.Application.Commands;
 using BaseModule.Domain.Repositories.Interfaces;
 using BaseModule.Infrastructure.Services.Interfaces;
+using CommonModule.Infrastructure.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,7 +77,7 @@ builder.Services.AddControllers();
 
 var environemntVariable = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-if (environemntVariable != null && Constants.AllowedSwaggerEnvironments.Contains(environemntVariable))
+if (environemntVariable != null && CommonConstants.AllowedSwaggerEnvironments.Contains(environemntVariable))
 {
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
@@ -125,7 +125,7 @@ builder.Logging.AddSerilog(logger);
 // App build
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment() || Constants.AllowedSwaggerEnvironments.Contains(environemntVariable))
+if (app.Environment.IsDevelopment() || CommonConstants.AllowedSwaggerEnvironments.Contains(environemntVariable))
 {
     app.UseSwagger();
     app.UseSwaggerUI();

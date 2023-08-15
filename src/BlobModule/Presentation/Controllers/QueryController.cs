@@ -1,7 +1,7 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries;
 using BlobModule.Domain.Entities;
-using CommonModule;
+using CommonModule.Infrastructure.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

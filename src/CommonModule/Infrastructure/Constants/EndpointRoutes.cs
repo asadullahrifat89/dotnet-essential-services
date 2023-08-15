@@ -1,4 +1,4 @@
-﻿namespace CommonModule
+﻿namespace CommonModule.Infrastructure.Constants
 {
     public static class EndpointRoutes
     {
