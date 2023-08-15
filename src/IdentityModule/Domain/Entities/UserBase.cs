@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace IdentityModule.Domain.Entities
 {
-    public class UserBase : BaseEntity
+    public class UserBase : EntityBase
     {
         public string FirstName { get; set; } = string.Empty;
 

@@ -2,7 +2,7 @@
 
 namespace IdentityModule.Domain.Entities
 {
-    public class AuthToken : BaseEntity
+    public class AuthToken : EntityBase
     {
         public string AccessToken { get; set; } = string.Empty;
 

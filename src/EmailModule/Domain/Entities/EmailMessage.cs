@@ -6,7 +6,7 @@ using IdentityModule.Infrastructure.Extensions;
 
 namespace EmailModule.Domain.Entities
 {
-    public class EmailMessage : BaseEntity
+    public class EmailMessage : EntityBase
     {
         public EmailContact[] To { get; set; } = new EmailContact[0];
 

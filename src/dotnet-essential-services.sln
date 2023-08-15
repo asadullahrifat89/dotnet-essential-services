@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreModules", "CoreModules"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedModules", "SharedModules", "{C1AFCDEE-4E74-4CF1-B831-84D53FE7C368}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessModules", "BusinessModules", "{437A8F93-31B5-4D10-9FAC-CDA1EFDC6F8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductSearchCriteriaModule", "ProductSearchCriteriaModule\ProductSearchCriteriaModule.csproj", "{C66EFC98-77B0-462B-A5B7-8E8CE6213DEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{4B934BBA-143D-49BE-A1E2-DED1D8F92FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B934BBA-143D-49BE-A1E2-DED1D8F92FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B934BBA-143D-49BE-A1E2-DED1D8F92FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66EFC98-77B0-462B-A5B7-8E8CE6213DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66EFC98-77B0-462B-A5B7-8E8CE6213DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66EFC98-77B0-462B-A5B7-8E8CE6213DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66EFC98-77B0-462B-A5B7-8E8CE6213DEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,7 @@ Global
 		{4CF6F0D4-85B7-41EF-84B3-51FCDB5613A2} = {C73863BE-611E-479D-90C6-25D5FFE4AA88}
 		{A481C939-C2EB-4923-8874-76CE854FF012} = {C73863BE-611E-479D-90C6-25D5FFE4AA88}
 		{4B934BBA-143D-49BE-A1E2-DED1D8F92FF6} = {C73863BE-611E-479D-90C6-25D5FFE4AA88}
+		{C66EFC98-77B0-462B-A5B7-8E8CE6213DEB} = {437A8F93-31B5-4D10-9FAC-CDA1EFDC6F8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB70096C-560D-49A7-A8FD-667045E6B7CE}
