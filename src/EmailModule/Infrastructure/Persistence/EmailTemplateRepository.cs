@@ -52,22 +52,22 @@ namespace EmailModule.Infrastructure.Persistence
             return Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(emailTemplate, authCtx?.RequestUri);
         }
 
-        public async Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command)
+        public async Task<ServiceResponse> UpdateEmailTemplate(EmailTemplate emailTemplate)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var update = Builders<EmailTemplate>.Update
-                .Set(x => x.Name, command.Name)
-                .Set(x => x.Body, command.Body)
-                .Set(x => x.EmailBodyContentType, command.EmailBodyContentType)
-                .Set(x => x.Purpose, command.Purpose)
-                .Set(x => x.Tags, command.Tags)
+                .Set(x => x.Name, emailTemplate.Name)
+                .Set(x => x.Body, emailTemplate.Body)
+                .Set(x => x.EmailBodyContentType, emailTemplate.EmailBodyContentType)
+                .Set(x => x.Purpose, emailTemplate.Purpose)
+                .Set(x => x.Tags, emailTemplate.Tags)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
-            await _mongoDbContextProvider.UpdateById(update: update, id: command.TemplateId);
+            await _mongoDbContextProvider.UpdateById(update: update, id: emailTemplate.Id);
 
-            var updatedTemplate = await _mongoDbContextProvider.FindById<EmailTemplate>(command.TemplateId);
+            var updatedTemplate = await _mongoDbContextProvider.FindById<EmailTemplate>(emailTemplate.Id);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedTemplate, authCtx?.RequestUri);
         }

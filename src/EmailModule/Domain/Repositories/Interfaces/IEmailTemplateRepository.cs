@@ -11,7 +11,7 @@ namespace EmailModule.Domain.Repositories.Interfaces
 
         Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplate(string templateId);
 
-        Task<ServiceResponse> UpdateEmailTemplate(UpdateEmailTemplateCommand command);
+        Task<ServiceResponse> UpdateEmailTemplate(EmailTemplate emailTemplate);
 
         Task<bool> BeAnExistingEmailTemplate(string templateName);
 
