@@ -40,7 +40,7 @@ namespace IdentityModule.Application.Commands.Handlers
                 var validationResult = await _validator.ValidateAsync(command, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                var response = await _repository.ValidateToken(command);
+                var response = await _repository.ValidateToken(command.RefreshToken);
 
                 return response;
             }

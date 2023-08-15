@@ -44,9 +44,9 @@ namespace IdentityModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> Authenticate(AuthenticateCommand command)
+        public async Task<ServiceResponse> Authenticate(string email, string password)
         {
-            var user = await _userRepository.GetUser(userEmail: command.Email, password: command.Password);
+            var user = await _userRepository.GetUser(userEmail: email, password: password);
 
             AuthToken result = await GenerateAuthToken(user: user);
 
@@ -60,9 +60,9 @@ namespace IdentityModule.Infrastructure.Persistence
             return await _mongoDbContextProvider.Exists(filter);
         }
 
-        public async Task<ServiceResponse> ValidateToken(ValidateTokenCommand command)
+        public async Task<ServiceResponse> ValidateToken(string jwt)
         {
-            var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.Jwt, command.RefreshToken));
+            var filter = Builders<RefreshToken>.Filter.And(Builders<RefreshToken>.Filter.Eq(x => x.Jwt, jwt));
 
             var refreshToken = await _mongoDbContextProvider.FindOne(filter);
 
