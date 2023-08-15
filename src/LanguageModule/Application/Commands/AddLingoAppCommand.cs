@@ -10,9 +10,9 @@ namespace LanguageModule.Application.Commands
     {
         public string Name { get; set; } = string.Empty;
 
-        public static LingoApp Initialize(AddLingoAppCommand command, AuthenticationContext authenticationContext)
+        public static LanguageApp Initialize(AddLingoAppCommand command, AuthenticationContext authenticationContext)
         {
-            var lingoApp = new LingoApp()
+            var lingoApp = new LanguageApp()
             {
                 Name = command.Name,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),

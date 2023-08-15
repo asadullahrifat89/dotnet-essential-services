@@ -9,7 +9,7 @@ namespace LanguageModule.Domain.Repositories.Interfaces
     {
         Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command);
 
-        Task<QueryRecordResponse<LingoApp>> GetLingoApp(GetLingoAppQuery query);
+        Task<QueryRecordResponse<LanguageApp>> GetLingoApp(GetLingoAppQuery query);
 
         Task<bool> BeAnExistingLingoApp(string appName);
 

@@ -5,7 +5,7 @@ using LanguageModule.Application.Commands;
 
 namespace LanguageModule.Domain.Entities
 {
-    public class LingoApp : EntityBase
+    public class LanguageApp : EntityBase
     {
         public string Name { get; set; } = string.Empty;
     }

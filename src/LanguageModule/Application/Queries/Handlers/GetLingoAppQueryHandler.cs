@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace LanguageModule.Application.Queries.Handlers
 {
-    public class GetLingoAppQueryHandler : IRequestHandler<GetLingoAppQuery, QueryRecordResponse<LingoApp>>
+    public class GetLingoAppQueryHandler : IRequestHandler<GetLingoAppQuery, QueryRecordResponse<LanguageApp>>
     {
         private readonly ILogger<GetLingoAppQueryHandler> _logger;
         private readonly GetLingoAppQueryValidator _validator;
@@ -27,7 +27,7 @@ namespace LanguageModule.Application.Queries.Handlers
             _authenticationContextProvider = authenticationContext;
         }
 
-        public async Task<QueryRecordResponse<LingoApp>> Handle(GetLingoAppQuery request, CancellationToken cancellationToken)
+        public async Task<QueryRecordResponse<LanguageApp>> Handle(GetLingoAppQuery request, CancellationToken cancellationToken)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace LanguageModule.Application.Queries.Handlers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordResponse<LingoApp>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordResponse<LanguageApp>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
 
             }
         }

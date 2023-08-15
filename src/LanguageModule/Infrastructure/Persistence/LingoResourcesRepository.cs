@@ -7,7 +7,7 @@ using LanguageModule.Domain.Entities;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;
 
-namespace LanguageModule.Domain.Repositories
+namespace LanguageModule.Infrastructure.Persistence
 {
     public class LingoResourcesRepository : ILingoResourcesRepository
     {
@@ -43,7 +43,7 @@ namespace LanguageModule.Domain.Repositories
 
         public Task<bool> BeAnExistingLanguage(string languageCode)
         {
-            var filter = Builders<LingoResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()));
+            var filter = Builders<LanguageResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()));
 
             return _mongoDbContextProvider.Exists(filter);
         }
@@ -65,7 +65,7 @@ namespace LanguageModule.Domain.Repositories
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<LingoResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(query.LanguageCode.ToLower()));
+            var filter = Builders<LanguageResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(query.LanguageCode.ToLower()));
 
             var lingoResources = await _mongoDbContextProvider.GetDocuments(filter);
 

@@ -5,7 +5,7 @@ using LanguageModule.Application.Commands;
 
 namespace LanguageModule.Domain.Entities
 {
-    public class LingoResource : EntityBase
+    public class LanguageResource : EntityBase
     {
         public string AppId { get; set; } = string.Empty;
 

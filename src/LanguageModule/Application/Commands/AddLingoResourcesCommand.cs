@@ -24,10 +24,10 @@ namespace LanguageModule.Application.Commands
             public string ResourceValue { get; set; } = string.Empty;
         }
 
-        public static List<LingoResource> Initialize(AddLingoResourcesCommand command, AuthenticationContext authenticationContext)
+        public static List<LanguageResource> Initialize(AddLingoResourcesCommand command, AuthenticationContext authenticationContext)
         {
             var resourcesKeys = command.ResourceKeys.Select(x => x.ResourceKey).Distinct();
-            var lingoResources = new List<LingoResource>();
+            var lingoResources = new List<LanguageResource>();
 
             foreach (var resourceKey in resourcesKeys)
             {
@@ -35,7 +35,7 @@ namespace LanguageModule.Application.Commands
 
                 foreach (var cultureValue in foundResourceKey.CultureValues)
                 {
-                    var lingoResource = new LingoResource()
+                    var lingoResource = new LanguageResource()
                     {
                         AppId = command.AppId,
                         LanguageCode = cultureValue.LanguageCode,
