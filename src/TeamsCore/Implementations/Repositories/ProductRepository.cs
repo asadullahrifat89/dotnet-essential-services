@@ -31,7 +31,7 @@ namespace TeamsCore.Implementations.Repositories
 
         #region Methods
 
-        public async Task<Product[]> GetRolesByIds(string[] ids)
+        public async Task<Product[]> GetProductsByIds(string[] ids)
         {
             var filter = Builders<Product>.Filter.In(x => x.Id, ids);
 
