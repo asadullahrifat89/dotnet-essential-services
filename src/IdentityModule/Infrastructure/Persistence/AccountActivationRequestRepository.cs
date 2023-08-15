@@ -31,14 +31,12 @@ namespace IdentityModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> CreateAccountActivationRequest(SendUserAccountActivationRequestCommand command)
+        public async Task<ServiceResponse> CreateAccountActivationRequest(AccountActivationRequest accountActivationRequest)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
-            var accountActivationRequest = SendUserAccountActivationRequestCommand.Initialize(command);
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();            
 
             var filter = Builders<AccountActivationRequest>.Filter.And(
-                Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, command.Email),
+                Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, accountActivationRequest.Email),
                 Builders<AccountActivationRequest>.Filter.Eq(x => x.ActivationKeyStatus, ActivationKeyStatus.Active));
 
             var alreadyExistsAccountActivationRequest = await _mongoDbContextProvider.FindOne(filter);
