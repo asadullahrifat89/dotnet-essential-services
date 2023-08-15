@@ -8,7 +8,7 @@ using BlobCore.Declarations.Commands;
 using EmailCore.Declarations.Commands;
 using LingoCore.Declarations.Commands;
 
-namespace EssentialWebService.Controllers
+namespace WebService.Controllers
 {
     [ApiController]
     [AuthorizationRequired]

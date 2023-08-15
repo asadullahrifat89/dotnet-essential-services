@@ -12,7 +12,7 @@ using EmailCore.Models.Entities;
 using LingoCore.Models.Entities;
 using LingoCore.Declarations.Queries;
 
-namespace EssentialWebService.Controllers
+namespace WebService.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
