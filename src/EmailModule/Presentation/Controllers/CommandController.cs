@@ -19,7 +19,6 @@ namespace EmailModule.Presentation.Controllers
 
         #endregion
 
-
         #region Ctor
 
         public CommandController(IMediator mediator, IHttpContextAccessor httpContextAccessor)

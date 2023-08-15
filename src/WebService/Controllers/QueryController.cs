@@ -36,43 +36,43 @@ namespace WebService.Controllers
 
         #region User
 
-        [HttpGet(EndpointRoutes.Action_GetUser)]
-        public async Task<QueryRecordResponse<UserResponse>> GetUser([FromQuery] GetUserQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //[HttpGet(EndpointRoutes.Action_GetUser)]
+        //public async Task<QueryRecordResponse<UserResponse>> GetUser([FromQuery] GetUserQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
-        [HttpGet(EndpointRoutes.Action_GetUsers)]
-        public async Task<QueryRecordsResponse<UserResponse>> GetUsers([FromQuery] GetUsersQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //[HttpGet(EndpointRoutes.Action_GetUsers)]
+        //public async Task<QueryRecordsResponse<UserResponse>> GetUsers([FromQuery] GetUsersQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
         #endregion
 
         #region Role
 
-        [HttpGet(EndpointRoutes.Action_GetRoles)]
-        public async Task<QueryRecordsResponse<Role>> GetRoles([FromQuery] GetRolesQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //[HttpGet(EndpointRoutes.Action_GetRoles)]
+        //public async Task<QueryRecordsResponse<Role>> GetRoles([FromQuery] GetRolesQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
-        [HttpGet(EndpointRoutes.Action_GetUserRoles)]
-        public async Task<QueryRecordsResponse<Role>> GetUserRoles([FromQuery] GetUserRolesQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //[HttpGet(EndpointRoutes.Action_GetUserRoles)]
+        //public async Task<QueryRecordsResponse<Role>> GetUserRoles([FromQuery] GetUserRolesQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
         #endregion
 
         #region Claim
 
-        [HttpGet(EndpointRoutes.Action_GetClaims)]
-        public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims([FromQuery] GetClaimsQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //[HttpGet(EndpointRoutes.Action_GetClaims)]
+        //public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims([FromQuery] GetClaimsQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
         #endregion
 

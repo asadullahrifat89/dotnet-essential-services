@@ -21,8 +21,4 @@
     <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Presentation\Controllers\" />
-  </ItemGroup>
-
 </Project>
