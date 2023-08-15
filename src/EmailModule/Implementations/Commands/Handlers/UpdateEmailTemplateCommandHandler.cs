@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using BaseModule.Models.Responses;
 using EmailModule.Implementations.Commands.Validators;
 using EmailModule.Declarations.Commands;
 using BaseModule.Extensions;
 using EmailModule.Declarations.Repositories;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace EmailModule.Implementations.Commands.Handlers
 {

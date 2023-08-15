@@ -1,6 +1,6 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
+﻿using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Declarations.Repositories;
 using LanguageModule.Implementations.Queries.Validators;
@@ -16,7 +16,7 @@ namespace LanguageModule.Implementations.Queries.Handlers
         private readonly ILogger<GetLingoResourcesInFormatQueryHandler> _logger;
         private readonly GetLingoResourcesInFormatQueryValidator _validator;
         private readonly ILingoResourcesRepository _lingoResourceRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProviderService _authenticationContext;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace LanguageModule.Implementations.Queries.Handlers
             ILogger<GetLingoResourcesInFormatQueryHandler> logger,
             GetLingoResourcesInFormatQueryValidator validator,
             ILingoResourcesRepository lingoAppRepository,
-            IAuthenticationContextProvider authenticationContext)
+            IAuthenticationContextProviderService authenticationContext)
         {
             _logger = logger;
             _validator = validator;

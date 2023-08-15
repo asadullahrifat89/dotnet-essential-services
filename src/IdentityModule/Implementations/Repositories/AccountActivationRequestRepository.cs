@@ -1,5 +1,6 @@
-﻿using BaseModule.Models.Responses;
-using BaseModule.Services;
+﻿using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Repositories.Interfaces;
+using BaseModule.Services.Interfaces;
 using IdentityModule.Declarations.Commands;
 using IdentityModule.Declarations.Repositories;
 using IdentityModule.Models.Entities;
@@ -11,15 +12,15 @@ namespace IdentityModule.Implementations.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbService _mongoDbService;
+        private readonly IMongoDbRepository _mongoDbService;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProviderService _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public AccountActivationRequestRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContext, IUserRepository userRepository)
+        public AccountActivationRequestRepository(IMongoDbRepository mongoDbService, IAuthenticationContextProviderService authenticationContext, IUserRepository userRepository)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;

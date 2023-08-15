@@ -1,4 +1,4 @@
-﻿using BaseModule.Models.Responses;
+﻿using BaseModule.Domain.DTOs.Responses;
 using BlobModule.Declarations.Commands;
 using BlobModule.Declarations.Queries;
 using BlobModule.Models.Entities;

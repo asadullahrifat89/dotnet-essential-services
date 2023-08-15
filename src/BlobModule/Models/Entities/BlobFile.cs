@@ -1,4 +1,4 @@
-﻿using BaseModule.Models.Entities;
+﻿using BaseModule.Domain.Entities;
 
 namespace BlobModule.Models.Entities
 {

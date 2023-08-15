@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using BaseModule.Models.Responses;
 using CommonModule;
-using BaseModule.Attributes;
 using IdentityModule.Declarations.Queries;
 using IdentityModule.Models.Entities;
 using BlobModule.Declarations.Queries;
@@ -11,6 +9,8 @@ using EmailModule.Models.Entities;
 using EmailModule.Declarations.Queries;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Models.Entities;
+using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Infrastructure.Attributes;
 
 namespace WebService.Controllers
 {

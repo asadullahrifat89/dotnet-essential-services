@@ -1,6 +1,6 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
+﻿using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Declarations.Repositories;
 using LanguageModule.Implementations.Queries.Validators;
@@ -15,11 +15,11 @@ namespace LanguageModule.Implementations.Queries.Handlers
         private readonly ILogger<GetLingoAppQueryHandler> _logger;
         private readonly GetLingoAppQueryValidator _validator;
         private readonly ILingoAppRepository _lingoAppRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProviderService _authenticationContext;
 
         public GetLingoAppQueryHandler(
             ILogger<GetLingoAppQueryHandler> logger, GetLingoAppQueryValidator validator,
-            ILingoAppRepository lingoAppRepository, IAuthenticationContextProvider authenticationContext)
+            ILingoAppRepository lingoAppRepository, IAuthenticationContextProviderService authenticationContext)
         {
             _logger = logger;
             _validator = validator;

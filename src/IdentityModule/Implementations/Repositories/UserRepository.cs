@@ -1,7 +1,8 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Models.Entities;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
+﻿using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Domain.Entities;
+using BaseModule.Extensions;
+using BaseModule.Repositories.Interfaces;
+using BaseModule.Services.Interfaces;
 using IdentityModule.Declarations.Commands;
 using IdentityModule.Declarations.Queries;
 using IdentityModule.Declarations.Repositories;
@@ -14,15 +15,15 @@ namespace IdentityModule.Implementations.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbService _mongoDbService;
+        private readonly IMongoDbRepository _mongoDbService;
         private readonly IRoleRepository _roleRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProviderService _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public UserRepository(IMongoDbService mongoDbService, IRoleRepository roleRepository, IAuthenticationContextProvider authenticationContext)
+        public UserRepository(IMongoDbRepository mongoDbService, IRoleRepository roleRepository, IAuthenticationContextProviderService authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _roleRepository = roleRepository;

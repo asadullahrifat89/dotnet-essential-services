@@ -1,5 +1,6 @@
-﻿using BaseModule.Models.Responses;
-using BaseModule.Services;
+﻿using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Repositories.Interfaces;
+using BaseModule.Services.Interfaces;
 using LanguageModule.Declarations.Commands;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Declarations.Repositories;
@@ -12,14 +13,14 @@ namespace LanguageModule.Implementations.Repositories
     {
         #region Fields
 
-        private readonly IMongoDbService _mongoDbService;
-        private readonly IAuthenticationContextProvider _authenticationContextProvider;
+        private readonly IMongoDbRepository _mongoDbService;
+        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public LingoAppRepository(IMongoDbService mongoDbService, IAuthenticationContextProvider authenticationContextProvider)
+        public LingoAppRepository(IMongoDbRepository mongoDbService, IAuthenticationContextProviderService authenticationContextProvider)
         {
             _mongoDbService = mongoDbService;
             _authenticationContextProvider = authenticationContextProvider;

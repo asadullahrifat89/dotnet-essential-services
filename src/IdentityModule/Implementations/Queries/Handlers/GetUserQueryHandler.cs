@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Logging;
 using IdentityModule.Declarations.Repositories;
 using IdentityModule.Implementations.Queries.Validators;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
 using IdentityModule.Declarations.Queries;
 using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace IdentityModule.Implementations.Queries.Handlers
 {
@@ -14,13 +14,13 @@ namespace IdentityModule.Implementations.Queries.Handlers
         private readonly ILogger<GetUserQueryHandler> _logger;
         private readonly GetUserQueryValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProviderService _authenticationContext;
 
         public GetUserQueryHandler(
             ILogger<GetUserQueryHandler> logger,
             GetUserQueryValidator validator,
             IUserRepository userRepository,
-            IAuthenticationContextProvider authenticationContext)
+            IAuthenticationContextProviderService authenticationContext)
         {
             _logger = logger;
             _validator = validator;

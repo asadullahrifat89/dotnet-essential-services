@@ -1,4 +1,4 @@
-﻿using BaseModule.Models.Entities;
+﻿using BaseModule.Domain.Entities;
 using IdentityModule.Declarations.Commands;
 using System.Text.Json.Serialization;
 

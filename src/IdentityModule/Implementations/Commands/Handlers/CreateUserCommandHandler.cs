@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Logging;
 using IdentityModule.Declarations.Repositories;
 using IdentityModule.Declarations.Commands;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
 using IdentityModule.Implementations.Commands.Validators;
 using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace IdentityModule.Implementations.Commands.Handlers
 {
@@ -16,13 +16,13 @@ namespace IdentityModule.Implementations.Commands.Handlers
         private readonly ILogger<CreateUserCommandHandler> _logger;
         private readonly CreateUserCommandValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProvider _authenticationContextProvider;
+        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public CreateUserCommandHandler(ILogger<CreateUserCommandHandler> logger, CreateUserCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProvider authenticationContextProvider)
+        public CreateUserCommandHandler(ILogger<CreateUserCommandHandler> logger, CreateUserCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProviderService authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

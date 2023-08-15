@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using BlobModule.Implementations.Commands.Validators;
 using BlobModule.Declarations.Repositories;
 using BlobModule.Declarations.Commands;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
 using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace BlobModule.Implementations.Commands.Handlers
 {
@@ -16,7 +16,7 @@ namespace BlobModule.Implementations.Commands.Handlers
         private readonly ILogger<UploadBlobFileCommandHandler> _logger;
         private readonly UploadBlobFileCommandValidator _validator;
         private readonly IBlobFileRepository _blobFileRepository;
-        private readonly IAuthenticationContextProvider _authenticationContextProvider;
+        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace BlobModule.Implementations.Commands.Handlers
             ILogger<UploadBlobFileCommandHandler> logger,
             UploadBlobFileCommandValidator validator,
             IBlobFileRepository blobFileRepository,
-            IAuthenticationContextProvider authenticationContextProvider)
+            IAuthenticationContextProviderService authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

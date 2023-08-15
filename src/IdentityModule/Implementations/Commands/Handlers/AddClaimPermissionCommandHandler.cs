@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using IdentityModule.Implementations.Commands.Validators;
-using BaseModule.Models.Responses;
 using IdentityModule.Declarations.Commands;
 using IdentityModule.Declarations.Repositories;
 using BaseModule.Extensions;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace IdentityModule.Implementations.Commands.Handlers
 {

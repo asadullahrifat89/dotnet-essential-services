@@ -1,5 +1,5 @@
-﻿using BaseModule.Models.Requests;
-using BaseModule.Models.Responses;
+﻿using BaseModule.Domain.DTOs.Requests;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace IdentityModule.Declarations.Queries
 {

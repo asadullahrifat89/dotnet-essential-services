@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using IdentityModule.Implementations.Queries.Validators;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
 using IdentityModule.Declarations.Queries;
 using IdentityModule.Models.Entities;
 using IdentityModule.Declarations.Repositories;
 using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace IdentityModule.Implementations.Queries.Handlers
 {
@@ -15,9 +15,9 @@ namespace IdentityModule.Implementations.Queries.Handlers
         private readonly ILogger<GetRolesQueryHandler> _logger;
         private readonly GetClaimsQueryValidator _validator;
         private readonly IClaimPermissionRepository _claimPermissionRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProviderService _authenticationContext;
 
-        public GetClaimsQueryHandler(ILogger<GetRolesQueryHandler> logger, GetClaimsQueryValidator validator, IClaimPermissionRepository claimPermissionRepository, IAuthenticationContextProvider authenticationContext)
+        public GetClaimsQueryHandler(ILogger<GetRolesQueryHandler> logger, GetClaimsQueryValidator validator, IClaimPermissionRepository claimPermissionRepository, IAuthenticationContextProviderService authenticationContext)
         {
             _logger = logger;
             _validator = validator;

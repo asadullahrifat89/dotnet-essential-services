@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using CommonModule;
-using BaseModule.Models.Responses;
-using BaseModule.Attributes;
 using IdentityModule.Declarations.Commands;
 using EmailModule.Declarations.Commands;
 using LanguageModule.Declarations.Commands;
 using BlobModule.Declarations.Commands;
+using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Infrastructure.Attributes;
 
 namespace WebService.Controllers
 {

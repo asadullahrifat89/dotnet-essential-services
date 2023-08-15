@@ -1,5 +1,5 @@
-﻿using BaseModule.Models.Entities;
-using BaseModule.Models.Responses;
+﻿using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Domain.Entities;
 using MediatR;
 
 namespace IdentityModule.Declarations.Commands

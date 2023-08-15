@@ -1,8 +1,6 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using BaseModule.Middlewares;
-using BaseModule.Services;
 using BaseModule.Extensions;
 using CommonModule;
 using IdentityModule.Declarations.Commands;
@@ -18,6 +16,9 @@ using IdentityModule.Declarations.Repositories;
 using BlobModule.Declarations.Repositories;
 using EmailModule.Declarations.Repositories;
 using LanguageModule.Declarations.Repositories;
+using BaseModule.Repositories.Interfaces;
+using BaseModule.Infrastructure.Middlewares;
+using EmailModule.Implementations.Commands.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,11 +54,11 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Add
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
 builder.Services.AddValidators<UploadBlobFileCommandValidator>();
-builder.Services.AddValidators<CreateEmailTemplateCommand>();
+builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 // Add services
-builder.Services.AddCoreServices<IMongoDbService>();
+builder.Services.AddCoreServices<IMongoDbRepository>();
 builder.Services.AddCoreServices<IEmailSenderService>();
 
 builder.Services.AddHostedService<EmailSenderHostedService>();

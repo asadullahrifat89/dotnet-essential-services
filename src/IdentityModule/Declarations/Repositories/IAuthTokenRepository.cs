@@ -1,4 +1,4 @@
-﻿using BaseModule.Models.Responses;
+﻿using BaseModule.Domain.DTOs.Responses;
 using IdentityModule.Declarations.Commands;
 
 namespace IdentityModule.Declarations.Repositories

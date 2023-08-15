@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
 using LanguageModule.Declarations.Commands;
 using LanguageModule.Implementations.Commands.Validators;
 using LanguageModule.Declarations.Repositories;
 using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace LanguageModule.Implementations.Commands.Handlers
 {
@@ -20,7 +20,7 @@ namespace LanguageModule.Implementations.Commands.Handlers
 
         private readonly ILingoAppRepository _lingoAppRepository;
 
-        private readonly IAuthenticationContextProvider _authenticationContextProvider;
+        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace LanguageModule.Implementations.Commands.Handlers
             ILogger<AddLingoAppCommandHandler> logger,
             AddLingoAppCommandValidator validator,
             ILingoAppRepository lingoAppRepository,
-            IAuthenticationContextProvider authenticationContextProvider)
+            IAuthenticationContextProviderService authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

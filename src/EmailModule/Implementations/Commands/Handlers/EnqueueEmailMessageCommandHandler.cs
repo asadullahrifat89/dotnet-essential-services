@@ -1,6 +1,6 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
+﻿using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
 using EmailModule.Declarations.Commands;
 using EmailModule.Declarations.Repositories;
 using EmailModule.Implementations.Commands.Validators;
@@ -16,7 +16,7 @@ namespace EmailModule.Implementations.Commands.Handlers
         private readonly ILogger<EnqueueEmailMessageCommandHandler> _logger;
         private readonly EnqueueEmailMessageCommandValidator _validator;
         private readonly IEmailMessageRepository _emailRepository;
-        private readonly IAuthenticationContextProvider _authenticationContextProvider;
+        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace EmailModule.Implementations.Commands.Handlers
             ILogger<EnqueueEmailMessageCommandHandler> logger,
             EnqueueEmailMessageCommandValidator validator,
             IEmailMessageRepository emailRepository,
-            IAuthenticationContextProvider authenticationContextProvider)
+            IAuthenticationContextProviderService authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

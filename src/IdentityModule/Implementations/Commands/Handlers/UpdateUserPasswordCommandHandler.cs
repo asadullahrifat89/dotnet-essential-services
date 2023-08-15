@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using IdentityModule.Declarations.Repositories;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
 using IdentityModule.Declarations.Commands;
 using IdentityModule.Implementations.Commands.Validators;
 using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace IdentityModule.Implementations.Commands.Handlers
 {
@@ -16,13 +16,13 @@ namespace IdentityModule.Implementations.Commands.Handlers
         private readonly ILogger<UpdateUserPasswordCommandHandler> _logger;
         private readonly UpdateUserPasswordCommandValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProvider _authenticationContextProvider;
+        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public UpdateUserPasswordCommandHandler(ILogger<UpdateUserPasswordCommandHandler> logger, UpdateUserPasswordCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProvider authenticationContextProvider)
+        public UpdateUserPasswordCommandHandler(ILogger<UpdateUserPasswordCommandHandler> logger, UpdateUserPasswordCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProviderService authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

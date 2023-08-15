@@ -1,5 +1,5 @@
-﻿using BaseModule.Extensions;
-using BaseModule.Models.Entities;
+﻿using BaseModule.Domain.Entities;
+using BaseModule.Extensions;
 using IdentityModule.Declarations.Commands;
 
 namespace IdentityModule.Models.Entities

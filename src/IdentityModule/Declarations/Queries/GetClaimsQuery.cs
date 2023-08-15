@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using BaseModule.Models.Responses;
 using IdentityModule.Models.Entities;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace IdentityModule.Declarations.Queries
 {

@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using BlobModule.Declarations.Repositories;
-using BaseModule.Services;
 using BlobModule.Models.Responses;
 using BlobModule.Declarations.Queries;
 using BlobModule.Implementations.Queries.Validators;
 using BaseModule.Extensions;
+using BaseModule.Services.Interfaces;
 
 namespace BlobModule.Implementations.Queries.Handlers
 {
@@ -13,10 +13,10 @@ namespace BlobModule.Implementations.Queries.Handlers
     {
         private readonly ILogger<DownloadBlobFileQueryHandler> _logger;
         private readonly DownloadBlobFileQueryValidator _validator;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProviderService _authenticationContext;
         private readonly IBlobFileRepository _blobFileRepository;
 
-        public DownloadBlobFileQueryHandler(ILogger<DownloadBlobFileQueryHandler> logger, DownloadBlobFileQueryValidator validator, IAuthenticationContextProvider authenticationContext, IBlobFileRepository blobFileRepository)
+        public DownloadBlobFileQueryHandler(ILogger<DownloadBlobFileQueryHandler> logger, DownloadBlobFileQueryValidator validator, IAuthenticationContextProviderService authenticationContext, IBlobFileRepository blobFileRepository)
         {
             _logger = logger;
             _validator = validator;

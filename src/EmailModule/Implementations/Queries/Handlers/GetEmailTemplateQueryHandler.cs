@@ -1,19 +1,19 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using EmailModule.Declarations.Queries;
-using BaseModule.Models.Responses;
-using BaseModule.Services;
 using EmailModule.Models.Entities;
 using EmailModule.Implementations.Queries.Validators;
 using BaseModule.Extensions;
 using EmailModule.Declarations.Repositories;
+using BaseModule.Services.Interfaces;
+using BaseModule.Domain.DTOs.Responses;
 
 namespace EmailModule.Implementations.Queries.Handlers
 {
     public class GetEmailTemplateQueryHandler : IRequestHandler<GetEmailTemplateQuery, QueryRecordResponse<EmailTemplate>>
     {
         private readonly IEmailTemplateRepository _emailRepository;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProviderService _authenticationContext;
         private readonly ILogger<GetEmailTemplateQueryHandler> _logger;
         private readonly GetEmailTemplateQueryValidator _validator;
 
@@ -21,7 +21,7 @@ namespace EmailModule.Implementations.Queries.Handlers
             ILogger<GetEmailTemplateQueryHandler> logger,
             GetEmailTemplateQueryValidator validator,
             IEmailTemplateRepository emailRepository,
-            IAuthenticationContextProvider authenticationContext)
+            IAuthenticationContextProviderService authenticationContext)
         {
             _logger = logger;
             _validator = validator;

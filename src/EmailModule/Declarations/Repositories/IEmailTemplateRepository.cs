@@ -1,4 +1,4 @@
-﻿using BaseModule.Models.Responses;
+﻿using BaseModule.Domain.DTOs.Responses;
 using EmailModule.Declarations.Commands;
 using EmailModule.Declarations.Queries;
 using EmailModule.Models.Entities;
