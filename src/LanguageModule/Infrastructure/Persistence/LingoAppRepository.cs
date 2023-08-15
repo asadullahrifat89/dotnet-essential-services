@@ -30,22 +30,20 @@ namespace LanguageModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command)
+        public async Task<ServiceResponse> AddLingoApp(LanguageApp languageApp)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+            
+            await _mongoDbContextProvider.InsertDocument(languageApp);
 
-            var lingoApp = AddLingoAppCommand.Initialize(command, authCtx);
-
-            await _mongoDbContextProvider.InsertDocument(lingoApp);
-
-            return Response.BuildServiceResponse().BuildSuccessResponse(lingoApp, authCtx?.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(languageApp, authCtx?.RequestUri);
         }
 
-        public async Task<QueryRecordResponse<LanguageApp>> GetLingoApp(GetLingoAppQuery query)
+        public async Task<QueryRecordResponse<LanguageApp>> GetLingoApp(string appId)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<LanguageApp>.Filter.Where(x => x.Id.Equals(query.AppId));
+            var filter = Builders<LanguageApp>.Filter.Where(x => x.Id.Equals(appId));
 
             var user = await _mongoDbContextProvider.FindOne(filter);
 

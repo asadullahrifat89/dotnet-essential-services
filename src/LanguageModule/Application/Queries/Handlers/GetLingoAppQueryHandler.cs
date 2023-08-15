@@ -34,7 +34,7 @@ namespace LanguageModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _lingoAppRepository.GetLingoApp(request);
+                return await _lingoAppRepository.GetLingoApp(request.AppId);
             }
             catch (Exception ex)
             {
