@@ -7,7 +7,7 @@ namespace ProductSearchCriteriaModule.Application.Queries
     {
         public string SearchTerm { get; set; } = string.Empty;
 
-        public ProductSearchCriteriaType? SearchCriteriaType { get; set; }
+        public ProductSearchCriteriaType? ProductSearchCriteriaType { get; set; }
 
         public SkillsetType? SkillsetType { get; set; }
 
