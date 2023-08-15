@@ -14,7 +14,7 @@ namespace LanguageModule.Application.Queries.Handlers
 
         private readonly ILogger<GetLingoResourcesInFormatQueryHandler> _logger;
         private readonly GetLingoResourcesInFormatQueryValidator _validator;
-        private readonly ILingoResourcesRepository _lingoResourceRepository;
+        private readonly ILanguageResourcesRepository _lingoResourceRepository;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
@@ -24,7 +24,7 @@ namespace LanguageModule.Application.Queries.Handlers
         public GetLingoResourcesInFormatQueryHandler(
             ILogger<GetLingoResourcesInFormatQueryHandler> logger,
             GetLingoResourcesInFormatQueryValidator validator,
-            ILingoResourcesRepository lingoAppRepository,
+            ILanguageResourcesRepository lingoAppRepository,
             IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
@@ -43,7 +43,7 @@ namespace LanguageModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _lingoResourceRepository.GetLingoResourcesInFormat(
+                return await _lingoResourceRepository.GetLanguageResourcesInFormat(
                     appId: request.AppId,
                     format: request.Format,
                     languageCode: request.LanguageCode);
