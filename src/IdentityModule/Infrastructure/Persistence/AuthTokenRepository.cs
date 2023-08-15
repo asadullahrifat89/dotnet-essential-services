@@ -7,7 +7,7 @@ using IdentityModule.Domain.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace IdentityModule.Domain.Repositories
+namespace IdentityModule.Infrastructure.Persistence
 {
     public class AuthTokenRepository : IAuthTokenRepository
     {

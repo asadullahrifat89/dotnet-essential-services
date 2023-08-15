@@ -8,7 +8,7 @@ using IdentityModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;
 using System.Data;
 
-namespace IdentityModule.Domain.Repositories
+namespace IdentityModule.Infrastructure.Persistence
 {
     public class RoleRepository : IRoleRepository
     {

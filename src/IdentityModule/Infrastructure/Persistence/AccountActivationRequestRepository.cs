@@ -6,7 +6,7 @@ using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;
 
-namespace IdentityModule.Domain.Repositories
+namespace IdentityModule.Infrastructure.Persistence
 {
     public class AccountActivationRequestRepository : IAccountActivationRequestRepository
     {
