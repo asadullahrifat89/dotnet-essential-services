@@ -7,9 +7,9 @@ namespace LanguageModule.Domain.Repositories.Interfaces
 {
     public interface ILingoAppRepository
     {
-        Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command);
+        Task<ServiceResponse> AddLingoApp(LanguageApp languageApp);
 
-        Task<QueryRecordResponse<LingoApp>> GetLingoApp(GetLingoAppQuery query);
+        Task<QueryRecordResponse<LanguageApp>> GetLingoApp(string appId);
 
         Task<bool> BeAnExistingLingoApp(string appName);
 

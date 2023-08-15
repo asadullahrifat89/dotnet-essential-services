@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
-using IdentityModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Queries.Validators;
 using IdentityModule.Domain.Entities;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace IdentityModule.Application.Queries.Handlers
 {
@@ -14,14 +14,14 @@ namespace IdentityModule.Application.Queries.Handlers
         private readonly ILogger<GetRolesQueryHandler> _logger;
         private readonly GetClaimsQueryValidator _validator;
         private readonly IClaimPermissionRepository _claimPermissionRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
-        public GetClaimsQueryHandler(ILogger<GetRolesQueryHandler> logger, GetClaimsQueryValidator validator, IClaimPermissionRepository claimPermissionRepository, IAuthenticationContextProviderService authenticationContext)
+        public GetClaimsQueryHandler(ILogger<GetRolesQueryHandler> logger, GetClaimsQueryValidator validator, IClaimPermissionRepository claimPermissionRepository, IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;
             _claimPermissionRepository = claimPermissionRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
         public async Task<QueryRecordsResponse<ClaimPermission>> Handle(GetClaimsQuery request, CancellationToken cancellationToken)
@@ -31,12 +31,12 @@ namespace IdentityModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _claimPermissionRepository.GetClaims(request);
+                return await _claimPermissionRepository.GetClaims();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordsResponse<ClaimPermission>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordsResponse<ClaimPermission>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
 
         }

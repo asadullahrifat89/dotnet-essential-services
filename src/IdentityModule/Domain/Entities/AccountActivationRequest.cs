@@ -12,15 +12,6 @@ namespace IdentityModule.Domain.Entities
 
         public ActivationKeyStatus ActivationKeyStatus = ActivationKeyStatus.Active;
 
-        public static AccountActivationRequest Initialize(SendUserAccountActivationRequestCommand command)
-        {
-            return new AccountActivationRequest()
-            {
-                Email = command.Email,
-                ActivationKey = GenerateRandomNumber().ToString("000000"),
-            };
-        }
-
         public static int GenerateRandomNumber()
         {
             var rand = new Random();

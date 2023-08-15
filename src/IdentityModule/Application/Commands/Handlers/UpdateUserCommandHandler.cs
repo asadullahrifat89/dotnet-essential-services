@@ -4,6 +4,8 @@ using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using IdentityModule.Application.Commands.Validators;
 using IdentityModule.Domain.Repositories.Interfaces;
+using MongoDB.Driver;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace IdentityModule.Application.Commands.Handlers
 {
@@ -14,30 +16,40 @@ namespace IdentityModule.Application.Commands.Handlers
         private readonly ILogger<UpdateUserCommandHandler> _logger;
         private readonly UpdateUserCommandValidator _validator;
         private readonly IUserRepository _userRepository;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public UpdateUserCommandHandler(ILogger<UpdateUserCommandHandler> logger, UpdateUserCommandValidator validator, IUserRepository userRepository)
+        public UpdateUserCommandHandler(
+            ILogger<UpdateUserCommandHandler> logger,
+            UpdateUserCommandValidator validator,
+            IUserRepository userRepository,
+            IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;
             _userRepository = userRepository;
+            _authenticationContextProvider = authenticationContextProvider;
         }
 
         #endregion
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                var validationResult = await _validator.ValidateAsync(command, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _userRepository.UpdateUser(request);
+                var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+                var user = UpdateUserCommand.Initialize(command, authCtx);
+
+                return await _userRepository.UpdateUser(user);
             }
             catch (Exception ex)
             {

@@ -1,7 +1,7 @@
-﻿using BaseModule.Domain.Repositories.Interfaces;
+﻿using BaseModule.Application.Providers.Interfaces;
 using BaseModule.Infrastructure.Extensions;
+using IdentityModule.Application.Services.Interfaces;
 using IdentityModule.Domain.Entities;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Driver;
 using System.Security.Claims;
@@ -11,12 +11,12 @@ namespace IdentityModule.Infrastructure.Middlewares
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IMongoDbRepository _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbContextProvider;
 
-        public JwtMiddleware(RequestDelegate next, IMongoDbRepository mongoDbService)
+        public JwtMiddleware(RequestDelegate next, IMongoDbContextProvider mongoDbService)
         {
             _next = next;
-            _mongoDbService = mongoDbService;
+            _mongoDbContextProvider = mongoDbService;
         }
 
         public async Task Invoke(
@@ -71,7 +71,7 @@ namespace IdentityModule.Infrastructure.Middlewares
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
 
-            return await _mongoDbService.FindOne(filter);
+            return await _mongoDbContextProvider.FindOne(filter);
         }
     }
 }

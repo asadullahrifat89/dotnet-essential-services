@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Entities;
-using BlobModule.Domain.Repositories.Interfaces;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries.Validators;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using BlobModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace BlobModule.Application.Queries.Handlers
 {
@@ -14,17 +14,17 @@ namespace BlobModule.Application.Queries.Handlers
         private readonly ILogger<GetBlobFileQueryHandler> _logger;
         private readonly GetBlobFileQueryValidator _validator;
         private readonly IBlobFileRepository _blobFileRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         public GetBlobFileQueryHandler(ILogger<GetBlobFileQueryHandler> logger,
             GetBlobFileQueryValidator validator,
             IBlobFileRepository blobFileRepository,
-            IAuthenticationContextProviderService authenticationContext)
+            IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;
             _blobFileRepository = blobFileRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
 
@@ -35,13 +35,13 @@ namespace BlobModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _blobFileRepository.GetBlobFile(request);
+                return await _blobFileRepository.GetBlobFile(request.FileId);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
                 return Response.BuildQueryRecordResponse<BlobFile>().BuildErrorResponse(
-                                       Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                                       Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
     }

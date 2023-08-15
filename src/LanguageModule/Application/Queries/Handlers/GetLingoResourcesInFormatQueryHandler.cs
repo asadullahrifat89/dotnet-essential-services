@@ -1,6 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Infrastructure.Extensions;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 using LanguageModule.Application.Queries.Validators;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MediatR;
@@ -15,7 +15,7 @@ namespace LanguageModule.Application.Queries.Handlers
         private readonly ILogger<GetLingoResourcesInFormatQueryHandler> _logger;
         private readonly GetLingoResourcesInFormatQueryValidator _validator;
         private readonly ILingoResourcesRepository _lingoResourceRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -25,12 +25,12 @@ namespace LanguageModule.Application.Queries.Handlers
             ILogger<GetLingoResourcesInFormatQueryHandler> logger,
             GetLingoResourcesInFormatQueryValidator validator,
             ILingoResourcesRepository lingoAppRepository,
-            IAuthenticationContextProviderService authenticationContext)
+            IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;
             _lingoResourceRepository = lingoAppRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
         #endregion
@@ -43,12 +43,15 @@ namespace LanguageModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _lingoResourceRepository.GetLingoResourcesInFormat(request);
+                return await _lingoResourceRepository.GetLingoResourcesInFormat(
+                    appId: request.AppId,
+                    format: request.Format,
+                    languageCode: request.LanguageCode);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
 

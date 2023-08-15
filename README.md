@@ -1,26 +1,25 @@
 # dotnet-essential-services
 
-A majestic monolith with Domain Driven Design and Clean Architecture containing some essential modules required to build any simple piece of software.
+A majestic monolith with domain-driven design and clean architecture containing some essential modules required to build any simple piece of software.
 
-![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/8b9e8842-300f-43e0-93e1-da0a71260284)
-
+![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/7e71e755-4ca9-49e8-90c4-2f48e7909592)
 
 # Folder Structure
 The solution follows a clean architecture-inspired folder structure.
 
 ### Domain
-The Domain layer sits at the core of the solution. Here we define things that are the base foundation of a module. i.e entities, value objects, aggregates, domain events, exceptions, repositories, etc.
+The Domain layer sits at the core of the solution. Here we define things that are the base foundation of a module. i.e. entities, value objects, aggregates, domain events, exceptions, repositories, etc. There are two schools of thought that only repository interfaces can be defined here which are later on implemented in the Infrastructure layer under persistence. We followed the school of thought that dictates that all entities and repositories should remain in the domain layer along with repository implementations.
 
 ### Application
-The Application layer sits right above the Domain layer. It acts as an orchestrator for the Domain layer, containing the most important use cases in your application.
-Here you can define things like commands, queries, DTOs, etc. This solution follows the CQRS pattern so you will find commands and queries with their definitions, handlers, and validators.
+The Application layer sits right above the Domain layer. It acts as an orchestrator for the Domain layer, containing business logic and the most important use cases in your application.
+Here you can define things like commands, queries, DTOs, services with their interfaces and implementations, etc. This solution follows the CQRS pattern so you will find commands and queries with their definitions, handlers, and validators in their respective folders.
 
 ### Infrastructure
-The Infrastructure layer contains things that facilitate and enable technical parts of a module. i.e. extensions, services, constants, attributes, middleware, etc.
+The Infrastructure layer contains things that facilitate and enable technical parts of a module. i.e. extensions, providers, constants, attributes, middleware, etc.
 This layer can contain things like email providers, database providers, storage providers, identity providers, jwt middleware, extension functions, etc.
 
 ### Presentation
-The Presentation layer is the entry point to our system. This layer contains controllers. As this solution follows CQRS patterns you will find command and query controllers here.
+The Presentation layer is the entry point to our system and is the outermost layer in the system. This layer contains controllers. As this solution follows CQRS patterns you will find command and query controllers here.
 You will see that each controller action is decorated with attributes and the endpoint routes are derived from a constant class.
 
 # Modules

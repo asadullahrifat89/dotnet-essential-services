@@ -4,7 +4,8 @@ using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using IdentityModule.Application.Commands.Validators;
 using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
+using MongoDB.Driver;
 
 namespace IdentityModule.Application.Commands.Handlers
 {
@@ -15,13 +16,17 @@ namespace IdentityModule.Application.Commands.Handlers
         private readonly ILogger<CreateUserCommandHandler> _logger;
         private readonly CreateUserCommandValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public CreateUserCommandHandler(ILogger<CreateUserCommandHandler> logger, CreateUserCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProviderService authenticationContextProvider)
+        public CreateUserCommandHandler(
+            ILogger<CreateUserCommandHandler> logger,
+            CreateUserCommandValidator validator,
+            IUserRepository userRepository,
+            IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;
@@ -33,14 +38,18 @@ namespace IdentityModule.Application.Commands.Handlers
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                var validationResult = await _validator.ValidateAsync(command, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _userRepository.CreateUser(request);
+                var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+                var user = CreateUserCommand.Initialize(command, authCtx);
+
+                return await _userRepository.CreateUser(user, command.Roles);
             }
             catch (Exception ex)
             {

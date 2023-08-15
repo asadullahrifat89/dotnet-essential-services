@@ -33,14 +33,17 @@ namespace IdentityModule.Application.Commands.Handlers
 
         #region Methods
 
-        public async Task<ServiceResponse> Handle(VerifyUserAccountActivationRequestCommand request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(VerifyUserAccountActivationRequestCommand command, CancellationToken cancellationToken)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                var validationResult = await _validator.ValidateAsync(command, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _accountActivationRequest.VerifyAccountActivationRequest(request);
+                return await _accountActivationRequest.VerifyAccountActivationRequest(
+                    email: command.Email,
+                    activationKey: command.ActivationKey,
+                    password: command.Password);
             }
             catch (Exception ex)
             {

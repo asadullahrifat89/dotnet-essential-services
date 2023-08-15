@@ -1,6 +1,8 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using EmailModule.Domain.Entities;
+using IdentityModule.Domain.Entities;
 using MediatR;
+using IdentityModule.Infrastructure.Extensions;
 
 namespace EmailModule.Application.Commands
 {
@@ -27,5 +29,26 @@ namespace EmailModule.Application.Commands
         public string Category { get; set; } = string.Empty;
 
         public EmailTemplateConfiguration EmailTemplateConfiguration { get; set; } = new EmailTemplateConfiguration();
+
+        public static EmailMessage Initialize(EnqueueEmailMessageCommand command, AuthenticationContext authenticationContext)
+        {
+            var emailMessage = new EmailMessage()
+            {
+                Subject = command.Subject,
+                EmailBody = command.EmailBody,
+                EmailBodyType = command.EmailBodyType,
+                Category = command.Category,
+                EmailTemplateConfiguration = command.EmailTemplateConfiguration,
+                CC = command.CC,
+                BCC = command.BCC,
+                Attachments = command.Attachments,
+                CustomVariables = command.CustomVariables,
+                Headers = command.Headers,
+                To = command.To,
+                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
+            };
+
+            return emailMessage;
+        }
     }
 }

@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
-using IdentityModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Commands.Validators;
+using IdentityModule.Domain.Repositories.Interfaces;
 
 namespace IdentityModule.Application.Commands.Handlers
 {
@@ -40,7 +40,7 @@ namespace IdentityModule.Application.Commands.Handlers
                 var validationResult = await _validator.ValidateAsync(command, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                var response = await _repository.Authenticate(command);
+                var response = await _repository.Authenticate(email: command.Email, password: command.Password);
 
                 return response;
             }

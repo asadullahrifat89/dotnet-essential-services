@@ -4,7 +4,7 @@ using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using IdentityModule.Application.Commands.Validators;
 using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace IdentityModule.Application.Commands.Handlers
 {
@@ -15,13 +15,13 @@ namespace IdentityModule.Application.Commands.Handlers
         private readonly ILogger<UpdateUserPasswordCommandHandler> _logger;
         private readonly UpdateUserPasswordCommandValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public UpdateUserPasswordCommandHandler(ILogger<UpdateUserPasswordCommandHandler> logger, UpdateUserPasswordCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProviderService authenticationContextProvider)
+        public UpdateUserPasswordCommandHandler(ILogger<UpdateUserPasswordCommandHandler> logger, UpdateUserPasswordCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;
@@ -40,7 +40,10 @@ namespace IdentityModule.Application.Commands.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _userRepository.UpdateUserPassword(request);
+                return await _userRepository.UpdateUserPassword(
+                    userId: request.UserId,
+                    oldPassword: request.OldPassword,
+                    newPassword: request.NewPassword);
             }
             catch (Exception ex)
             {

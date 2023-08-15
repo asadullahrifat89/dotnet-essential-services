@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
-using BlobModule.Domain.Repositories.Interfaces;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Commands.Validators;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using BlobModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace BlobModule.Application.Commands.Handlers
 {
@@ -15,7 +15,7 @@ namespace BlobModule.Application.Commands.Handlers
         private readonly ILogger<UploadBlobFileCommandHandler> _logger;
         private readonly UploadBlobFileCommandValidator _validator;
         private readonly IBlobFileRepository _blobFileRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace BlobModule.Application.Commands.Handlers
             ILogger<UploadBlobFileCommandHandler> logger,
             UploadBlobFileCommandValidator validator,
             IBlobFileRepository blobFileRepository,
-            IAuthenticationContextProviderService authenticationContextProvider)
+            IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;
@@ -44,7 +44,7 @@ namespace BlobModule.Application.Commands.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _blobFileRepository.UploadBlobFile(request);
+                return await _blobFileRepository.UploadBlobFile(request.FormFile);
             }
             catch (Exception ex)
             {

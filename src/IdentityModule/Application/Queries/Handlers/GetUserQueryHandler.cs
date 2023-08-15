@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
-using IdentityModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Queries.Validators;
 using IdentityModule.Application.DTOs;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace IdentityModule.Application.Queries.Handlers
 {
@@ -14,18 +14,18 @@ namespace IdentityModule.Application.Queries.Handlers
         private readonly ILogger<GetUserQueryHandler> _logger;
         private readonly GetUserQueryValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         public GetUserQueryHandler(
             ILogger<GetUserQueryHandler> logger,
             GetUserQueryValidator validator,
             IUserRepository userRepository,
-            IAuthenticationContextProviderService authenticationContext)
+            IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;
             _userRepository = userRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
         public async Task<QueryRecordResponse<UserResponse>> Handle(GetUserQuery request, CancellationToken cancellationToken)
@@ -35,13 +35,13 @@ namespace IdentityModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _userRepository.GetUser(request);
+                return await _userRepository.GetUser(request.UserId);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
                 return Response.BuildQueryRecordResponse<UserResponse>().BuildErrorResponse(
-                    Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                    Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
     }

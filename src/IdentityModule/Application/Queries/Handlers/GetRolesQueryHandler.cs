@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using IdentityModule.Application.Queries.Validators;
-using IdentityModule.Domain.Repositories.Interfaces;
 using IdentityModule.Domain.Entities;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace IdentityModule.Application.Queries.Handlers
 {
@@ -14,14 +14,18 @@ namespace IdentityModule.Application.Queries.Handlers
         private readonly ILogger<GetRolesQueryHandler> _logger;
         private readonly GetRolesQueryValidator _validator;
         private readonly IRoleRepository _roleRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
-        public GetRolesQueryHandler(ILogger<GetRolesQueryHandler> logger, GetRolesQueryValidator validator, IRoleRepository roleRepository, IAuthenticationContextProviderService authenticationContext)
+        public GetRolesQueryHandler(
+            ILogger<GetRolesQueryHandler> logger,
+            GetRolesQueryValidator validator,
+            IRoleRepository roleRepository,
+            IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;
             _roleRepository = roleRepository;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContext;
         }
 
         public async Task<QueryRecordsResponse<Role>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
@@ -31,12 +35,15 @@ namespace IdentityModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _roleRepository.GetRoles(request);
+                return await _roleRepository.GetRoles(
+                    searchTerm: request.SearchTerm,
+                    pageIndex: request.PageIndex,
+                    pageSize: request.PageSize);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordsResponse<Role>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContext.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordsResponse<Role>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
 
         }

@@ -41,7 +41,7 @@ namespace LanguageModule.Presentation.Controllers
 
         [HttpGet(EndpointRoutes.Action_GetLingoApp)]
 
-        public async Task<QueryRecordResponse<LingoApp>> GetLingoApp([FromQuery] GetLingoAppQuery query)
+        public async Task<QueryRecordResponse<LanguageApp>> GetLingoApp([FromQuery] GetLingoAppQuery query)
         {
             return await _mediator.Send(query);
         }
