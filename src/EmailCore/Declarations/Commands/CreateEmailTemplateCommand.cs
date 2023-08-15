@@ -13,6 +13,7 @@ namespace EmailCore.Declarations.Commands
         public EmailBodyContentType EmailBodyContentType { get; set; } = EmailBodyContentType.Text;
 
         public string[] Tags { get; set; } = new string[] { };
-    }
 
+        public string Purpose { get; set; } = string.Empty;
+    }
 }

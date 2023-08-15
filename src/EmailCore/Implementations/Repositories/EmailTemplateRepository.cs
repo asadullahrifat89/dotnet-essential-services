@@ -61,6 +61,7 @@ namespace EmailCore.Implementations.Repositories
                 .Set(x => x.Name, command.Name)
                 .Set(x => x.Body, command.Body)
                 .Set(x => x.EmailBodyContentType, command.EmailBodyContentType)
+                .Set(x => x.Purpose, command.Purpose)
                 .Set(x => x.Tags, command.Tags)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
