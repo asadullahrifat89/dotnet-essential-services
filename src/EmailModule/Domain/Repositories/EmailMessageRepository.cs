@@ -3,20 +3,20 @@ using BaseModule.Application.Providers.Interfaces;
 using BaseModule.Infrastructure.Extensions;
 using EmailModule.Application.Commands;
 using EmailModule.Domain.Entities;
-using EmailModule.Domain.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using EmailModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System.Net;
 
-namespace EmailModule.Infrastructure.Persistence
+namespace EmailModule.Domain.Repositories
 {
     public class EmailMessageRepository : IEmailMessageRepository
     {
         #region Fields
 
         private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
         private readonly IConfiguration _configuration;
         private readonly IEmailTemplateRepository _emailTemplateRepository;
 
@@ -26,7 +26,7 @@ namespace EmailModule.Infrastructure.Persistence
 
         public EmailMessageRepository(
             IMongoDbContextProvider mongoDbService,
-            IAuthenticationContextProviderService authenticationContext,
+            IAuthenticationContextProvider authenticationContext,
             IConfiguration configuration,
             IEmailTemplateRepository emailTemplateRepository)
         {

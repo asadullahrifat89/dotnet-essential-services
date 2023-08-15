@@ -1,12 +1,12 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Commands;
+using IdentityModule.Application.Providers.Interfaces;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using MongoDB.Driver;
 
-namespace IdentityModule.Domain.Repositories.Implementations
+namespace IdentityModule.Domain.Repositories
 {
     public class AccountActivationRequestRepository : IAccountActivationRequestRepository
     {
@@ -14,13 +14,13 @@ namespace IdentityModule.Domain.Repositories.Implementations
 
         private readonly IMongoDbContextProvider _mongoDbService;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public AccountActivationRequestRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProviderService authenticationContext, IUserRepository userRepository)
+        public AccountActivationRequestRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext, IUserRepository userRepository)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;

@@ -1,7 +1,7 @@
 ﻿using BaseModule.Infrastructure.Extensions;
 using EmailModule.Application.Services.Interfaces;
 using EmailModule.Domain.Entities;
-using EmailModule.Domain.Interfaces;
+using EmailModule.Domain.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

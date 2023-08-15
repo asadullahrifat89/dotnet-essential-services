@@ -4,15 +4,15 @@ using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using EmailModule.Domain.Entities;
 using EmailModule.Application.Queries.Validators;
-using IdentityModule.Infrastructure.Services.Interfaces;
-using EmailModule.Domain.Interfaces;
+using EmailModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace EmailModule.Application.Queries.Handlers
 {
     public class GetEmailTemplateQueryHandler : IRequestHandler<GetEmailTemplateQuery, QueryRecordResponse<EmailTemplate>>
     {
         private readonly IEmailTemplateRepository _emailRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
         private readonly ILogger<GetEmailTemplateQueryHandler> _logger;
         private readonly GetEmailTemplateQueryValidator _validator;
 
@@ -20,7 +20,7 @@ namespace EmailModule.Application.Queries.Handlers
             ILogger<GetEmailTemplateQueryHandler> logger,
             GetEmailTemplateQueryValidator validator,
             IEmailTemplateRepository emailRepository,
-            IAuthenticationContextProviderService authenticationContext)
+            IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;

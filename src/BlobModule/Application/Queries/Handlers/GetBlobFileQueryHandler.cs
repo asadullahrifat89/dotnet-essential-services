@@ -4,8 +4,8 @@ using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Entities;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries.Validators;
-using IdentityModule.Infrastructure.Services.Interfaces;
-using BlobModule.Domain.Interfaces;
+using BlobModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace BlobModule.Application.Queries.Handlers
 {
@@ -14,12 +14,12 @@ namespace BlobModule.Application.Queries.Handlers
         private readonly ILogger<GetBlobFileQueryHandler> _logger;
         private readonly GetBlobFileQueryValidator _validator;
         private readonly IBlobFileRepository _blobFileRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         public GetBlobFileQueryHandler(ILogger<GetBlobFileQueryHandler> logger,
             GetBlobFileQueryValidator validator,
             IBlobFileRepository blobFileRepository,
-            IAuthenticationContextProviderService authenticationContext)
+            IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;

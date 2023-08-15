@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using BaseModule.Infrastructure.Extensions;
-using BlobModule.Domain.Interfaces;
+using BlobModule.Domain.Repositories.Interfaces;
 
 namespace BlobModule.Application.Queries.Validators
 {

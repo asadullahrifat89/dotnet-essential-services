@@ -5,25 +5,25 @@ using BlobModule.Application.DTOs.Responses;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries;
 using BlobModule.Application.Commands;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using IdentityModule.Infrastructure.Extensions;
 using BaseModule.Application.Providers.Interfaces;
-using BlobModule.Domain.Interfaces;
+using BlobModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
-namespace BlobModule.Infrastructure.Persistence
+namespace BlobModule.Domain.Repositories
 {
     public class BlobFileRepository : IBlobFileRepository
     {
         #region Fields
 
         private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public BlobFileRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProviderService authenticationContext)
+        public BlobFileRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;

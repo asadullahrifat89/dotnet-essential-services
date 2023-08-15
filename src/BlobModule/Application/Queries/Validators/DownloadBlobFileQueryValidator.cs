@@ -1,5 +1,5 @@
 ﻿using BaseModule.Infrastructure.Extensions;
-using BlobModule.Domain.Interfaces;
+using BlobModule.Domain.Repositories.Interfaces;
 using FluentValidation;
 
 namespace BlobModule.Application.Queries.Validators

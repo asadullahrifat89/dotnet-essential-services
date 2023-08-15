@@ -1,5 +1,5 @@
 ﻿using BaseModule.Infrastructure.Extensions;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Application.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver.Linq;
@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace IdentityModule.Infrastructure.Services.Implementations
+namespace IdentityModule.Application.Services
 {
     public class JwtService : IJwtService
     {

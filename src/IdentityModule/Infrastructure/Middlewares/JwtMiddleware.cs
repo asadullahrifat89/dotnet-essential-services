@@ -1,7 +1,7 @@
 ﻿using BaseModule.Application.Providers.Interfaces;
 using BaseModule.Infrastructure.Extensions;
+using IdentityModule.Application.Services.Interfaces;
 using IdentityModule.Domain.Entities;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Driver;
 using System.Security.Claims;

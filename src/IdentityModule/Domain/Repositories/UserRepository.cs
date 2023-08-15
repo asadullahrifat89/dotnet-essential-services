@@ -3,13 +3,13 @@ using BaseModule.Application.Providers.Interfaces;
 using BaseModule.Infrastructure.Extensions;
 using IdentityModule.Application.Commands;
 using IdentityModule.Application.DTOs;
+using IdentityModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Queries;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using MongoDB.Driver;
 
-namespace IdentityModule.Domain.Repositories.Implementations
+namespace IdentityModule.Domain.Repositories
 {
     public class UserRepository : IUserRepository
     {
@@ -17,13 +17,13 @@ namespace IdentityModule.Domain.Repositories.Implementations
 
         private readonly IMongoDbContextProvider _mongoDbService;
         private readonly IRoleRepository _roleRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public UserRepository(IMongoDbContextProvider mongoDbService, IRoleRepository roleRepository, IAuthenticationContextProviderService authenticationContext)
+        public UserRepository(IMongoDbContextProvider mongoDbService, IRoleRepository roleRepository, IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _roleRepository = roleRepository;

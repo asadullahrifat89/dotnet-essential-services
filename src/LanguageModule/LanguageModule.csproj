@@ -7,13 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
-    <ProjectReference Include="..\IdentityModule\IdentityModule.csproj" />
+    <Compile Remove="Application\DTOs\**" />
+    <Compile Remove="Infrastructure\**" />
+    <EmbeddedResource Remove="Application\DTOs\**" />
+    <EmbeddedResource Remove="Infrastructure\**" />
+    <None Remove="Application\DTOs\**" />
+    <None Remove="Infrastructure\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\DTOs\" />
-    <Folder Include="Infrastructure\" />
+    <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
+    <ProjectReference Include="..\IdentityModule\IdentityModule.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,13 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Commands;
+using IdentityModule.Application.Services.Interfaces;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace IdentityModule.Domain.Repositories.Implementations
+namespace IdentityModule.Domain.Repositories
 {
     public class AuthTokenRepository : IAuthTokenRepository
     {

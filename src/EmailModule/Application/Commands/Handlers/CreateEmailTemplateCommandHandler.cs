@@ -1,8 +1,8 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Infrastructure.Extensions;
 using EmailModule.Application.Commands.Validators;
-using EmailModule.Domain.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using EmailModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +15,7 @@ namespace EmailModule.Application.Commands.Handlers
         private readonly ILogger<CreateEmailTemplateCommandHandler> _logger;
         private readonly CreateEmailTemplateCommandValidator _validator;
         private readonly IEmailTemplateRepository _emailRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace EmailModule.Application.Commands.Handlers
             ILogger<CreateEmailTemplateCommandHandler> logger,
             CreateEmailTemplateCommandValidator validator,
             IEmailTemplateRepository emailRepository,
-            IAuthenticationContextProviderService authenticationContextProvider)
+            IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

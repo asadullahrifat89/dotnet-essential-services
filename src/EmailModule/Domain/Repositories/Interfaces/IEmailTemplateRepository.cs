@@ -3,7 +3,7 @@ using EmailModule.Application.Commands;
 using EmailModule.Application.Queries;
 using EmailModule.Domain.Entities;
 
-namespace EmailModule.Domain.Interfaces
+namespace EmailModule.Domain.Repositories.Interfaces
 {
     public interface IEmailTemplateRepository
     {

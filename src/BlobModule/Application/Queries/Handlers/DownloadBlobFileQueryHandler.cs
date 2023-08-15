@@ -3,8 +3,8 @@ using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries.Validators;
-using IdentityModule.Infrastructure.Services.Interfaces;
-using BlobModule.Domain.Interfaces;
+using BlobModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace BlobModule.Application.Queries.Handlers
 {
@@ -12,10 +12,10 @@ namespace BlobModule.Application.Queries.Handlers
     {
         private readonly ILogger<DownloadBlobFileQueryHandler> _logger;
         private readonly DownloadBlobFileQueryValidator _validator;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
         private readonly IBlobFileRepository _blobFileRepository;
 
-        public DownloadBlobFileQueryHandler(ILogger<DownloadBlobFileQueryHandler> logger, DownloadBlobFileQueryValidator validator, IAuthenticationContextProviderService authenticationContext, IBlobFileRepository blobFileRepository)
+        public DownloadBlobFileQueryHandler(ILogger<DownloadBlobFileQueryHandler> logger, DownloadBlobFileQueryValidator validator, IAuthenticationContextProvider authenticationContext, IBlobFileRepository blobFileRepository)
         {
             _logger = logger;
             _validator = validator;

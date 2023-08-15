@@ -1,26 +1,26 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 using LanguageModule.Application.Commands;
 using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Entities;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;
 
-namespace LanguageModule.Domain.Repositories.Implementations
+namespace LanguageModule.Domain.Repositories
 {
     public class LingoAppRepository : ILingoAppRepository
     {
         #region Fields
 
         private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public LingoAppRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProviderService authenticationContextProvider)
+        public LingoAppRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContextProvider)
         {
             _mongoDbService = mongoDbService;
             _authenticationContextProvider = authenticationContextProvider;

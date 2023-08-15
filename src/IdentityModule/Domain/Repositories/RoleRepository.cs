@@ -1,27 +1,27 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Commands;
+using IdentityModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Queries;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using MongoDB.Driver;
 using System.Data;
 
-namespace IdentityModule.Domain.Repositories.Implementations
+namespace IdentityModule.Domain.Repositories
 {
     public class RoleRepository : IRoleRepository
     {
         #region Fields
 
         private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public RoleRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProviderService authenticationContext)
+        public RoleRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;

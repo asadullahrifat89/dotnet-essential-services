@@ -1,6 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Infrastructure.Extensions;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 using LanguageModule.Application.Queries.Validators;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MediatR;
@@ -15,7 +15,7 @@ namespace LanguageModule.Application.Queries.Handlers
         private readonly ILogger<GetLingoResourcesInFormatQueryHandler> _logger;
         private readonly GetLingoResourcesInFormatQueryValidator _validator;
         private readonly ILingoResourcesRepository _lingoResourceRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace LanguageModule.Application.Queries.Handlers
             ILogger<GetLingoResourcesInFormatQueryHandler> logger,
             GetLingoResourcesInFormatQueryValidator validator,
             ILingoResourcesRepository lingoAppRepository,
-            IAuthenticationContextProviderService authenticationContext)
+            IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;

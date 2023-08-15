@@ -1,14 +1,14 @@
-﻿using IdentityModule.Domain.Entities;
-using IdentityModule.Infrastructure.Services.Interfaces;
+﻿using IdentityModule.Application.Providers.Interfaces;
+using IdentityModule.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 
-namespace IdentityModule.Infrastructure.Services.Implementations
+namespace IdentityModule.Application.Providers
 {
-    public class AuthenticationContextProviderService : IAuthenticationContextProviderService
+    public class AuthenticationContextProvider : IAuthenticationContextProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthenticationContextProviderService(IHttpContextAccessor httpContextAccessor)
+        public AuthenticationContextProvider(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }

@@ -7,10 +7,8 @@ using CommonModule.Infrastructure.Constants;
 using EmailModule.Application.Commands;
 using BlobModule.Application.Commands.Validators;
 using IdentityModule.Application.Commands;
-using IdentityModule.Domain.Repositories.Interfaces;
 using EmailModule.Application.Commands.Validators;
 using IdentityModule.Application.Commands.Validators;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using LanguageModule.Domain.Repositories.Interfaces;
 using LanguageModule.Application.Commands;
 using LanguageModule.Application.Commands.Validators;
@@ -18,8 +16,11 @@ using IdentityModule.Infrastructure.Middlewares;
 using BaseModule.Application.Providers.Interfaces;
 using EmailModule.Application.Services;
 using EmailModule.Application.Services.Interfaces;
-using BlobModule.Domain.Interfaces;
-using EmailModule.Domain.Interfaces;
+using BlobModule.Domain.Repositories.Interfaces;
+using EmailModule.Domain.Repositories.Interfaces;
+using IdentityModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
+using IdentityModule.Application.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,13 +60,14 @@ builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 // Add services
-builder.Services.AddServices<IAuthenticationContextProviderService>();
+builder.Services.AddServices<IJwtService>();
 builder.Services.AddServices<IEmailSenderService>();
 
 builder.Services.AddHostedService<EmailSenderHostedService>();
 
 // Add providers
 builder.Services.AddProviders<IMongoDbContextProvider>();
+builder.Services.AddProviders<IAuthenticationContextProvider>();
 
 // Add repositories
 builder.Services.AddRepositories<IAuthTokenRepository>();

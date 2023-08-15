@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using EmailModule.Application.Commands.Validators;
-using EmailModule.Domain.Interfaces;
+using EmailModule.Domain.Repositories.Interfaces;
 
 namespace EmailModule.Application.Commands.Handlers
 {

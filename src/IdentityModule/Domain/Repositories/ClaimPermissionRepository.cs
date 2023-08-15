@@ -1,27 +1,27 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Commands;
+using IdentityModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Queries;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using MongoDB.Driver;
 
-namespace IdentityModule.Domain.Repositories.Implementations
+namespace IdentityModule.Domain.Repositories
 {
     public class ClaimPermissionRepository : IClaimPermissionRepository
     {
         #region Fields
 
         private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
         private readonly IRoleRepository _roleRepository;
 
         #endregion
 
         #region Ctor
 
-        public ClaimPermissionRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProviderService authenticationContext, IRoleRepository roleRepository)
+        public ClaimPermissionRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext, IRoleRepository roleRepository)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;

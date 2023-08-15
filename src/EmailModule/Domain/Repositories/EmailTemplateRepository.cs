@@ -3,25 +3,25 @@ using BaseModule.Application.Providers.Interfaces;
 using EmailModule.Application.Commands;
 using EmailModule.Application.Queries;
 using EmailModule.Domain.Entities;
-using EmailModule.Domain.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using EmailModule.Domain.Repositories.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 using MongoDB.Driver;
 
 
-namespace EmailModule.Infrastructure.Persistence
+namespace EmailModule.Domain.Repositories
 {
     public class EmailTemplateRepository : IEmailTemplateRepository
     {
         #region Fields
 
         private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProviderService _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public EmailTemplateRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProviderService authenticationContext)
+        public EmailTemplateRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;

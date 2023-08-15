@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
-using IdentityModule.Infrastructure.Services.Interfaces;
 using LanguageModule.Domain.Repositories.Interfaces;
 using LanguageModule.Application.Commands;
 using LanguageModule.Application.Commands.Validators;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace LanguageModule.Application.Commands.Handlers
 {
@@ -20,7 +20,7 @@ namespace LanguageModule.Application.Commands.Handlers
 
         private readonly ILingoAppRepository _lingoAppRepository;
 
-        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace LanguageModule.Application.Commands.Handlers
             ILogger<AddLingoAppCommandHandler> logger,
             AddLingoAppCommandValidator validator,
             ILingoAppRepository lingoAppRepository,
-            IAuthenticationContextProviderService authenticationContextProvider)
+            IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

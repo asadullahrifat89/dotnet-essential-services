@@ -1,4 +1,4 @@
-﻿namespace IdentityModule.Infrastructure.Services.Interfaces
+﻿namespace IdentityModule.Application.Services.Interfaces
 {
     public interface IJwtService
     {

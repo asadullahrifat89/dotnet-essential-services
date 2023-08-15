@@ -1,5 +1,5 @@
 ﻿using BaseModule.Infrastructure.Extensions;
-using EmailModule.Domain.Interfaces;
+using EmailModule.Domain.Repositories.Interfaces;
 using FluentValidation;
 
 namespace EmailModule.Application.Queries.Validators

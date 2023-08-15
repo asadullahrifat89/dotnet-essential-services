@@ -4,7 +4,7 @@ using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using IdentityModule.Application.Commands.Validators;
 using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Application.Providers.Interfaces;
 
 namespace IdentityModule.Application.Commands.Handlers
 {
@@ -15,13 +15,13 @@ namespace IdentityModule.Application.Commands.Handlers
         private readonly ILogger<SubmitUserCommandHandler> _logger;
         private readonly SubmitUserCommandValidator _validator;
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
         #region Ctor
 
-        public SubmitUserCommandHandler(ILogger<SubmitUserCommandHandler> logger, SubmitUserCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProviderService authenticationContextProvider)
+        public SubmitUserCommandHandler(ILogger<SubmitUserCommandHandler> logger, SubmitUserCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

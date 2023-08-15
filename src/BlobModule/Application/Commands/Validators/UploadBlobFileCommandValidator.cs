@@ -1,4 +1,4 @@
-﻿using BlobModule.Domain.Interfaces;
+﻿using BlobModule.Domain.Repositories.Interfaces;
 using FluentValidation;
 
 namespace BlobModule.Application.Commands.Validators
