@@ -1,5 +1,5 @@
 ﻿using BaseModule.Domain.Entities;
-using BaseModule.Extensions;
+using BaseModule.Infrastructure.Extensions;
 using LanguageModule.Declarations.Commands;
 
 namespace LanguageModule.Models.Entities

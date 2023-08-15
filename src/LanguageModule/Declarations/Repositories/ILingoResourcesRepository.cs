@@ -1,4 +1,4 @@
-﻿using BaseModule.Domain.DTOs.Responses;
+﻿using BaseModule.Application.DTOs.Responses;
 using LanguageModule.Declarations.Commands;
 using LanguageModule.Declarations.Queries;
 

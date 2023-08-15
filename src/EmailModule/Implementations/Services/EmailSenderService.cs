@@ -1,9 +1,9 @@
 ﻿using MimeKit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using BaseModule.Extensions;
 using EmailModule.Models.Entities;
 using EmailModule.Declarations.Services;
+using BaseModule.Infrastructure.Extensions;
 
 namespace EmailModule.Implementations.Services
 {

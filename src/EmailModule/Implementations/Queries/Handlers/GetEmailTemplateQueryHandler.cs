@@ -3,10 +3,10 @@ using Microsoft.Extensions.Logging;
 using EmailModule.Declarations.Queries;
 using EmailModule.Models.Entities;
 using EmailModule.Implementations.Queries.Validators;
-using BaseModule.Extensions;
 using EmailModule.Declarations.Repositories;
-using BaseModule.Services.Interfaces;
-using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Infrastructure.Extensions;
+using BaseModule.Infrastructure.Services.Interfaces;
+using BaseModule.Application.DTOs.Responses;
 
 namespace EmailModule.Implementations.Queries.Handlers
 {

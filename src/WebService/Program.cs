@@ -1,24 +1,24 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using BaseModule.Extensions;
 using CommonModule;
 using IdentityModule.Declarations.Commands;
-using BlobModule.Declarations.Commands;
 using EmailModule.Declarations.Commands;
 using LanguageModule.Declarations.Commands;
 using IdentityModule.Implementations.Commands.Validators;
-using BlobModule.Implementations.Commands.Validators;
 using LanguageModule.Implementations.Commands.Validators;
 using EmailModule.Declarations.Services;
 using EmailModule.Implementations.Services;
 using IdentityModule.Declarations.Repositories;
-using BlobModule.Declarations.Repositories;
 using EmailModule.Declarations.Repositories;
 using LanguageModule.Declarations.Repositories;
-using BaseModule.Repositories.Interfaces;
-using BaseModule.Infrastructure.Middlewares;
 using EmailModule.Implementations.Commands.Validators;
+using BaseModule.Infrastructure.Extensions;
+using BlobModule.Domain.Repositories.Interfaces;
+using BaseModule.Application.Middlewares;
+using BlobModule.Application.Commands;
+using BaseModule.Domain.Repositories.Interfaces;
+using BaseModule.Infrastructure.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,12 +58,13 @@ builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 // Add services
-builder.Services.AddCoreServices<IMongoDbRepository>();
+builder.Services.AddCoreServices<IAuthenticationContextProviderService>();
 builder.Services.AddCoreServices<IEmailSenderService>();
 
 builder.Services.AddHostedService<EmailSenderHostedService>();
 
 // Add repositories
+builder.Services.AddRepositories<IMongoDbRepository>();
 builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
 builder.Services.AddRepositories<IEmailTemplateRepository>();

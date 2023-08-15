@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace BaseModule.Extensions
+namespace BaseModule.Infrastructure.Extensions
 {
     public static class ValidationResultExtensions
     {

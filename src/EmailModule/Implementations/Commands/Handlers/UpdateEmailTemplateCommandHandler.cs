@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Logging;
 using EmailModule.Implementations.Commands.Validators;
 using EmailModule.Declarations.Commands;
-using BaseModule.Extensions;
 using EmailModule.Declarations.Repositories;
-using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Infrastructure.Extensions;
+using BaseModule.Application.DTOs.Responses;
 
 namespace EmailModule.Implementations.Commands.Handlers
 {

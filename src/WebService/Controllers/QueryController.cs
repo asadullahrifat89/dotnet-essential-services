@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using CommonModule;
 using IdentityModule.Declarations.Queries;
 using IdentityModule.Models.Entities;
-using BlobModule.Declarations.Queries;
-using BlobModule.Models.Entities;
 using EmailModule.Models.Entities;
 using EmailModule.Declarations.Queries;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Models.Entities;
-using BaseModule.Domain.DTOs.Responses;
 using BaseModule.Infrastructure.Attributes;
+using BlobModule.Domain.Entities;
+using BaseModule.Application.DTOs.Responses;
+using BlobModule.Application.Queries;
 
 namespace WebService.Controllers
 {
@@ -81,19 +81,19 @@ namespace WebService.Controllers
 
         #region Blob
 
-        [HttpGet(EndpointRoutes.Action_DownloadFile)]
-        public async Task<IActionResult> DownloadFile([FromQuery] DownloadBlobFileQuery query)
-        {
-            var blobFileResponse = await _mediator.Send(query);
+        //[HttpGet(EndpointRoutes.Action_DownloadFile)]
+        //public async Task<IActionResult> DownloadFile([FromQuery] DownloadBlobFileQuery query)
+        //{
+        //    var blobFileResponse = await _mediator.Send(query);
 
-            return File(blobFileResponse.Bytes, blobFileResponse.ContentType);
-        }
+        //    return File(blobFileResponse.Bytes, blobFileResponse.ContentType);
+        //}
 
-        [HttpGet(EndpointRoutes.Action_GetFile)]
-        public async Task<QueryRecordResponse<BlobFile>> GetBlobFiles([FromQuery] GetBlobFileQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //[HttpGet(EndpointRoutes.Action_GetFile)]
+        //public async Task<QueryRecordResponse<BlobFile>> GetBlobFiles([FromQuery] GetBlobFileQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
         #endregion
 

@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
   </ItemGroup> 
 
 </Project>

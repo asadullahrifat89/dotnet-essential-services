@@ -1,5 +1,5 @@
-﻿using BaseModule.Domain.DTOs.Responses;
-using BaseModule.Extensions;
+﻿using BaseModule.Application.DTOs.Responses;
+using BaseModule.Infrastructure.Extensions;
 using IdentityModule.Declarations.Commands;
 using IdentityModule.Declarations.Repositories;
 using IdentityModule.Implementations.Commands.Validators;

@@ -1,4 +1,4 @@
-﻿using BaseModule.Extensions;
+﻿using BaseModule.Infrastructure.Extensions;
 using EmailModule.Declarations.Commands;
 using EmailModule.Declarations.Repositories;
 using EmailModule.Models.Entities;

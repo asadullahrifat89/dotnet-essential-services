@@ -1,4 +1,4 @@
-﻿using BaseModule.Extensions;
+﻿using BaseModule.Infrastructure.Extensions;
 using FluentValidation;
 using IdentityModule.Declarations.Commands;
 using IdentityModule.Declarations.Repositories;

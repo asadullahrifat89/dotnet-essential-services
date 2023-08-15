@@ -4,9 +4,9 @@ using CommonModule;
 using IdentityModule.Declarations.Commands;
 using EmailModule.Declarations.Commands;
 using LanguageModule.Declarations.Commands;
-using BlobModule.Declarations.Commands;
-using BaseModule.Domain.DTOs.Responses;
 using BaseModule.Infrastructure.Attributes;
+using BaseModule.Application.DTOs.Responses;
+using BlobModule.Application.Commands;
 
 namespace WebService.Controllers
 {
@@ -125,11 +125,11 @@ namespace WebService.Controllers
 
         #region Blob
 
-        [HttpPost(EndpointRoutes.Action_UploadFile)]
-        public async Task<ServiceResponse> UploadFile(IFormFile file)
-        {
-            return await _mediator.Send(new UploadBlobFileCommand() { FormFile = file });
-        }
+        //[HttpPost(EndpointRoutes.Action_UploadFile)]
+        //public async Task<ServiceResponse> UploadFile(IFormFile file)
+        //{
+        //    return await _mediator.Send(new UploadBlobFileCommand() { FormFile = file });
+        //}
 
         #endregion
 

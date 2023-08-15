@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using LanguageModule.Declarations.Commands;
 using LanguageModule.Implementations.Commands.Validators;
 using LanguageModule.Declarations.Repositories;
-using BaseModule.Extensions;
-using BaseModule.Services.Interfaces;
-using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Infrastructure.Extensions;
+using BaseModule.Infrastructure.Services.Interfaces;
+using BaseModule.Application.DTOs.Responses;
 
 namespace LanguageModule.Implementations.Commands.Handlers
 {

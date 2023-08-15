@@ -1,5 +1,5 @@
 ﻿using BaseModule.Domain.Entities;
-using BaseModule.Extensions;
+using BaseModule.Infrastructure.Extensions;
 using EmailModule.Declarations.Commands;
 
 namespace EmailModule.Models.Entities

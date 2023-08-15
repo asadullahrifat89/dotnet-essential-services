@@ -3,8 +3,8 @@ using Microsoft.Extensions.Logging;
 using IdentityModule.Implementations.Commands.Validators;
 using IdentityModule.Declarations.Commands;
 using IdentityModule.Declarations.Repositories;
-using BaseModule.Extensions;
-using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Infrastructure.Extensions;
+using BaseModule.Application.DTOs.Responses;
 
 namespace IdentityModule.Implementations.Commands.Handlers
 {

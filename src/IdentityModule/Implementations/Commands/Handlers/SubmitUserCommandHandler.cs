@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using IdentityModule.Declarations.Repositories;
 using IdentityModule.Implementations.Commands.Validators;
 using IdentityModule.Declarations.Commands;
-using BaseModule.Extensions;
-using BaseModule.Services.Interfaces;
-using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Infrastructure.Extensions;
+using BaseModule.Infrastructure.Services.Interfaces;
+using BaseModule.Application.DTOs.Responses;
 
 namespace IdentityModule.Implementations.Commands.Handlers
 {

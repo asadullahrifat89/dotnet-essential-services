@@ -4,9 +4,9 @@ using IdentityModule.Declarations.Queries;
 using IdentityModule.Declarations.Repositories;
 using IdentityModule.Models.Entities;
 using IdentityModule.Implementations.Queries.Validators;
-using BaseModule.Extensions;
-using BaseModule.Services.Interfaces;
-using BaseModule.Domain.DTOs.Responses;
+using BaseModule.Infrastructure.Extensions;
+using BaseModule.Infrastructure.Services.Interfaces;
+using BaseModule.Application.DTOs.Responses;
 
 namespace IdentityModule.Implementations.Queries.Handlers
 {

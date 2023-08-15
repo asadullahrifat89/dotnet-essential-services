@@ -1,4 +1,4 @@
-﻿using BaseModule.Extensions;
+﻿using BaseModule.Infrastructure.Extensions;
 using FluentValidation;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Declarations.Repositories;

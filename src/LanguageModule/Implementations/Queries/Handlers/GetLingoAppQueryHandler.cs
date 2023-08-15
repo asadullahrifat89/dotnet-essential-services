@@ -1,6 +1,6 @@
-﻿using BaseModule.Domain.DTOs.Responses;
-using BaseModule.Extensions;
-using BaseModule.Services.Interfaces;
+﻿using BaseModule.Application.DTOs.Responses;
+using BaseModule.Infrastructure.Extensions;
+using BaseModule.Infrastructure.Services.Interfaces;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Declarations.Repositories;
 using LanguageModule.Implementations.Queries.Validators;
