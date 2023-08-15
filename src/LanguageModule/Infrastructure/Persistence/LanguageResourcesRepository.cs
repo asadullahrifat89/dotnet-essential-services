@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace LanguageModule.Infrastructure.Persistence
 {
-    public class LingoResourcesRepository : ILingoResourcesRepository
+    public class LanguageResourcesRepository : ILanguageResourcesRepository
     {
         #region Fields
 
@@ -20,7 +20,7 @@ namespace LanguageModule.Infrastructure.Persistence
 
         #region Ctor
 
-        public LingoResourcesRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContextProvider)
+        public LanguageResourcesRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContextProvider)
         {
             _mongoDbContextProvider = mongoDbService;
             _authenticationContextProvider = authenticationContextProvider;
@@ -30,7 +30,7 @@ namespace LanguageModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> AddLingoResources(List<LanguageResource> languageResources)
+        public async Task<ServiceResponse> AddLanguageResources(List<LanguageResource> languageResources)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
@@ -46,7 +46,7 @@ namespace LanguageModule.Infrastructure.Persistence
             return _mongoDbContextProvider.Exists(filter);
         }
 
-        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(string appId, string format, string languageCode)
+        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLanguageResourcesInFormat(string appId, string format, string languageCode)
         {
             switch (format)
             {

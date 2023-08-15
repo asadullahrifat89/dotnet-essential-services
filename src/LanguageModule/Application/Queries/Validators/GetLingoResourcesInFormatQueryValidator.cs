@@ -7,11 +7,11 @@ namespace LanguageModule.Application.Queries.Validators
 {
     public class GetLingoResourcesInFormatQueryValidator : AbstractValidator<GetLingoResourcesInFormatQuery>
     {
-        private readonly ILingoResourcesRepository _lingoResourcesRepository;
+        private readonly ILanguageResourcesRepository _lingoResourcesRepository;
 
         private readonly ILingoAppRepository _lingoAppRepository;
 
-        public GetLingoResourcesInFormatQueryValidator(ILingoResourcesRepository lingoResourcesRepository, ILingoAppRepository lingoAppRepository)
+        public GetLingoResourcesInFormatQueryValidator(ILanguageResourcesRepository lingoResourcesRepository, ILingoAppRepository lingoAppRepository)
         {
             _lingoResourcesRepository = lingoResourcesRepository;
             _lingoAppRepository = lingoAppRepository;

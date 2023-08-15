@@ -73,7 +73,7 @@ builder.Services.AddProviders<IAuthenticationContextProvider>();
 builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
 builder.Services.AddRepositories<IEmailTemplateRepository>();
-builder.Services.AddRepositories<ILingoResourcesRepository>();
+builder.Services.AddRepositories<ILanguageResourcesRepository>();
 
 builder.Services.AddMvc();
 

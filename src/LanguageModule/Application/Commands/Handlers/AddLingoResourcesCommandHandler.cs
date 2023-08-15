@@ -18,7 +18,7 @@ namespace LanguageModule.Application.Commands.Handlers
 
         private readonly AddLingoResourcesCommandValidator _validator;
 
-        private readonly ILingoResourcesRepository _lingoResourcesRepository;
+        private readonly ILanguageResourcesRepository _lingoResourcesRepository;
 
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
@@ -29,7 +29,7 @@ namespace LanguageModule.Application.Commands.Handlers
         public AddLingoResourcesCommandHandler(
             ILogger<AddLingoResourcesCommandHandler> logger,
             AddLingoResourcesCommandValidator validator,
-            ILingoResourcesRepository lingoResourcesRepository,
+            ILanguageResourcesRepository lingoResourcesRepository,
             IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
@@ -52,7 +52,7 @@ namespace LanguageModule.Application.Commands.Handlers
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 var lingoResources = AddLingoResourcesCommand.Initialize(command, authCtx);
 
-                return await _lingoResourcesRepository.AddLingoResources(lingoResources);
+                return await _lingoResourcesRepository.AddLanguageResources(lingoResources);
             }
             catch (Exception ex)
             {

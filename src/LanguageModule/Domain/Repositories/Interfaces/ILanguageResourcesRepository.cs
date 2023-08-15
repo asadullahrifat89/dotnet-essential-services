@@ -5,11 +5,11 @@ using LanguageModule.Domain.Entities;
 
 namespace LanguageModule.Domain.Repositories.Interfaces
 {
-    public interface ILingoResourcesRepository
+    public interface ILanguageResourcesRepository
     {
-        Task<ServiceResponse> AddLingoResources(List<LanguageResource> languageResources);
+        Task<ServiceResponse> AddLanguageResources(List<LanguageResource> languageResources);
 
-        Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(string appId, string format, string languageCode);
+        Task<QueryRecordResponse<Dictionary<string, string>>> GetLanguageResourcesInFormat(string appId, string format, string languageCode);
 
         Task<bool> BeAnExistingLanguage(string languageCode);
 
