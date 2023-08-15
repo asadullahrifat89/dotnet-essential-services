@@ -1,8 +1,8 @@
 # dotnet-essential-services
 
-A majestic monolith with Domain Driven Design and Clean Architecture containing some essential modules required to build any simple piece of software.
+A majestic monolith with domain-driven design and clean architecture containing some essential modules required to build any simple piece of software.
 
-![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/53082b3e-44b9-4b86-a4d2-3347e266b31e)
+![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/7e71e755-4ca9-49e8-90c4-2f48e7909592)
 
 # Folder Structure
 The solution follows a clean architecture-inspired folder structure.
