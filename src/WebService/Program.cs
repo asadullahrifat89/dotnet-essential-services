@@ -19,6 +19,7 @@ using IdentityModule.Infrastructure.Services.Interfaces;
 using LanguageModule.Domain.Repositories.Interfaces;
 using LanguageModule.Application.Commands;
 using LanguageModule.Application.Commands.Validators;
+using IdentityModule.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 

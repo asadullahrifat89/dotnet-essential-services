@@ -2,6 +2,7 @@
 using CommonModule.Infrastructure.Constants;
 using EmailModule.Application.Queries;
 using EmailModule.Domain.Entities;
+using IdentityModule.Infrastructure.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmailModule.Presentation.Controllers
 {
     [ApiController]
+    [AuthorizationRequired]
     public class QueryController : ControllerBase
     {
         #region Fields

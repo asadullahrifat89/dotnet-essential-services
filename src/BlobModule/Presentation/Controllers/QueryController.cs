@@ -2,6 +2,7 @@
 using BlobModule.Application.Queries;
 using BlobModule.Domain.Entities;
 using CommonModule.Infrastructure.Constants;
+using IdentityModule.Infrastructure.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlobModule.Presentation.Controllers
 {
     [ApiController]
+    [AuthorizationRequired]
     public class QueryController : ControllerBase
     {
         #region Fields

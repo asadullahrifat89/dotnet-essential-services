@@ -1,6 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using LanguageModule.Application.Commands;
-using LanguageModule.Application.Quaries;
+using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Entities;
 
 namespace LanguageModule.Domain.Repositories.Interfaces

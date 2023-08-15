@@ -1,9 +1,9 @@
 ﻿using BaseModule.Infrastructure.Extensions;
 using FluentValidation;
-using LanguageModule.Application.Quaries;
+using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Repositories.Interfaces;
 
-namespace LanguageModule.Application.Quaries.Validators
+namespace LanguageModule.Application.Queries.Validators
 {
     public class GetLingoResourcesInFormatQueryValidator : AbstractValidator<GetLingoResourcesInFormatQuery>
     {

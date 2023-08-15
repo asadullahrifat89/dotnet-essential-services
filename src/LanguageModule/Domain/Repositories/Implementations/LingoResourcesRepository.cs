@@ -2,7 +2,7 @@
 using BaseModule.Domain.Repositories.Interfaces;
 using IdentityModule.Infrastructure.Services.Interfaces;
 using LanguageModule.Application.Commands;
-using LanguageModule.Application.Quaries;
+using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Entities;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;

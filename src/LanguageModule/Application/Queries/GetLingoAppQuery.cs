@@ -2,7 +2,7 @@
 using LanguageModule.Domain.Entities;
 using MediatR;
 
-namespace LanguageModule.Application.Quaries
+namespace LanguageModule.Application.Queries
 {
     public class GetLingoAppQuery : IRequest<QueryRecordResponse<LingoApp>>
     {

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 namespace IdentityModule.Presentation.Controllers
 {
     [ApiController]
+    [AuthorizationRequired]
     public class CommandController : ControllerBase
     {
         #region Fields

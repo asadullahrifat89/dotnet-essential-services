@@ -1,14 +1,14 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Infrastructure.Extensions;
 using IdentityModule.Infrastructure.Services.Interfaces;
-using LanguageModule.Application.Quaries;
-using LanguageModule.Application.Quaries.Validators;
+using LanguageModule.Application.Queries;
+using LanguageModule.Application.Queries.Validators;
 using LanguageModule.Domain.Entities;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace LanguageModule.Application.Quaries.Handlers
+namespace LanguageModule.Application.Queries.Handlers
 {
     public class GetLingoAppQueryHandler : IRequestHandler<GetLingoAppQuery, QueryRecordResponse<LingoApp>>
     {

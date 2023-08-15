@@ -1,6 +1,7 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using CommonModule.Infrastructure.Constants;
-using LanguageModule.Application.Quaries;
+using IdentityModule.Infrastructure.Attributes;
+using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LanguageModule.Presentation.Controllers
 {
     [ApiController]
-
+    [AuthorizationRequired]
     public class QueryController : ControllerBase
     {
         #region Fields

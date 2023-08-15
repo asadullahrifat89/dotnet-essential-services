@@ -3,6 +3,7 @@ using CommonModule.Infrastructure.Constants;
 using IdentityModule.Application.DTOs;
 using IdentityModule.Application.Queries;
 using IdentityModule.Domain.Entities;
+using IdentityModule.Infrastructure.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityModule.Presentation.Controllers
 {
     [ApiController]
+    [AuthorizationRequired]
     public class QueryController : ControllerBase
     {
         #region Fields

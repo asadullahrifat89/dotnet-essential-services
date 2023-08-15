@@ -1,7 +1,7 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using MediatR;
 
-namespace LanguageModule.Application.Quaries
+namespace LanguageModule.Application.Queries
 {
     public class GetLingoResourcesInFormatQuery : IRequest<QueryRecordResponse<Dictionary<string, string>>>
     {
