@@ -1,16 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using IdentityModule.Declarations.Queries;
-using IdentityModule.Models.Entities;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Models.Entities;
-using BaseModule.Infrastructure.Attributes;
-using BlobModule.Domain.Entities;
 using BaseModule.Application.DTOs.Responses;
-using BlobModule.Application.Queries;
 using CommonModule.Infrastructure.Constants;
-using EmailModule.Domain.Entities;
-using EmailModule.Application.Queries;
+using IdentityModule.Application.Queries;
+using IdentityModule.Domain.Entities;
+using IdentityModule.Application.DTOs;
+using IdentityModule.Infrastructure.Attributes;
 
 namespace WebService.Controllers
 {

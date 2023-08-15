@@ -1,10 +1,10 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Domain.Repositories.Interfaces;
 using BaseModule.Infrastructure.Extensions;
-using BaseModule.Infrastructure.Services.Interfaces;
 using EmailModule.Application.Commands;
 using EmailModule.Domain.Entities;
 using EmailModule.Domain.Repositories.Interfaces;
+using IdentityModule.Infrastructure.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System.Net;

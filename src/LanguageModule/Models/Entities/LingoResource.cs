@@ -1,6 +1,7 @@
 ﻿using BaseModule.Domain.Entities;
-using BaseModule.Infrastructure.Extensions;
+using IdentityModule.Domain.Entities;
 using LanguageModule.Declarations.Commands;
+using IdentityModule.Infrastructure.Extensions;
 
 namespace LanguageModule.Models.Entities
 {

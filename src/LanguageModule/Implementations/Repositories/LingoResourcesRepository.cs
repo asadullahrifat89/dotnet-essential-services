@@ -1,6 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Domain.Repositories.Interfaces;
-using BaseModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Infrastructure.Services.Interfaces;
 using LanguageModule.Declarations.Commands;
 using LanguageModule.Declarations.Queries;
 using LanguageModule.Declarations.Repositories;

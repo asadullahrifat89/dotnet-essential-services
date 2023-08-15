@@ -1,5 +1,4 @@
 ﻿using BaseModule.Domain.Repositories.Interfaces;
-using BaseModule.Infrastructure.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -15,19 +14,18 @@ namespace BaseModule.Domain.Repositories.Implementations
 
         private readonly string _connectionString;
         private readonly string _databaseName;
-        private readonly IAuthenticationContextProviderService _authenticationContextProvider;
+
         private readonly ILogger<MongoDbRepository> _logger;
 
         #endregion
 
         #region Ctor
 
-        public MongoDbRepository(IConfiguration configuration, ILogger<MongoDbRepository> logger, IAuthenticationContextProviderService authenticationContextProvider)
+        public MongoDbRepository(IConfiguration configuration, ILogger<MongoDbRepository> logger)
         {
             _databaseName = configuration["ConnectionStrings:DatabaseName"];
             _connectionString = configuration["ConnectionStrings:DatabaseConnectionString"];
             _logger = logger;
-            _authenticationContextProvider = authenticationContextProvider;
         }
 
         #endregion

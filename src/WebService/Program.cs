@@ -1,23 +1,25 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using IdentityModule.Declarations.Commands;
 using LanguageModule.Declarations.Commands;
-using IdentityModule.Implementations.Commands.Validators;
 using LanguageModule.Implementations.Commands.Validators;
-using IdentityModule.Declarations.Repositories;
 using LanguageModule.Declarations.Repositories;
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Repositories.Interfaces;
-using BaseModule.Application.Middlewares;
 using BlobModule.Application.Commands;
 using BaseModule.Domain.Repositories.Interfaces;
-using BaseModule.Infrastructure.Services.Interfaces;
 using CommonModule.Infrastructure.Constants;
 using EmailModule.Domain.Repositories.Interfaces;
 using EmailModule.Infrastructure.Services.Interfaces;
 using EmailModule.Infrastructure.Services.Implementations;
 using EmailModule.Application.Commands;
+using BlobModule.Application.Commands.Validators;
+using IdentityModule.Application.Commands;
+using IdentityModule.Domain.Repositories.Interfaces;
+using EmailModule.Application.Commands.Validators;
+using IdentityModule.Application.Commands.Validators;
+using IdentityModule.Application.Middlewares;
+using IdentityModule.Infrastructure.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

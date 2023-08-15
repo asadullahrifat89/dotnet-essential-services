@@ -4,8 +4,8 @@ using LanguageModule.Declarations.Commands;
 using LanguageModule.Implementations.Commands.Validators;
 using LanguageModule.Declarations.Repositories;
 using BaseModule.Infrastructure.Extensions;
-using BaseModule.Infrastructure.Services.Interfaces;
 using BaseModule.Application.DTOs.Responses;
+using IdentityModule.Infrastructure.Services.Interfaces;
 
 namespace LanguageModule.Implementations.Commands.Handlers
 {

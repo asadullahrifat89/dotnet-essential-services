@@ -2,12 +2,13 @@
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Entities;
 using BlobModule.Domain.Repositories.Interfaces;
-using BaseModule.Infrastructure.Services.Interfaces;
 using BlobModule.Application.DTOs.Responses;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries;
 using BaseModule.Domain.Repositories.Interfaces;
 using BlobModule.Application.Commands;
+using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Infrastructure.Extensions;
 
 namespace BlobModule.Domain.Repositories.Implementations
 {
