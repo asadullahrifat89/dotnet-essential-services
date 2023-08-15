@@ -15,8 +15,6 @@ namespace TeamsCore.Declarations.Repositories
     {
         Task<bool> BeAnExistingProductId(string productId);
 
-        Task<Product[]> GetProductsByIds(string[] ids);
-
         Task<QueryRecordResponse<ProductResponse>> GetProduct(GetProductQuery query);
 
         Task<ServiceResponse> AddProduct(AddProductCommand command);

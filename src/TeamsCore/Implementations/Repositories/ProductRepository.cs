@@ -31,15 +31,6 @@ namespace TeamsCore.Implementations.Repositories
 
         #region Methods
 
-        public async Task<Product[]> GetProductsByIds(string[] ids)
-        {
-            var filter = Builders<Product>.Filter.In(x => x.Id, ids);
-
-            var results = await _mongoDbService.GetDocuments(filter: filter);
-
-            return results is not null ? results.ToArray() : Array.Empty<Product>();
-        }
-
         public async Task<bool> BeAnExistingProductId(string productId)
         {
             var filter = Builders<Product>.Filter.Where(x => x.Id == productId);
@@ -165,8 +156,8 @@ namespace TeamsCore.Implementations.Repositories
 
             if (query.ProductCostType.HasValue)
             {
-                  filter &= Builders<Product>.Filter.Where(
-                                         x => x.ProductCostType == query.ProductCostType);
+                filter &= Builders<Product>.Filter.Where(
+                                       x => x.ProductCostType == query.ProductCostType);
             }
 
             var count = await _mongoDbService.CountDocuments(filter);
