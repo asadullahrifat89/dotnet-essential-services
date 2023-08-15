@@ -26,7 +26,7 @@ namespace ProductSearchCriteriaModule.Application.Commands.Validators
 
         private async Task<bool> NotBeAnExistingProductSearchCriteria(AddProductSearchCriteriaCommand command, CancellationToken token)
         {
-            return !await _productSearchCriteriaRepository.BeAnExistingProductSearchCriteria(name: command.Name);
+            return !await _productSearchCriteriaRepository.BeAnExistingProductSearchCriteriaByName(name: command.Name);
         }
     }
 }

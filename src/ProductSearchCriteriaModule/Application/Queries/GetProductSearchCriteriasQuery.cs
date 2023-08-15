@@ -10,5 +10,7 @@ namespace ProductSearchCriteriaModule.Application.Queries
         public ProductSearchCriteriaType? SearchCriteriaType { get; set; }
 
         public SkillsetType? SkillsetType { get; set; }
+
+        public string? ProductId { get; set; }
     }
 }

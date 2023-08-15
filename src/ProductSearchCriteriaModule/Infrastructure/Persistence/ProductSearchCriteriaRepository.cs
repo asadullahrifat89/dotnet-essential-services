@@ -51,34 +51,32 @@ namespace ProductSearchCriteriaModule.Infrastructure.Persistence
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
-            await _mongoDbService.UpdateById(update: updateSearchCriteria, id: productSearchCriteria.Id);
-
-            var updatedSearchCriteria = await _mongoDbService.FindById<ProductSearchCriteria>(productSearchCriteria.Id);
+            var updatedSearchCriteria = await _mongoDbService.UpdateById(update: updateSearchCriteria, id: productSearchCriteria.Id);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedSearchCriteria, authCtx?.RequestUri);
         }
 
-        public async Task<bool> BeAnExistingProductSearchCriteria(string name)
+        public async Task<bool> BeAnExistingProductSearchCriteriaByName(string name)
         {
             var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Name.ToLower().Equals(name.ToLower()));
 
             return await _mongoDbService.Exists(filter);
         }
 
-        public async Task<bool> BeAnExistingProductSearchCriteriaById(string searchCriteriaId)
+        public async Task<bool> BeAnExistingProductSearchCriteriaById(string productSearchCriteriaId)
         {
-            var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Id == searchCriteriaId);
+            var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Id == productSearchCriteriaId);
 
             var exists = await _mongoDbService.Exists(filter);
 
             return exists;
         }
 
-        public async Task<QueryRecordResponse<ProductSearchCriteria>> GetProductSearchCriteria(string searchCriteriaId)
+        public async Task<QueryRecordResponse<ProductSearchCriteria>> GetProductSearchCriteria(string productSearchCriteriaId)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Id.Equals(searchCriteriaId));
+            var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Id.Equals(productSearchCriteriaId));
 
             var result = await _mongoDbService.FindOne(filter);
 
@@ -90,7 +88,8 @@ namespace ProductSearchCriteriaModule.Infrastructure.Persistence
             int pageIndex,
             int pageSize,
             ProductSearchCriteriaType? searchCriteriaType,
-            SkillsetType? skillsetType)
+            SkillsetType? skillsetType,
+            string? productId)
         {
             //TODO: get productid query param and then filter with productsearchcriteriamap
 

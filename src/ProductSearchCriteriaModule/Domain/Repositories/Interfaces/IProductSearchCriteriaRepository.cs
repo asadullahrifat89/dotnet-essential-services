@@ -9,12 +9,12 @@ namespace ProductSearchCriteriaModule.Domain.Repositories.Interfaces
 
         Task<ServiceResponse> UpdateProductSearchCriteria(ProductSearchCriteria productSearchCriteria);
 
-        Task<QueryRecordResponse<ProductSearchCriteria>> GetProductSearchCriteria(string searchCriteriaId);
+        Task<QueryRecordResponse<ProductSearchCriteria>> GetProductSearchCriteria(string productSearchCriteriaId);
 
-        Task<QueryRecordsResponse<ProductSearchCriteria>> GetProductSearchCriterias(string searchTerm, int pageIndex, int pageSize, ProductSearchCriteriaType? searchCriteriaType, SkillsetType? skillsetType);
+        Task<QueryRecordsResponse<ProductSearchCriteria>> GetProductSearchCriterias(string searchTerm, int pageIndex, int pageSize, ProductSearchCriteriaType? searchCriteriaType, SkillsetType? skillsetType, string? productId);
 
-        Task<bool> BeAnExistingProductSearchCriteria(string name);
+        Task<bool> BeAnExistingProductSearchCriteriaByName(string name);
 
-        Task<bool> BeAnExistingProductSearchCriteriaById(string searchCriteriaId);
+        Task<bool> BeAnExistingProductSearchCriteriaById(string productSearchCriteriaId);
     }
 }
