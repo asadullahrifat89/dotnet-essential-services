@@ -24,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlobCore\BlobCore.csproj" />
-    <ProjectReference Include="..\EmailCore\EmailCore.csproj" />
-    <ProjectReference Include="..\IdentityCore\IdentityCore.csproj" />
-    <ProjectReference Include="..\LingoCore\LingoCore.csproj" />
+    <ProjectReference Include="..\BlobModule\BlobModule.csproj" />
+    <ProjectReference Include="..\EmailModule\EmailModule.csproj" />
+    <ProjectReference Include="..\IdentityModule\IdentityModule.csproj" />
+    <ProjectReference Include="..\LanguageModule\LanguageModule.csproj" />
   </ItemGroup>
 
 </Project>

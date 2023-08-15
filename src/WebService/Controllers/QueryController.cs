@@ -1,18 +1,18 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using IdentityCore.Models.Entities;
-using IdentityCore.Declarations.Queries;
-using BaseCore.Models.Responses;
-using BaseCore.Attributes;
-using BaseCommon;
-using BlobCore.Declarations.Queries;
-using BlobCore.Models.Entities;
-using EmailCore.Declarations.Queries;
-using EmailCore.Models.Entities;
-using LingoCore.Models.Entities;
-using LingoCore.Declarations.Queries;
+using BaseModule.Models.Responses;
+using CommonModule;
+using BaseModule.Attributes;
+using IdentityModule.Declarations.Queries;
+using IdentityModule.Models.Entities;
+using BlobModule.Declarations.Queries;
+using BlobModule.Models.Entities;
+using EmailModule.Models.Entities;
+using EmailModule.Declarations.Queries;
+using LanguageModule.Declarations.Queries;
+using LanguageModule.Models.Entities;
 
-namespace EssentialWebService.Controllers
+namespace WebService.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
