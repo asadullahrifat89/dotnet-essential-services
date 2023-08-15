@@ -6,11 +6,11 @@ namespace ProductSearchCriteriaModule.Application.Commands.Validators
 {
     public class AddProductSearchCriteriaCommandValidator : AbstractValidator<AddProductSearchCriteriaCommand>
     {
-        private readonly IProductSearchCriteriaRepository _ProductSearchCriteriaRepository;
+        private readonly IProductSearchCriteriaRepository _productSearchCriteriaRepository;
 
         public AddProductSearchCriteriaCommandValidator(IProductSearchCriteriaRepository ProductSearchCriteriaRepository)
         {
-            _ProductSearchCriteriaRepository = ProductSearchCriteriaRepository;
+            _productSearchCriteriaRepository = ProductSearchCriteriaRepository;
 
             RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("Name must not be empty");
             RuleFor(x => x).MustAsync(NotBeAnExistingProductSearchCriteria).WithMessage("Name already exists.").When(x => !x.Name.IsNullOrBlank());
@@ -26,7 +26,7 @@ namespace ProductSearchCriteriaModule.Application.Commands.Validators
 
         private async Task<bool> NotBeAnExistingProductSearchCriteria(AddProductSearchCriteriaCommand command, CancellationToken token)
         {
-            return !await _ProductSearchCriteriaRepository.BeAnExistingProductSearchCriteria(name: command.Name);
+            return !await _productSearchCriteriaRepository.BeAnExistingProductSearchCriteria(name: command.Name);
         }
     }
 }
