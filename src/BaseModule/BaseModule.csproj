@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Infrastructure\Services\**" />
+    <Compile Remove="Presentation\**" />
+    <EmbeddedResource Remove="Infrastructure\Services\**" />
+    <EmbeddedResource Remove="Presentation\**" />
+    <None Remove="Infrastructure\Services\**" />
+    <None Remove="Presentation\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.6.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
@@ -21,12 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommonModule\CommonModule.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Domain\Repositories\Implementations\" />
-    <Folder Include="Infrastructure\Services\" />
-    <Folder Include="Presentation\" />
   </ItemGroup>
 
 </Project>

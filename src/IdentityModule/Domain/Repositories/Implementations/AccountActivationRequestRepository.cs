@@ -1,5 +1,5 @@
 ﻿using BaseModule.Application.DTOs.Responses;
-using BaseModule.Infrastructure.Providers.Interfaces;
+using BaseModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Commands;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;

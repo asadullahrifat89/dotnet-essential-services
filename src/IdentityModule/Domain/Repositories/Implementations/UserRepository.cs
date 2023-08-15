@@ -1,6 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
+using BaseModule.Application.Providers.Interfaces;
 using BaseModule.Infrastructure.Extensions;
-using BaseModule.Infrastructure.Providers.Interfaces;
 using IdentityModule.Application.Commands;
 using IdentityModule.Application.DTOs;
 using IdentityModule.Application.Queries;

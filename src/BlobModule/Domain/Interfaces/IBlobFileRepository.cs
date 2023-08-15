@@ -4,7 +4,7 @@ using BlobModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries;
 using BlobModule.Domain.Entities;
 
-namespace BlobModule.Domain.Repositories.Interfaces
+namespace BlobModule.Domain.Interfaces
 {
     public interface IBlobFileRepository
     {

@@ -2,7 +2,6 @@ using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using BaseModule.Infrastructure.Extensions;
-using BlobModule.Domain.Repositories.Interfaces;
 using BlobModule.Application.Commands;
 using CommonModule.Infrastructure.Constants;
 using EmailModule.Domain.Repositories.Interfaces;
@@ -19,7 +18,8 @@ using LanguageModule.Domain.Repositories.Interfaces;
 using LanguageModule.Application.Commands;
 using LanguageModule.Application.Commands.Validators;
 using IdentityModule.Infrastructure.Middlewares;
-using BaseModule.Infrastructure.Providers.Interfaces;
+using BaseModule.Application.Providers.Interfaces;
+using BlobModule.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

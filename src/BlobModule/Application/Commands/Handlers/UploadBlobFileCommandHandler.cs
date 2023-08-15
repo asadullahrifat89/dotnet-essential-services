@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
-using BlobModule.Domain.Repositories.Interfaces;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Commands.Validators;
 using IdentityModule.Infrastructure.Services.Interfaces;
+using BlobModule.Domain.Interfaces;
 
 namespace BlobModule.Application.Commands.Handlers
 {

@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Entities;
-using BlobModule.Domain.Repositories.Interfaces;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries.Validators;
 using IdentityModule.Infrastructure.Services.Interfaces;
+using BlobModule.Domain.Interfaces;
 
 namespace BlobModule.Application.Queries.Handlers
 {

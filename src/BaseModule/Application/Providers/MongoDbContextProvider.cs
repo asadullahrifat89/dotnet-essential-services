@@ -1,4 +1,4 @@
-﻿using BaseModule.Infrastructure.Providers.Interfaces;
+﻿using BaseModule.Application.Providers.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -6,7 +6,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Linq;
 
-namespace BaseModule.Infrastructure.Providers.Implementations
+namespace BaseModule.Application.Providers
 {
     public class MongoDbContextProvider : IMongoDbContextProvider
     {

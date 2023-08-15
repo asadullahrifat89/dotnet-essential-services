@@ -1,5 +1,5 @@
-﻿using BaseModule.Infrastructure.Extensions;
-using BaseModule.Infrastructure.Providers.Interfaces;
+﻿using BaseModule.Application.Providers.Interfaces;
+using BaseModule.Infrastructure.Extensions;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Http;

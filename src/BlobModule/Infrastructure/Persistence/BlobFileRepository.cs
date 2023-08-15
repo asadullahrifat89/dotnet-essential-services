@@ -1,16 +1,16 @@
 ﻿using MongoDB.Driver;
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Entities;
-using BlobModule.Domain.Repositories.Interfaces;
 using BlobModule.Application.DTOs.Responses;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries;
 using BlobModule.Application.Commands;
 using IdentityModule.Infrastructure.Services.Interfaces;
 using IdentityModule.Infrastructure.Extensions;
-using BaseModule.Infrastructure.Providers.Interfaces;
+using BaseModule.Application.Providers.Interfaces;
+using BlobModule.Domain.Interfaces;
 
-namespace BlobModule.Domain.Repositories.Implementations
+namespace BlobModule.Infrastructure.Persistence
 {
     public class BlobFileRepository : IBlobFileRepository
     {
