@@ -113,6 +113,11 @@ namespace ProductSearchCriteriaModule.Infrastructure.Persistence
                 filter &= Builders<ProductSearchCriteria>.Filter.Eq(x => x.SkillsetType, skillsetType);
             }
 
+            if (!productId.IsNullOrBlank())
+            {
+
+            }
+
             var count = await _mongoDbService.CountDocuments(filter: filter);
 
             var searchCriterias = await _mongoDbService.GetDocuments(
