@@ -19,9 +19,9 @@ namespace IdentityModule.Domain.Repositories.Interfaces
 
         Task<UserRoleMap[]> GetUserRoles(string userId);
 
-        Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query);
+        Task<QueryRecordsResponse<Role>> GetRoles(string searchTerm, int pageIndex, int pageSize);
 
-        Task<QueryRecordsResponse<Role>> GetRolesByUserId(GetUserRolesQuery query);
+        Task<QueryRecordsResponse<Role>> GetRolesByUserId(string userId);
 
 
     }

@@ -16,7 +16,11 @@ namespace IdentityModule.Application.Queries.Handlers
         private readonly IRoleRepository _roleRepository;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
-        public GetRolesQueryHandler(ILogger<GetRolesQueryHandler> logger, GetRolesQueryValidator validator, IRoleRepository roleRepository, IAuthenticationContextProvider authenticationContext)
+        public GetRolesQueryHandler(
+            ILogger<GetRolesQueryHandler> logger,
+            GetRolesQueryValidator validator,
+            IRoleRepository roleRepository,
+            IAuthenticationContextProvider authenticationContext)
         {
             _logger = logger;
             _validator = validator;
@@ -31,7 +35,10 @@ namespace IdentityModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _roleRepository.GetRoles(request);
+                return await _roleRepository.GetRoles(
+                    searchTerm: request.SearchTerm,
+                    pageIndex: request.PageIndex,
+                    pageSize: request.PageSize);
             }
             catch (Exception ex)
             {

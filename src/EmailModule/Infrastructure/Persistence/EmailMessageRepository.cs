@@ -134,7 +134,12 @@ namespace EmailModule.Infrastructure.Persistence
             if (retryThreshold > 0)
                 filter &= Builders<EmailMessage>.Filter.Lt(x => x.SendingAttempt, retryThreshold);
 
-            var emailMessages = await _mongoDbContextProvider.GetDocuments(filter: filter, skip: 0, limit: 10, sortOrder: SortOrder.Descending, sortFieldName: "EmailSendStatus");
+            var emailMessages = await _mongoDbContextProvider.GetDocuments(
+                filter: filter,
+                skip: 0,
+                limit: 10,
+                sortOrder: SortOrder.Descending,
+                sortFieldName: "EmailSendStatus");
 
             return emailMessages;
         }

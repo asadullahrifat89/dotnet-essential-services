@@ -1,5 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
+using BaseModule.Infrastructure.Extensions;
 using IdentityModule.Application.Commands;
 using IdentityModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Queries;
@@ -34,7 +35,7 @@ namespace IdentityModule.Infrastructure.Persistence
         public async Task<ServiceResponse> AddRole(Role role, string[] claims)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-            
+
             var roleClaimMaps = new List<RoleClaimPermissionMap>();
 
             foreach (var claim in claims.Distinct())
@@ -119,28 +120,33 @@ namespace IdentityModule.Infrastructure.Persistence
             return results is not null ? results.ToArray() : Array.Empty<UserRoleMap>();
         }
 
-        public async Task<QueryRecordsResponse<Role>> GetRoles(GetRolesQuery query)
+        public async Task<QueryRecordsResponse<Role>> GetRoles(string searchTerm, int pageIndex, int pageSize)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var filter = Builders<Role>.Filter.Empty;
 
+            if (!searchTerm.IsNullOrBlank())
+            {
+                filter &= Builders<Role>.Filter.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
             var count = await _mongoDbContextProvider.CountDocuments(filter: filter);
 
-            var roles = await _mongoDbContextProvider.GetDocuments(filter: filter);
+            var roles = await _mongoDbContextProvider.GetDocuments(filter: filter, skip: pageIndex * pageSize, limit: pageSize);
 
             return new QueryRecordsResponse<Role>().BuildSuccessResponse(
                count: count,
                records: roles is not null ? roles.ToArray() : Array.Empty<Role>(), authCtx?.RequestUri);
         }
 
-        public async Task<QueryRecordsResponse<Role>> GetRolesByUserId(GetUserRolesQuery query)
+        public async Task<QueryRecordsResponse<Role>> GetRolesByUserId(string userId)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             // get user roles from user role map
 
-            var userfilter = Builders<UserRoleMap>.Filter.Eq(x => x.UserId, query.UserId);
+            var userfilter = Builders<UserRoleMap>.Filter.Eq(x => x.UserId, userId);
 
             var userRoleMaps = await _mongoDbContextProvider.GetDocuments(filter: userfilter);
 
