@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using LanguageModule.Declarations.Commands;
 using BaseModule.Application.DTOs.Responses;
 using CommonModule.Infrastructure.Constants;
 using IdentityModule.Application.Commands;
 using IdentityModule.Infrastructure.Attributes;
+using LanguageModule.Application.Commands;
 
 namespace WebService.Controllers
 {
@@ -160,17 +160,17 @@ namespace WebService.Controllers
 
         #region LingoResource
 
-        [HttpPost(EndpointRoutes.Action_AddLingoApp)]
-        public async Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command)
-        {
-            return await _mediator.Send(command);
-        }
+        //[HttpPost(EndpointRoutes.Action_AddLingoApp)]
+        //public async Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command)
+        //{
+        //    return await _mediator.Send(command);
+        //}
 
-        [HttpPost(EndpointRoutes.Action_AddLingoResources)]
-        public async Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command)
-        {
-            return await _mediator.Send(command);
-        }
+        //[HttpPost(EndpointRoutes.Action_AddLingoResources)]
+        //public async Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command)
+        //{
+        //    return await _mediator.Send(command);
+        //}
 
         #endregion
 
