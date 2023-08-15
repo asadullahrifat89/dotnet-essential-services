@@ -44,7 +44,7 @@ namespace BlobModule.Application.Commands.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _blobFileRepository.UploadBlobFile(request);
+                return await _blobFileRepository.UploadBlobFile(request.FormFile);
             }
             catch (Exception ex)
             {

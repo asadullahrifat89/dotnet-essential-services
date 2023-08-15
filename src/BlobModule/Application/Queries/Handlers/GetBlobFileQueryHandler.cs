@@ -35,7 +35,7 @@ namespace BlobModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _blobFileRepository.GetBlobFile(request);
+                return await _blobFileRepository.GetBlobFile(request.FileId);
             }
             catch (Exception ex)
             {

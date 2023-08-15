@@ -9,6 +9,7 @@ using BlobModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
 using BlobModule.Application.Queries;
 using BlobModule.Application.Commands;
+using Microsoft.AspNetCore.Http;
 
 namespace BlobModule.Infrastructure.Persistence
 {
@@ -33,11 +34,11 @@ namespace BlobModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> UploadBlobFile(UploadBlobFileCommand command)
+        public async Task<ServiceResponse> UploadBlobFile(IFormFile formFile)
         {
             var authctx = _authenticationContext.GetAuthenticationContext();
 
-            var file = command.FormFile;
+            var file = formFile;
             var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
 
             var contentType = ContentTypeExtensions.GetContentType(extension);
@@ -63,9 +64,9 @@ namespace BlobModule.Infrastructure.Persistence
             return Response.BuildServiceResponse().BuildSuccessResponse(blobFile, authctx.RequestUri);
         }
 
-        public async Task<BlobFileResponse> DownloadBlobFile(DownloadBlobFileQuery query)
+        public async Task<BlobFileResponse> DownloadBlobFile(string fileId)
         {
-            var blobFile = await _mongoDbService.FindById<BlobFile>(query.FileId);
+            var blobFile = await _mongoDbService.FindById<BlobFile>(fileId);
 
             var bytes = await _mongoDbService.DownloadFileBytes(blobFile.BucketObjectId);
 
@@ -79,11 +80,11 @@ namespace BlobModule.Infrastructure.Persistence
             return await _mongoDbService.Exists(filter);
         }
 
-        public async Task<QueryRecordResponse<BlobFile>> GetBlobFile(GetBlobFileQuery query)
+        public async Task<QueryRecordResponse<BlobFile>> GetBlobFile(string fileId)
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var filter = Builders<BlobFile>.Filter.Eq(x => x.Id, query.FileId);
+            var filter = Builders<BlobFile>.Filter.Eq(x => x.Id, fileId);
 
             var blobFile = await _mongoDbService.FindOne(filter);
 
