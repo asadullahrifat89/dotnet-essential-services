@@ -22,7 +22,11 @@ namespace IdentityModule.Application.Commands.Handlers
 
         #region Ctor
 
-        public CreateUserCommandHandler(ILogger<CreateUserCommandHandler> logger, CreateUserCommandValidator validator, IUserRepository userRepository, IAuthenticationContextProvider authenticationContextProvider)
+        public CreateUserCommandHandler(
+            ILogger<CreateUserCommandHandler> logger,
+            CreateUserCommandValidator validator,
+            IUserRepository userRepository,
+            IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;

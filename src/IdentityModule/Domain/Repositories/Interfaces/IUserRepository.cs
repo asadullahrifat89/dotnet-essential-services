@@ -10,7 +10,7 @@ namespace IdentityModule.Domain.Repositories.Interfaces
     {
         Task<ServiceResponse> CreateUser(User user, string[] roles);
 
-        Task<ServiceResponse> UpdateUser(UpdateUserCommand command);
+        Task<ServiceResponse> UpdateUser(User user);
 
         Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command);
 

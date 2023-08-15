@@ -65,20 +65,20 @@ namespace IdentityModule.Infrastructure.Persistence
             return Response.BuildServiceResponse().BuildSuccessResponse(user, authCtx?.RequestUri);
         }
 
-        public async Task<ServiceResponse> UpdateUser(UpdateUserCommand command)
+        public async Task<ServiceResponse> UpdateUser(User user)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var update = Builders<User>.Update
-                .Set(x => x.FirstName, command.FirstName)
-                .Set(x => x.LastName, command.LastName)
-                .Set(x => x.ProfileImageUrl, command.ProfileImageUrl)
-                .Set(x => x.Address, command.Address)
+                .Set(x => x.FirstName, user.FirstName)
+                .Set(x => x.LastName, user.LastName)
+                .Set(x => x.ProfileImageUrl, user.ProfileImageUrl)
+                .Set(x => x.Address, user.Address)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
-            await _mongoDbContextProvider.UpdateById(update: update, id: command.UserId);
-            var updatedUser = await _mongoDbContextProvider.FindById<User>(command.UserId);
+            await _mongoDbContextProvider.UpdateById(update: update, id: user.Id);
+            var updatedUser = await _mongoDbContextProvider.FindById<User>(user.Id);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
         }
