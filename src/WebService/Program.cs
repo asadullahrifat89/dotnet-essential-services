@@ -18,8 +18,8 @@ using IdentityModule.Application.Commands;
 using IdentityModule.Domain.Repositories.Interfaces;
 using EmailModule.Application.Commands.Validators;
 using IdentityModule.Application.Commands.Validators;
-using IdentityModule.Application.Middlewares;
 using IdentityModule.Infrastructure.Services.Interfaces;
+using IdentityModule.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 

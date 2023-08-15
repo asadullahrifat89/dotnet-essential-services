@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using MongoDB.Driver;
 using System.Security.Claims;
 
-namespace IdentityModule.Application.Middlewares
+namespace IdentityModule.Infrastructure.Middlewares
 {
     public class JwtMiddleware
     {
