@@ -31,7 +31,7 @@ namespace IdentityModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _claimPermissionRepository.GetClaims(request);
+                return await _claimPermissionRepository.GetClaims();
             }
             catch (Exception ex)
             {

@@ -47,11 +47,9 @@ namespace IdentityModule.Infrastructure.Persistence
             return results is not null ? results.ToArray() : Array.Empty<RoleClaimPermissionMap>();
         }
 
-        public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
+        public async Task<ServiceResponse> AddClaimPermission(ClaimPermission claimPermission)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
-            var claimPermission = AddClaimPermissionCommand.Initialize(command, authCtx);
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();           
 
             await _mongoDbContextProvider.InsertDocument(claimPermission);
 
@@ -67,7 +65,7 @@ namespace IdentityModule.Infrastructure.Persistence
             return results is not null ? results.ToArray() : Array.Empty<ClaimPermission>();
         }
 
-        public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims(GetClaimsQuery query)
+        public async Task<QueryRecordsResponse<ClaimPermission>> GetClaims()
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 

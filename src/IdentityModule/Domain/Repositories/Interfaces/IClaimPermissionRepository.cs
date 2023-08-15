@@ -13,9 +13,9 @@ namespace IdentityModule.Domain.Repositories.Interfaces
 
         Task<ClaimPermission[]> GetClaimsForClaimNames(string[] claimNames);
 
-        Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command);
+        Task<ServiceResponse> AddClaimPermission(ClaimPermission claimPermission);
 
-        Task<QueryRecordsResponse<ClaimPermission>> GetClaims(GetClaimsQuery query);
+        Task<QueryRecordsResponse<ClaimPermission>> GetClaims();
 
         Task<ClaimPermission[]> GetUserClaims(string userId);
     }
