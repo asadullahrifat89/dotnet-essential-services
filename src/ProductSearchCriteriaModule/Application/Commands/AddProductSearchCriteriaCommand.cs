@@ -14,7 +14,7 @@ namespace ProductSearchCriteriaModule.Application.Commands
 
         public string IconUrl { get; set; } = string.Empty;
 
-        public ProductSearchCriteriaType SearchCriteriaType { get; set; }
+        public ProductSearchCriteriaType ProductSearchCriteriaType { get; set; }
 
         public SkillsetType SkillsetType { get; set; }
 
@@ -25,7 +25,7 @@ namespace ProductSearchCriteriaModule.Application.Commands
                 Name = command.Name,
                 Description = command.Description,
                 IconUrl = command.IconUrl,
-                SearchCriteriaType = command.SearchCriteriaType,
+                SearchCriteriaType = command.ProductSearchCriteriaType,
                 SkillsetType = command.SkillsetType,
                 TimeStamp = authCtx.BuildCreatedByTimeStamp(),
             };

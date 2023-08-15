@@ -42,10 +42,10 @@
         public const string Action_SendUserAccountActivationRequest = "api/Command/SendUserAccountActivationRequest";
         public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";
 
-        public const string Action_AddSearchCriteria = "api/Command/AddSearchCriteria";
-        public const string Action_UpdateSearchCriteria = "api/Command/UpdateSearchCriteria";
-        public const string Action_GetSearchCriteria = "api/Query/GetSearchCriteria";
-        public const string Action_GetSearchCriterias = "api/Query/GetSearchCriterias";
+        public const string Action_AddProductSearchCriteria = "api/Command/AddProductSearchCriteria";
+        public const string Action_UpdateProductSearchCriteria = "api/Command/UpdateProductSearchCriteria";
+        public const string Action_GetProductSearchCriteria = "api/Query/GetProductSearchCriteria";
+        public const string Action_GetProductSearchCriterias = "api/Query/GetProductSearchCriterias";
 
         public const string Action_AddProject = "api/Command/AddProject";
         public const string Action_GetProject = "api/Query/GetProject";

@@ -29,38 +29,38 @@ namespace ProductSearchCriteriaModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> AddProductSearchCriteria(ProductSearchCriteria searchCriteria)
+        public async Task<ServiceResponse> AddProductSearchCriteria(ProductSearchCriteria productSearchCriteria)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            await _mongoDbService.InsertDocument(searchCriteria);
+            await _mongoDbService.InsertDocument(productSearchCriteria);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(searchCriteria, authCtx?.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(productSearchCriteria, authCtx?.RequestUri);
         }
 
-        public async Task<ServiceResponse> UpdateProductSearchCriteria(ProductSearchCriteria searchCriteria)
+        public async Task<ServiceResponse> UpdateProductSearchCriteria(ProductSearchCriteria productSearchCriteria)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var updateSearchCriteria = Builders<ProductSearchCriteria>.Update
-                .Set(x => x.Name, searchCriteria.Name)
-                .Set(x => x.Description, searchCriteria.Description)
-                .Set(x => x.IconUrl, searchCriteria.IconUrl)
-                .Set(x => x.SkillsetType, searchCriteria.SkillsetType)
-                .Set(x => x.SearchCriteriaType, searchCriteria.SearchCriteriaType)
+                .Set(x => x.Name, productSearchCriteria.Name)
+                .Set(x => x.Description, productSearchCriteria.Description)
+                .Set(x => x.IconUrl, productSearchCriteria.IconUrl)
+                .Set(x => x.SkillsetType, productSearchCriteria.SkillsetType)
+                .Set(x => x.SearchCriteriaType, productSearchCriteria.SearchCriteriaType)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
-            await _mongoDbService.UpdateById(update: updateSearchCriteria, id: searchCriteria.Id);
+            await _mongoDbService.UpdateById(update: updateSearchCriteria, id: productSearchCriteria.Id);
 
-            var updatedSearchCriteria = await _mongoDbService.FindById<ProductSearchCriteria>(searchCriteria.Id);
+            var updatedSearchCriteria = await _mongoDbService.FindById<ProductSearchCriteria>(productSearchCriteria.Id);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedSearchCriteria, authCtx?.RequestUri);
         }
 
-        public async Task<bool> BeAnExistingProductSearchCriteria(string searchCriteria)
+        public async Task<bool> BeAnExistingProductSearchCriteria(string name)
         {
-            var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Name.ToLower().Equals(searchCriteria.ToLower()));
+            var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Name.ToLower().Equals(name.ToLower()));
 
             return await _mongoDbService.Exists(filter);
         }

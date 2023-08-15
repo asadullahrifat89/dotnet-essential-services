@@ -15,7 +15,7 @@ namespace ProductSearchCriteriaModule.Application.Commands
                 Name = command.Name,
                 Description = command.Description,
                 IconUrl = command.IconUrl,
-                SearchCriteriaType = command.SearchCriteriaType,
+                SearchCriteriaType = command.ProductSearchCriteriaType,
                 SkillsetType = command.SkillsetType,
             };
 
