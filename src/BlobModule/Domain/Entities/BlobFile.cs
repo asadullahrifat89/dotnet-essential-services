@@ -2,7 +2,7 @@
 
 namespace BlobModule.Domain.Entities
 {
-    public class BlobFile : EntityBase
+    public class BlobFile : BaseEntity
     {
         public string Name { get; set; } = string.Empty;
 

@@ -5,7 +5,7 @@ using IdentityModule.Infrastructure.Extensions;
 
 namespace EmailModule.Domain.Entities
 {
-    public class EmailTemplate : EntityBase
+    public class EmailTemplate : BaseEntity
     {
         public string Name { get; set; } = string.Empty;
 

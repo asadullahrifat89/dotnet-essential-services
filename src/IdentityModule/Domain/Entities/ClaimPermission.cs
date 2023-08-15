@@ -4,7 +4,7 @@ using IdentityModule.Infrastructure.Extensions;
 
 namespace IdentityModule.Domain.Entities
 {
-    public class ClaimPermission : EntityBase
+    public class ClaimPermission : BaseEntity
     {
         public string Name { get; set; } = string.Empty;
 

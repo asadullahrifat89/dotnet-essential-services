@@ -2,7 +2,7 @@
 
 namespace IdentityModule.Domain.Entities
 {
-    public class RefreshToken : EntityBase
+    public class RefreshToken : BaseEntity
     {
         public string UserId { get; set; } = string.Empty;
 
