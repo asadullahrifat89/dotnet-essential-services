@@ -34,28 +34,7 @@ namespace EmailModule.Domain.Entities
 
         public EmailSendStatus EmailSendStatus { get; set; } = EmailSendStatus.Pending;
 
-        public int SendingAttempt { get; set; } = 0;
-
-        public static EmailMessage Initialize(EnqueueEmailMessageCommand command, AuthenticationContext authenticationContext)
-        {
-            var emailMessage = new EmailMessage()
-            {
-                Subject = command.Subject,
-                EmailBody = command.EmailBody,
-                EmailBodyType = command.EmailBodyType,
-                Category = command.Category,
-                EmailTemplateConfiguration = command.EmailTemplateConfiguration,
-                CC = command.CC,
-                BCC = command.BCC,
-                Attachments = command.Attachments,
-                CustomVariables = command.CustomVariables,
-                Headers = command.Headers,
-                To = command.To,
-                TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
-            };
-
-            return emailMessage;
-        }
+        public int SendingAttempt { get; set; } = 0;       
     }
 
     public class EmailTemplateConfiguration

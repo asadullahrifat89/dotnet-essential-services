@@ -44,7 +44,7 @@ namespace EmailModule.Domain.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var emailMessage = EmailMessage.Initialize(command, authCtx);
+            var emailMessage = EnqueueEmailMessageCommand.Initialize(command, authCtx);
 
             var senderName = _configuration["MailSettings:SenderName"];
             var senderEmail = _configuration["MailSettings:SenderEmail"];

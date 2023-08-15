@@ -36,7 +36,7 @@ namespace EmailModule.Domain.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var template = EmailTemplate.Initialize(command, authCtx);
+            var template = CreateEmailTemplateCommand.Initialize(command, authCtx);
 
             await _mongoDbService.InsertDocument(template);
 
