@@ -8,7 +8,7 @@ using IdentityModule.Application.Providers.Interfaces;
 using MongoDB.Driver;
 
 
-namespace EmailModule.Domain.Repositories
+namespace EmailModule.Infrastructure.Persistence
 {
     public class EmailTemplateRepository : IEmailTemplateRepository
     {

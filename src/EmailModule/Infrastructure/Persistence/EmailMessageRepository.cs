@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System.Net;
 
-namespace EmailModule.Domain.Repositories
+namespace EmailModule.Infrastructure.Persistence
 {
     public class EmailMessageRepository : IEmailMessageRepository
     {

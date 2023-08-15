@@ -34,7 +34,7 @@ namespace LanguageModule.Domain.Repositories
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var lingoApp = LingoApp.Initialize(command, authCtx);
+            var lingoApp = AddLingoAppCommand.Initialize(command, authCtx);
 
             await _mongoDbService.InsertDocument(lingoApp);
 

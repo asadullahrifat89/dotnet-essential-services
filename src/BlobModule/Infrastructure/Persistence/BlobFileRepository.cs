@@ -3,14 +3,14 @@ using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Entities;
 using BlobModule.Application.DTOs.Responses;
 using BaseModule.Application.DTOs.Responses;
-using BlobModule.Application.Queries;
-using BlobModule.Application.Commands;
 using IdentityModule.Infrastructure.Extensions;
 using BaseModule.Application.Providers.Interfaces;
 using BlobModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
+using BlobModule.Application.Queries;
+using BlobModule.Application.Commands;
 
-namespace BlobModule.Domain.Repositories
+namespace BlobModule.Infrastructure.Persistence
 {
     public class BlobFileRepository : IBlobFileRepository
     {
