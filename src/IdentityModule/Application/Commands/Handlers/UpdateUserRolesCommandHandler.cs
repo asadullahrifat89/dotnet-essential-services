@@ -32,7 +32,6 @@ namespace IdentityModule.Application.Commands.Handlers
 
         public async Task<ServiceResponse> Handle(UpdateUserRolesCommand command, CancellationToken cancellationToken)
         {
-
             try
             {
                 var validationResult = await _validator.ValidateAsync(command, cancellationToken);

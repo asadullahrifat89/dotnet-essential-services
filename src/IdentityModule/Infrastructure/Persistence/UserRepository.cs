@@ -83,9 +83,9 @@ namespace IdentityModule.Infrastructure.Persistence
             return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
         }
 
-        public async Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command)
+        public async Task<ServiceResponse> UpdateUserPassword(string userId, string oldPassword, string newPassword)
         {
-            return await UpdateUserPasswordById(command.UserId, command.NewPassword);
+            return await UpdateUserPasswordById(userId: userId, password: newPassword);
         }
 
         public async Task<ServiceResponse> UpdateUserPasswordById(string userId, string password)
@@ -179,45 +179,45 @@ namespace IdentityModule.Infrastructure.Persistence
             return await _mongoDbContextProvider.FindOne(filter);
         }
 
-        public async Task<User> GetUser(string userId)
+        public async Task<User> GetUserById(string userId)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
 
             return await _mongoDbContextProvider.FindOne(filter);
         }
 
-        public async Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query)
+        public async Task<QueryRecordResponse<UserResponse>> GetUser(string userId)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<User>.Filter.Eq(x => x.Id, query.UserId);
+            var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
 
             var user = await _mongoDbContextProvider.FindOne(filter);
 
             return Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Initialize(user), authCtx?.RequestUri);
         }
 
-        public async Task<QueryRecordsResponse<UserResponse>> GetUsers(GetUsersQuery query)
+        public async Task<QueryRecordsResponse<UserResponse>> GetUsers(string searchTerm, int pageIndex, int pageSize)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var filter = Builders<User>.Filter.Empty;
 
-            if (!query.SearchTerm.IsNullOrBlank())
+            if (!searchTerm.IsNullOrBlank())
             {
                 filter &= Builders<User>.Filter.Or(
-                    Builders<User>.Filter.Where(x => x.FirstName.ToLower().Contains(query.SearchTerm.ToLower())),
-                    Builders<User>.Filter.Where(x => x.LastName.ToLower().Contains(query.SearchTerm.ToLower())),
-                    Builders<User>.Filter.Where(x => x.DisplayName.ToLower().Contains(query.SearchTerm.ToLower())),
-                    Builders<User>.Filter.Where(x => x.Email.ToLower().Contains(query.SearchTerm.ToLower())));
+                    Builders<User>.Filter.Where(x => x.FirstName.ToLower().Contains(searchTerm.ToLower())),
+                    Builders<User>.Filter.Where(x => x.LastName.ToLower().Contains(searchTerm.ToLower())),
+                    Builders<User>.Filter.Where(x => x.DisplayName.ToLower().Contains(searchTerm.ToLower())),
+                    Builders<User>.Filter.Where(x => x.Email.ToLower().Contains(searchTerm.ToLower())));
             }
 
             var count = await _mongoDbContextProvider.CountDocuments(filter: filter);
 
             var users = await _mongoDbContextProvider.GetDocuments(
                 filter: filter,
-                skip: query.PageIndex * query.PageSize,
-                limit: query.PageSize);
+                skip: pageIndex * pageSize,
+                limit: pageSize);
 
             return new QueryRecordsResponse<UserResponse>().BuildSuccessResponse(
                count: count,
@@ -238,11 +238,9 @@ namespace IdentityModule.Infrastructure.Persistence
             return updatedUser is not null;
         }
 
-        public async Task<ServiceResponse> SubmitUser(SubmitUserCommand command)
+        public async Task<ServiceResponse> SubmitUser(User user)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
-            var user = SubmitUserCommand.Initialize(command, authCtx);
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();            
 
             await _mongoDbContextProvider.InsertDocument(user);
 

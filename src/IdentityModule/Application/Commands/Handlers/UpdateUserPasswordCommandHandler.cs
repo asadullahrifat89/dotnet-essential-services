@@ -40,7 +40,10 @@ namespace IdentityModule.Application.Commands.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _userRepository.UpdateUserPassword(request);
+                return await _userRepository.UpdateUserPassword(
+                    userId: request.UserId,
+                    oldPassword: request.OldPassword,
+                    newPassword: request.NewPassword);
             }
             catch (Exception ex)
             {

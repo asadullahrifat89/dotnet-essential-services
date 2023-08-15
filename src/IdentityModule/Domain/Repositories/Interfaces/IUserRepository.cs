@@ -24,22 +24,22 @@ namespace IdentityModule.Domain.Repositories.Interfaces
 
         Task<User> GetUser(string userEmail, string password);
 
-        Task<User> GetUser(string userId);
+        Task<User> GetUserById(string userId);
 
-        Task<QueryRecordResponse<UserResponse>> GetUser(GetUserQuery query);
+        Task<QueryRecordResponse<UserResponse>> GetUser(string userId);
 
-        Task<QueryRecordsResponse<UserResponse>> GetUsers(GetUsersQuery query);
+        Task<QueryRecordsResponse<UserResponse>> GetUsers(string searchTerm, int pageIndex, int pageSize);
 
         Task<bool> BeAnExistingUser(string userId);
 
         Task<User> GetUserByEmail(string userEmail);
 
-        Task<ServiceResponse> UpdateUserPassword(UpdateUserPasswordCommand command);
+        Task<ServiceResponse> UpdateUserPassword(string userId, string oldPassword, string newPassword);
 
         Task<bool> ActivateUser(string id);
 
         Task<ServiceResponse> UpdateUserPasswordById(string userId, string password);
 
-        Task<ServiceResponse> SubmitUser(SubmitUserCommand request);
+        Task<ServiceResponse> SubmitUser(User user);
     }
 }

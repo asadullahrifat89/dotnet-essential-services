@@ -31,7 +31,10 @@ namespace IdentityModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _userRepository.GetUsers(request);
+                return await _userRepository.GetUsers(
+                    searchTerm: request.SearchTerm,
+                    pageIndex: request.PageIndex,
+                    pageSize: request.PageSize);
             }
             catch (Exception ex)
             {

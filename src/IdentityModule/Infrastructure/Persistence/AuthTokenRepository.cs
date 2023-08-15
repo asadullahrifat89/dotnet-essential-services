@@ -66,7 +66,7 @@ namespace IdentityModule.Infrastructure.Persistence
 
             var refreshToken = await _mongoDbContextProvider.FindOne(filter);
 
-            var user = await _userRepository.GetUser(userId: refreshToken.UserId);
+            var user = await _userRepository.GetUserById(userId: refreshToken.UserId);
 
             if (user == null)
                 return Response.BuildServiceResponse().BuildErrorResponse("User not found.");
