@@ -7,16 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\DTOs\**" />
+    <EmbeddedResource Remove="Application\DTOs\**" />
+    <None Remove="Application\DTOs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
     <ProjectReference Include="..\IdentityModule\IdentityModule.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\DTOs\" />
   </ItemGroup>
 
 

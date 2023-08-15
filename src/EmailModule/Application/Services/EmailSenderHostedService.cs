@@ -1,12 +1,12 @@
 ﻿using BaseModule.Infrastructure.Extensions;
+using EmailModule.Application.Services.Interfaces;
 using EmailModule.Domain.Entities;
-using EmailModule.Domain.Repositories.Interfaces;
-using EmailModule.Infrastructure.Services.Interfaces;
+using EmailModule.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace EmailModule.Infrastructure.Services.Implementations
+namespace EmailModule.Application.Services
 {
     public class EmailSenderHostedService : BackgroundService
     {

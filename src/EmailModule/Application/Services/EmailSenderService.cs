@@ -2,10 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
-using EmailModule.Infrastructure.Services.Interfaces;
 using EmailModule.Domain.Entities;
+using EmailModule.Application.Services.Interfaces;
 
-namespace EmailModule.Infrastructure.Services.Implementations
+namespace EmailModule.Application.Services
 {
     public class EmailSenderService : IEmailSenderService
     {

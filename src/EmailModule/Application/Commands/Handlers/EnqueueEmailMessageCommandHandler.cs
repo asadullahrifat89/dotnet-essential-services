@@ -1,7 +1,7 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Infrastructure.Extensions;
 using EmailModule.Application.Commands.Validators;
-using EmailModule.Domain.Repositories.Interfaces;
+using EmailModule.Domain.Interfaces;
 using IdentityModule.Infrastructure.Services.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;

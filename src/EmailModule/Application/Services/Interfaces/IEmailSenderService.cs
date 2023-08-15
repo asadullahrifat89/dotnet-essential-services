@@ -1,6 +1,6 @@
 ﻿using EmailModule.Domain.Entities;
 
-namespace EmailModule.Infrastructure.Services.Interfaces
+namespace EmailModule.Application.Services.Interfaces
 {
     public interface IEmailSenderService
     {

@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
-using EmailModule.Domain.Repositories.Interfaces;
 using EmailModule.Application.Commands.Validators;
+using EmailModule.Domain.Interfaces;
 
 namespace EmailModule.Application.Commands.Handlers
 {

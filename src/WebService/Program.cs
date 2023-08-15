@@ -4,9 +4,6 @@ using Serilog;
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Application.Commands;
 using CommonModule.Infrastructure.Constants;
-using EmailModule.Domain.Repositories.Interfaces;
-using EmailModule.Infrastructure.Services.Interfaces;
-using EmailModule.Infrastructure.Services.Implementations;
 using EmailModule.Application.Commands;
 using BlobModule.Application.Commands.Validators;
 using IdentityModule.Application.Commands;
@@ -19,7 +16,10 @@ using LanguageModule.Application.Commands;
 using LanguageModule.Application.Commands.Validators;
 using IdentityModule.Infrastructure.Middlewares;
 using BaseModule.Application.Providers.Interfaces;
+using EmailModule.Application.Services;
+using EmailModule.Application.Services.Interfaces;
 using BlobModule.Domain.Interfaces;
+using EmailModule.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

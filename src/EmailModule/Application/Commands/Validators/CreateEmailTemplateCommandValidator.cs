@@ -1,6 +1,6 @@
 ﻿using BaseModule.Infrastructure.Extensions;
 using EmailModule.Domain.Entities;
-using EmailModule.Domain.Repositories.Interfaces;
+using EmailModule.Domain.Interfaces;
 using FluentValidation;
 
 namespace EmailModule.Application.Commands.Validators

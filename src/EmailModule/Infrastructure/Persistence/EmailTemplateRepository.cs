@@ -3,12 +3,12 @@ using BaseModule.Application.Providers.Interfaces;
 using EmailModule.Application.Commands;
 using EmailModule.Application.Queries;
 using EmailModule.Domain.Entities;
-using EmailModule.Domain.Repositories.Interfaces;
+using EmailModule.Domain.Interfaces;
 using IdentityModule.Infrastructure.Services.Interfaces;
 using MongoDB.Driver;
 
 
-namespace EmailModule.Domain.Repositories.Implementations
+namespace EmailModule.Infrastructure.Persistence
 {
     public class EmailTemplateRepository : IEmailTemplateRepository
     {

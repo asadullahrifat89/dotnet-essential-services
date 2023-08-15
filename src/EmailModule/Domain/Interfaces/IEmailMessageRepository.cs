@@ -2,7 +2,7 @@
 using EmailModule.Application.Commands;
 using EmailModule.Domain.Entities;
 
-namespace EmailModule.Domain.Repositories.Interfaces
+namespace EmailModule.Domain.Interfaces
 {
     public interface IEmailMessageRepository
     {

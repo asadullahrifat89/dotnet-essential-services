@@ -15,8 +15,6 @@ namespace BaseModule.Application.Providers.Interfaces
 
         Task<T> FindOne<T>(FilterDefinition<T> filter, SortOrder sortOrder, string sortFieldName);
 
-        //Task<T> FindOne<T>(Expression<Func<T, bool>> expression);
-
         Task<List<T>> GetDocuments<T>(FilterDefinition<T> filter);
 
         Task<List<T>> GetDocuments<T>(FilterDefinition<T> filter, int skip, int limit);
