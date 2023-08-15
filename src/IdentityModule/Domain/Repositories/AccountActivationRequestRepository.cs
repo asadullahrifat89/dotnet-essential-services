@@ -35,7 +35,7 @@ namespace IdentityModule.Domain.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var accountActivationRequest = AccountActivationRequest.Initialize(command);
+            var accountActivationRequest = SendUserAccountActivationRequestCommand.Initialize(command);
 
             var filter = Builders<AccountActivationRequest>.Filter.And(
                 Builders<AccountActivationRequest>.Filter.Eq(x => x.Email, command.Email),

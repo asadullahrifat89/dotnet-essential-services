@@ -35,7 +35,7 @@ namespace IdentityModule.Domain.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var role = Role.Initialize(command, authCtx);
+            var role = AddRoleCommand.Initialize(command, authCtx);
 
             var roleClaimMaps = new List<RoleClaimPermissionMap>();
 

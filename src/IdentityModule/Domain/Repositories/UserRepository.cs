@@ -38,7 +38,7 @@ namespace IdentityModule.Domain.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var user = User.Initialize(command, authCtx);
+            var user = CreateUserCommand.Initialize(command, authCtx);
 
             var userRoleMaps = new List<UserRoleMap>();
 
@@ -244,7 +244,7 @@ namespace IdentityModule.Domain.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var user = User.Initialize(command, authCtx);
+            var user = SubmitUserCommand.Initialize(command, authCtx);
 
             await _mongoDbService.InsertDocument(user);
 

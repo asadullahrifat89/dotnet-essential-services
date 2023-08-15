@@ -51,7 +51,7 @@ namespace IdentityModule.Domain.Repositories
         {
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
-            var claimPermission = ClaimPermission.Initialize(command, authCtx);
+            var claimPermission = AddClaimPermissionCommand.Initialize(command, authCtx);
 
             await _mongoDbService.InsertDocument(claimPermission);
 
