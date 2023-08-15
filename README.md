@@ -2,14 +2,13 @@
 
 A majestic monolith with Domain Driven Design and Clean Architecture containing some essential modules required to build any simple piece of software.
 
-![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/8b9e8842-300f-43e0-93e1-da0a71260284)
-
+![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/53082b3e-44b9-4b86-a4d2-3347e266b31e)
 
 # Folder Structure
 The solution follows a clean architecture-inspired folder structure.
 
 ### Domain
-The Domain layer sits at the core of the solution. Here we define things that are the base foundation of a module. i.e entities, value objects, aggregates, domain events, exceptions, repositories, etc.
+The Domain layer sits at the core of the solution. Here we define things that are the base foundation of a module. i.e. entities, value objects, aggregates, domain events, exceptions, repositories, etc. There are two schools of thought that only repository interfaces can be defined here which are later on implemented in the Infrastructure layer under persistence. We followed the school of thought that dictates that all entities and repositories should remain in the domain layer along with repository implementations.
 
 ### Application
 The Application layer sits right above the Domain layer. It acts as an orchestrator for the Domain layer, containing the most important use cases in your application.
