@@ -5,19 +5,19 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebService", "WebService\WebService.csproj", "{319BFE13-8850-4844-A92F-35A3A7C1148B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityCore", "IdentityCore\IdentityCore.csproj", "{D33630CD-2A28-465A-8BDA-DC21BB725F4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityModule", "IdentityModule\IdentityModule.csproj", "{D33630CD-2A28-465A-8BDA-DC21BB725F4D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseCore", "AuthCore\BaseCore.csproj", "{E05790E7-5A22-420E-BA82-AC2CF08FFE71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseModule", "BaseModule\BaseModule.csproj", "{E05790E7-5A22-420E-BA82-AC2CF08FFE71}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseCommon", "BaseCommon\BaseCommon.csproj", "{674964C2-37E7-4788-88D5-2526A29DBB8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonModule", "CommonModule\CommonModule.csproj", "{674964C2-37E7-4788-88D5-2526A29DBB8C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobCore", "BlobCore\BlobCore.csproj", "{84861CBB-330D-4470-9737-1D44E447E00E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlobModule", "BlobModule\BlobModule.csproj", "{84861CBB-330D-4470-9737-1D44E447E00E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailCore", "EmailCore\EmailCore.csproj", "{4CF6F0D4-85B7-41EF-84B3-51FCDB5613A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailModule", "EmailModule\EmailModule.csproj", "{4CF6F0D4-85B7-41EF-84B3-51FCDB5613A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LingoCore", "LingoCore\LingoCore.csproj", "{A481C939-C2EB-4923-8874-76CE854FF012}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageModule", "LanguageModule\LanguageModule.csproj", "{A481C939-C2EB-4923-8874-76CE854FF012}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationCore", "NotificationCore\NotificationCore.csproj", "{4B934BBA-143D-49BE-A1E2-DED1D8F92FF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationModule", "NotificationModule\NotificationModule.csproj", "{4B934BBA-143D-49BE-A1E2-DED1D8F92FF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

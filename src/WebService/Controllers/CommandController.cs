@@ -1,12 +1,12 @@
-﻿using BaseCore.Models.Responses;
-using BaseCore.Attributes;
-using IdentityCore.Declarations.Commands;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using BaseCommon;
-using BlobCore.Declarations.Commands;
-using EmailCore.Declarations.Commands;
-using LingoCore.Declarations.Commands;
+using CommonModule;
+using BaseModule.Models.Responses;
+using BaseModule.Attributes;
+using IdentityModule.Declarations.Commands;
+using EmailModule.Declarations.Commands;
+using LanguageModule.Declarations.Commands;
+using BlobModule.Declarations.Commands;
 
 namespace WebService.Controllers
 {
