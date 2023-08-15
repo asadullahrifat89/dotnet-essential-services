@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using LanguageModule.Declarations.Queries;
-using LanguageModule.Models.Entities;
 using BaseModule.Application.DTOs.Responses;
 using CommonModule.Infrastructure.Constants;
 using IdentityModule.Application.Queries;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Application.DTOs;
 using IdentityModule.Infrastructure.Attributes;
+using LanguageModule.Domain.Entities;
+using LanguageModule.Application.Quaries;
 
 namespace WebService.Controllers
 {
@@ -116,19 +116,19 @@ namespace WebService.Controllers
 
         #region LingoResources
 
-        [HttpGet(EndpointRoutes.Action_GetLingoResourcesInFormat)]
+        //[HttpGet(EndpointRoutes.Action_GetLingoResourcesInFormat)]
 
-        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat([FromQuery] GetLingoResourcesInFormatQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat([FromQuery] GetLingoResourcesInFormatQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
-        [HttpGet(EndpointRoutes.Action_GetLingoApp)]
+        //[HttpGet(EndpointRoutes.Action_GetLingoApp)]
 
-        public async Task<QueryRecordResponse<LingoApp>> GetLingoApp([FromQuery] GetLingoAppQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+        //public async Task<QueryRecordResponse<LingoApp>> GetLingoApp([FromQuery] GetLingoAppQuery query)
+        //{
+        //    return await _mediator.Send(query);
+        //}
 
         #endregion
 
