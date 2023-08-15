@@ -34,20 +34,18 @@ namespace IdentityModule.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ServiceResponse> CreateUser(CreateUserCommand command)
+        public async Task<ServiceResponse> CreateUser(User user, string[] roles)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
-            var user = CreateUserCommand.Initialize(command, authCtx);
 
             var userRoleMaps = new List<UserRoleMap>();
 
             // if roles were sent map user to role
-            if (command.Roles != null && command.Roles.Any())
+            if (roles != null && roles.Any())
             {
-                var roles = await _roleRepository.GetRolesByNames(command.Roles);
+                var foundRoles = await _roleRepository.GetRolesByNames(roles);
 
-                foreach (var role in roles)
+                foreach (var role in foundRoles)
                 {
                     var roleMap = new UserRoleMap()
                     {

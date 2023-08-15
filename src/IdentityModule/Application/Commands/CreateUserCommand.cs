@@ -21,11 +21,11 @@ namespace IdentityModule.Application.Commands
 
         public string Password { get; set; } = string.Empty;
 
-        public Address Address { get; set; } = new Address();
-
-        public string[] Roles { get; set; } = new string[] { };
+        public Address Address { get; set; } = new Address();       
 
         public string[] MetaTags { get; set; } = new string[] { };
+
+        public string[] Roles { get; set; } = new string[] { };
 
         //public string TenantId { get; set; } = string.Empty;
 

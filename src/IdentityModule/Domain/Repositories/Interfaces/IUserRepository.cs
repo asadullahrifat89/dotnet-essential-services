@@ -8,7 +8,7 @@ namespace IdentityModule.Domain.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task<ServiceResponse> CreateUser(CreateUserCommand command);
+        Task<ServiceResponse> CreateUser(User user, string[] roles);
 
         Task<ServiceResponse> UpdateUser(UpdateUserCommand command);
 
