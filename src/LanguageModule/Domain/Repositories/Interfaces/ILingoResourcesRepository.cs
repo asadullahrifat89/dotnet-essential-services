@@ -9,7 +9,7 @@ namespace LanguageModule.Domain.Repositories.Interfaces
     {
         Task<ServiceResponse> AddLingoResources(List<LanguageResource> languageResources);
 
-        Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query);
+        Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(string appId, string format, string languageCode);
 
         Task<bool> BeAnExistingLanguage(string languageCode);
 

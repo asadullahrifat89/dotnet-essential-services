@@ -32,7 +32,7 @@ namespace LanguageModule.Infrastructure.Persistence
 
         public async Task<ServiceResponse> AddLingoResources(List<LanguageResource> languageResources)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();            
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             await _mongoDbContextProvider.InsertDocuments(languageResources);
 
@@ -46,24 +46,22 @@ namespace LanguageModule.Infrastructure.Persistence
             return _mongoDbContextProvider.Exists(filter);
         }
 
-        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(GetLingoResourcesInFormatQuery query)
+        public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat(string appId, string format, string languageCode)
         {
-            var format = query.Format.ToLower();
-
             switch (format)
             {
                 case "json":
-                    return await GetLingoResourcesInJson(query);
+                    return await GetLingoResourcesInJson(appId: appId, languageCode: languageCode);
                 default:
                     return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError("Format is not supported yet.", _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
 
-        private async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInJson(GetLingoResourcesInFormatQuery query)
+        private async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInJson(string appId, string languageCode)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var filter = Builders<LanguageResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(query.LanguageCode.ToLower()));
+            var filter = Builders<LanguageResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()) && x.AppId == appId);
 
             var lingoResources = await _mongoDbContextProvider.GetDocuments(filter);
 

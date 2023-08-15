@@ -43,7 +43,10 @@ namespace LanguageModule.Application.Queries.Handlers
                 var validationResult = await _validator.ValidateAsync(request, cancellationToken);
                 validationResult.EnsureValidResult();
 
-                return await _lingoResourceRepository.GetLingoResourcesInFormat(request);
+                return await _lingoResourceRepository.GetLingoResourcesInFormat(
+                    appId: request.AppId,
+                    format: request.Format,
+                    languageCode: request.LanguageCode);
             }
             catch (Exception ex)
             {
