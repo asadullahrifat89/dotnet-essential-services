@@ -13,9 +13,15 @@ namespace BaseModule.Infrastructure.Extensions
             return services;
         }
 
-        public static IServiceCollection AddCoreServices<T>(this IServiceCollection services)
+        public static IServiceCollection AddServices<T>(this IServiceCollection services)
         {
             AddServiceFromAssemblyWithKeyword<T>(services, "Service");
+            return services;
+        }
+
+        public static IServiceCollection AddProviders<T>(this IServiceCollection services)
+        {
+            AddServiceFromAssemblyWithKeyword<T>(services, "Provider");
             return services;
         }
 

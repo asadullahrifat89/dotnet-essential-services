@@ -5,10 +5,10 @@ using BlobModule.Domain.Repositories.Interfaces;
 using BlobModule.Application.DTOs.Responses;
 using BaseModule.Application.DTOs.Responses;
 using BlobModule.Application.Queries;
-using BaseModule.Domain.Repositories.Interfaces;
 using BlobModule.Application.Commands;
 using IdentityModule.Infrastructure.Services.Interfaces;
 using IdentityModule.Infrastructure.Extensions;
+using BaseModule.Infrastructure.Providers.Interfaces;
 
 namespace BlobModule.Domain.Repositories.Implementations
 {
@@ -16,14 +16,14 @@ namespace BlobModule.Domain.Repositories.Implementations
     {
         #region Fields
 
-        private readonly IMongoDbRepository _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbService;
         private readonly IAuthenticationContextProviderService _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public BlobFileRepository(IMongoDbRepository mongoDbService, IAuthenticationContextProviderService authenticationContext)
+        public BlobFileRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProviderService authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;

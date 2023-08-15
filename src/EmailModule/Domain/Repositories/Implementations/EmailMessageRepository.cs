@@ -1,6 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
-using BaseModule.Domain.Repositories.Interfaces;
 using BaseModule.Infrastructure.Extensions;
+using BaseModule.Infrastructure.Providers.Interfaces;
 using EmailModule.Application.Commands;
 using EmailModule.Domain.Entities;
 using EmailModule.Domain.Repositories.Interfaces;
@@ -15,7 +15,7 @@ namespace EmailModule.Domain.Repositories.Implementations
     {
         #region Fields
 
-        private readonly IMongoDbRepository _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbService;
         private readonly IAuthenticationContextProviderService _authenticationContext;
         private readonly IConfiguration _configuration;
         private readonly IEmailTemplateRepository _emailTemplateRepository;
@@ -25,7 +25,7 @@ namespace EmailModule.Domain.Repositories.Implementations
         #region Ctor
 
         public EmailMessageRepository(
-            IMongoDbRepository mongoDbService,
+            IMongoDbContextProvider mongoDbService,
             IAuthenticationContextProviderService authenticationContext,
             IConfiguration configuration,
             IEmailTemplateRepository emailTemplateRepository)

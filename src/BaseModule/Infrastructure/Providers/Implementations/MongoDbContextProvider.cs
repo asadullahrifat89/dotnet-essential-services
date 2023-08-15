@@ -1,4 +1,4 @@
-﻿using BaseModule.Domain.Repositories.Interfaces;
+﻿using BaseModule.Infrastructure.Providers.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -6,22 +6,22 @@ using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Linq;
 
-namespace BaseModule.Domain.Repositories.Implementations
+namespace BaseModule.Infrastructure.Providers.Implementations
 {
-    public class MongoDbRepository : IMongoDbRepository
+    public class MongoDbContextProvider : IMongoDbContextProvider
     {
         #region Fields
 
         private readonly string _connectionString;
         private readonly string _databaseName;
 
-        private readonly ILogger<MongoDbRepository> _logger;
+        private readonly ILogger<MongoDbContextProvider> _logger;
 
         #endregion
 
         #region Ctor
 
-        public MongoDbRepository(IConfiguration configuration, ILogger<MongoDbRepository> logger)
+        public MongoDbContextProvider(IConfiguration configuration, ILogger<MongoDbContextProvider> logger)
         {
             _databaseName = configuration["ConnectionStrings:DatabaseName"];
             _connectionString = configuration["ConnectionStrings:DatabaseConnectionString"];

@@ -4,7 +4,6 @@ using Serilog;
 using BaseModule.Infrastructure.Extensions;
 using BlobModule.Domain.Repositories.Interfaces;
 using BlobModule.Application.Commands;
-using BaseModule.Domain.Repositories.Interfaces;
 using CommonModule.Infrastructure.Constants;
 using EmailModule.Domain.Repositories.Interfaces;
 using EmailModule.Infrastructure.Services.Interfaces;
@@ -20,6 +19,7 @@ using LanguageModule.Domain.Repositories.Interfaces;
 using LanguageModule.Application.Commands;
 using LanguageModule.Application.Commands.Validators;
 using IdentityModule.Infrastructure.Middlewares;
+using BaseModule.Infrastructure.Providers.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,13 +59,15 @@ builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 // Add services
-builder.Services.AddCoreServices<IAuthenticationContextProviderService>();
-builder.Services.AddCoreServices<IEmailSenderService>();
+builder.Services.AddServices<IAuthenticationContextProviderService>();
+builder.Services.AddServices<IEmailSenderService>();
 
 builder.Services.AddHostedService<EmailSenderHostedService>();
 
+// Add providers
+builder.Services.AddProviders<IMongoDbContextProvider>();
+
 // Add repositories
-builder.Services.AddRepositories<IMongoDbRepository>();
 builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
 builder.Services.AddRepositories<IEmailTemplateRepository>();

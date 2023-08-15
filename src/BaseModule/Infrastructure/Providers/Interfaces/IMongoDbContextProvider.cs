@@ -1,9 +1,9 @@
 ﻿using MongoDB.Driver;
 using System.Text.Json.Serialization;
 
-namespace BaseModule.Domain.Repositories.Interfaces
+namespace BaseModule.Infrastructure.Providers.Interfaces
 {
-    public interface IMongoDbRepository
+    public interface IMongoDbContextProvider
     {
         Task<long> CountDocuments<T>(FilterDefinition<T> filter);
 

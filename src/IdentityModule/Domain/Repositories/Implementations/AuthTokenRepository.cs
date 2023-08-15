@@ -1,5 +1,5 @@
 ﻿using BaseModule.Application.DTOs.Responses;
-using BaseModule.Domain.Repositories.Interfaces;
+using BaseModule.Infrastructure.Providers.Interfaces;
 using IdentityModule.Application.Commands;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;
@@ -13,7 +13,7 @@ namespace IdentityModule.Domain.Repositories.Implementations
     {
         #region Fields
 
-        private readonly IMongoDbRepository _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbService;
         private readonly IUserRepository _userRepository;
         //private readonly IRoleRepository _roleRepository;
         //private readonly IClaimPermissionRepository _claimPermissionRepository;
@@ -25,7 +25,7 @@ namespace IdentityModule.Domain.Repositories.Implementations
         #region Ctor
 
         public AuthTokenRepository(
-           IMongoDbRepository mongoDbService,
+           IMongoDbContextProvider mongoDbService,
            IUserRepository userRepository,
            IConfiguration configuration,
            //IRoleRepository roleRepository,

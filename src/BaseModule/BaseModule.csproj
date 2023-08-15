@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Domain\Repositories\Implementations\" />
     <Folder Include="Infrastructure\Services\" />
     <Folder Include="Presentation\" />
   </ItemGroup>

@@ -1,5 +1,5 @@
-﻿using BaseModule.Domain.Repositories.Interfaces;
-using BaseModule.Infrastructure.Extensions;
+﻿using BaseModule.Infrastructure.Extensions;
+using BaseModule.Infrastructure.Providers.Interfaces;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -11,9 +11,9 @@ namespace IdentityModule.Infrastructure.Middlewares
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IMongoDbRepository _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbService;
 
-        public JwtMiddleware(RequestDelegate next, IMongoDbRepository mongoDbService)
+        public JwtMiddleware(RequestDelegate next, IMongoDbContextProvider mongoDbService)
         {
             _next = next;
             _mongoDbService = mongoDbService;

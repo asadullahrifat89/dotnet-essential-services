@@ -1,5 +1,5 @@
 ﻿using BaseModule.Application.DTOs.Responses;
-using BaseModule.Domain.Repositories.Interfaces;
+using BaseModule.Infrastructure.Providers.Interfaces;
 using EmailModule.Application.Commands;
 using EmailModule.Application.Queries;
 using EmailModule.Domain.Entities;
@@ -14,14 +14,14 @@ namespace EmailModule.Domain.Repositories.Implementations
     {
         #region Fields
 
-        private readonly IMongoDbRepository _mongoDbService;
+        private readonly IMongoDbContextProvider _mongoDbService;
         private readonly IAuthenticationContextProviderService _authenticationContext;
 
         #endregion
 
         #region Ctor
 
-        public EmailTemplateRepository(IMongoDbRepository mongoDbService, IAuthenticationContextProviderService authenticationContext)
+        public EmailTemplateRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProviderService authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;
