@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
+    <Folder Include="Application\Queries\" />
     <Folder Include="Presentation\" />
   </ItemGroup>
 
