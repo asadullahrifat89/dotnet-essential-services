@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Queries\Handlers\" />
-    <Folder Include="Application\Queries\Validators\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BaseModule\BaseModule.csproj" />
     <ProjectReference Include="..\IdentityModule\IdentityModule.csproj" />
   </ItemGroup>
