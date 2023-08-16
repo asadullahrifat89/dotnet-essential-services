@@ -111,7 +111,7 @@ namespace IdentityModule.Presentation.Controllers
 
         #endregion
 
-        #region Claim
+        #region AccountActivationRequest
 
         [HttpPost(EndpointRoutes.Action_SendUserAccountActivationRequest)]
         public async Task<ServiceResponse> SendUserAccountActivationRequest(SendUserAccountActivationRequestCommand command)
@@ -120,6 +120,7 @@ namespace IdentityModule.Presentation.Controllers
         }
 
         #endregion
+
         #region Claim
 
         [HttpPost(EndpointRoutes.Action_AddClaimPermission)]
