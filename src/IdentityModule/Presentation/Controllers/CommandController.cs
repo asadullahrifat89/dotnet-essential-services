@@ -119,6 +119,12 @@ namespace IdentityModule.Presentation.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPost(EndpointRoutes.Action_VerifyUserAccountActivationRequest)]
+        public async Task<ServiceResponse> VerifyUserAccountActivationRequest(VerifyUserAccountActivationRequestCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
         #endregion
 
         #region Claim
