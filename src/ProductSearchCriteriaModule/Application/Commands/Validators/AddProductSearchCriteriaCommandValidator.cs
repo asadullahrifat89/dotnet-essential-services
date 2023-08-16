@@ -1,5 +1,6 @@
 ﻿using BaseModule.Infrastructure.Extensions;
 using FluentValidation;
+using ProductSearchCriteriaModule.Domain.Entities;
 using ProductSearchCriteriaModule.Domain.Repositories.Interfaces;
 
 namespace ProductSearchCriteriaModule.Application.Commands.Validators
@@ -19,9 +20,12 @@ namespace ProductSearchCriteriaModule.Application.Commands.Validators
 
             RuleFor(x => x.IconUrl).NotNull().NotEmpty().WithMessage("IconUrl must not be empty.");
 
-            RuleFor(x => x.ProductSearchCriteriaType).NotNull().NotEmpty().IsInEnum().WithMessage("ProductSearchCriteria Type is not acceptable.");
+            RuleFor(x => x.ProductSearchCriteriaType).Must(x => x == ProductSearchCriteriaType.Discipline || x == ProductSearchCriteriaType.Skillset).WithMessage("ProductSearchCriteria Type is not acceptable.").When(x => x.ProductSearchCriteriaType != null);
 
-            RuleFor(x => x.SkillsetType).NotNull().NotEmpty().IsInEnum().WithMessage("Skillset Type is not acceptable.");
+            RuleFor(x => x.SkillsetType).Must(x => x == SkillsetType.Soft || x == SkillsetType.Hard || x == SkillsetType.Generic).WithMessage("Skillset Type is not acceptable.").When(x => x.SkillsetType != null);
+
+
+
         }
 
         private async Task<bool> NotBeAnExistingProductSearchCriteria(AddProductSearchCriteriaCommand command, CancellationToken token)
