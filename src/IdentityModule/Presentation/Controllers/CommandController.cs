@@ -36,7 +36,6 @@ namespace IdentityModule.Presentation.Controllers
 
         #region Methods
 
-
         #region Token
 
         [AuthorizationNotRequired]
