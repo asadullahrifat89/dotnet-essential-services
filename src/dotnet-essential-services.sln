@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedModules", "SharedModu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessModules", "BusinessModules", "{437A8F93-31B5-4D10-9FAC-CDA1EFDC6F8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductSearchCriteriaModule", "ProductSearchCriteriaModule\ProductSearchCriteriaModule.csproj", "{C66EFC98-77B0-462B-A5B7-8E8CE6213DEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductSearchCriteriaModule", "ProductSearchCriteriaModule\ProductSearchCriteriaModule.csproj", "{C66EFC98-77B0-462B-A5B7-8E8CE6213DEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
