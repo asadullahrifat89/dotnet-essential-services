@@ -6,9 +6,9 @@ namespace LanguageModule.Application.Queries.Validators
 {
     public class GetLingoAppQueryValidator : AbstractValidator<GetLingoAppQuery>
     {
-        private readonly ILingoAppRepository _lingoAppRepository;
+        private readonly ILanguageAppRepository _lingoAppRepository;
 
-        public GetLingoAppQueryValidator(ILingoAppRepository lingoAppRepository)
+        public GetLingoAppQueryValidator(ILanguageAppRepository lingoAppRepository)
         {
             _lingoAppRepository = lingoAppRepository;
 

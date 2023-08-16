@@ -14,7 +14,7 @@ namespace LanguageModule.Application.Commands.Handlers
 
         private readonly ILogger<AddLingoAppCommandHandler> _logger;
         private readonly AddLingoAppCommandValidator _validator;
-        private readonly ILingoAppRepository _lingoAppRepository;
+        private readonly ILanguageAppRepository _lingoAppRepository;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
@@ -24,7 +24,7 @@ namespace LanguageModule.Application.Commands.Handlers
         public AddLingoAppCommandHandler(
             ILogger<AddLingoAppCommandHandler> logger,
             AddLingoAppCommandValidator validator,
-            ILingoAppRepository lingoAppRepository,
+            ILanguageAppRepository lingoAppRepository,
             IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;

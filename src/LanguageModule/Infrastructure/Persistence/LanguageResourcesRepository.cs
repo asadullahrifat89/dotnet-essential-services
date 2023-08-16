@@ -37,6 +37,13 @@ namespace LanguageModule.Infrastructure.Persistence
             return Response.BuildServiceResponse().BuildSuccessResponse(languageResources, authCtx?.RequestUri);
         }
 
+        public Task<bool> BeAnExistingLanguageCodeAndResourceKey(string languageCode, string resourceKey)
+        {
+            var filter = Builders<LanguageResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()) && x.ResourceKey.ToLower().Equals(resourceKey.ToLower()));
+
+            return _mongoDbContextProvider.Exists(filter);
+        }
+
         public Task<bool> BeAnExistingLanguage(string languageCode)
         {
             var filter = Builders<LanguageResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()));

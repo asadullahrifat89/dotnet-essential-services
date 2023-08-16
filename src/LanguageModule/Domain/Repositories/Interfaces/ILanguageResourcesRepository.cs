@@ -11,5 +11,6 @@ namespace LanguageModule.Domain.Repositories.Interfaces
 
         Task<bool> BeAnExistingLanguage(string languageCode);
 
+        Task<bool> BeAnExistingLanguageCodeAndResourceKey(string languageCode, string resourceKey);
     }
 }
