@@ -78,7 +78,7 @@ namespace IdentityModule.Infrastructure.Persistence
             await _mongoDbContextProvider.UpdateById(update: update, id: user.Id);
             var updatedUser = await _mongoDbContextProvider.FindById<User>(user.Id);
 
-            return Response.BuildServiceResponse().BuildSuccessResponse(updatedUser, authCtx?.RequestUri);
+            return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Initialize(updatedUser), authCtx?.RequestUri);
         }
 
         public async Task<ServiceResponse> UpdateUserPassword(string userId, string oldPassword, string newPassword)
