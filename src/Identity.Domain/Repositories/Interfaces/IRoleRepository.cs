@@ -16,10 +16,8 @@ namespace Identity.Domain.Repositories.Interfaces
 
         Task<UserRoleMap[]> GetUserRoles(string userId);
 
-        Task<Role[]> GetRoles(string searchTerm, int pageIndex, int pageSize);
+        Task<(long Count, Role[] Roles)> GetRoles(string searchTerm, int pageIndex, int pageSize);
 
-        Task<Role[]> GetRolesByUserId(string userId);
-
-
+        Task<(long Count, Role[] Roles)> GetRolesByUserId(string userId);
     }
 }

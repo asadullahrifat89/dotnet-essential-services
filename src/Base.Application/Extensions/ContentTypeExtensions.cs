@@ -1,4 +1,4 @@
-﻿namespace Base.Infrastructure.Extensions
+﻿namespace Base.Application.Extensions
 {
     public static class ContentTypeExtensions
     {

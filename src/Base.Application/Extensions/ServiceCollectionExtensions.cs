@@ -3,7 +3,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace Base.Infrastructure.Extensions
+namespace Base.Application.Extensions
 {
     public static class ServiceCollectionExtensions
     {

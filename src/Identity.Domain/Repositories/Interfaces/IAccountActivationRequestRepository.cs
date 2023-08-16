@@ -8,6 +8,6 @@ namespace Identity.Domain.Repositories.Interfaces
 
         Task<AccountActivationRequest> CreateAccountActivationRequest(AccountActivationRequest accountActivationRequest);
 
-        Task<AccountActivationRequest> VerifyAccountActivationRequest(string email, string activationKey, string password);
+        Task<User> VerifyAccountActivationRequest(string email, string activationKey, string password);
     }
 }

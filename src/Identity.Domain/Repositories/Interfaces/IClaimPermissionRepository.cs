@@ -12,7 +12,7 @@ namespace Identity.Domain.Repositories.Interfaces
 
         Task<ClaimPermission> AddClaimPermission(ClaimPermission claimPermission);
 
-        Task<ClaimPermission[]> GetClaims();
+        Task<(long Count, ClaimPermission[] ClaimPermissions)> GetClaims();
 
         Task<ClaimPermission[]> GetUserClaims(string userId);
     }

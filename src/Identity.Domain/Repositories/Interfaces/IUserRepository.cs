@@ -24,7 +24,7 @@ namespace Identity.Domain.Repositories.Interfaces
 
         Task<User> GetUser(string userId);
 
-        Task<User[]> GetUsers(string searchTerm, int pageIndex, int pageSize);
+        Task<(long Count, User[] Users)> GetUsers(string searchTerm, int pageIndex, int pageSize);
 
         Task<bool> BeAnExistingUser(string userId);
 
