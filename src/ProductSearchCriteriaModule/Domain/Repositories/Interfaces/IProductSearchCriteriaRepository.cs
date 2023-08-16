@@ -11,7 +11,7 @@ namespace ProductSearchCriteriaModule.Domain.Repositories.Interfaces
 
         Task<QueryRecordResponse<ProductSearchCriteria>> GetProductSearchCriteria(string productSearchCriteriaId);
 
-        Task<QueryRecordsResponse<ProductSearchCriteria>> GetProductSearchCriterias(string searchTerm, int pageIndex, int pageSize, ProductSearchCriteriaType? productSearchCriteriaType, SkillsetType? skillsetType, string? productId);
+        Task<QueryRecordsResponse<ProductSearchCriteria>> GetProductSearchCriterias(string searchTerm, int pageIndex, int pageSize, ProductSearchCriteriaType? productSearchCriteriaType, SkillsetType? skillsetType);
 
         Task<bool> BeAnExistingProductSearchCriteriaByName(string name);
 

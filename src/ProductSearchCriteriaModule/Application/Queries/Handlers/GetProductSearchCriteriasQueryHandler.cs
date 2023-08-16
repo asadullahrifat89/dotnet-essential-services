@@ -41,8 +41,7 @@ namespace ProductSearchCriteriaModule.Application.Queries.Handlers
                     pageIndex: request.PageIndex,
                     pageSize: request.PageSize,
                     productSearchCriteriaType: request.ProductSearchCriteriaType,
-                    skillsetType: request.SkillsetType,
-                    productId: request.ProductId);
+                    skillsetType: request.SkillsetType);
             }
             catch (Exception ex)
             {

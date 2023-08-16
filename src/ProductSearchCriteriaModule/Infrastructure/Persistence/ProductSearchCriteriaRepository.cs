@@ -88,8 +88,7 @@ namespace ProductSearchCriteriaModule.Infrastructure.Persistence
             int pageIndex,
             int pageSize,
             ProductSearchCriteriaType? searchCriteriaType,
-            SkillsetType? skillsetType,
-            string? productId)
+            SkillsetType? skillsetType)
         {
             //TODO: get productid query param and then filter with productsearchcriteriamap
 
@@ -112,12 +111,7 @@ namespace ProductSearchCriteriaModule.Infrastructure.Persistence
             {
                 filter &= Builders<ProductSearchCriteria>.Filter.Eq(x => x.SkillsetType, skillsetType);
             }
-
-            if (!productId.IsNullOrBlank())
-            {
-
-            }
-
+           
             var count = await _mongoDbService.CountDocuments(filter: filter);
 
             var searchCriterias = await _mongoDbService.GetDocuments(
