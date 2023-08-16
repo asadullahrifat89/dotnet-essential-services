@@ -7,7 +7,7 @@ namespace IdentityModule.Domain.Entities
     {
         public string Email { get; set; } = string.Empty;
 
-        public string ActivationKey = string.Empty;
+        public string ActivationKey { get; set; } = string.Empty;
 
         public ActivationKeyStatus ActivationKeyStatus = ActivationKeyStatus.Active;
 

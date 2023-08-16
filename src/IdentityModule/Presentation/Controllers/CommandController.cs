@@ -113,6 +113,15 @@ namespace IdentityModule.Presentation.Controllers
 
         #region Claim
 
+        [HttpPost(EndpointRoutes.Action_SendUserAccountActivationRequest)]
+        public async Task<ServiceResponse> SendUserAccountActivationRequest(SendUserAccountActivationRequestCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+        #region Claim
+
         [HttpPost(EndpointRoutes.Action_AddClaimPermission)]
         public async Task<ServiceResponse> AddClaimPermission(AddClaimPermissionCommand command)
         {
