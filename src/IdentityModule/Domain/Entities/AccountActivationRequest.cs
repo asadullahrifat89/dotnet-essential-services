@@ -1,5 +1,4 @@
 ﻿using BaseModule.Domain.Entities;
-using IdentityModule.Application.Commands;
 using System.Text.Json.Serialization;
 
 namespace IdentityModule.Domain.Entities

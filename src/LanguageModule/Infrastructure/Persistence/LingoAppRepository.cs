@@ -1,8 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
-using LanguageModule.Application.Commands;
-using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Entities;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;

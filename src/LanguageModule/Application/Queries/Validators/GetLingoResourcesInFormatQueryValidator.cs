@@ -1,6 +1,5 @@
 ﻿using BaseModule.Infrastructure.Extensions;
 using FluentValidation;
-using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Repositories.Interfaces;
 
 namespace LanguageModule.Application.Queries.Validators

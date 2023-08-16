@@ -5,7 +5,6 @@ using BaseModule.Application.DTOs.Responses;
 using IdentityModule.Application.Commands.Validators;
 using IdentityModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
-using MongoDB.Driver;
 
 namespace IdentityModule.Application.Commands.Handlers
 {

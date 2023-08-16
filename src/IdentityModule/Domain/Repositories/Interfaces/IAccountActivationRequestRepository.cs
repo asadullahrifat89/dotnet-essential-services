@@ -1,5 +1,4 @@
 ﻿using BaseModule.Application.DTOs.Responses;
-using IdentityModule.Application.Commands;
 using IdentityModule.Domain.Entities;
 
 namespace IdentityModule.Domain.Repositories.Interfaces

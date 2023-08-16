@@ -1,6 +1,5 @@
 ﻿using BaseModule.Infrastructure.Extensions;
 using FluentValidation;
-using LanguageModule.Application.Commands;
 using LanguageModule.Domain.Repositories.Interfaces;
 
 namespace LanguageModule.Application.Commands.Validators

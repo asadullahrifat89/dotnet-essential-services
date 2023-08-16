@@ -5,7 +5,6 @@ using IdentityModule.Application.Providers.Interfaces;
 using IdentityModule.Domain.Repositories.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using MongoDB.Driver;
 
 namespace IdentityModule.Application.Commands.Handlers
 {

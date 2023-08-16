@@ -1,6 +1,5 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Domain.Entities;
-using BaseModule.Infrastructure.Extensions;
 using IdentityModule.Domain.Entities;
 using MediatR;
 

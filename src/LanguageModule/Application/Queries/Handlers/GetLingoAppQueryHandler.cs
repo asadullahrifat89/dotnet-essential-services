@@ -1,7 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Infrastructure.Extensions;
 using IdentityModule.Application.Providers.Interfaces;
-using LanguageModule.Application.Queries;
 using LanguageModule.Application.Queries.Validators;
 using LanguageModule.Domain.Entities;
 using LanguageModule.Domain.Repositories.Interfaces;

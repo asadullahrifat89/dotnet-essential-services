@@ -1,6 +1,4 @@
 ﻿using BaseModule.Domain.Entities;
-using IdentityModule.Application.Commands;
-using IdentityModule.Infrastructure.Extensions;
 
 namespace IdentityModule.Domain.Entities
 {
