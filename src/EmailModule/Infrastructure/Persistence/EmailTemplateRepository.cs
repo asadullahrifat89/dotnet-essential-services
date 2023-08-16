@@ -1,7 +1,5 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
-using EmailModule.Application.Commands;
-using EmailModule.Application.Queries;
 using EmailModule.Domain.Entities;
 using EmailModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;

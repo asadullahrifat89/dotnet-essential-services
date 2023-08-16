@@ -1,15 +1,14 @@
 ﻿using BaseModule.Infrastructure.Extensions;
 using FluentValidation;
-using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Repositories.Interfaces;
 
 namespace LanguageModule.Application.Queries.Validators
 {
     public class GetLingoAppQueryValidator : AbstractValidator<GetLingoAppQuery>
     {
-        private readonly ILingoAppRepository _lingoAppRepository;
+        private readonly ILanguageAppRepository _lingoAppRepository;
 
-        public GetLingoAppQueryValidator(ILingoAppRepository lingoAppRepository)
+        public GetLingoAppQueryValidator(ILanguageAppRepository lingoAppRepository)
         {
             _lingoAppRepository = lingoAppRepository;
 

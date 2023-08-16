@@ -1,6 +1,4 @@
 ﻿using BaseModule.Application.DTOs.Responses;
-using LanguageModule.Application.Commands;
-using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Entities;
 
 namespace LanguageModule.Domain.Repositories.Interfaces
@@ -13,5 +11,6 @@ namespace LanguageModule.Domain.Repositories.Interfaces
 
         Task<bool> BeAnExistingLanguage(string languageCode);
 
+        Task<bool> BeAnExistingLanguageCodeAndResourceKey(string languageCode, string resourceKey);
     }
 }

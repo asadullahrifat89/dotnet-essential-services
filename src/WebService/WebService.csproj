@@ -24,6 +24,7 @@
     <ProjectReference Include="..\EmailModule\EmailModule.csproj" />
     <ProjectReference Include="..\IdentityModule\IdentityModule.csproj" />
     <ProjectReference Include="..\LanguageModule\LanguageModule.csproj" />
+    <ProjectReference Include="..\ProductSearchCriteriaModule\ProductSearchCriteriaModule.csproj" />
   </ItemGroup>
 
 </Project>

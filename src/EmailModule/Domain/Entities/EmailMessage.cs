@@ -1,12 +1,9 @@
 ﻿using BaseModule.Domain.Entities;
-using EmailModule.Application.Commands;
-using IdentityModule.Domain.Entities;
 using System.Text.Json.Serialization;
-using IdentityModule.Infrastructure.Extensions;
 
 namespace EmailModule.Domain.Entities
 {
-    public class EmailMessage : BaseEntity
+    public class EmailMessage : EntityBase
     {
         public EmailContact[] To { get; set; } = new EmailContact[0];
 

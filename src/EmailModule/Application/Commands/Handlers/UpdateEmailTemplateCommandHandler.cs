@@ -4,8 +4,6 @@ using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using EmailModule.Application.Commands.Validators;
 using EmailModule.Domain.Repositories.Interfaces;
-using MongoDB.Driver;
-using IdentityModule.Application.Providers;
 using IdentityModule.Application.Providers.Interfaces;
 
 namespace EmailModule.Application.Commands.Handlers

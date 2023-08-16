@@ -1,9 +1,7 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
 using BaseModule.Infrastructure.Extensions;
-using IdentityModule.Application.Commands;
 using IdentityModule.Application.Providers.Interfaces;
-using IdentityModule.Application.Queries;
 using IdentityModule.Domain.Entities;
 using IdentityModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;
@@ -77,10 +75,8 @@ namespace IdentityModule.Infrastructure.Persistence
                 }
             }
 
-            var existingRoleClaimMaps = await _mongoDbContextProvider.GetDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, roleId));
-
-            if (existingRoleClaimMaps != null && existingRoleClaimMaps.Any())
-                await _mongoDbContextProvider.DeleteDocuments(Builders<RoleClaimPermissionMap>.Filter.In(x => x.Id, existingRoleClaimMaps.Select(x => x.Id).ToArray()));
+            // remove existing role claim maps
+            await _mongoDbContextProvider.DeleteDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, roleId));
 
             if (newRoleClaimMaps.Any())
                 await _mongoDbContextProvider.InsertDocuments(newRoleClaimMaps);

@@ -7,8 +7,6 @@ using IdentityModule.Infrastructure.Extensions;
 using BaseModule.Application.Providers.Interfaces;
 using BlobModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
-using BlobModule.Application.Queries;
-using BlobModule.Application.Commands;
 using Microsoft.AspNetCore.Http;
 
 namespace BlobModule.Infrastructure.Persistence

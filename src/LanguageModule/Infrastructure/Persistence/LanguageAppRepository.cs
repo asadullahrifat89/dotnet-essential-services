@@ -1,15 +1,13 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
-using LanguageModule.Application.Commands;
-using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Entities;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;
 
 namespace LanguageModule.Infrastructure.Persistence
 {
-    public class LingoAppRepository : ILingoAppRepository
+    public class LanguageAppRepository : ILanguageAppRepository
     {
         #region Fields
 
@@ -20,7 +18,7 @@ namespace LanguageModule.Infrastructure.Persistence
 
         #region Ctor
 
-        public LingoAppRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContextProvider)
+        public LanguageAppRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContextProvider)
         {
             _mongoDbContextProvider = mongoDbService;
             _authenticationContextProvider = authenticationContextProvider;

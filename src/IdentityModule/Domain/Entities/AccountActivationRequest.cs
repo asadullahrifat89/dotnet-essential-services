@@ -1,14 +1,13 @@
 ﻿using BaseModule.Domain.Entities;
-using IdentityModule.Application.Commands;
 using System.Text.Json.Serialization;
 
 namespace IdentityModule.Domain.Entities
 {
-    public class AccountActivationRequest : BaseEntity
+    public class AccountActivationRequest : EntityBase
     {
         public string Email { get; set; } = string.Empty;
 
-        public string ActivationKey = string.Empty;
+        public string ActivationKey { get; set; } = string.Empty;
 
         public ActivationKeyStatus ActivationKeyStatus = ActivationKeyStatus.Active;
 

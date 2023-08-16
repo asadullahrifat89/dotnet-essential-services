@@ -21,6 +21,9 @@ using IdentityModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Services.Interfaces;
 using BlobModule.Application.Commands;
+using ProductSearchCriteriaModule.Application.Commands;
+using ProductSearchCriteriaModule.Application.Commands.Validators;
+using ProductSearchCriteriaModule.Domain.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,11 +56,18 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Upl
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateEmailTemplateCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddLingoAppCommand).GetTypeInfo().Assembly));
 
+// teams
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
+
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
 builder.Services.AddValidators<UploadBlobFileCommandValidator>();
 builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
+
+// teams
+builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
+
 
 // Add services
 builder.Services.AddServices<IJwtService>();
@@ -74,6 +84,9 @@ builder.Services.AddRepositories<IAuthTokenRepository>();
 builder.Services.AddRepositories<IBlobFileRepository>();
 builder.Services.AddRepositories<IEmailTemplateRepository>();
 builder.Services.AddRepositories<ILanguageResourcesRepository>();
+
+// teams
+builder.Services.AddRepositories<IProductSearchCriteriaRepository>();
 
 builder.Services.AddMvc();
 

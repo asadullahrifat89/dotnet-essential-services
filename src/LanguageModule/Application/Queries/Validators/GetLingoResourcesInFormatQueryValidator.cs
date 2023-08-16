@@ -1,6 +1,5 @@
 ﻿using BaseModule.Infrastructure.Extensions;
 using FluentValidation;
-using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Repositories.Interfaces;
 
 namespace LanguageModule.Application.Queries.Validators
@@ -9,9 +8,9 @@ namespace LanguageModule.Application.Queries.Validators
     {
         private readonly ILanguageResourcesRepository _lingoResourcesRepository;
 
-        private readonly ILingoAppRepository _lingoAppRepository;
+        private readonly ILanguageAppRepository _lingoAppRepository;
 
-        public GetLingoResourcesInFormatQueryValidator(ILanguageResourcesRepository lingoResourcesRepository, ILingoAppRepository lingoAppRepository)
+        public GetLingoResourcesInFormatQueryValidator(ILanguageResourcesRepository lingoResourcesRepository, ILanguageAppRepository lingoAppRepository)
         {
             _lingoResourcesRepository = lingoResourcesRepository;
             _lingoAppRepository = lingoAppRepository;

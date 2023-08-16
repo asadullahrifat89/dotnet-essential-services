@@ -3,10 +3,8 @@ using Microsoft.Extensions.Logging;
 using BaseModule.Infrastructure.Extensions;
 using BaseModule.Application.DTOs.Responses;
 using LanguageModule.Domain.Repositories.Interfaces;
-using LanguageModule.Application.Commands;
 using LanguageModule.Application.Commands.Validators;
 using IdentityModule.Application.Providers.Interfaces;
-using MongoDB.Driver;
 
 namespace LanguageModule.Application.Commands.Handlers
 {
@@ -16,7 +14,7 @@ namespace LanguageModule.Application.Commands.Handlers
 
         private readonly ILogger<AddLingoAppCommandHandler> _logger;
         private readonly AddLingoAppCommandValidator _validator;
-        private readonly ILingoAppRepository _lingoAppRepository;
+        private readonly ILanguageAppRepository _lingoAppRepository;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
@@ -26,7 +24,7 @@ namespace LanguageModule.Application.Commands.Handlers
         public AddLingoAppCommandHandler(
             ILogger<AddLingoAppCommandHandler> logger,
             AddLingoAppCommandValidator validator,
-            ILingoAppRepository lingoAppRepository,
+            ILanguageAppRepository lingoAppRepository,
             IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;

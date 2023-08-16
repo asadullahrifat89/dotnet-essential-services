@@ -5,11 +5,6 @@ using IdentityModule.Infrastructure.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityModule.Presentation.Controllers
 {
@@ -35,7 +30,6 @@ namespace IdentityModule.Presentation.Controllers
         #endregion
 
         #region Methods
-
 
         #region Token
 
@@ -111,6 +105,22 @@ namespace IdentityModule.Presentation.Controllers
 
         [HttpPut(EndpointRoutes.Action_UpdateUserRoles)]
         public async Task<ServiceResponse> UpdateUserRoles(UpdateUserRolesCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        #endregion
+
+        #region AccountActivationRequest
+
+        [HttpPost(EndpointRoutes.Action_SendUserAccountActivationRequest)]
+        public async Task<ServiceResponse> SendUserAccountActivationRequest(SendUserAccountActivationRequestCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPost(EndpointRoutes.Action_VerifyUserAccountActivationRequest)]
+        public async Task<ServiceResponse> VerifyUserAccountActivationRequest(VerifyUserAccountActivationRequestCommand command)
         {
             return await _mediator.Send(command);
         }

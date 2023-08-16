@@ -1,6 +1,5 @@
 ﻿using EmailModule.Domain.Entities;
 using IdentityModule.Domain.Entities;
-using IdentityModule.Infrastructure.Extensions;
 
 namespace EmailModule.Application.Commands
 {

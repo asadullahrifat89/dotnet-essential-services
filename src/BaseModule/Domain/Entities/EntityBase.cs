@@ -3,7 +3,7 @@
 namespace BaseModule.Domain.Entities
 {
     [BsonIgnoreExtraElements]
-    public class BaseEntity
+    public class EntityBase
     {
         [BsonId]
         public string Id { get; set; } = Guid.NewGuid().ToString();

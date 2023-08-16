@@ -1,14 +1,13 @@
 ﻿using FluentValidation;
-using LanguageModule.Application.Commands;
 using LanguageModule.Domain.Repositories.Interfaces;
 
 namespace LanguageModule.Application.Commands.Validators
 {
     public class AddLingoAppCommandValidator : AbstractValidator<AddLingoAppCommand>
     {
-        private readonly ILingoAppRepository _lingoAppRepository;
+        private readonly ILanguageAppRepository _lingoAppRepository;
 
-        public AddLingoAppCommandValidator(ILingoAppRepository lingoAppRepository)
+        public AddLingoAppCommandValidator(ILanguageAppRepository lingoAppRepository)
         {
             _lingoAppRepository = lingoAppRepository;
 

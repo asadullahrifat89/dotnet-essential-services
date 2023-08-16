@@ -5,7 +5,6 @@ using EmailModule.Domain.Repositories.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using MongoDB.Driver;
 
 namespace EmailModule.Application.Commands.Handlers
 {

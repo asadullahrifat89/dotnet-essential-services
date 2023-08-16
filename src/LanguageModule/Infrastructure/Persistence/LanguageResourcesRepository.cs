@@ -1,8 +1,6 @@
 ﻿using BaseModule.Application.DTOs.Responses;
 using BaseModule.Application.Providers.Interfaces;
 using IdentityModule.Application.Providers.Interfaces;
-using LanguageModule.Application.Commands;
-using LanguageModule.Application.Queries;
 using LanguageModule.Domain.Entities;
 using LanguageModule.Domain.Repositories.Interfaces;
 using MongoDB.Driver;
@@ -37,6 +35,13 @@ namespace LanguageModule.Infrastructure.Persistence
             await _mongoDbContextProvider.InsertDocuments(languageResources);
 
             return Response.BuildServiceResponse().BuildSuccessResponse(languageResources, authCtx?.RequestUri);
+        }
+
+        public Task<bool> BeAnExistingLanguageCodeAndResourceKey(string languageCode, string resourceKey)
+        {
+            var filter = Builders<LanguageResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()) && x.ResourceKey.ToLower().Equals(resourceKey.ToLower()));
+
+            return _mongoDbContextProvider.Exists(filter);
         }
 
         public Task<bool> BeAnExistingLanguage(string languageCode)
