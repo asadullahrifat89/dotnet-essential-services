@@ -24,7 +24,7 @@ namespace IdentityModule.Application.Commands.Validators
 
         private async Task<bool> BeAnExistingRole(UpdateRoleCommand command, CancellationToken arg2)
         {
-            return !await _roleRepository.BeAnExistingRoleById(id: command.RoleId);
+            return await _roleRepository.BeAnExistingRoleById(id: command.RoleId);
         }
 
         private async Task<bool> BeAnExistingClaimPermission(UpdateRoleCommand command, CancellationToken arg2)
