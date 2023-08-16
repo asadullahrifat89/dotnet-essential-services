@@ -103,8 +103,6 @@ namespace IdentityModule.Infrastructure.Persistence
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            var exisitingUserRoleMaps = await _mongoDbContextProvider.GetDocuments(Builders<UserRoleMap>.Filter.Eq(x => x.UserId, userId));
-
             var roles = await _roleRepository.GetRolesByNames(roleNames);
 
             var newUserRoleMaps = new List<UserRoleMap>();
@@ -120,8 +118,8 @@ namespace IdentityModule.Infrastructure.Persistence
                 newUserRoleMaps.Add(roleMap);
             }
 
-            if (exisitingUserRoleMaps.Any())
-                await _mongoDbContextProvider.DeleteDocuments(Builders<UserRoleMap>.Filter.In(x => x.Id, exisitingUserRoleMaps.Select(x => x.Id).ToArray()));
+            // delete existing role maps
+            await _mongoDbContextProvider.DeleteDocuments(Builders<UserRoleMap>.Filter.Eq(x => x.UserId, userId));
 
             if (newUserRoleMaps.Any())
                 await _mongoDbContextProvider.InsertDocuments(newUserRoleMaps);
@@ -240,7 +238,7 @@ namespace IdentityModule.Infrastructure.Persistence
 
         public async Task<ServiceResponse> SubmitUser(User user)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();            
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             await _mongoDbContextProvider.InsertDocument(user);
 

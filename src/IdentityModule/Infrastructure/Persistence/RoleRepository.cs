@@ -77,10 +77,8 @@ namespace IdentityModule.Infrastructure.Persistence
                 }
             }
 
-            var existingRoleClaimMaps = await _mongoDbContextProvider.GetDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, roleId));
-
-            if (existingRoleClaimMaps != null && existingRoleClaimMaps.Any())
-                await _mongoDbContextProvider.DeleteDocuments(Builders<RoleClaimPermissionMap>.Filter.In(x => x.Id, existingRoleClaimMaps.Select(x => x.Id).ToArray()));
+            // remove existing role claim maps
+            await _mongoDbContextProvider.DeleteDocuments(Builders<RoleClaimPermissionMap>.Filter.Eq(x => x.RoleId, roleId));
 
             if (newRoleClaimMaps.Any())
                 await _mongoDbContextProvider.InsertDocuments(newRoleClaimMaps);
