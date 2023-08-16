@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace IdentityModule.Presentation.Controllers
+namespace Identity.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
