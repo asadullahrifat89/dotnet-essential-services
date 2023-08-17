@@ -33,16 +33,16 @@ namespace Base.Application.Extensions
 
         private static void AddServiceFromAssemblyWithKeyword<T>(IServiceCollection services, string keyword)
         {
-            var allRepositories = Assembly.GetAssembly(typeof(T))?.GetTypes().Where(type => !type.IsInterface && type.Name.EndsWith(keyword));
+            var foundServices = Assembly.GetAssembly(typeof(T))?.GetTypes().Where(type => !type.IsInterface && type.Name.EndsWith(keyword));
 
-            if (allRepositories is not null)
+            if (foundServices is not null)
             {
-                foreach (var item in allRepositories)
+                foreach (var service in foundServices)
                 {
-                    Type serviceType = item.GetTypeInfo().ImplementedInterfaces.First();
+                    Type implementedInterface = service.GetTypeInfo().ImplementedInterfaces.First();
 
-                    if (serviceType is not null)
-                        services.AddSingleton(serviceType, item);
+                    if (implementedInterface is not null)
+                        services.AddSingleton(implementedInterface, service);
                 }
             }
         }

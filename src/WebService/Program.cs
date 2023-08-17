@@ -21,6 +21,13 @@ using Language.Application.Commands.Validators;
 using Language.Domain.Repositories.Interfaces;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Identity.Application.Services;
+using Base.Application.Providers;
+using Identity.Application.Providers;
+using Identity.Infrastructure.Persistence;
+using Blob.Infrastructure.Persistence;
+using Email.Infrastructure.Persistence;
+using Language.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,20 +74,20 @@ builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 
 // Add services
-builder.Services.AddServices<IJwtService>();
-builder.Services.AddServices<IEmailSenderService>();
+builder.Services.AddServices<JwtService>();
+builder.Services.AddServices<EmailSenderService>();
 
 builder.Services.AddHostedService<EmailSenderHostedService>();
 
 // Add providers
-builder.Services.AddProviders<IMongoDbContextProvider>();
-builder.Services.AddProviders<IAuthenticationContextProvider>();
+builder.Services.AddProviders<MongoDbContextProvider>();
+builder.Services.AddProviders<AuthenticationContextProvider>();
 
 // Add repositories
-builder.Services.AddRepositories<IAuthTokenRepository>();
-builder.Services.AddRepositories<IBlobFileRepository>();
-builder.Services.AddRepositories<IEmailTemplateRepository>();
-builder.Services.AddRepositories<ILanguageResourcesRepository>();
+builder.Services.AddRepositories<AuthTokenRepository>();
+builder.Services.AddRepositories<BlobFileRepository>();
+builder.Services.AddRepositories<EmailTemplateRepository>();
+builder.Services.AddRepositories<LanguageResourcesRepository>();
 
 // teams
 //builder.Services.AddRepositories<IProductSearchCriteriaRepository>();

@@ -20,11 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Base.Application\Base.Application.csproj" />
-    <ProjectReference Include="..\Blob.Application\Blob.Application.csproj" />
-    <ProjectReference Include="..\Email.Application\Email.Application.csproj" />
-    <ProjectReference Include="..\Identity.Application\Identity.Application.csproj" />
-    <ProjectReference Include="..\Language.Application\Language.Application.csproj" />
+    <ProjectReference Include="..\Blob.Presentation\Blob.Presentation.csproj" />
+    <ProjectReference Include="..\Email.Presentation\Email.Presentation.csproj" />
+    <ProjectReference Include="..\Identity.Presentation\Identity.Presentation.csproj" />
+    <ProjectReference Include="..\Language.Presentation\Language.Presentation.csproj" />
   </ItemGroup>
 
 </Project>
