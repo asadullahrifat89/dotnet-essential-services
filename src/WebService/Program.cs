@@ -20,6 +20,9 @@ using Identity.Infrastructure.Persistence;
 using Blob.Infrastructure.Persistence;
 using Email.Infrastructure.Persistence;
 using Language.Infrastructure.Persistence;
+using ContentMangement.Application.Commands;
+using ContentMangement.Application.Commands.Validators;
+using ContentMangement.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,8 +55,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Upl
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateEmailTemplateCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddLingoAppCommand).GetTypeInfo().Assembly));
 
-// teams
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
@@ -61,9 +63,7 @@ builder.Services.AddValidators<UploadBlobFileCommandValidator>();
 builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
-// teams
-//builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
-
+builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
 
 // Add services
 builder.Services.AddServices<JwtService>();
@@ -81,8 +81,7 @@ builder.Services.AddRepositories<BlobFileRepository>();
 builder.Services.AddRepositories<EmailTemplateRepository>();
 builder.Services.AddRepositories<LanguageResourcesRepository>();
 
-// teams
-//builder.Services.AddRepositories<IProductSearchCriteriaRepository>();
+builder.Services.AddRepositories<ProductSearchCriteriaRepository>();
 
 builder.Services.AddMvc();
 

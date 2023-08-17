@@ -12,4 +12,9 @@
     <ProjectReference Include="..\Identity.Application\Identity.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queries\Handlers\" />
+    <Folder Include="Queries\Validators\" />
+  </ItemGroup>
+
 </Project>

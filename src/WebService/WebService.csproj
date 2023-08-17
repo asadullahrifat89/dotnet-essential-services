@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Blob.Presentation\Blob.Presentation.csproj" />
+    <ProjectReference Include="..\ContentMangement.Presentation\ContentMangement.Presentation.csproj" />
     <ProjectReference Include="..\Email.Presentation\Email.Presentation.csproj" />
     <ProjectReference Include="..\Identity.Presentation\Identity.Presentation.csproj" />
     <ProjectReference Include="..\Language.Presentation\Language.Presentation.csproj" />

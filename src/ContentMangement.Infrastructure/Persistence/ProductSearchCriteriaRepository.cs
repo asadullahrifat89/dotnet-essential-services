@@ -4,11 +4,6 @@ using ContentMangement.Domain.Entities;
 using ContentMangement.Domain.Repositories.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContentMangement.Infrastructure.Persistence
 {
@@ -28,6 +23,10 @@ namespace ContentMangement.Infrastructure.Persistence
             _mongoDbService = mongoDbService;
             _authenticationContextProvider = authenticationContextProvider;
         }
+
+        #endregion
+
+        #region Methods
 
         public async Task<ProductSearchCriteria> AddProductSearchCriteria(ProductSearchCriteria productSearchCriteria)
         {
