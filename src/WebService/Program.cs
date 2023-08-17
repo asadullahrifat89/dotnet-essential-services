@@ -1,29 +1,25 @@
 using System.Reflection;
+using Base.Application.Extensions;
+using Base.Shared.Constants;
+using Blob.Application.Commands;
+using Blob.Application.Commands.Validators;
+using Email.Application.Commands;
+using Email.Application.Commands.Validators;
+using Email.Application.Services;
+using Identity.Application.Commands;
+using Identity.Application.Commands.Validators;
+using Identity.Application.Middlewares;
+using Language.Application.Commands;
+using Language.Application.Commands.Validators;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using BaseModule.Infrastructure.Extensions;
-using CommonModule.Infrastructure.Constants;
-using EmailModule.Application.Commands;
-using BlobModule.Application.Commands.Validators;
-using IdentityModule.Application.Commands;
-using EmailModule.Application.Commands.Validators;
-using IdentityModule.Application.Commands.Validators;
-using LanguageModule.Domain.Repositories.Interfaces;
-using LanguageModule.Application.Commands;
-using LanguageModule.Application.Commands.Validators;
-using IdentityModule.Infrastructure.Middlewares;
-using BaseModule.Application.Providers.Interfaces;
-using EmailModule.Application.Services;
-using EmailModule.Application.Services.Interfaces;
-using BlobModule.Domain.Repositories.Interfaces;
-using EmailModule.Domain.Repositories.Interfaces;
-using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Application.Providers.Interfaces;
-using IdentityModule.Application.Services.Interfaces;
-using BlobModule.Application.Commands;
-using ProductSearchCriteriaModule.Application.Commands;
-using ProductSearchCriteriaModule.Application.Commands.Validators;
-using ProductSearchCriteriaModule.Domain.Repositories.Interfaces;
+using Identity.Application.Services;
+using Base.Application.Providers;
+using Identity.Application.Providers;
+using Identity.Infrastructure.Persistence;
+using Blob.Infrastructure.Persistence;
+using Email.Infrastructure.Persistence;
+using Language.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,7 +53,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Cre
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddLingoAppCommand).GetTypeInfo().Assembly));
 
 // teams
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
@@ -66,27 +62,27 @@ builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 // teams
-builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
+//builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
 
 
 // Add services
-builder.Services.AddServices<IJwtService>();
-builder.Services.AddServices<IEmailSenderService>();
+builder.Services.AddServices<JwtService>();
+builder.Services.AddServices<EmailSenderService>();
 
 builder.Services.AddHostedService<EmailSenderHostedService>();
 
 // Add providers
-builder.Services.AddProviders<IMongoDbContextProvider>();
-builder.Services.AddProviders<IAuthenticationContextProvider>();
+builder.Services.AddProviders<MongoDbContextProvider>();
+builder.Services.AddProviders<AuthenticationContextProvider>();
 
 // Add repositories
-builder.Services.AddRepositories<IAuthTokenRepository>();
-builder.Services.AddRepositories<IBlobFileRepository>();
-builder.Services.AddRepositories<IEmailTemplateRepository>();
-builder.Services.AddRepositories<ILanguageResourcesRepository>();
+builder.Services.AddRepositories<AuthTokenRepository>();
+builder.Services.AddRepositories<BlobFileRepository>();
+builder.Services.AddRepositories<EmailTemplateRepository>();
+builder.Services.AddRepositories<LanguageResourcesRepository>();
 
 // teams
-builder.Services.AddRepositories<IProductSearchCriteriaRepository>();
+//builder.Services.AddRepositories<IProductSearchCriteriaRepository>();
 
 builder.Services.AddMvc();
 
