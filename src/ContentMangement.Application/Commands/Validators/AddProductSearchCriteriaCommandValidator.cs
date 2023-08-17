@@ -6,11 +6,11 @@ namespace ContentMangement.Application.Commands.Validators
 {
     public class AddProductSearchCriteriaCommandValidator : AbstractValidator<AddProductSearchCriteriaCommand>
     {
-        private readonly IProductSearchCriteriaRepository _searchCriteriaRepository;
+        private readonly IProductSearchCriteriaRepository _productSearchCriteriaRepository;
 
-        public AddProductSearchCriteriaCommandValidator(IProductSearchCriteriaRepository searchCriteriaRepository)
+        public AddProductSearchCriteriaCommandValidator(IProductSearchCriteriaRepository productSearchCriteriaRepository)
         {
-            _searchCriteriaRepository = searchCriteriaRepository;
+            _productSearchCriteriaRepository = productSearchCriteriaRepository;
 
             RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("Name must not be empty");
             RuleFor(x => x).MustAsync(NotBeAnExistingSearchCriteria).WithMessage("Name already exists.").When(x => !x.Name.IsNullOrBlank());
@@ -23,7 +23,7 @@ namespace ContentMangement.Application.Commands.Validators
 
         private async Task<bool> NotBeAnExistingSearchCriteria(AddProductSearchCriteriaCommand command, CancellationToken token)
         {
-            return !await _searchCriteriaRepository.BeAnExistingProductSearchCriteria(name: command.Name);
+            return !await _productSearchCriteriaRepository.BeAnExistingProductSearchCriteria(name: command.Name);
         }
     }
 }
