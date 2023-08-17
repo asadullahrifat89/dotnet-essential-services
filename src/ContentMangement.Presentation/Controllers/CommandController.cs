@@ -32,13 +32,13 @@ namespace ContentMangement.Presentation.Controllers
         #region Methods
 
         [HttpPost(EndpointRoutes.Action_AddProductSearchCriteria)]
-        public async Task<ServiceResponse> AddSearchCriteria(AddProductSearchCriteriaCommand command)
+        public async Task<ServiceResponse> AddProductSearchCriteria(AddProductSearchCriteriaCommand command)
         {
             return await _mediator.Send(command);
         }
 
         [HttpPut(EndpointRoutes.Action_UpdateProductSearchCriteria)]
-        public async Task<ServiceResponse> UpdateSearchCriteria(UpdateProductSearchCriteriaCommand command)
+        public async Task<ServiceResponse> UpdateProductSearchCriteria(UpdateProductSearchCriteriaCommand command)
         {
             return await _mediator.Send(command);
         }
