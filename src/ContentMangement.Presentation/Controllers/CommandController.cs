@@ -5,11 +5,6 @@ using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContentMangement.Presentation.Controllers
 {
@@ -42,11 +37,11 @@ namespace ContentMangement.Presentation.Controllers
             return await _mediator.Send(command);
         }
 
-        //[HttpPut(EndpointRoutes.Action_UpdateSearchCriteria)]
-        //public async Task<ServiceResponse> UpdateSearchCriteria(UpdateSearchCriteriaCommand command)
-        //{
-        //    return await _mediator.Send(command);
-        //}
+        [HttpPut(EndpointRoutes.Action_UpdateProductSearchCriteria)]
+        public async Task<ServiceResponse> UpdateSearchCriteria(UpdateProductSearchCriteriaCommand command)
+        {
+            return await _mediator.Send(command);
+        }
 
         #endregion
     }

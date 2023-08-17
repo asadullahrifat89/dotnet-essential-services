@@ -5,29 +5,34 @@ using ContentMangement.Domain.Repositories.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ContentMangement.Application.Commands.Handlers
 {
-    public class AddProductSearchCriteriaCommandHandler : IRequestHandler<AddProductSearchCriteriaCommand, ServiceResponse>
+    public class UpdateProductSearchCriteriaCommandHandler : IRequestHandler<UpdateProductSearchCriteriaCommand, ServiceResponse>
     {
         #region Fields
 
-        private readonly IProductSearchCriteriaRepository _searchCriteriaRepository;
-        private readonly AddProductSearchCriteriaCommandValidator _validator;
+        private readonly IProductSearchCriteriaRepository _ProductSearchCriteriaRepository;
+        private readonly UpdateProductSearchCriteriaCommandValidator _validator;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
-        private readonly ILogger<AddProductSearchCriteriaCommandHandler> _logger;
+        private readonly ILogger<UpdateProductSearchCriteriaCommandHandler> _logger;
 
         #endregion
 
         #region Ctor
 
-        public AddProductSearchCriteriaCommandHandler(
-            IProductSearchCriteriaRepository searchCriteriaRepository,
-            AddProductSearchCriteriaCommandValidator validator,
+        public UpdateProductSearchCriteriaCommandHandler(
+            IProductSearchCriteriaRepository ProductSearchCriteriaRepository,
+            UpdateProductSearchCriteriaCommandValidator validator,
             IAuthenticationContextProvider authenticationContextProvider,
-            ILogger<AddProductSearchCriteriaCommandHandler> logger)
+            ILogger<UpdateProductSearchCriteriaCommandHandler> logger)
         {
-            _searchCriteriaRepository = searchCriteriaRepository;
+            _ProductSearchCriteriaRepository = ProductSearchCriteriaRepository;
             _validator = validator;
             _authenticationContextProvider = authenticationContextProvider;
             _logger = logger;
@@ -35,9 +40,7 @@ namespace ContentMangement.Application.Commands.Handlers
 
         #endregion
 
-        #region Methods
-
-        public async Task<ServiceResponse> Handle(AddProductSearchCriteriaCommand command, CancellationToken cancellationToken)
+        public async Task<ServiceResponse> Handle(UpdateProductSearchCriteriaCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -45,9 +48,9 @@ namespace ContentMangement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var searchCriteria = AddProductSearchCriteriaCommand.Initialize(command, authCtx);
+                var ProductSearchCriteria = UpdateProductSearchCriteriaCommand.Initialize(command, authCtx);
 
-                var result = await _searchCriteriaRepository.AddProductSearchCriteria(searchCriteria);
+                var result = await _ProductSearchCriteriaRepository.UpdateProductSearchCriteria(ProductSearchCriteria);
 
                 return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
             }
@@ -57,7 +60,5 @@ namespace ContentMangement.Application.Commands.Handlers
                 return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
             }
         }
-
-        #endregion
     }
 }
