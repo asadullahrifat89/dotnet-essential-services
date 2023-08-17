@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Base.Application\Base.Application.csproj" />
     <ProjectReference Include="..\Blob.Domain\Blob.Domain.csproj" />
+    <ProjectReference Include="..\Identity.Application\Identity.Application.csproj" />
   </ItemGroup>
 
 </Project>

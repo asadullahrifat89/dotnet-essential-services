@@ -7,7 +7,7 @@ namespace Blob.Domain.Repositories.Interfaces
     {
         Task<BlobFile> UploadBlobFile(IFormFile formFile);
 
-        Task<BlobFile> DownloadBlobFile(string fileId);
+        Task<(BlobFile blobFile, byte[] bytes)> DownloadBlobFile(string fileId);
 
         Task<BlobFile> GetBlobFile(string fileId);
 
