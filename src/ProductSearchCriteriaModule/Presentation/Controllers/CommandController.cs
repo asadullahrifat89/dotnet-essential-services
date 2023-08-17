@@ -1,10 +1,4 @@
-﻿using BaseModule.Application.DTOs.Responses;
-using CommonModule.Infrastructure.Constants;
-using IdentityModule.Infrastructure.Attributes;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using ProductSearchCriteriaModule.Application.Commands;
+﻿using ProductSearchCriteriaModule.Application.Commands;
 
 namespace ProductSearchCriteriaModule.Presentation.Controllers
 {

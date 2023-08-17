@@ -1,29 +1,26 @@
 using System.Reflection;
+using Base.Application.Providers.Interfaces;
+using Base.Application.Extensions;
+using Base.Shared.Constants;
+using Blob.Application.Commands;
+using Blob.Application.Commands.Validators;
+using Blob.Domain.Repositories.Interfaces;
+using Email.Application.Commands;
+using Email.Application.Commands.Validators;
+using Email.Application.Services;
+using Email.Application.Services.Interfaces;
+using Email.Domain.Repositories.Interfaces;
+using Identity.Application.Commands;
+using Identity.Application.Commands.Validators;
+using Identity.Application.Middlewares;
+using Identity.Application.Providers.Interfaces;
+using Identity.Application.Services.Interfaces;
+using Identity.Domain.Repositories.Interfaces;
+using Language.Application.Commands;
+using Language.Application.Commands.Validators;
+using Language.Domain.Repositories.Interfaces;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using BaseModule.Infrastructure.Extensions;
-using CommonModule.Infrastructure.Constants;
-using EmailModule.Application.Commands;
-using BlobModule.Application.Commands.Validators;
-using IdentityModule.Application.Commands;
-using EmailModule.Application.Commands.Validators;
-using IdentityModule.Application.Commands.Validators;
-using LanguageModule.Domain.Repositories.Interfaces;
-using LanguageModule.Application.Commands;
-using LanguageModule.Application.Commands.Validators;
-using IdentityModule.Infrastructure.Middlewares;
-using BaseModule.Application.Providers.Interfaces;
-using EmailModule.Application.Services;
-using EmailModule.Application.Services.Interfaces;
-using BlobModule.Domain.Repositories.Interfaces;
-using EmailModule.Domain.Repositories.Interfaces;
-using IdentityModule.Domain.Repositories.Interfaces;
-using IdentityModule.Application.Providers.Interfaces;
-using IdentityModule.Application.Services.Interfaces;
-using BlobModule.Application.Commands;
-using ProductSearchCriteriaModule.Application.Commands;
-using ProductSearchCriteriaModule.Application.Commands.Validators;
-using ProductSearchCriteriaModule.Domain.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,7 +54,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Cre
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddLingoAppCommand).GetTypeInfo().Assembly));
 
 // teams
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
@@ -66,7 +63,7 @@ builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 // teams
-builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
+//builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
 
 
 // Add services
@@ -86,7 +83,7 @@ builder.Services.AddRepositories<IEmailTemplateRepository>();
 builder.Services.AddRepositories<ILanguageResourcesRepository>();
 
 // teams
-builder.Services.AddRepositories<IProductSearchCriteriaRepository>();
+//builder.Services.AddRepositories<IProductSearchCriteriaRepository>();
 
 builder.Services.AddMvc();
 
