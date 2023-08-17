@@ -31,17 +31,13 @@ namespace Email.Infrastructure.Persistence
 
         public async Task<EmailTemplate> CreateEmailTemplate(EmailTemplate emailTemplate)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
             await _mongoDbContextProvider.InsertDocument(emailTemplate);
 
             return emailTemplate;
-
         }
 
         public async Task<EmailTemplate> GetEmailTemplate(string templateId)
-        {
-            
+        {   
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
 
             var emailTemplate = await _mongoDbContextProvider.FindOne(filter);
@@ -83,8 +79,6 @@ namespace Email.Infrastructure.Persistence
 
         public async Task<EmailTemplate> GetEmailTemplateById(string templateId)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
             var filter = Builders<EmailTemplate>.Filter.Eq(x => x.Id, templateId);
 
             var emailTemplate = await _mongoDbContextProvider.FindOne(filter);

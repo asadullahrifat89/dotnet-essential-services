@@ -50,7 +50,6 @@ namespace LanguageModule.Infrastructure.Persistence
 
         public async Task<Dictionary<string, string>> GetLanguageResourcesInJSONFormat(string appId, string languageCode)
         {
-
             var filter = Builders<LanguageResource>.Filter.Where(x => x.LanguageCode.ToLower().Equals(languageCode.ToLower()) && x.AppId == appId);
 
             var lingoResources = await _mongoDbContextProvider.GetDocuments(filter);
@@ -58,7 +57,6 @@ namespace LanguageModule.Infrastructure.Persistence
             var lingoResourcesInJson = lingoResources.ToDictionary(x => x.ResourceKey, x => x.ResourceValue);
 
             return lingoResourcesInJson;
-
         }
 
         #endregion

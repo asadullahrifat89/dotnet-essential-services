@@ -14,9 +14,9 @@ namespace Email.Infrastructure.Persistence
         #region Fields
 
         private readonly IMongoDbContextProvider _mongoDbContextProvider;
-        private readonly IAuthenticationContextProvider _authenticationContextProvider;
         private readonly IConfiguration _configuration;
         private readonly IEmailTemplateRepository _emailTemplateRepository;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -40,8 +40,6 @@ namespace Email.Infrastructure.Persistence
 
         public async Task<EmailMessage> EnqueueEmailMessage(EmailMessage emailMessage)
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
             var senderName = _configuration["MailSettings:SenderName"];
             var senderEmail = _configuration["MailSettings:SenderEmail"];
 
@@ -116,7 +114,6 @@ namespace Email.Infrastructure.Persistence
                     break;
             }
 
-            
             await _mongoDbContextProvider.InsertDocument(emailMessage);
 
             return emailMessage;
@@ -125,8 +122,6 @@ namespace Email.Infrastructure.Persistence
 
         public async Task<List<EmailMessage>> GetEmailMessagesForSending()
         {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
             var retryThreshold = Convert.ToInt32(_configuration["MailSettings:RetryThreshold"]);
 
             var filter = Builders<EmailMessage>.Filter.In(x => x.EmailSendStatus, new EmailSendStatus[] { EmailSendStatus.Pending, EmailSendStatus.Failed });
