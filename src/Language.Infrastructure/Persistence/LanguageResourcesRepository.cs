@@ -1,10 +1,10 @@
 ﻿using Base.Application.Providers.Interfaces;
 using Identity.Application.Providers.Interfaces;
-using LanguageModule.Domain.Entities;
-using LanguageModule.Domain.Repositories.Interfaces;
+using Language.Domain.Entities;
+using Language.Domain.Repositories.Interfaces;
 using MongoDB.Driver;
 
-namespace LanguageModule.Infrastructure.Persistence
+namespace Language.Infrastructure.Persistence
 {
     public class LanguageResourcesRepository : ILanguageResourcesRepository
     {

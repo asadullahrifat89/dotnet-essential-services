@@ -1,12 +1,13 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
 using Identity.Application.Providers.Interfaces;
-using LanguageModule.Application.Commands.Validators;
-using LanguageModule.Domain.Repositories.Interfaces;
+using Language.Application.Commands;
+using Language.Application.Commands.Validators;
+using Language.Domain.Repositories.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace LanguageModule.Application.Commands.Handlers
+namespace Language.Application.Commands.Handlers
 {
     public class AddLingoResourcesCommandHandler : IRequestHandler<AddLingoResourcesCommand, ServiceResponse>
     {
@@ -48,10 +49,10 @@ namespace LanguageModule.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                
+
                 var lingoResources = AddLingoResourcesCommand.Initialize(command, authCtx);
 
-                var result =  await _lingoResourcesRepository.AddLanguageResources(lingoResources);
+                var result = await _lingoResourcesRepository.AddLanguageResources(lingoResources);
 
                 return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
 

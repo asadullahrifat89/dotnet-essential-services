@@ -1,6 +1,6 @@
 ﻿using Base.Domain.Entities;
 
-namespace LanguageModule.Domain.Entities
+namespace Language.Domain.Entities
 {
     public class LanguageResource : EntityBase
     {

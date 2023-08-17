@@ -1,6 +1,6 @@
-﻿using LanguageModule.Domain.Entities;
+﻿using Language.Domain.Entities;
 
-namespace LanguageModule.Domain.Repositories.Interfaces
+namespace Language.Domain.Repositories.Interfaces
 {
     public interface ILanguageResourcesRepository
     {

@@ -1,10 +1,10 @@
 ﻿using Base.Application.DTOs.Responses;
 using Identity.Application.Extensions;
 using Identity.Domain.Entities;
-using LanguageModule.Domain.Entities;
+using Language.Domain.Entities;
 using MediatR;
 
-namespace LanguageModule.Application.Commands
+namespace Language.Application.Commands
 {
     public class AddLingoResourcesCommand : IRequest<ServiceResponse>
     {

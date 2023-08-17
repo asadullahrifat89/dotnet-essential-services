@@ -1,8 +1,8 @@
 ﻿using Base.Application.Extensions;
 using FluentValidation;
-using LanguageModule.Domain.Repositories.Interfaces;
+using Language.Domain.Repositories.Interfaces;
 
-namespace LanguageModule.Application.Queries.Validators
+namespace Language.Application.Queries.Validators
 {
     public class GetLingoAppQueryValidator : AbstractValidator<GetLingoAppQuery>
     {

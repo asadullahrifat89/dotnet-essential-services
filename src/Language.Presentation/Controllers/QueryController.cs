@@ -1,13 +1,13 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Identity.Application.Attributes;
-using LanguageModule.Application.Queries;
-using LanguageModule.Domain.Entities;
+using Language.Application.Queries;
+using Language.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LanguageModule.Presentation.Controllers
+namespace Language.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using LanguageModule.Domain.Repositories.Interfaces;
+using Language.Domain.Repositories.Interfaces;
 
-namespace LanguageModule.Application.Commands.Validators
+namespace Language.Application.Commands.Validators
 {
     public class AddLingoAppCommandValidator : AbstractValidator<AddLingoAppCommand>
     {

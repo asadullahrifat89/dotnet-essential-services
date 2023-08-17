@@ -1,8 +1,8 @@
 ﻿using Base.Application.DTOs.Responses;
-using LanguageModule.Domain.Entities;
+using Language.Domain.Entities;
 using MediatR;
 
-namespace LanguageModule.Application.Queries
+namespace Language.Application.Queries
 {
     public class GetLingoAppQuery : IRequest<QueryRecordResponse<LanguageApp>>
     {

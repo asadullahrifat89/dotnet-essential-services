@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using LanguageModule.Domain.Repositories.Interfaces;
-using LanguageModule.Application.Commands.Validators;
 using Base.Application.DTOs.Responses;
 using Identity.Application.Providers.Interfaces;
 using Base.Application.Extensions;
+using Language.Application.Commands.Validators;
+using Language.Domain.Repositories.Interfaces;
 
-namespace LanguageModule.Application.Commands.Handlers
+namespace Language.Application.Commands.Handlers
 {
     public class AddLingoAppCommandHandler : IRequestHandler<AddLingoAppCommand, ServiceResponse>
     {

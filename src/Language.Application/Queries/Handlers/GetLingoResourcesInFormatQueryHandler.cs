@@ -1,12 +1,13 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
 using Identity.Application.Providers.Interfaces;
-using LanguageModule.Application.Queries.Validators;
-using LanguageModule.Domain.Repositories.Interfaces;
+using Language.Application.Queries;
+using Language.Application.Queries.Validators;
+using Language.Domain.Repositories.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace LanguageModule.Application.Queries.Handlers
+namespace Language.Application.Queries.Handlers
 {
     public class GetLingoResourcesInFormatQueryHandler : IRequestHandler<GetLingoResourcesInFormatQuery, QueryRecordResponse<Dictionary<string, string>>>
     {
@@ -53,7 +54,7 @@ namespace LanguageModule.Application.Queries.Handlers
                             appId: request.AppId,
                             languageCode: request.LanguageCode);
                         return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildSuccessResponse(result, authCtx?.RequestUri);
-                    
+
                     default:
 
                         return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError("Format is not supported yet.", _authenticationContextProvider.GetAuthenticationContext().RequestUri));
