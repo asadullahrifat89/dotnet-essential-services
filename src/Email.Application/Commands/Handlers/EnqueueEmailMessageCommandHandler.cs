@@ -1,6 +1,5 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
-using Email.Application.Commands;
 using Email.Application.Commands.Validators;
 using Email.Domain.Repositories.Interfaces;
 using Identity.Application.Providers.Interfaces;

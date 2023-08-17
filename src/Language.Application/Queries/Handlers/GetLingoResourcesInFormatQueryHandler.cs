@@ -1,7 +1,6 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
 using Identity.Application.Providers.Interfaces;
-using Language.Application.Queries;
 using Language.Application.Queries.Validators;
 using Language.Domain.Repositories.Interfaces;
 using MediatR;

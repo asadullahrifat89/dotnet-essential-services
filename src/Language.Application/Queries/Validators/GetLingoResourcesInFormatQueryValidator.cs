@@ -1,6 +1,5 @@
 ﻿using Base.Application.Extensions;
 using FluentValidation;
-using Language.Application.Queries;
 using Language.Domain.Repositories.Interfaces;
 
 namespace Language.Application.Queries.Validators

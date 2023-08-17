@@ -1,5 +1,4 @@
 ﻿using Base.Application.Extensions;
-using Email.Application.Commands;
 using Email.Domain.Entities;
 using Email.Domain.Repositories.Interfaces;
 using FluentValidation;

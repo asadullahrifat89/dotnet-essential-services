@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using Email.Application.Queries;
 using Email.Domain.Entities;
 using Email.Application.Queries.Validators;
 using Email.Domain.Repositories.Interfaces;
