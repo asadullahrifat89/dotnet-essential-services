@@ -26,7 +26,7 @@ namespace Teams.ContentMangement.Domain.Entities
         //public SearchCriteriaType SearchCriteriaType { get; set; }
 
         /// <summary>
-        /// Based on the search criteria type, the skill set type of the the product search criteria.
+        /// The skill set type of the the product search criteria.
         /// </summary>
         public SkillsetType SkillsetType { get; set; }
     }    

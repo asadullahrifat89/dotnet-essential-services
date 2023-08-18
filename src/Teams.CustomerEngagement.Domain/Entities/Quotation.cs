@@ -65,6 +65,52 @@ namespace Teams.CustomerEngagement.Domain.Entities
         /// The submitted product search criterias for this quotation.
         /// </summary>
         public SubmittedProductSearchCriteria[] SubmittedProductSearchCriterias { get; set; } = new SubmittedProductSearchCriteria[] { };
+
+        /// <summary>
+        /// The assigned teams users for this quotation.
+        /// </summary>
+        public AssignedTeamsUser[] AssignedTeamsUsers { get; set; } = new AssignedTeamsUser[] { };
+
+        /// <summary>
+        /// List of linked blob files to this document with their types.
+        /// </summary>
+        public LinkedQuotationDocument[] LinkedQuotationDocuments { get; set; } = new LinkedQuotationDocument[] { };
+    }
+
+    public class LinkedQuotationDocument
+    {
+        /// <summary>
+        /// Id of the linked document.
+        /// </summary>
+        public string Id { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Name of the linked document.
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Type of the linked quotation document.
+        /// </summary>
+        public LinkedQuotationDocumentType LinkedQuotationDocumentType { get; set; } = LinkedQuotationDocumentType.Quotation;
+    }
+
+    public class AssignedTeamsUser
+    {
+        /// <summary>
+        /// Id of the assigned user.
+        /// </summary>
+        public string Id { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Email of the assigned user.
+        /// </summary>
+        public string Email { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Name of the assigned user.
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
     }
 
     public class SubmittedProductSearchCriteria
@@ -80,7 +126,7 @@ namespace Teams.CustomerEngagement.Domain.Entities
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// Based on the search criteria type, the skill set type of the the product search criteria.
+        /// The skill set type of the the product search criteria.
         /// </summary>
         public SkillsetType SkillsetType { get; set; }
     }
@@ -90,11 +136,10 @@ namespace Teams.CustomerEngagement.Domain.Entities
     // TODO: add quotation and document hash map
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum AttachedDocumentType
+    public enum LinkedQuotationDocumentType
     {
         Quotation,
         Contract,
-        Misc,
     }
 
 
