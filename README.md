@@ -2,7 +2,8 @@
 
 A majestic monolith with domain-driven design and clean architecture containing some essential modules required to build any simple piece of software.
 
-![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/af86a38d-7ad5-4db8-bfd2-ec6ce2aa18df)
+![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/484cdb75-da2d-4adb-b0ba-ff4ca763e87c)
+
 
 # Folder Structure
 The solution follows a clean architecture-inspired folder structure.
@@ -12,10 +13,11 @@ The Domain layer sits at the core of the solution. Here we define things that ar
 
 ### Application
 The Application layer sits right above the Domain layer. It acts as an orchestrator for the Domain layer, containing business logic and the most important use cases in your application.
-Here you can define things like commands, queries, DTOs, services with their interfaces and implementations, etc. This solution follows the CQRS pattern so you will find commands and queries with their definitions, handlers, and validators in their respective folders.
+Here you can define things like commands, queries, DTOs, services, extensions, providers, constants, attributes, middlewares, with their interfaces and implementations, etc.
+This solution follows the CQRS pattern so you will find commands and queries with their definitions, handlers, and validators in their respective folders.
 
 ### Infrastructure
-The Infrastructure layer contains things that facilitate and enable technical parts of a module. i.e. extensions, providers, constants, attributes, middleware, etc along with implementations of the repository interfaces defined in the domain layer. This layer can also contain things like email providers, database providers, storage providers, identity providers, jwt middleware, extension functions, etc.
+The Infrastructure layer contains persistence that normally bridges the gap between repositories and database connections. This layer should contain the repository implementations and db contexts.
 
 ### Presentation
 The Presentation layer is the entry point of the system and is the outermost layer. This layer contains controllers. As this solution follows CQRS patterns you will find command and query controllers here.
