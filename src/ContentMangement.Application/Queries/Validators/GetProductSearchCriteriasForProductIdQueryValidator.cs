@@ -6,12 +6,10 @@ namespace Teams.ContentMangement.Application.Queries.Validators
 {
     public class GetProductSearchCriteriasForProductIdQueryValidator : AbstractValidator<GetProductSearchCriteriasForProductIdQuery>
     {
-        private readonly IProductSearchCriteriaRepository _productSearchCriteriaRepository;
         private readonly IProductRepository _productRepository;
 
-        public GetProductSearchCriteriasForProductIdQueryValidator(IProductSearchCriteriaRepository productSearchCriteriaRepository, IProductRepository productRepository)
+        public GetProductSearchCriteriasForProductIdQueryValidator(IProductRepository productRepository)
         {
-            _productSearchCriteriaRepository = productSearchCriteriaRepository;
             _productRepository = productRepository;
 
             RuleFor(x => x.ProductId).NotNull().NotEmpty().WithMessage("Product Id must not be empty");
