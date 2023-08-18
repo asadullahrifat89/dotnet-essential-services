@@ -14,10 +14,10 @@ namespace Teams.ContentMangement.Application.Commands.Validators
             RuleFor(x => x.Description).NotNull().NotEmpty().WithMessage("Description must not be empty");
             RuleFor(x => x.ManPower).NotNull().NotEmpty().WithMessage("ManPower must not be empty");
             RuleFor(x => x.Experience).NotNull().NotEmpty().WithMessage("Experience must not be empty");
-            RuleFor(x => x.EmploymentTypes).NotNull().NotEmpty().WithMessage("EmploymentTypes must not be empty");
-            RuleFor(x => x.ProductCostType).NotNull().NotEmpty().WithMessage("ProductCostType must not be empty");
-            RuleFor(x => x.LinkedProductSearchCriteriaIds).NotNull().NotEmpty().WithMessage("Linked Search Criteria Ids required.");
+            RuleFor(x => x.EmploymentTypes).NotNull().NotEmpty().WithMessage("EmploymentTypes must not be empty");            
             RuleFor(x => x.ProductCostType).IsInEnum().WithMessage("Invalid ProductCost type.");
+            RuleFor(x => x.LinkedProductSearchCriteriaIds).NotNull().NotEmpty().WithMessage("Linked Search Criteria Ids required.");
+            RuleFor(x => x.LinkedProductSearchCriteriaIds).Must(x => x.Length < 11).WithMessage("Can not attach more than 10 search criterias.").When(x => x.LinkedProductSearchCriteriaIds is not null && x.LinkedProductSearchCriteriaIds.Any());            
             RuleFor(x => x).MustAsync(BeAnExistingSearchCriteriaId).WithMessage("Product Search Criteria doesn't exist.").When(x => x.LinkedProductSearchCriteriaIds != null);
         }
 

@@ -25,8 +25,11 @@ namespace Teams.ContentMangement.Application.Commands.Validators
             RuleFor(x => x.EmploymentTypes).NotNull().NotEmpty();
             RuleFor(x => x.IconUrl).NotNull().NotEmpty();
             RuleFor(x => x.Experience).NotNull().NotEmpty();
-            RuleFor(x => x.ProductCostType).NotNull().NotEmpty().IsInEnum();
+            RuleFor(x => x.ProductCostType).IsInEnum();
             RuleFor(x => x.PublishingStatus).IsInEnum();
+
+            RuleFor(x => x.LinkedProductSearchCriteriaIds).NotNull().NotEmpty().WithMessage("Linked Search Criteria Ids required.");
+            RuleFor(x => x.LinkedProductSearchCriteriaIds).Must(x => x.Length < 11).WithMessage("Can not attach more than 10 search criterias.").When(x => x.LinkedProductSearchCriteriaIds is not null && x.LinkedProductSearchCriteriaIds.Any());
 
             RuleFor(x => x.LinkedProductSearchCriteriaIds)
                 .MustAsync(BeAnExistingSearchCriteriaId)

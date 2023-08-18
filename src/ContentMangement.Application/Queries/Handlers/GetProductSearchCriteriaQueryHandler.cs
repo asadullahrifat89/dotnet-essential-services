@@ -20,17 +20,17 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
 
         #endregion
 
-        #region Ctors
+        #region Ctor
 
         public GetProductSearchCriteriaQueryHandler(
             ILogger<GetProductSearchCriteriaQueryHandler> logger,
             GetProductSearchCriteriaQueryValidator validator,
-            IProductSearchCriteriaRepository ProductSearchCriteriaRepository,
+            IProductSearchCriteriaRepository productSearchCriteriaRepository,
             IAuthenticationContextProvider authenticationContextProvider)
         {
             _logger = logger;
             _validator = validator;
-            _productSearchCriteriaRepository = ProductSearchCriteriaRepository;
+            _productSearchCriteriaRepository = productSearchCriteriaRepository;
             _authenticationContextProvider = authenticationContextProvider;
         }
 

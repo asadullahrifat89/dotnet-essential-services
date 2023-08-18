@@ -92,7 +92,7 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             return (count, records is not null ? records.ToArray() : Array.Empty<ProductSearchCriteria>());
         }
 
-        public async Task<ProductSearchCriteria[]> GetProductSearchCriteriasForProductId(string productId)
+        public async Task<(long Count, ProductSearchCriteria[] Records)> GetProductSearchCriteriasForProductId(string productId)
         {
             var mapFilter = Builders<ProductSearchCriteriaMap>.Filter.Eq(x => x.ProductId, productId);
 
@@ -104,13 +104,14 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
 
                 var criteriaFilter = Builders<ProductSearchCriteria>.Filter.In(x => x.Id, productSearchCriteriaIds);
 
+                var count = await _mongoDbService.CountDocuments(criteriaFilter);
                 var productSearchCriterias = await _mongoDbService.GetDocuments(filter: criteriaFilter);
 
-                return productSearchCriterias is not null ? productSearchCriterias.ToArray() : Array.Empty<ProductSearchCriteria>();
+                return (count, productSearchCriterias is not null ? productSearchCriterias.ToArray() : Array.Empty<ProductSearchCriteria>());
             }
             else
             {
-                return Array.Empty<ProductSearchCriteria>();
+                return (0, Array.Empty<ProductSearchCriteria>());
             }
         }
 
