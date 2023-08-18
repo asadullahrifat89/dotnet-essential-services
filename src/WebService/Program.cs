@@ -24,6 +24,9 @@ using Teams.ContentMangement.Infrastructure.Persistence;
 using Teams.ContentMangement.Application.Commands;
 using Teams.ContentMangement.Application.Commands.Validators;
 using Base.Application.Attributes;
+using Teams.CustomerEngagement.Application.Commands;
+using Teams.CustomerEngagement.Application.Commands.Validators;
+using Teams.CustomerEngagement.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +60,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Cre
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddLingoAppCommand).GetTypeInfo().Assembly));
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddQuotationCommand).GetTypeInfo().Assembly));
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
@@ -65,6 +69,7 @@ builder.Services.AddValidators<CreateEmailTemplateCommandValidator>();
 builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
+builder.Services.AddValidators<AddQuotationCommandValidator>();
 
 // Add services
 builder.Services.AddServices<JwtService>();
@@ -83,6 +88,7 @@ builder.Services.AddRepositories<EmailTemplateRepository>();
 builder.Services.AddRepositories<LanguageResourcesRepository>();
 
 builder.Services.AddRepositories<ProductSearchCriteriaRepository>();
+builder.Services.AddRepositories<QuotationRepository>();
 
 builder.Services.AddMvc(mvc =>
 {

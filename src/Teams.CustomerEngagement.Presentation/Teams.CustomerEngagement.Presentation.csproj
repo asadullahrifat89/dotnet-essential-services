@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Teams.CustomerEngagement.Application\Teams.CustomerEngagement.Application.csproj" />
+    <ProjectReference Include="..\Teams.CustomerEngagement.Infrastructure\Teams.CustomerEngagement.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,14 @@
 ﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
+using Base.Shared.Constants;
 using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Teams.ContentMangement.Application.Queries;
+using Teams.ContentMangement.Domain.Entities;
+using Teams.CustomerEngagement.Application.Queries;
+using Teams.CustomerEngagement.Domain.Entities;
 
 namespace Teams.CustomerEngagement.Presentation.Controllers
 {
@@ -28,7 +34,13 @@ namespace Teams.CustomerEngagement.Presentation.Controllers
 
         #endregion
 
-        #region Methods        
+        #region Methods
+
+        [HttpGet(EndpointRoutes.Action_GetQuotation)]
+        public async Task<QueryRecordResponse<Quotation>> GetQuotation([FromQuery] GetQuotationQuery query)
+        {
+            return await _mediator.Send(query);
+        }
 
         #endregion
     }
