@@ -3,12 +3,6 @@ using Base.Application.Extensions;
 using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Teams.ContentMangement.Application.Commands.Validators;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
