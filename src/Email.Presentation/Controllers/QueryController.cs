@@ -12,7 +12,7 @@ namespace Email.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    [ControllerName("Email.Queries")]
+    [ControllerName("Email.Query")]
     public class QueryController : ControllerBase
     {
         #region Fields

@@ -1,4 +1,5 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Identity.Application.Attributes;
 using MediatR;
@@ -10,6 +11,7 @@ namespace Teams.ContentMangement.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Teams.ContentMangement.Command")]
     public class CommandController : ControllerBase
     {
         #region Fields

@@ -11,7 +11,7 @@ namespace Email.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    [ControllerName("Email.Commands")]
+    [ControllerName("Email.Command")]
     public class CommandController : ControllerBase
     {
         #region Fields

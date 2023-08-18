@@ -11,7 +11,7 @@ namespace Blob.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    [ControllerName("Blob.Commands")]
+    [ControllerName("Blob.Command")]
     public class CommandController : ControllerBase
     {
         #region Fields

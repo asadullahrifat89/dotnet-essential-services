@@ -11,7 +11,7 @@ namespace Identity.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    [ControllerName("Identity.Commands")]
+    [ControllerName("Identity.Command")]
     public class CommandController : ControllerBase
     {
         #region Fields

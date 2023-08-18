@@ -13,7 +13,7 @@ namespace Identity.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    [ControllerName("Identity.Queries")]
+    [ControllerName("Identity.Query")]
     public class QueryController : ControllerBase
     {
         #region Fields

@@ -1,4 +1,5 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Identity.Application.Attributes;
 using MediatR;
@@ -11,6 +12,7 @@ namespace Teams.ContentMangement.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Teams.ContentMangement.Query")]
     public class QueryController : ControllerBase
     {
         #region Fields

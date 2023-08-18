@@ -12,7 +12,7 @@ namespace Blob.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    [ControllerName("Blob.Queries")]
+    [ControllerName("Blob.Query")]
     public class QueryController : ControllerBase
     {
         #region Fields
