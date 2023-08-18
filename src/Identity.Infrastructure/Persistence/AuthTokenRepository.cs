@@ -1,4 +1,4 @@
-﻿using Base.Application.Providers.Interfaces;
+﻿using Base.Infrastructure.Providers.Interfaces;
 using Identity.Application.Services.Interfaces;
 using Identity.Domain.Entities;
 using Identity.Domain.Repositories.Interfaces;

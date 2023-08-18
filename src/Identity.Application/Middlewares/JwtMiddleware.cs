@@ -1,22 +1,22 @@
-﻿using Base.Application.Providers.Interfaces;
-using Identity.Application.Services.Interfaces;
+﻿using Identity.Application.Services.Interfaces;
 using Identity.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using MongoDB.Driver;
 using System.Security.Claims;
 using Base.Application.Extensions;
+using Identity.Domain.Repositories.Interfaces;
 
 namespace Identity.Application.Middlewares
 {
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IMongoDbContextProvider _mongoDbContextProvider;
+        private readonly IUserRepository _userRepository;
 
-        public JwtMiddleware(RequestDelegate next, IMongoDbContextProvider mongoDbService)
+        public JwtMiddleware(RequestDelegate next, IUserRepository userRepository)
         {
             _next = next;
-            _mongoDbContextProvider = mongoDbService;
+            _userRepository = userRepository;
         }
 
         public async Task Invoke(
@@ -69,9 +69,7 @@ namespace Identity.Application.Middlewares
 
         private async Task<User> GetUser(string userId)
         {
-            var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
-
-            return await _mongoDbContextProvider.FindOne(filter);
+            return await _userRepository.GetUserById(userId);
         }
     }
 }

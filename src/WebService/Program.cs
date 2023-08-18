@@ -14,7 +14,6 @@ using Language.Application.Commands.Validators;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Identity.Application.Services;
-using Base.Application.Providers;
 using Identity.Application.Providers;
 using Identity.Infrastructure.Persistence;
 using Blob.Infrastructure.Persistence;
@@ -27,6 +26,7 @@ using Base.Application.Attributes;
 using Teams.CustomerEngagement.Application.Commands;
 using Teams.CustomerEngagement.Application.Commands.Validators;
 using Teams.CustomerEngagement.Infrastructure.Persistence;
+using Base.Infrastructure.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
 

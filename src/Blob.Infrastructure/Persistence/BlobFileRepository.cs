@@ -1,11 +1,11 @@
 ﻿using MongoDB.Driver;
 using Microsoft.AspNetCore.Http;
 using Blob.Domain.Repositories.Interfaces;
-using Base.Application.Providers.Interfaces;
 using Blob.Domain.Entities;
 using Base.Application.Extensions;
 using Identity.Application.Providers.Interfaces;
 using Identity.Application.Extensions;
+using Base.Infrastructure.Providers.Interfaces;
 
 namespace Blob.Infrastructure.Persistence
 {

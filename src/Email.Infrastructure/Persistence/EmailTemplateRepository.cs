@@ -1,4 +1,4 @@
-﻿using Base.Application.Providers.Interfaces;
+﻿using Base.Infrastructure.Providers.Interfaces;
 using Email.Domain.Entities;
 using Email.Domain.Repositories.Interfaces;
 using Identity.Application.Providers.Interfaces;
