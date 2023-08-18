@@ -62,6 +62,12 @@ namespace Teams.ContentMangement.Presentation.Controllers
             return await _mediator.Send(query);
         }
 
+        [HttpGet(EndpointRoutes.Action_GetProject)]
+        public async Task<QueryRecordResponse<Project>> GetProject([FromQuery] GetProjectQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
         #endregion
     }
 }
