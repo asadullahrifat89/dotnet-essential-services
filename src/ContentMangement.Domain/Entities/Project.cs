@@ -33,5 +33,10 @@ namespace Teams.ContentMangement.Domain.Entities
         /// Array or image urls. It can contain screenshots of the project pages.
         /// </summary>
         public string[] ImageUrls { get; set; } = new string[] { };
+
+        /// <summary>
+        /// Publishing status of the project in the cms.
+        /// </summary>
+        public PublishingStatus PublishingStatus { get; set; } = PublishingStatus.Published;
     }
 }

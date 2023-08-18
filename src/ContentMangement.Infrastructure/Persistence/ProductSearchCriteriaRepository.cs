@@ -28,13 +28,6 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
 
         #region Methods
 
-        public async Task<ProductSearchCriteria> AddProductSearchCriteria(ProductSearchCriteria productSearchCriteria)
-        {
-            await _mongoDbService.InsertDocument(productSearchCriteria);
-
-            return productSearchCriteria;
-        }
-
         public async Task<bool> BeAnExistingProductSearchCriteria(string name)
         {
             var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Name.ToLower().Equals(name.ToLower()));
@@ -47,6 +40,31 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             var filter = Builders<ProductSearchCriteria>.Filter.Where(x => x.Id == id);
 
             return await _mongoDbService.Exists(filter);
+        }
+
+        public async Task<ProductSearchCriteria> AddProductSearchCriteria(ProductSearchCriteria productSearchCriteria)
+        {
+            await _mongoDbService.InsertDocument(productSearchCriteria);
+
+            return productSearchCriteria;
+        }
+
+        public async Task<ProductSearchCriteria> UpdateProductSearchCriteria(ProductSearchCriteria productSearchCriteria)
+        {
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+            var updateSearchCriteria = Builders<ProductSearchCriteria>.Update
+                .Set(x => x.Name, productSearchCriteria.Name)
+                .Set(x => x.Description, productSearchCriteria.Description)
+                .Set(x => x.IconUrl, productSearchCriteria.IconUrl)
+                .Set(x => x.SkillsetType, productSearchCriteria.SkillsetType)
+                .Set(x => x.SearchCriteriaType, productSearchCriteria.SearchCriteriaType)
+                .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
+                .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
+
+            var updatedSearchCriteria = await _mongoDbService.UpdateById(update: updateSearchCriteria, id: productSearchCriteria.Id);
+
+            return updatedSearchCriteria;
         }
 
         public async Task<ProductSearchCriteria> GetProductSearchCriteria(string id)
@@ -115,23 +133,7 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             }
         }
 
-        public async Task<ProductSearchCriteria> UpdateProductSearchCriteria(ProductSearchCriteria productSearchCriteria)
-        {
-            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-
-            var updateSearchCriteria = Builders<ProductSearchCriteria>.Update
-                .Set(x => x.Name, productSearchCriteria.Name)
-                .Set(x => x.Description, productSearchCriteria.Description)
-                .Set(x => x.IconUrl, productSearchCriteria.IconUrl)
-                .Set(x => x.SkillsetType, productSearchCriteria.SkillsetType)
-                .Set(x => x.SearchCriteriaType, productSearchCriteria.SearchCriteriaType)
-                .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
-                .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
-
-            var updatedSearchCriteria = await _mongoDbService.UpdateById(update: updateSearchCriteria, id: productSearchCriteria.Id);
-
-            return updatedSearchCriteria;
-        }
+      
 
         #endregion
     }
