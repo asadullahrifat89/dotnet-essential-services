@@ -145,7 +145,8 @@ namespace Teams.CustomerEngagement.Domain.Entities
         QuotationReady,
         MeetingRequested,
         ContractReady,
-        ContractSigned
+        ContractSigned,
+        Backlog,
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
