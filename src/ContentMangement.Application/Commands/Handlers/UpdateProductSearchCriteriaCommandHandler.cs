@@ -35,6 +35,8 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
 
         #endregion
 
+        #region Methods
+
         public async Task<ServiceResponse> Handle(UpdateProductSearchCriteriaCommand command, CancellationToken cancellationToken)
         {
             try
@@ -54,6 +56,8 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
                 _logger.LogError(ex, ex.Message);
                 return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
             }
-        }
+        } 
+
+        #endregion
     }
 }
