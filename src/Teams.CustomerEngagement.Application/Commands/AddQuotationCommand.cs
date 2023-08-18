@@ -37,5 +37,5 @@ namespace Teams.CustomerEngagement.Application.Commands
 
             return quotation;
         }
-    }
+    }       
 }

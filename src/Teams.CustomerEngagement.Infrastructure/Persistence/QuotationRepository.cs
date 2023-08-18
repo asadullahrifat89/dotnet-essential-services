@@ -49,20 +49,14 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
             var authCtx = _authenticationContext.GetAuthenticationContext();
 
             var update = Builders<Quotation>.Update
-              .Set(x => x.Email, quotation.Email)
-              .Set(x => x.Title, quotation.Title)
-              .Set(x => x.Note, quotation.Note)
-              .Set(x => x.Location, quotation.Location)
-              .Set(x => x.ManPower, quotation.ManPower)
-              .Set(x => x.Experience, quotation.Experience)
-              .Set(x => x.EmploymentTypes, quotation.EmploymentTypes)
-              .Set(x => x.QuoteStatus, quotation.QuoteStatus)
-              .Set(x => x.Priority, quotation.Priority)
-              .Set(x => x.MeetingLink, quotation.MeetingLink)
-              .Set(x => x.AssignedTeamsUsers, quotation.AssignedTeamsUsers)
-              .Set(x => x.LinkedQuotationDocuments, quotation.LinkedQuotationDocuments)
-              .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
-              .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
+                .Set(x => x.QuoteStatus, quotation.QuoteStatus)
+                .Set(x => x.Priority, quotation.Priority)
+                .Set(x => x.AssignedTeamsUsers, quotation.AssignedTeamsUsers)
+                .Set(x => x.LinkedQuotationDocuments, quotation.LinkedQuotationDocuments)
+                .Set(x => x.MeetingLink, quotation.MeetingLink)
+                .Set(x => x.Note, quotation.Note)
+                .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
+                .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
             var updateQuotation = await _mongoDbService.UpdateById(update, quotation.Id);
 
@@ -93,7 +87,7 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
             {
                 filter &= Builders<Quotation>.Filter.Or(
                     Builders<Quotation>.Filter.Where(x => x.Title.ToLower().Contains(searchTerm.ToLower())),
-                    Builders<Quotation>.Filter.Where(x => x.Note.ToLower().Contains(searchTerm.ToLower())));             
+                    Builders<Quotation>.Filter.Where(x => x.Note.ToLower().Contains(searchTerm.ToLower())));
             }
 
             if (priority.HasValue)

@@ -38,7 +38,12 @@ namespace Teams.CustomerEngagement.Presentation.Controllers
         {
             return await _mediator.Send(command);
         }
-       
+
+        [HttpPut(EndpointRoutes.Action_UpdateQuotation)]
+        public async Task<ServiceResponse> AddUpdateQuotation(UpdateQuotationCommand command)
+        {
+            return await _mediator.Send(command);
+        }
 
         #endregion
     }
