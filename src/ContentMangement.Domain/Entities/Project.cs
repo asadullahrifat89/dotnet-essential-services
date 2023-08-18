@@ -15,6 +15,11 @@ namespace Teams.ContentMangement.Domain.Entities
         public string Description { get; set; } = string.Empty;
 
         /// <summary>
+        /// Icon image url of this project. It can be the company image for which this project is developed.
+        /// </summary>
+        public string IconUrl { get; set; } = string.Empty;
+
+        /// <summary>
         /// Browsable link to the project.
         /// </summary>
         public string ProjectLink { get; set; } = string.Empty;
@@ -22,12 +27,7 @@ namespace Teams.ContentMangement.Domain.Entities
         /// <summary>
         /// Link to the client's website.
         /// </summary>
-        public string ClientLink { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Icon image url of this project. It can be the company image for which this project is developed.
-        /// </summary>
-        public string IconUrl { get; set; } = string.Empty;
+        public string ClientLink { get; set; } = string.Empty;       
 
         /// <summary>
         /// Array or image urls. It can contain screenshots of the project pages.
