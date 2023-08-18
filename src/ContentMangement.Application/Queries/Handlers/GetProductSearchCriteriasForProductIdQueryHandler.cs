@@ -36,6 +36,8 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
 
         #endregion
 
+        #region Methods
+
         public async Task<QueryRecordsResponse<ProductSearchCriteria>> Handle(GetProductSearchCriteriasForProductIdQuery request, CancellationToken cancellationToken)
         {
             try
@@ -53,6 +55,8 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                 _logger.LogError(ex, ex.Message);
                 return Response.BuildQueryRecordsResponse<ProductSearchCriteria>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
-        }
+        } 
+
+        #endregion
     }
 }
