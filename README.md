@@ -5,8 +5,8 @@ A majestic monolith with domain-driven design and clean architecture containing 
 ![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/484cdb75-da2d-4adb-b0ba-ff4ca763e87c)
 
 
-# Folder Structure
-The solution follows a clean architecture-inspired folder structure.
+# Project Structure
+The solution follows a clean architecture-inspired project structure.
 
 ### Domain
 The Domain layer sits at the core of the solution. Here we define things that are the base foundation of a module. i.e. entities, value objects, aggregates, domain events, exceptions, repository interfaces, etc.
