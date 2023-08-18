@@ -24,7 +24,7 @@ namespace Teams.CustomerEngagement.Domain.Entities
         /// <summary>
         /// The email of the customer who submitted this quotation query.
         /// </summary>
-        public string Email { get; set; } = string.Empty;
+        public string CustomerEmail { get; set; } = string.Empty;
 
         /// <summary>
         /// Location of the customer who submitted this quotation query.
