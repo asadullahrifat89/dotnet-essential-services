@@ -15,7 +15,7 @@ namespace Teams.ContentMangement.Application.Commands
                 Name = command.Name,
                 Description = command.Description,
                 IconUrl = command.IconUrl,
-                SearchCriteriaType = command.SearchCriteriaType,
+                //SearchCriteriaType = command.SearchCriteriaType,
                 SkillsetType = command.SkillsetType,
             };
 

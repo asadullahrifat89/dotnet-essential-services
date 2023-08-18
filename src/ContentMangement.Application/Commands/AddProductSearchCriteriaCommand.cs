@@ -14,7 +14,7 @@ namespace Teams.ContentMangement.Application.Commands
 
         public string IconUrl { get; set; } = string.Empty;
 
-        public SearchCriteriaType SearchCriteriaType { get; set; }
+        //public SearchCriteriaType SearchCriteriaType { get; set; }
 
         public SkillsetType SkillsetType { get; set; }
 
@@ -25,7 +25,7 @@ namespace Teams.ContentMangement.Application.Commands
                 Name = command.Name,
                 Description = command.Description,
                 IconUrl = command.IconUrl,
-                SearchCriteriaType = command.SearchCriteriaType,
+                //SearchCriteriaType = command.SearchCriteriaType,
                 SkillsetType = command.SkillsetType,
                 TimeStamp = authCtx.BuildCreatedByTimeStamp(),
             };

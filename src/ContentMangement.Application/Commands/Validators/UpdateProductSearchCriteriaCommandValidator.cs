@@ -15,7 +15,7 @@ namespace Teams.ContentMangement.Application.Commands.Validators
             RuleFor(x => x.SearchCriteriaId).NotNull().NotEmpty().WithMessage("Id must not be empty");
             RuleFor(x => x.SearchCriteriaId).MustAsync(BeAnExistingSearchCriteriaById).WithMessage("SearchCriteria does not exist.").When(x => !x.SearchCriteriaId.IsNullOrBlank());
 
-            RuleFor(x => x.SearchCriteriaType).NotNull().NotEmpty().IsInEnum().WithMessage("SearchCriteria Type is not acceptable");
+            //RuleFor(x => x.SearchCriteriaType).NotNull().NotEmpty().IsInEnum().WithMessage("SearchCriteria Type is not acceptable");
 
             RuleFor(x => x.SkillsetType).NotNull().NotEmpty().IsInEnum().WithMessage("Skillset Type is not acceptable");
         }

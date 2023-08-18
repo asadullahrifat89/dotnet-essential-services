@@ -7,7 +7,7 @@ namespace Teams.ContentMangement.Application.Queries
     {
         public string SearchTerm { get; set; } = string.Empty;
 
-        public SearchCriteriaType? SearchCriteriaType { get; set; }
+        //public SearchCriteriaType? SearchCriteriaType { get; set; }
 
         public SkillsetType? SkillsetType { get; set; }
     }

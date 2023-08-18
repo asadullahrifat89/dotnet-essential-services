@@ -10,10 +10,10 @@ namespace Teams.ContentMangement.Application.Queries.Validators
             RuleFor(x => x.PageIndex).GreaterThanOrEqualTo(0);
             RuleFor(x => x.PageSize).GreaterThan(0);
 
-            RuleFor(x => x.SearchCriteriaType)
-                .Must(BeAnExistingProductSearchCriteriaType)
-                .When(x => x.SearchCriteriaType.HasValue)
-                .WithMessage("Invalid ProductSearchCriteriaType");
+            //RuleFor(x => x.SearchCriteriaType)
+            //    .Must(BeAnExistingProductSearchCriteriaType)
+            //    .When(x => x.SearchCriteriaType.HasValue)
+            //    .WithMessage("Invalid ProductSearchCriteriaType");
 
             RuleFor(x => x.SkillsetType)
                 .Must(BeAnExistingSkillsetType)
@@ -22,10 +22,10 @@ namespace Teams.ContentMangement.Application.Queries.Validators
 
         }
 
-        private bool BeAnExistingProductSearchCriteriaType(SearchCriteriaType? productSearchCriteriaType)
-        {
-            return Enum.IsDefined(typeof(SearchCriteriaType), productSearchCriteriaType);
-        }
+        //private bool BeAnExistingProductSearchCriteriaType(SearchCriteriaType? productSearchCriteriaType)
+        //{
+        //    return Enum.IsDefined(typeof(SearchCriteriaType), productSearchCriteriaType);
+        //}
 
         private bool BeAnExistingSkillsetType(SkillsetType? skillsetType)
         {

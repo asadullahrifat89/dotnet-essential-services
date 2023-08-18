@@ -14,7 +14,7 @@ namespace Teams.ContentMangement.Domain.Repositories.Interfaces
 
         Task<ProductSearchCriteria> GetProductSearchCriteria(string id);
 
-        Task<(long Count, ProductSearchCriteria[] Records)> GetProductSearchCriterias(string searchTerm, int pageIndex, int pageSize, SearchCriteriaType? searchCriteriaType, SkillsetType? skillsetType);
+        Task<(long Count, ProductSearchCriteria[] Records)> GetProductSearchCriterias(string searchTerm, int pageIndex, int pageSize, /*SearchCriteriaType? searchCriteriaType,*/ SkillsetType? skillsetType);
 
         Task<(long Count, ProductSearchCriteria[] Records)> GetProductSearchCriteriasForProductId(string productId);
     }
