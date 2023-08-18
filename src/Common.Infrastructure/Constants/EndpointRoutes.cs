@@ -58,6 +58,7 @@
         public const string Action_UpdateProduct = "api/Command/UpdateProduct";
         public const string Action_GetProduct = "api/Query/GetProduct";        
         public const string Action_GetProducts = "api/Query/GetProducts";
+        public const string Action_GetProductRecommendations = "api/Query/GetProductRecommendations";
 
         public const string Action_AddQuotation = "api/Command/AddQuotation";
         public const string Action_UpdateQuotation = "api/Command/UpdateQuotation";

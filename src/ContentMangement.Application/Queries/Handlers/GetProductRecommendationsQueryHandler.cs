@@ -1,0 +1,71 @@
+﻿using Base.Application.DTOs.Responses;
+using Base.Application.Extensions;
+using Identity.Application.Providers.Interfaces;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using Teams.ContentMangement.Application.DTOs.Responses;
+using Teams.ContentMangement.Application.Queries.Validators;
+using Teams.ContentMangement.Domain.Entities;
+using Teams.ContentMangement.Domain.Repositories.Interfaces;
+
+namespace Teams.ContentMangement.Application.Queries.Handlers
+{
+    public class GetProductRecommendationsQueryHandler : IRequestHandler<GetProductRecommendationsQuery, QueryRecordsResponse<ProductRecommendationResponse>>
+    {
+        #region Fields
+
+        private readonly ILogger<GetProductRecommendationsQueryHandler> _logger;
+        private readonly GetProductRecommendationsQueryValidator _validator;
+        private readonly IProductRepository _productRepository;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
+
+        #endregion
+
+        #region Ctors
+
+        public GetProductRecommendationsQueryHandler(
+            ILogger<GetProductRecommendationsQueryHandler> logger,
+            GetProductRecommendationsQueryValidator validator,
+            IAuthenticationContextProvider authenticationContextProvider,
+            IProductRepository productRepository)
+        {
+            _logger = logger;
+            _validator = validator;
+            _authenticationContextProvider = authenticationContextProvider;
+            _productRepository = productRepository;
+        }
+
+        #endregion
+
+        #region Methods
+
+        public async Task<QueryRecordsResponse<ProductRecommendationResponse>> Handle(GetProductRecommendationsQuery request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+                validationResult.EnsureValidResult();
+
+                var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+                var result = await _productRepository.GetProductRecommendations(
+                    pageIndex: request.PageIndex,
+                    pageSize: request.PageSize,
+                    productSearchCriteriaIds: request.ProductSearchCriteriaIds,
+                    employmentTypes: request.EmploymentTypes,
+                    manPower: request.MinimumManPower,
+                    experience: request.MinimumExperience);
+
+                var records = result.Records.Select(x=> ProductRecommendationResponse.Initialize(x)).ToArray();
+
+                return Response.BuildQueryRecordsResponse<ProductRecommendationResponse>().BuildSuccessResponse(count: result.Count, records: records, authCtx?.RequestUri);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return Response.BuildQueryRecordsResponse<ProductRecommendationResponse>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
+            }
+        }
+
+        #endregion
+    }
+}

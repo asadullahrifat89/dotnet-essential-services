@@ -141,12 +141,12 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
         }
 
         public async Task<(long Count, (Product product, int MatchCount)[] Records)> GetProductRecommendations(
-          int pageIndex,
-          int pageSize,
-          string[] productSearchCriteriaIds,
-          EmploymentType[]? employmentTypes,
-          int? manPower,
-          int? experience)
+            int pageIndex,
+            int pageSize,
+            string[] productSearchCriteriaIds,
+            EmploymentType[]? employmentTypes,
+            int? manPower,
+            int? experience)
         {
             var mapsFilter = Builders<ProductSearchCriteriaMap>.Filter.In(x => x.ProductSearchCriteriaId, productSearchCriteriaIds);
             var productSearchCriteriaMaps = await _mongoDbService.GetDocuments(mapsFilter);
