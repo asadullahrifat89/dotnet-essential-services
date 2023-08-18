@@ -55,7 +55,15 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             return product;
         }
 
-        public async Task<(long Count, Product[] Records)> GetProducts(string searchTerm, int pageIndex, int pageSize, ProductCostType? productCostType)
+        public async Task<(long Count, Product[] Records)> GetProducts(
+            string searchTerm,
+            int pageIndex,
+            int pageSize,
+            ProductCostType? productCostType,
+            EmploymentType? employmentType,
+            PublishingStatus? publishingStatus,
+            int? manPower,
+            int? experience)
         {
             var filter = Builders<Product>.Filter.Empty;
 
@@ -69,6 +77,26 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             if (productCostType.HasValue)
             {
                 filter &= Builders<Product>.Filter.Where(x => x.ProductCostType == productCostType);
+            }
+
+            if (employmentType.HasValue)
+            {
+                filter &= Builders<Product>.Filter.ElemMatch(x => x.EmploymentTypes, x => x == employmentType);
+            }
+
+            if (publishingStatus.HasValue)
+            {
+                filter &= Builders<Product>.Filter.Where(x => x.PublishingStatus == publishingStatus);
+            }
+
+            if (manPower.HasValue)
+            {
+                filter &= Builders<Product>.Filter.Gte(x => x.ManPower, manPower);
+            }
+
+            if (experience.HasValue)
+            {
+                filter &= Builders<Product>.Filter.Gte(x => x.Experience, experience);
             }
 
             var count = await _mongoDbService.CountDocuments(filter);

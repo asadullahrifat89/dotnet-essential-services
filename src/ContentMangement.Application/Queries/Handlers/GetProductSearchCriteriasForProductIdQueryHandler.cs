@@ -1,14 +1,8 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
-using FluentValidation;
 using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Teams.ContentMangement.Application.Queries.Validators;
 using Teams.ContentMangement.Domain.Entities;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;

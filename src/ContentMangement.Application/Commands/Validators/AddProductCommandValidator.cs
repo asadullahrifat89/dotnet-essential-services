@@ -12,8 +12,8 @@ namespace Teams.ContentMangement.Application.Commands.Validators
 
             RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("Name must not be empty");
             RuleFor(x => x.Description).NotNull().NotEmpty().WithMessage("Description must not be empty");
-            RuleFor(x => x.ManPower).NotNull().NotEmpty().WithMessage("ManPower must not be empty");
-            RuleFor(x => x.Experience).NotNull().NotEmpty().WithMessage("Experience must not be empty");
+            RuleFor(x => x.ManPower).GreaterThan(0).WithMessage("ManPower must be non zero.");
+            RuleFor(x => x.Experience).GreaterThan(0).WithMessage("Experience must be non zero.");
             RuleFor(x => x.EmploymentTypes).NotNull().NotEmpty().WithMessage("EmploymentTypes must not be empty");            
             RuleFor(x => x.ProductCostType).IsInEnum().WithMessage("Invalid ProductCost type.");
             RuleFor(x => x.LinkedProductSearchCriteriaIds).NotNull().NotEmpty().WithMessage("Linked Search Criteria Ids required.");

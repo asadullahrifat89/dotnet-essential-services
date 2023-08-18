@@ -12,9 +12,9 @@ namespace Teams.ContentMangement.Application.Commands
 
         public string Description { get; set; } = string.Empty;
 
-        public string ManPower { get; set; } = string.Empty;
+        public int ManPower { get; set; } = 0;
 
-        public string Experience { get; set; } = string.Empty;
+        public int Experience { get; set; } = 0;
 
         public EmploymentType[] EmploymentTypes { get; set; } = new EmploymentType[] { };
 

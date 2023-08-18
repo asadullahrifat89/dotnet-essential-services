@@ -12,6 +12,14 @@ namespace Teams.ContentMangement.Domain.Repositories.Interfaces
 
         Task<Product> UpdateProduct(Product product, string[] linkedSearchCriteriaIds);
 
-        Task<(long Count, Product[] Records)> GetProducts(string searchTerm, int pageIndex, int pageSize, ProductCostType? productCostType);
+        Task<(long Count, Product[] Records)> GetProducts(
+            string searchTerm,
+            int pageIndex,
+            int pageSize,
+            ProductCostType? productCostType,
+            EmploymentType? employmentType,
+            PublishingStatus? publishingStatus,
+            int? manPower,
+            int? experience);
     }
 }

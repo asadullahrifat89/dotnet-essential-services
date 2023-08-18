@@ -18,12 +18,12 @@ namespace Teams.ContentMangement.Domain.Entities
         /// <summary>
         /// Amount of manpower available for this product.
         /// </summary>
-        public string ManPower { get; set; } = string.Empty;
+        public int ManPower { get; set; } = 0;
 
         /// <summary>
         /// Amount of experience the manpower has for working on this product in years.
         /// </summary>
-        public string Experience { get; set; } = string.Empty;
+        public int Experience { get; set; } = 0;
 
         /// <summary>
         /// Empolyment types available for this product

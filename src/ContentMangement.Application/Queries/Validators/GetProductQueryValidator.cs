@@ -1,10 +1,5 @@
 ﻿using Base.Application.Extensions;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
 namespace Teams.ContentMangement.Application.Queries.Validators

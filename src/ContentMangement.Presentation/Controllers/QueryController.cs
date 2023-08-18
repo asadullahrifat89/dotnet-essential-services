@@ -56,6 +56,12 @@ namespace Teams.ContentMangement.Presentation.Controllers
             return await _mediator.Send(query);
         }
 
+        [HttpGet(EndpointRoutes.Action_GetProducts)]
+        public async Task<QueryRecordsResponse<Product>> GetProducts([FromQuery] GetProductsQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
         #endregion
     }
 }

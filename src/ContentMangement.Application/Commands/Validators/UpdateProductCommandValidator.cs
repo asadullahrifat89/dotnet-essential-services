@@ -21,10 +21,10 @@ namespace Teams.ContentMangement.Application.Commands.Validators
 
             RuleFor(x => x.Name).NotEmpty().NotNull();
             RuleFor(x => x.Description).NotNull().NotEmpty();
-            RuleFor(x => x.ManPower).NotNull().NotEmpty();
+            RuleFor(x => x.ManPower).GreaterThan(0).WithMessage("ManPower must be non zero.");
+            RuleFor(x => x.Experience).GreaterThan(0).WithMessage("Experience must be non zero.");
             RuleFor(x => x.EmploymentTypes).NotNull().NotEmpty();
-            RuleFor(x => x.IconUrl).NotNull().NotEmpty();
-            RuleFor(x => x.Experience).NotNull().NotEmpty();
+            RuleFor(x => x.IconUrl).NotNull().NotEmpty();            
             RuleFor(x => x.ProductCostType).IsInEnum();
             RuleFor(x => x.PublishingStatus).IsInEnum();
 
