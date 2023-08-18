@@ -46,6 +46,7 @@
         public const string Action_UpdateProductSearchCriteria = "api/Command/UpdateProductSearchCriteria";
         public const string Action_GetProductSearchCriteria = "api/Query/GetProductSearchCriteria";
         public const string Action_GetProductSearchCriterias = "api/Query/GetProductSearchCriterias";
+        public const string Action_GetProductSearchCriteriasForProductIdQuery = "api/Query/GetProductSearchCriteriasForProductId";
 
         public const string Action_AddProject = "api/Command/AddProject";
         public const string Action_GetProject = "api/Query/GetProject";
