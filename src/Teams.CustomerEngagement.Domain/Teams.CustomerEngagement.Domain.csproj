@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Base.Domain\Base.Domain.csproj" />
     <ProjectReference Include="..\ContentMangement.Domain\Teams.ContentMangement.Domain.csproj" />
   </ItemGroup>

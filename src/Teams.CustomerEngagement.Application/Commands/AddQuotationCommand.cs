@@ -20,5 +20,22 @@ namespace Teams.CustomerEngagement.Application.Commands
         public EmploymentType[] EmploymentTypes { get; set; } = new EmploymentType[] { };
 
         public SubmittedProductSearchCriteria[] SubmittedProductSearchCriterias { get; set; } = new SubmittedProductSearchCriteria[] { };
+
+        public static Quotation Initialize(AddQuotationCommand command)
+        {
+            var quotation = new Quotation()
+            {
+                Email = command.Email,
+                Title = command.Title,
+                Location = command.Location,
+                ManPower = command.ManPower,
+                Experience = command.Experience,
+                EmploymentTypes = command.EmploymentTypes,
+                SubmittedProductSearchCriterias = command.SubmittedProductSearchCriterias,
+                TimeStamp = new Base.Domain.Entities.TimeStamp() { CreatedOn = DateTime.UtcNow } // as this is an anonymus submission no user can be tagged
+            };
+
+            return quotation;
+        }
     }
 }
