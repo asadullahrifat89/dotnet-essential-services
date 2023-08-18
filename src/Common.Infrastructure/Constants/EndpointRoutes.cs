@@ -49,13 +49,13 @@
         public const string Action_GetProductSearchCriteriasForProductIdQuery = "api/Query/GetProductSearchCriteriasForProductId";
 
         public const string Action_AddProject = "api/Command/AddProject";
-        public const string Action_GetProject = "api/Query/GetProject";
-        public const string Action_UpdateProject = "api/Query/UpdateProject";
+        public const string Action_UpdateProject = "api/Command/UpdateProject";
+        public const string Action_GetProject = "api/Query/GetProject";        
         public const string Action_GetProjects = "api/Query/GetProjects";
 
         public const string Action_AddProduct = "api/Command/AddProduct";
-        public const string Action_GetProduct = "api/Query/GetProduct";
         public const string Action_UpdateProduct = "api/Command/UpdateProduct";
+        public const string Action_GetProduct = "api/Query/GetProduct";        
         public const string Action_GetProducts = "api/Query/GetProducts";
     }
 }

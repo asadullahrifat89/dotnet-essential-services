@@ -61,6 +61,13 @@ namespace Teams.ContentMangement.Presentation.Controllers
             return await _mediator.Send(command);
         }
 
+
+        [HttpPut(EndpointRoutes.Action_UpdateProject)]
+        public async Task<ServiceResponse> UpdateProject(UpdateProjectCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
         #endregion
     }
 }
