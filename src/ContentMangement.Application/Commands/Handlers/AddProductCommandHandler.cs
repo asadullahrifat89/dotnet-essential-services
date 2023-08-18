@@ -1,41 +1,51 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
 using Identity.Application.Providers.Interfaces;
+using Identity.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Teams.ContentMangement.Application.Commands.Validators;
+using Teams.ContentMangement.Domain.Entities;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
 namespace Teams.ContentMangement.Application.Commands.Handlers
 {
-    public class UpdateProductSearchCriteriaCommandHandler : IRequestHandler<UpdateProductSearchCriteriaCommand, ServiceResponse>
+    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, ServiceResponse>
     {
         #region Fields
 
-        private readonly IProductSearchCriteriaRepository _ProductSearchCriteriaRepository;
-        private readonly UpdateProductSearchCriteriaCommandValidator _validator;
+        private readonly ILogger<AddProductCommandHandler> _logger;
+        private readonly AddProductCommandValidator _validator;
+        private readonly IProductRepository _productRepository;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
-        private readonly ILogger<UpdateProductSearchCriteriaCommandHandler> _logger;
 
         #endregion
 
         #region Ctor
 
-        public UpdateProductSearchCriteriaCommandHandler(
-            IProductSearchCriteriaRepository ProductSearchCriteriaRepository,
-            UpdateProductSearchCriteriaCommandValidator validator,
-            IAuthenticationContextProvider authenticationContextProvider,
-            ILogger<UpdateProductSearchCriteriaCommandHandler> logger)
+        public AddProductCommandHandler(
+            ILogger<AddProductCommandHandler> logger,
+            AddProductCommandValidator validator,
+            IProductRepository productRepository,
+            IAuthenticationContextProvider authenticationContextProvider)
         {
-            _ProductSearchCriteriaRepository = ProductSearchCriteriaRepository;
-            _validator = validator;
-            _authenticationContextProvider = authenticationContextProvider;
             _logger = logger;
+            _validator = validator;
+            _productRepository = productRepository;
+            _authenticationContextProvider = authenticationContextProvider;
         }
 
         #endregion
 
-        public async Task<ServiceResponse> Handle(UpdateProductSearchCriteriaCommand command, CancellationToken cancellationToken)
+        #region Methods
+
+        public async Task<ServiceResponse> Handle(AddProductCommand command, CancellationToken cancellationToken)
         {
             try
             {
@@ -43,9 +53,9 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var ProductSearchCriteria = UpdateProductSearchCriteriaCommand.Initialize(command, authCtx);
+                var product = AddProductCommand.Initialize(command, authCtx);
 
-                var result = await _ProductSearchCriteriaRepository.UpdateProductSearchCriteria(ProductSearchCriteria);
+                var result = await _productRepository.AddProduct(product, command.LinkedProductSearchCriteriaIds);
 
                 return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
             }
@@ -55,5 +65,7 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
                 return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
             }
         }
+
+        #endregion
     }
 }

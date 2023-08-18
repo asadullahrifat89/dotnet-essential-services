@@ -43,6 +43,12 @@ namespace Teams.ContentMangement.Presentation.Controllers
             return await _mediator.Send(command);
         }
 
+        [HttpPost(EndpointRoutes.Action_AddProduct)]
+        public async Task<ServiceResponse> AddProduct(AddProductCommand command)
+        {
+            return await _mediator.Send(command);
+        }
+
         #endregion
     }
 }

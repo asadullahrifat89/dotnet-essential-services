@@ -61,7 +61,9 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
 
             if (!searchTerm.IsNullOrBlank())
             {
-                filter &= Builders<Product>.Filter.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower()));
+                filter &= Builders<Product>.Filter.Or(
+                    Builders<Product>.Filter.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower())),
+                    Builders<Product>.Filter.Where(x => x.Description.ToLower().Contains(searchTerm.ToLower())));
             }
 
             if (productCostType.HasValue)

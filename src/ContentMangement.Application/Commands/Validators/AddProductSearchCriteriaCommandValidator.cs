@@ -1,6 +1,5 @@
 ﻿using Base.Application.Extensions;
 using FluentValidation;
-using Teams.ContentMangement.Application.Commands;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
 namespace Teams.ContentMangement.Application.Commands.Validators

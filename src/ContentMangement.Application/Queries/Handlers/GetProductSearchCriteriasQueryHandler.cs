@@ -3,7 +3,6 @@ using Base.Application.Extensions;
 using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Teams.ContentMangement.Application.Queries;
 using Teams.ContentMangement.Application.Queries.Validators;
 using Teams.ContentMangement.Domain.Entities;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
