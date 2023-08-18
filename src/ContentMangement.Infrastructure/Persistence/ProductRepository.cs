@@ -18,7 +18,9 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
 
         #region Ctor
 
-        public ProductRepository(IMongoDbContextProvider mongoDbService, IAuthenticationContextProvider authenticationContext)
+        public ProductRepository(
+            IMongoDbContextProvider mongoDbService,
+            IAuthenticationContextProvider authenticationContext)
         {
             _mongoDbService = mongoDbService;
             _authenticationContext = authenticationContext;
@@ -137,7 +139,6 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
 
             return (count, products is not null ? products.ToArray() : Array.Empty<Product>());
         }
-        
 
         private List<ProductSearchCriteriaMap> CreateProductSearchCriteriaMaps(string[] linkedProductSearchCriteriaIds, string productId)
         {

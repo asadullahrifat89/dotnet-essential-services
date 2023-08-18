@@ -12,7 +12,11 @@ namespace Teams.ContentMangement.Domain.Repositories.Interfaces
 
         Task<Project> GetProject(string projectId);
 
-        Task<(long Count, Project[] Records)> GetProjects(string searchTerm, int pageIndex, int pageSize, PublishingStatus? publishingStatus);
+        Task<(long Count, Project[] Records)> GetProjects(
+            string searchTerm,
+            int pageIndex,
+            int pageSize,
+            PublishingStatus? publishingStatus);
 
         Task<(long Count, Project[] Records)> GetProjectsForProductId(string productId);
     }

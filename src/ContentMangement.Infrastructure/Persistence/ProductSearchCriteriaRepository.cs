@@ -133,8 +133,6 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             }
         }
 
-      
-
         #endregion
     }
 }
