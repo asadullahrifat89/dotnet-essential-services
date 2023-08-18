@@ -5,10 +5,11 @@ namespace Teams.ContentMangement.Application.Commands.Validators
 {
     public class AddProductCommandValidator : AbstractValidator<AddProductCommand>
     {
-        private readonly IProductSearchCriteriaRepository _searchCriteriaRepository;
+        private readonly IProductSearchCriteriaRepository _productSearchCriteriaRepository;
+
         public AddProductCommandValidator(IProductSearchCriteriaRepository searchCriteriaRepository)
         {
-            _searchCriteriaRepository = searchCriteriaRepository;
+            _productSearchCriteriaRepository = searchCriteriaRepository;
 
             RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("Name must not be empty");
             RuleFor(x => x.Description).NotNull().NotEmpty().WithMessage("Description must not be empty");
@@ -25,7 +26,7 @@ namespace Teams.ContentMangement.Application.Commands.Validators
         {
             foreach (var id in command.LinkedProductSearchCriteriaIds)
             {
-                var exists = await _searchCriteriaRepository.BeAnExistingProductSearchCriteriaById(id);
+                var exists = await _productSearchCriteriaRepository.BeAnExistingProductSearchCriteriaById(id);
 
                 if (!exists)
                     return false;
