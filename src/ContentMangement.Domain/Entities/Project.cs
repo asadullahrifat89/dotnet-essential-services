@@ -17,7 +17,12 @@ namespace Teams.ContentMangement.Domain.Entities
         /// <summary>
         /// Browsable link to the project.
         /// </summary>
-        public string Link { get; set; } = string.Empty;
+        public string ProjectLink { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Link to the client's website.
+        /// </summary>
+        public string ClientLink { get; set; } = string.Empty;
 
         /// <summary>
         /// Icon image url of this project. It can be the company image for which this project is developed.
