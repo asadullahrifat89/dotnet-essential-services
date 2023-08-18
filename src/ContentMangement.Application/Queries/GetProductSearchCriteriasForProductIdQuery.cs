@@ -1,5 +1,4 @@
-﻿using Base.Application.DTOs.Requests;
-using Base.Application.DTOs.Responses;
+﻿using Base.Application.DTOs.Responses;
 using MediatR;
 using Teams.ContentMangement.Domain.Entities;
 
