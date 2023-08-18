@@ -4,11 +4,12 @@ using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Teams.ContentMangement.Application.DTOs.Responses;
-using Teams.ContentMangement.Application.Queries.Validators;
 using Teams.ContentMangement.Domain.Entities;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
+using Teams.CustomerEngagement.Application.Queries;
+using Teams.CustomerEngagement.Application.Queries.Validators;
 
-namespace Teams.ContentMangement.Application.Queries.Handlers
+namespace Teams.CustomerEngagement.Application.Queries.Handlers
 {
     public class GetProductRecommendationsQueryHandler : IRequestHandler<GetProductRecommendationsQuery, QueryRecordsResponse<ProductRecommendationResponse>>
     {
@@ -55,7 +56,7 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                     manPower: request.MinimumManPower,
                     experience: request.MinimumExperience);
 
-                var records = result.Records.Select(x=> ProductRecommendationResponse.Initialize(x)).ToArray();
+                var records = result.Records.Select(x => ProductRecommendationResponse.Initialize(x)).ToArray();
 
                 return Response.BuildQueryRecordsResponse<ProductRecommendationResponse>().BuildSuccessResponse(count: result.Count, records: records, authCtx?.RequestUri);
             }

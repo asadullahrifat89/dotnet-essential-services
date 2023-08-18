@@ -65,11 +65,7 @@ namespace Teams.ContentMangement.Presentation.Controllers
             return await _mediator.Send(query);
         }
 
-        [HttpPost(EndpointRoutes.Action_GetProductRecommendations)]
-        public async Task<QueryRecordsResponse<ProductRecommendationResponse>> GetProductRecommendations([FromBody] GetProductRecommendationsQuery query)
-        {
-            return await _mediator.Send(query);
-        }
+       
 
         [HttpGet(EndpointRoutes.Action_GetProject)]
         public async Task<QueryRecordResponse<Project>> GetProject([FromQuery] GetProjectQuery query)
