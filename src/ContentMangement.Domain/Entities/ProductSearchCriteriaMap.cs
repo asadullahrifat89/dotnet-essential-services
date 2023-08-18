@@ -8,8 +8,14 @@ namespace SharedModule.Domain.Entities
         [BsonId]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
+        /// <summary>
+        /// Id of the mapped product.
+        /// </summary>
         public string ProductId { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Id of the mapped product search criteria.
+        /// </summary>
         public string ProductSearchCriteriaId { get; set; } = string.Empty;
     }
 }
