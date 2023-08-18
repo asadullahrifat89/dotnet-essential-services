@@ -25,7 +25,7 @@
         public const string Action_AddClaimPermission = "api/Command/AddClaimPermission";
 
         public const string Action_UploadFile = "api/Command/UploadFile";
-        public const string Action_DownloadFile = "api/Command/DownloadFile";
+        public const string Action_DownloadFile = "api/Query/DownloadFile";
         public const string Action_GetFile = "api/Query/GetFile";
 
         public const string Action_CreateEmailTemplate = "api/Command/CreateEmailTemplate";
@@ -49,13 +49,14 @@
         public const string Action_GetProductSearchCriteriasForProductIdQuery = "api/Query/GetProductSearchCriteriasForProductId";
 
         public const string Action_AddProject = "api/Command/AddProject";
-        public const string Action_GetProject = "api/Query/GetProject";
-        public const string Action_UpdateProject = "api/Query/UpdateProject";
+        public const string Action_UpdateProject = "api/Command/UpdateProject";
+        public const string Action_GetProject = "api/Query/GetProject";        
         public const string Action_GetProjects = "api/Query/GetProjects";
+        public const string Action_GetProjectsForProductId = "api/Query/GetProjectsForProductId";
 
         public const string Action_AddProduct = "api/Command/AddProduct";
-        public const string Action_GetProduct = "api/Query/GetProduct";
         public const string Action_UpdateProduct = "api/Command/UpdateProduct";
+        public const string Action_GetProduct = "api/Query/GetProduct";        
         public const string Action_GetProducts = "api/Query/GetProducts";
     }
 }
