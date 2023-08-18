@@ -1,5 +1,5 @@
 ﻿using Base.Application.Extensions;
-using Base.Application.Providers.Interfaces;
+using Base.Infrastructure.Providers.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using MongoDB.Driver;
 using Teams.ContentMangement.Domain.Entities;
@@ -58,7 +58,7 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
                 .Set(x => x.Description, productSearchCriteria.Description)
                 .Set(x => x.IconUrl, productSearchCriteria.IconUrl)
                 .Set(x => x.SkillsetType, productSearchCriteria.SkillsetType)
-                .Set(x => x.SearchCriteriaType, productSearchCriteria.SearchCriteriaType)
+                //.Set(x => x.SearchCriteriaType, productSearchCriteria.SearchCriteriaType)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
@@ -78,7 +78,7 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             string searchTerm,
             int pageIndex,
             int pageSize,
-            SearchCriteriaType? searchCriteriaType,
+            //SearchCriteriaType? searchCriteriaType,
             SkillsetType? skillsetType)
         {
             var filter = Builders<ProductSearchCriteria>.Filter.Empty;
@@ -90,10 +90,10 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
                     Builders<ProductSearchCriteria>.Filter.Where(x => x.Description.ToLower().Contains(searchTerm.ToLower())));
             }
 
-            if (searchCriteriaType.HasValue)
-            {
-                filter &= Builders<ProductSearchCriteria>.Filter.Eq(x => x.SearchCriteriaType, searchCriteriaType);
-            }
+            //if (searchCriteriaType.HasValue)
+            //{
+            //    filter &= Builders<ProductSearchCriteria>.Filter.Eq(x => x.SearchCriteriaType, searchCriteriaType);
+            //}
 
             if (skillsetType.HasValue)
             {

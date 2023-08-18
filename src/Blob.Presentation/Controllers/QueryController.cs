@@ -1,4 +1,5 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Blob.Application.Queries;
 using Blob.Domain.Entities;
@@ -11,6 +12,7 @@ namespace Blob.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Blob.Query")]
     public class QueryController : ControllerBase
     {
         #region Fields

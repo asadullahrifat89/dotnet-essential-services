@@ -1,9 +1,11 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Teams.ContentMangement.Application.DTOs.Responses;
 using Teams.ContentMangement.Application.Queries;
 using Teams.ContentMangement.Domain.Entities;
 
@@ -11,6 +13,7 @@ namespace Teams.ContentMangement.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Teams.ContentMangement.Query")]
     public class QueryController : ControllerBase
     {
         #region Fields
@@ -58,6 +61,12 @@ namespace Teams.ContentMangement.Presentation.Controllers
 
         [HttpGet(EndpointRoutes.Action_GetProducts)]
         public async Task<QueryRecordsResponse<Product>> GetProducts([FromQuery] GetProductsQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
+        [HttpPost(EndpointRoutes.Action_GetProductRecommendations)]
+        public async Task<QueryRecordsResponse<ProductRecommendationResponse>> GetProductRecommendations([FromBody] GetProductRecommendationsQuery query)
         {
             return await _mediator.Send(query);
         }

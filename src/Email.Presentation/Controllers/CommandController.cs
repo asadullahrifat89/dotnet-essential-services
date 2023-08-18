@@ -1,4 +1,5 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Email.Application.Commands;
 using Identity.Application.Attributes;
@@ -10,6 +11,7 @@ namespace Email.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Email.Command")]
     public class CommandController : ControllerBase
     {
         #region Fields

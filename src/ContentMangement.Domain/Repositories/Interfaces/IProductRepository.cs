@@ -21,5 +21,13 @@ namespace Teams.ContentMangement.Domain.Repositories.Interfaces
             PublishingStatus? publishingStatus,
             int? manPower,
             int? experience);
+
+        Task<(long Count, (Product product, int MatchCount)[] Records)> GetProductRecommendations(
+            int pageIndex,
+            int pageSize,
+            string[] productSearchCriteriaIds,
+            EmploymentType[]? employmentTypes,
+            int? manPower,
+            int? experience);
     }
 }

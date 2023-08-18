@@ -20,7 +20,7 @@ namespace Teams.ContentMangement.Application.Commands
 
         public string[] ImageUrls { get; set; } = new string[] { };
 
-        public string[] LinkedProductIds { get; set; } = new string[0];
+        public string[] LinkedProductIds { get; set; } = new string[] { };
 
         public static Project Initialize(AddProjectCommand command, AuthenticationContext authenticationContext)
         {

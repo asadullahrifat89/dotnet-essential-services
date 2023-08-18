@@ -20,23 +20,23 @@ namespace Teams.ContentMangement.Domain.Entities
         /// </summary>
         public string IconUrl { get; set; } = string.Empty;
 
-        /// <summary>
-        /// The search criteria type of the product search criteria.
-        /// </summary>
-        public SearchCriteriaType SearchCriteriaType { get; set; }
+        ///// <summary>
+        ///// The search criteria type of the product search criteria.
+        ///// </summary>
+        //public SearchCriteriaType SearchCriteriaType { get; set; }
 
         /// <summary>
-        /// Based on the search criteria type, the skill set type of the the product search criteria.
+        /// The skill set type of the the product search criteria.
         /// </summary>
         public SkillsetType SkillsetType { get; set; }
-    }
+    }    
 
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum SearchCriteriaType
-    {
-        Discipline,
-        Skillset,
-    }
+    //[JsonConverter(typeof(JsonStringEnumConverter))]
+    //public enum SearchCriteriaType
+    //{
+    //    Discipline,
+    //    Skillset,
+    //}
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SkillsetType

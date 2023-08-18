@@ -17,7 +17,7 @@ namespace Teams.ContentMangement.Application.Commands.Validators
 
             RuleFor(x => x.Description).NotNull().NotEmpty().WithMessage("Description must not be empty");
             RuleFor(x => x.IconUrl).NotNull().NotEmpty().WithMessage("IconUrl must not be empty");
-            RuleFor(x => x.SearchCriteriaType).IsInEnum().WithMessage("SearchCriteria Type is not acceptable");
+            //RuleFor(x => x.SearchCriteriaType).IsInEnum().WithMessage("SearchCriteria Type is not acceptable");
             RuleFor(x => x.SkillsetType).IsInEnum().WithMessage("Skillset Type is not acceptable");
         }
 

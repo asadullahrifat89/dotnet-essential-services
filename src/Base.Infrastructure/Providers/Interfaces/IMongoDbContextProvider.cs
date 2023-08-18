@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System.Text.Json.Serialization;
 
-namespace Base.Application.Providers.Interfaces
+namespace Base.Infrastructure.Providers.Interfaces
 {
     public interface IMongoDbContextProvider
     {

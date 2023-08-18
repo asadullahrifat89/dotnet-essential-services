@@ -1,5 +1,5 @@
 ﻿using Base.Application.Extensions;
-using Base.Application.Providers.Interfaces;
+using Base.Infrastructure.Providers.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using MongoDB.Driver;
 using Teams.ContentMangement.Domain.Entities;
@@ -138,6 +138,68 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
                 limit: pageSize);
 
             return (count, products is not null ? products.ToArray() : Array.Empty<Product>());
+        }
+
+        public async Task<(long Count, (Product product, int MatchCount)[] Records)> GetProductRecommendations(
+            int pageIndex,
+            int pageSize,
+            string[] productSearchCriteriaIds,
+            EmploymentType[]? employmentTypes,
+            int? manPower,
+            int? experience)
+        {
+            var mapsFilter = Builders<ProductSearchCriteriaMap>.Filter.In(x => x.ProductSearchCriteriaId, productSearchCriteriaIds);
+            var productSearchCriteriaMaps = await _mongoDbService.GetDocuments(mapsFilter);
+
+            var emptyMatchings = new List<(Product product, int MatchCount)>();
+
+            // if no search criteria mapping was found return empty result.
+            if (productSearchCriteriaMaps is null || !productSearchCriteriaMaps.Any())
+            {
+                return (0, emptyMatchings.ToArray());
+            }
+
+            var filter = Builders<Product>.Filter.Empty;
+
+            if (employmentTypes is not null && employmentTypes.Any())
+            {
+                filter &= Builders<Product>.Filter.AnyIn(x => x.EmploymentTypes, employmentTypes);
+            }
+
+            if (manPower.HasValue)
+            {
+                filter &= Builders<Product>.Filter.Gte(x => x.ManPower, manPower);
+            }
+
+            if (experience.HasValue)
+            {
+                filter &= Builders<Product>.Filter.Gte(x => x.Experience, experience);
+            }
+
+            var productIds = productSearchCriteriaMaps.Select(x => x.ProductId).Distinct().ToArray();
+
+            filter &= Builders<Product>.Filter.In(x => x.Id, productIds);
+            var count = await _mongoDbService.CountDocuments(filter);
+
+            var products = await _mongoDbService.GetDocuments(
+                filter: filter,
+                skip: pageIndex * pageSize,
+                limit: pageSize);
+
+            var matchingProducts = new List<(Product product, int MatchCount)>();
+
+            foreach (var product in products)
+            {
+                var foundProductSearchCriteriaMaps = productSearchCriteriaMaps.Where(x => x.ProductId == product.Id).ToArray();
+                var foundProductSearchCriteriaIds = foundProductSearchCriteriaMaps.Select(x => x.ProductSearchCriteriaId).Distinct().ToArray();
+
+                var matchCount = foundProductSearchCriteriaIds.Intersect(productSearchCriteriaIds).Count();
+                matchingProducts.Add((product, matchCount));
+            }
+
+            var orderedResults = matchingProducts.OrderByDescending(x => x.MatchCount).ToArray();
+
+            return (count, orderedResults is not null ? orderedResults : emptyMatchings.ToArray());
         }
 
         private List<ProductSearchCriteriaMap> CreateProductSearchCriteriaMaps(string[] linkedProductSearchCriteriaIds, string productId)

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Base.Application\Base.Application.csproj" />
+    <ProjectReference Include="..\ContentMangement.Application\Teams.ContentMangement.Application.csproj" />
+    <ProjectReference Include="..\ContentMangement.Domain\Teams.ContentMangement.Domain.csproj" />
+    <ProjectReference Include="..\Teams.CustomerEngagement.Domain\Teams.CustomerEngagement.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

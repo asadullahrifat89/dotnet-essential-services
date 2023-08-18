@@ -1,4 +1,5 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Blob.Application.Commands;
 using Identity.Application.Attributes;
@@ -10,6 +11,7 @@ namespace Blob.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Blob.Command")]
     public class CommandController : ControllerBase
     {
         #region Fields
@@ -31,7 +33,7 @@ namespace Blob.Presentation.Controllers
 
         #region Methods
 
-        [HttpPost(EndpointRoutes.Action_UploadFile)]
+        [HttpPost(EndpointRoutes.Action_UploadFile)]        
         public async Task<ServiceResponse> UploadFile(IFormFile file)
         {
             return await _mediator.Send(new UploadBlobFileCommand() { FormFile = file });

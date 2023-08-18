@@ -14,6 +14,6 @@ namespace Base.Application.DTOs.Requests
         /// Page size determines how many records to return from this query.
         /// </summary>
         public int PageSize { get; set; }
-    }
+    }   
 
 }
