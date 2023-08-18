@@ -16,4 +16,6 @@ namespace Base.Application.DTOs.Requests
         public int PageSize { get; set; }
     }
 
+    
+
 }
