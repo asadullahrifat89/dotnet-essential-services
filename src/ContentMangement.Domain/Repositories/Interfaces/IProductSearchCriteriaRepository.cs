@@ -12,6 +12,8 @@ namespace Teams.ContentMangement.Domain.Repositories.Interfaces
 
         Task<(long Count, ProductSearchCriteria[] Records)> GetProductSearchCriterias(string searchTerm, int pageIndex, int pageSize, SearchCriteriaType? searchCriteriaType, SkillsetType? skillsetType);
 
+        Task<ProductSearchCriteria[]> GetProductSearchCriteriasForProductId(string productId);
+
         Task<bool> BeAnExistingProductSearchCriteria(string name);
 
         Task<bool> BeAnExistingProductSearchCriteriaById(string id);

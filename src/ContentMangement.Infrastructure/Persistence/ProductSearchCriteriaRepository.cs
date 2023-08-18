@@ -92,6 +92,28 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             return (count, records is not null ? records.ToArray() : Array.Empty<ProductSearchCriteria>());
         }
 
+        public async Task<ProductSearchCriteria[]> GetProductSearchCriteriasForProductId(string productId)
+        {
+            var mapFilter = Builders<ProductSearchCriteriaMap>.Filter.Eq(x => x.ProductId, productId);
+
+            var productSearchCriteriaMaps = await _mongoDbService.GetDocuments(filter: mapFilter);
+
+            if (productSearchCriteriaMaps is not null && productSearchCriteriaMaps.Any())
+            {
+                var productSearchCriteriaIds = productSearchCriteriaMaps.Select(x => x.ProductSearchCriteriaId).ToArray();
+
+                var criteriaFilter = Builders<ProductSearchCriteria>.Filter.In(x => x.Id, productSearchCriteriaIds);
+
+                var productSearchCriterias = await _mongoDbService.GetDocuments(filter: criteriaFilter);
+
+                return productSearchCriterias is not null ? productSearchCriterias.ToArray() : Array.Empty<ProductSearchCriteria>();
+            }
+            else
+            {
+                return Array.Empty<ProductSearchCriteria>();
+            }
+        }
+
         public async Task<ProductSearchCriteria> UpdateProductSearchCriteria(ProductSearchCriteria productSearchCriteria)
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
