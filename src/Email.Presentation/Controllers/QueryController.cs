@@ -1,4 +1,5 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Email.Application.Queries;
 using Email.Domain.Entities;
@@ -11,6 +12,7 @@ namespace Email.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Email.Queries")]
     public class QueryController : ControllerBase
     {
         #region Fields

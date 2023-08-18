@@ -23,6 +23,7 @@ using Language.Infrastructure.Persistence;
 using Teams.ContentMangement.Infrastructure.Persistence;
 using Teams.ContentMangement.Application.Commands;
 using Teams.ContentMangement.Application.Commands.Validators;
+using Base.Application.Attributes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,7 +84,10 @@ builder.Services.AddRepositories<LanguageResourcesRepository>();
 
 builder.Services.AddRepositories<ProductSearchCriteriaRepository>();
 
-builder.Services.AddMvc();
+builder.Services.AddMvc(mvc =>
+{
+    mvc.Conventions.Add(new ControllerNameAttributeConvention());
+});
 
 // Add services to the container.
 builder.Services.AddControllers();

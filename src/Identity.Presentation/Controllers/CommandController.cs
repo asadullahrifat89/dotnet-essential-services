@@ -1,4 +1,5 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Identity.Application.Attributes;
 using Identity.Application.Commands;
@@ -10,6 +11,7 @@ namespace Identity.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Identity.Commands")]
     public class CommandController : ControllerBase
     {
         #region Fields

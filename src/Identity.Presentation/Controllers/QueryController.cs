@@ -1,4 +1,5 @@
-﻿using Base.Application.DTOs.Responses;
+﻿using Base.Application.Attributes;
+using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Identity.Application.Attributes;
 using Identity.Application.DTOs;
@@ -12,6 +13,7 @@ namespace Identity.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
+    [ControllerName("Identity.Queries")]
     public class QueryController : ControllerBase
     {
         #region Fields
