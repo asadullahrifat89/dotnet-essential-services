@@ -1,7 +1,7 @@
-﻿using ContentMangement.Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
+using Teams.ContentMangement.Domain.Entities;
 
-namespace ContentMangement.Application.Queries.Validators
+namespace Teams.ContentMangement.Application.Queries.Validators
 {
     public class GetProductSearchCriteriasQueryValidator : AbstractValidator<GetProductSearchCriteriasQuery>
     {

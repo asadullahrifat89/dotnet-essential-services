@@ -1,8 +1,9 @@
 ﻿using Base.Application.Extensions;
-using ContentMangement.Domain.Repositories.Interfaces;
 using FluentValidation;
+using Teams.ContentMangement.Application.Commands;
+using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
-namespace ContentMangement.Application.Commands.Validators
+namespace Teams.ContentMangement.Application.Commands.Validators
 {
     public class AddProductSearchCriteriaCommandValidator : AbstractValidator<AddProductSearchCriteriaCommand>
     {

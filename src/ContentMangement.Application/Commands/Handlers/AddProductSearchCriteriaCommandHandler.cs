@@ -1,12 +1,12 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
-using ContentMangement.Application.Commands.Validators;
-using ContentMangement.Domain.Repositories.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Teams.ContentMangement.Application.Commands.Validators;
+using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
-namespace ContentMangement.Application.Commands.Handlers
+namespace Teams.ContentMangement.Application.Commands.Handlers
 {
     public class AddProductSearchCriteriaCommandHandler : IRequestHandler<AddProductSearchCriteriaCommand, ServiceResponse>
     {

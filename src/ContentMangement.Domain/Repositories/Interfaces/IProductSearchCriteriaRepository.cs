@@ -1,6 +1,6 @@
-﻿using ContentMangement.Domain.Entities;
+﻿using Teams.ContentMangement.Domain.Entities;
 
-namespace ContentMangement.Domain.Repositories.Interfaces
+namespace Teams.ContentMangement.Domain.Repositories.Interfaces
 {
     public interface IProductSearchCriteriaRepository
     {

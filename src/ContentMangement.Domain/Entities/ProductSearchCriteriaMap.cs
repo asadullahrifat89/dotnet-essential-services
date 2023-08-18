@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace SharedModule.Domain.Entities
+namespace Teams.ContentMangement.Domain.Entities
 {
     [BsonIgnoreExtraElements]
     public class ProductSearchCriteriaMap

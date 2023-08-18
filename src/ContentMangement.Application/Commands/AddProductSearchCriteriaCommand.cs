@@ -1,10 +1,10 @@
 ﻿using Base.Application.DTOs.Responses;
-using ContentMangement.Domain.Entities;
 using Identity.Application.Extensions;
 using Identity.Domain.Entities;
 using MediatR;
+using Teams.ContentMangement.Domain.Entities;
 
-namespace ContentMangement.Application.Commands
+namespace Teams.ContentMangement.Application.Commands
 {
     public class AddProductSearchCriteriaCommand : IRequest<ServiceResponse>
     {

@@ -1,7 +1,7 @@
 ﻿using Base.Domain.Entities;
 using System.Text.Json.Serialization;
 
-namespace ContentMangement.Domain.Entities
+namespace Teams.ContentMangement.Domain.Entities
 {
     public class Product : EntityBase
     {
@@ -39,7 +39,7 @@ namespace ContentMangement.Domain.Entities
         /// Icon image url of this product.
         /// </summary>
         public string IconUrl { get; set; } = string.Empty;
-        
+
         /// <summary>
         /// Publishing status of the product in the cms.
         /// </summary>

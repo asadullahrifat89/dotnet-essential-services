@@ -1,7 +1,7 @@
 ﻿using Base.Application.DTOs.Requests;
-using ContentMangement.Domain.Entities;
+using Teams.ContentMangement.Domain.Entities;
 
-namespace ContentMangement.Application.Queries
+namespace Teams.ContentMangement.Application.Queries
 {
     public class GetProductSearchCriteriasQuery : PagedRequestBase<ProductSearchCriteria>
     {

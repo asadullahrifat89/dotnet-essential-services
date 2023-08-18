@@ -1,12 +1,12 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
-using ContentMangement.Application.Commands;
 using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Teams.ContentMangement.Application.Commands;
 
-namespace ContentMangement.Presentation.Controllers
+namespace Teams.ContentMangement.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]

@@ -1,13 +1,13 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
-using ContentMangement.Application.Queries.Validators;
-using ContentMangement.Domain.Entities;
-using ContentMangement.Domain.Repositories.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Teams.ContentMangement.Application.Queries.Validators;
+using Teams.ContentMangement.Domain.Entities;
+using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
-namespace ContentMangement.Application.Queries.Handlers
+namespace Teams.ContentMangement.Application.Queries.Handlers
 {
     public class GetProductSearchCriteriaQueryHandler : IRequestHandler<GetProductSearchCriteriaQuery, QueryRecordResponse<ProductSearchCriteria>>
     {

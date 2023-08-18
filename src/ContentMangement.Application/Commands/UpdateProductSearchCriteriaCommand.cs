@@ -1,7 +1,7 @@
-﻿using ContentMangement.Domain.Entities;
-using Identity.Domain.Entities;
+﻿using Identity.Domain.Entities;
+using Teams.ContentMangement.Domain.Entities;
 
-namespace ContentMangement.Application.Commands
+namespace Teams.ContentMangement.Application.Commands
 {
     public class UpdateProductSearchCriteriaCommand : AddProductSearchCriteriaCommand
     {

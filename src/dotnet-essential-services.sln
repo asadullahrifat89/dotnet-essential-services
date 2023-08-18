@@ -53,13 +53,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Language.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Language.Presentation", "Language.Presentation\Language.Presentation.csproj", "{382750BF-978F-4E24-B751-F6E9E4E7AD89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentMangement.Domain", "ContentMangement.Domain\ContentMangement.Domain.csproj", "{51B3A291-70D0-43D8-AFC7-B6F60D22248E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.ContentMangement.Domain", "ContentMangement.Domain\Teams.ContentMangement.Domain.csproj", "{51B3A291-70D0-43D8-AFC7-B6F60D22248E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentMangement.Application", "ContentMangement.Application\ContentMangement.Application.csproj", "{7B9B165D-8426-40B5-AB3F-55778EC772DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.ContentMangement.Application", "ContentMangement.Application\Teams.ContentMangement.Application.csproj", "{7B9B165D-8426-40B5-AB3F-55778EC772DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentMangement.Presentation", "ContentMangement.Presentation\ContentMangement.Presentation.csproj", "{E466A8F9-BDE3-4639-9153-6524E55ECE28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.ContentMangement.Presentation", "ContentMangement.Presentation\Teams.ContentMangement.Presentation.csproj", "{E466A8F9-BDE3-4639-9153-6524E55ECE28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentMangement.Infrastructure", "ContentMangement.Infrastructure\ContentMangement.Infrastructure.csproj", "{257CEEA8-8DA1-49A4-98C1-9280E0019004}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.ContentMangement.Infrastructure", "ContentMangement.Infrastructure\Teams.ContentMangement.Infrastructure.csproj", "{257CEEA8-8DA1-49A4-98C1-9280E0019004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

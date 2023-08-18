@@ -1,8 +1,8 @@
 ﻿using Base.Application.DTOs.Responses;
-using ContentMangement.Domain.Entities;
 using MediatR;
+using Teams.ContentMangement.Domain.Entities;
 
-namespace ContentMangement.Application.Queries
+namespace Teams.ContentMangement.Application.Queries
 {
     public class GetProductSearchCriteriaQuery : IRequest<QueryRecordResponse<ProductSearchCriteria>>
     {

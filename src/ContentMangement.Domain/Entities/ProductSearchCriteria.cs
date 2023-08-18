@@ -1,7 +1,7 @@
 ﻿using Base.Domain.Entities;
 using System.Text.Json.Serialization;
 
-namespace ContentMangement.Domain.Entities
+namespace Teams.ContentMangement.Domain.Entities
 {
     public class ProductSearchCriteria : EntityBase
     {

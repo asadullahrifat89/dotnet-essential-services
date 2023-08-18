@@ -20,9 +20,9 @@ using Identity.Infrastructure.Persistence;
 using Blob.Infrastructure.Persistence;
 using Email.Infrastructure.Persistence;
 using Language.Infrastructure.Persistence;
-using ContentMangement.Application.Commands;
-using ContentMangement.Application.Commands.Validators;
-using ContentMangement.Infrastructure.Persistence;
+using Teams.ContentMangement.Infrastructure.Persistence;
+using Teams.ContentMangement.Application.Commands;
+using Teams.ContentMangement.Application.Commands.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 

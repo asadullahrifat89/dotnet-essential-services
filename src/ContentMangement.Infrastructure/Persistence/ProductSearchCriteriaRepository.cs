@@ -1,11 +1,11 @@
 ﻿using Base.Application.Extensions;
 using Base.Application.Providers.Interfaces;
-using ContentMangement.Domain.Entities;
-using ContentMangement.Domain.Repositories.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using MongoDB.Driver;
+using Teams.ContentMangement.Domain.Entities;
+using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
-namespace ContentMangement.Infrastructure.Persistence
+namespace Teams.ContentMangement.Infrastructure.Persistence
 {
     public class ProductSearchCriteriaRepository : IProductSearchCriteriaRepository
     {
