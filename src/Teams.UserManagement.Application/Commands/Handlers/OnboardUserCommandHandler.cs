@@ -11,6 +11,7 @@ using Identity.Domain.Repositories.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Teams.UserManagement.Application.Commands.Validators;
 
 namespace Teams.UserManagement.Application.Commands.Handlers
 {
@@ -22,6 +23,7 @@ namespace Teams.UserManagement.Application.Commands.Handlers
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
         private readonly IMediator _mediator;
         private readonly IConfiguration _configuration;
+        private readonly OnboardUserCommandValidator _validator;
 
         #endregion
 
@@ -31,12 +33,14 @@ namespace Teams.UserManagement.Application.Commands.Handlers
             ILogger<OnboardUserCommandHandler> logger,
             IAuthenticationContextProvider authenticationContextProvider,
             IMediator mediator,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            OnboardUserCommandValidator validator)
         {
             _logger = logger;
             _authenticationContextProvider = authenticationContextProvider;
             _mediator = mediator;
             _configuration = configuration;
+            _validator = validator;
         }
 
         #endregion
@@ -48,6 +52,9 @@ namespace Teams.UserManagement.Application.Commands.Handlers
             try
             {
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+                var validationResult = await _validator.ValidateAsync(command, cancellationToken);
+                validationResult.EnsureValidResult();
 
                 // submit user
                 var submitUserCommand = OnboardUserCommand.InitializeSubmitUserCommand(command);

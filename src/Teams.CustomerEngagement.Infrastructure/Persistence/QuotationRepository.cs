@@ -1,5 +1,6 @@
 ﻿using Base.Application.Extensions;
 using Base.Infrastructure.Providers.Interfaces;
+using Base.Shared.Constants;
 using Identity.Application.Providers.Interfaces;
 using Identity.Domain.Entities;
 using MongoDB.Driver;
@@ -151,7 +152,7 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
         {
             var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-            if (authCtx.User.MetaTags.Contains("customer"))
+            if (authCtx.User.MetaTags.Contains(CommonConstants.Consumer_Tag))
             {
                 filter &= Builders<Quotation>.Filter.Eq(x => x.Email, authCtx.User.Email);
             }
