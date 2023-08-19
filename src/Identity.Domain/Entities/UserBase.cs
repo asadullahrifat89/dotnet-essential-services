@@ -19,7 +19,7 @@ namespace Identity.Domain.Entities
 
         public string PhoneNumber { get; set; } = string.Empty;
 
-        public Address Address { get; set; } = new Address();
+        public Address[] Addresses { get; set; } = new Address[] { };
 
         public UserStatus UserStatus { get; set; } = UserStatus.Inactive;
 

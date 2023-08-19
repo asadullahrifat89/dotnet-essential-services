@@ -24,7 +24,7 @@ namespace Teams.ContentMangement.Application.Commands
 
         public string[] LinkedProductSearchCriteriaIds { get; set; } = new string[0];
 
-        public static Product Initialize(AddProductCommand command, AuthenticationContext authenticationContext)
+        public static Product Map(AddProductCommand command, AuthenticationContext authenticationContext)
         {
             var product = new Product()
             {

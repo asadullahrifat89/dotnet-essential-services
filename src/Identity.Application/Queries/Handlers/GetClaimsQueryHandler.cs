@@ -36,7 +36,7 @@ namespace Identity.Application.Queries.Handlers
 
                 return Response.BuildQueryRecordsResponse<ClaimPermission>().BuildSuccessResponse(
                    count: result.Count,
-                   records: result.ClaimPermissions, requestUri: authCtx?.RequestUri);
+                   records: result.ClaimPermissions, requestUri: authCtx.RequestUri);
             }
             catch (Exception ex)
             {

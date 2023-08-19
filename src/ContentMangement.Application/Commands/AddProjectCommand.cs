@@ -22,7 +22,7 @@ namespace Teams.ContentMangement.Application.Commands
 
         public string[] LinkedProductIds { get; set; } = new string[] { };
 
-        public static Project Initialize(AddProjectCommand command, AuthenticationContext authenticationContext)
+        public static Project Map(AddProjectCommand command, AuthenticationContext authenticationContext)
         {
             var project = new Project()
             {

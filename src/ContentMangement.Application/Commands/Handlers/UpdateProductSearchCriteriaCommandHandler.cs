@@ -45,16 +45,16 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var ProductSearchCriteria = UpdateProductSearchCriteriaCommand.Initialize(command, authCtx);
+                var ProductSearchCriteria = UpdateProductSearchCriteriaCommand.Map(command, authCtx);
 
                 var result = await _ProductSearchCriteriaRepository.UpdateProductSearchCriteria(ProductSearchCriteria);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri);
             }
         } 
 

@@ -27,6 +27,8 @@ using Teams.CustomerEngagement.Application.Commands;
 using Teams.CustomerEngagement.Application.Commands.Validators;
 using Teams.CustomerEngagement.Infrastructure.Persistence;
 using Base.Infrastructure.Providers;
+using Teams.UserManagement.Application.Commands;
+using Teams.UserManagement.Application.Commands.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +63,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Add
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddProductSearchCriteriaCommand).GetTypeInfo().Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddQuotationCommand).GetTypeInfo().Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(OnboardUserCommand).GetTypeInfo().Assembly));
+
 
 // Add validators
 builder.Services.AddValidators<AuthenticateCommandValidator>();
@@ -70,6 +74,7 @@ builder.Services.AddValidators<AddLingoAppCommandValidator>();
 
 builder.Services.AddValidators<AddProductSearchCriteriaCommandValidator>();
 builder.Services.AddValidators<AddQuotationCommandValidator>();
+builder.Services.AddValidators<OnboardUserCommandValidator>();
 
 // Add services
 builder.Services.AddServices<JwtService>();

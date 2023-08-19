@@ -46,17 +46,17 @@ namespace Email.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var emailMessage = EnqueueEmailMessageCommand.Initialize(command, authCtx);
+                var emailMessage = EnqueueEmailMessageCommand.Map(command, authCtx);
 
                 var result = await _emailRepository.EnqueueEmailMessage(emailMessage);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri);
             }
         }
 

@@ -8,7 +8,9 @@ namespace Identity.Application.Commands.Validators
     {
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
-        public CreateUserCommandValidator(IUserRepository userRepository, IRoleRepository roleRepository)
+        public CreateUserCommandValidator(
+            IUserRepository userRepository,
+            IRoleRepository roleRepository)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;

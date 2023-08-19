@@ -45,15 +45,15 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var project = AddProjectCommand.Initialize(command, authCtx);
+                var project = AddProjectCommand.Map(command, authCtx);
 
                 var result = await _projectRepository.AddProject(project: project, linkedProductIds: command.LinkedProductIds);
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri);
             }
         }
 

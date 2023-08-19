@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
-namespace Teams.ContentMangement.Application.Queries.Validators
+namespace Teams.CustomerEngagement.Application.Queries.Validators
 {
     public class GetProductRecommendationsQueryValidator : AbstractValidator<GetProductRecommendationsQuery>
     {

@@ -69,7 +69,7 @@ namespace Identity.Infrastructure.Persistence
                 .Set(x => x.FirstName, user.FirstName)
                 .Set(x => x.LastName, user.LastName)
                 .Set(x => x.ProfileImageUrl, user.ProfileImageUrl)
-                .Set(x => x.Address, user.Address)
+                .Set(x => x.Addresses, user.Addresses)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 
@@ -93,7 +93,6 @@ namespace Identity.Infrastructure.Persistence
             var updatedUser = await _mongoDbContextProvider.UpdateById(update: update, id: userId);
 
             return updatedUser;
-            //return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Initialize(updatedUser), authCtx?.RequestUri);
         }
 
         public async Task<UserRoleMap[]> UpdateUserRoles(string userId, string[] roleNames)
@@ -156,6 +155,15 @@ namespace Identity.Infrastructure.Persistence
             return await _mongoDbContextProvider.Exists(filter);
         }
 
+        public async Task<bool> BeActiveUser(string userEmail)
+        {
+            var filter = Builders<User>.Filter.And(
+                    Builders<User>.Filter.Eq(x => x.Email, userEmail),
+                    Builders<User>.Filter.Eq(x => x.UserStatus, UserStatus.Active));
+
+            return await _mongoDbContextProvider.Exists(filter);
+        }
+
         public async Task<User> GetUser(string userEmail, string password)
         {
             var encryptedPassword = password.Encrypt();
@@ -189,7 +197,7 @@ namespace Identity.Infrastructure.Persistence
 
             var user = await _mongoDbContextProvider.FindOne(filter);
 
-            return user;            
+            return user;
         }
 
         public async Task<(long Count, User[] Users)> GetUsers(string searchTerm, int pageIndex, int pageSize)

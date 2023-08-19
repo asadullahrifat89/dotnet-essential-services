@@ -11,7 +11,7 @@ namespace Identity.Application.Commands
 
         public string RequestUri { get; set; } = string.Empty;
 
-        public static ClaimPermission Initialize(AddClaimPermissionCommand command, AuthenticationContext authenticationContext)
+        public static ClaimPermission Map(AddClaimPermissionCommand command, AuthenticationContext authenticationContext)
         {
             return new ClaimPermission()
             {

@@ -9,7 +9,7 @@ namespace Teams.ContentMangement.Application.Commands
 
         public PublishingStatus PublishingStatus { get; set; } = PublishingStatus.Published;
 
-        public static Product Initialize(UpdateProductCommand command, AuthenticationContext authenticationContext)
+        public static Product Map(UpdateProductCommand command, AuthenticationContext authenticationContext)
         {
             var product = new Product()
             {

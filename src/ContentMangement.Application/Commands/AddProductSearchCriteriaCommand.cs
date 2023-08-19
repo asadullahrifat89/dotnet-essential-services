@@ -18,7 +18,7 @@ namespace Teams.ContentMangement.Application.Commands
 
         public SkillsetType SkillsetType { get; set; }
 
-        public static ProductSearchCriteria Initialize(AddProductSearchCriteriaCommand command, AuthenticationContext authCtx)
+        public static ProductSearchCriteria Map(AddProductSearchCriteriaCommand command, AuthenticationContext authCtx)
         {
             var searchCriteria = new ProductSearchCriteria()
             {

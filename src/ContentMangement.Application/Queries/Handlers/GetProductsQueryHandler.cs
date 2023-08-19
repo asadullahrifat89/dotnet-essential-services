@@ -57,7 +57,7 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                     manPower: request.ManPower,
                     experience: request.Experience);
 
-                return Response.BuildQueryRecordsResponse<Product>().BuildSuccessResponse(count: result.Count, records: result.Records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<Product>().BuildSuccessResponse(count: result.Count, records: result.Records, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

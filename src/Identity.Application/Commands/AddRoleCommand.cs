@@ -11,7 +11,7 @@ namespace Identity.Application.Commands
 
         public string[] Claims { get; set; } = new string[0];
 
-        public static Role Initialize(AddRoleCommand command, AuthenticationContext authenticationContext)
+        public static Role Map(AddRoleCommand command, AuthenticationContext authenticationContext)
         {
             return new Role()
             {

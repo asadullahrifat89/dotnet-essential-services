@@ -4,13 +4,12 @@ using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Teams.ContentMangement.Application.DTOs.Responses;
-using Teams.ContentMangement.Application.Queries.Validators;
-using Teams.ContentMangement.Domain.Entities;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
+using Teams.CustomerEngagement.Application.Queries.Validators;
 
-namespace Teams.ContentMangement.Application.Queries.Handlers
+namespace Teams.CustomerEngagement.Application.Queries.Handlers
 {
-    public class GetProductRecommendationsQueryHandler : IRequestHandler<GetProductRecommendationsQuery, QueryRecordsResponse<ProductRecommendationResponse>>
+    public class GetProductRecommendationsQueryHandler : IRequestHandler<GetProductRecommendationsQuery, QueryRecordsResponse<ProductRecommendation>>
     {
         #region Fields
 
@@ -39,7 +38,7 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
 
         #region Methods
 
-        public async Task<QueryRecordsResponse<ProductRecommendationResponse>> Handle(GetProductRecommendationsQuery request, CancellationToken cancellationToken)
+        public async Task<QueryRecordsResponse<ProductRecommendation>> Handle(GetProductRecommendationsQuery request, CancellationToken cancellationToken)
         {
             try
             {
@@ -55,14 +54,16 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                     manPower: request.MinimumManPower,
                     experience: request.MinimumExperience);
 
-                var records = result.Records.Select(x=> ProductRecommendationResponse.Initialize(x)).ToArray();
+                var records = result.Records.Select(matchingProduct => ProductRecommendation.Map(
+                    matchingProduct: matchingProduct,
+                    submittedProductSearchCriteriaCount: request.ProductSearchCriteriaIds.Length)).ToArray();
 
-                return Response.BuildQueryRecordsResponse<ProductRecommendationResponse>().BuildSuccessResponse(count: result.Count, records: records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<ProductRecommendation>().BuildSuccessResponse(count: result.Count, records: records, authCtx.RequestUri);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordsResponse<ProductRecommendationResponse>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordsResponse<ProductRecommendation>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
 

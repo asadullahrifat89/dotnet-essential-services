@@ -16,6 +16,8 @@ namespace Identity.Domain.Repositories.Interfaces
 
         Task<bool> BeValidUser(string userEmail, string password);
 
+        Task<bool> BeActiveUser(string userEmail);
+
         Task<bool> BeValidUserPassword(string userId, string password);
 
         Task<User> GetUser(string userEmail, string password);

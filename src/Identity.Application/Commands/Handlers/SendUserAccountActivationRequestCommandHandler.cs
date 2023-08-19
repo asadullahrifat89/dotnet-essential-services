@@ -46,11 +46,11 @@ namespace Identity.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var accountActivationRequest = SendUserAccountActivationRequestCommand.Initialize(command);
+                var accountActivationRequest = SendUserAccountActivationRequestCommand.Map(command);
 
                 var result = await _accountActivationRequest.CreateAccountActivationRequest(accountActivationRequest);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

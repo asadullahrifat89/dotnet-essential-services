@@ -56,7 +56,7 @@ namespace Teams.CustomerEngagement.Application.Queries.Handlers
                     toDate: request.ToDate,
                     location: request.Location);
 
-                return Response.BuildQueryRecordsResponse<Quotation>().BuildSuccessResponse(count: result.Count, records: result.Records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<Quotation>().BuildSuccessResponse(count: result.Count, records: result.Records, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

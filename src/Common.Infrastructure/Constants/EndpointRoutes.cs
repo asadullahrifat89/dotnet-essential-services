@@ -30,6 +30,7 @@
 
         public const string Action_CreateEmailTemplate = "api/Command/CreateEmailTemplate";
         public const string Action_GetEmailTemplate = "api/Query/GetEmailTemplate";
+        public const string Action_GetEmailTemplateByPurpose = "api/Query/GetEmailTemplateByPurpose";
         public const string Action_UpdateEmailTemplate = "api/Command/UpdateEmailTemplate";
 
         public const string Action_EnqueueEmailMessage = "api/Command/EnqueueEmailMessage";
@@ -64,5 +65,8 @@
         public const string Action_UpdateQuotation = "api/Command/UpdateQuotation";
         public const string Action_GetQuotation = "api/Query/GetQuotation";
         public const string Action_GetQuotations = "api/Query/GetQuotations";
+        public const string Action_GetQuotationStatusCounts = "api/Query/GetQuotationStatusCounts";
+
+        public const string Action_OnboardUser = "api/Command/OnboardUser";
     }
 }

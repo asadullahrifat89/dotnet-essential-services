@@ -1,6 +1,8 @@
 ﻿using Base.Application.Extensions;
 using Base.Infrastructure.Providers.Interfaces;
+using Base.Shared.Constants;
 using Identity.Application.Providers.Interfaces;
+using Identity.Domain.Entities;
 using MongoDB.Driver;
 using Teams.CustomerEngagement.Domain.Entities;
 using Teams.CustomerEngagement.Domain.Repositories.Interfaces;
@@ -12,7 +14,7 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
         #region Fields
 
         private readonly IMongoDbContextProvider _mongoDbService;
-        private readonly IAuthenticationContextProvider _authenticationContext;
+        private readonly IAuthenticationContextProvider _authenticationContextProvider;
 
         #endregion
 
@@ -20,10 +22,10 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
 
         public QuotationRepository(
             IMongoDbContextProvider mongoDbService,
-            IAuthenticationContextProvider authenticationContext)
+            IAuthenticationContextProvider authenticationContextProvider)
         {
             _mongoDbService = mongoDbService;
-            _authenticationContext = authenticationContext;
+            _authenticationContextProvider = authenticationContextProvider;
         }
 
         #endregion
@@ -46,7 +48,7 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
 
         public async Task<Quotation> UpdateQuotation(Quotation quotation)
         {
-            var authCtx = _authenticationContext.GetAuthenticationContext();
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
             var update = Builders<Quotation>.Update
                 .Set(x => x.QuoteStatus, quotation.QuoteStatus)
@@ -67,10 +69,12 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
         {
             var filter = Builders<Quotation>.Filter.Eq(x => x.Id, quotationId);
 
+            filter = AddDataContextFilters(filter);
+
             var product = await _mongoDbService.FindOne(filter);
 
             return product;
-        }
+        }     
 
         public async Task<(long Count, Quotation[] Records)> GetQuotations(
             string searchTerm,
@@ -81,6 +85,8 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
             DateTime? toDate,
             string? location)
         {
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
             var filter = Builders<Quotation>.Filter.Empty;
 
             if (!searchTerm.IsNullOrBlank())
@@ -110,6 +116,8 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
                 filter &= Builders<Quotation>.Filter.Where(x => x.Location == location);
             }
 
+            filter = AddDataContextFilters(filter);
+
             var count = await _mongoDbService.CountDocuments(filter);
 
             var quotations = await _mongoDbService.GetDocuments(
@@ -118,6 +126,38 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
                 limit: pageSize);
 
             return (count, quotations is not null ? quotations.ToArray() : Array.Empty<Quotation>());
+        }
+
+        public async Task<(long Count, (QuoteStatus QuoteStatus, long Count)[] Records)> GetQuotationStatusCounts()
+        {
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+            var quoteStatusCounts = new List<(QuoteStatus QuoteStatus, long Count)>();
+
+            foreach (QuoteStatus quoteStatus in Enum.GetValues(typeof(QuoteStatus)))
+            {
+                var filter = Builders<Quotation>.Filter.Eq(x => x.QuoteStatus, quoteStatus);
+
+                filter = AddDataContextFilters(filter);
+
+                var count = await _mongoDbService.CountDocuments(filter);
+
+                quoteStatusCounts.Add((quoteStatus, count));
+            }
+
+            return (quoteStatusCounts.Count, quoteStatusCounts.ToArray());
+        }
+
+        private FilterDefinition<Quotation> AddDataContextFilters(FilterDefinition<Quotation> filter)
+        {
+            var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+            if (authCtx.User.MetaTags.Contains(CommonConstants.Consumer_Tag))
+            {
+                filter &= Builders<Quotation>.Filter.Eq(x => x.Email, authCtx.User.Email);
+            }
+
+            return filter;
         }
 
         #endregion

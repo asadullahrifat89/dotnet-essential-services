@@ -47,16 +47,16 @@ namespace Identity.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var user = CreateUserCommand.Initialize(command, authCtx);
+                var user = CreateUserCommand.Map(command, authCtx);
 
                 var result = await _userRepository.CreateUser(user, command.Roles);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Initialize(result), authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Map(result), authCtx.RequestUri);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri);
             }
         }
 

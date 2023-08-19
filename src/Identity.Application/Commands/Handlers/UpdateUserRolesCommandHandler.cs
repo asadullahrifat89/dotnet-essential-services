@@ -47,7 +47,7 @@ namespace Identity.Application.Commands.Handlers
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 var result = await _userRepository.UpdateUserRoles(userId: command.UserId, roleNames: command.RoleNames);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

@@ -20,5 +20,7 @@ namespace Teams.CustomerEngagement.Domain.Repositories.Interfaces
             DateTime? fromDate,
             DateTime? toDate,
             string? location);
+
+        Task<(long Count, (QuoteStatus QuoteStatus, long Count)[] Records)> GetQuotationStatusCounts();
     }
 }

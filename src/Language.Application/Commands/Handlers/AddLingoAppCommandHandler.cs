@@ -46,17 +46,17 @@ namespace Language.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var lingoApp = AddLingoAppCommand.Initialize(command, authCtx);
+                var lingoApp = AddLingoAppCommand.Map(command, authCtx);
 
                 var result = await _lingoAppRepository.AddLingoApp(lingoApp);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri);
             }
         }
 

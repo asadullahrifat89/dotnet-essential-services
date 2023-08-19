@@ -5,7 +5,6 @@ using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Teams.ContentMangement.Application.DTOs.Responses;
 using Teams.ContentMangement.Application.Queries;
 using Teams.ContentMangement.Domain.Entities;
 
@@ -41,6 +40,7 @@ namespace Teams.ContentMangement.Presentation.Controllers
             return await _mediator.Send(query);
         }
 
+        [AuthorizationNotRequired]
         [HttpGet(EndpointRoutes.Action_GetProductSearchCriterias)]
         public async Task<QueryRecordsResponse<ProductSearchCriteria>> GetProductSearchCriterias([FromQuery] GetProductSearchCriteriasQuery query)
         {
@@ -61,12 +61,6 @@ namespace Teams.ContentMangement.Presentation.Controllers
 
         [HttpGet(EndpointRoutes.Action_GetProducts)]
         public async Task<QueryRecordsResponse<Product>> GetProducts([FromQuery] GetProductsQuery query)
-        {
-            return await _mediator.Send(query);
-        }
-
-        [HttpPost(EndpointRoutes.Action_GetProductRecommendations)]
-        public async Task<QueryRecordsResponse<ProductRecommendationResponse>> GetProductRecommendations([FromBody] GetProductRecommendationsQuery query)
         {
             return await _mediator.Send(query);
         }

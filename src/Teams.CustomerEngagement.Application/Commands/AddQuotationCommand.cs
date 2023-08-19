@@ -21,7 +21,7 @@ namespace Teams.CustomerEngagement.Application.Commands
 
         public SubmittedProductSearchCriteria[] SubmittedProductSearchCriterias { get; set; } = new SubmittedProductSearchCriteria[] { };
 
-        public static Quotation Initialize(AddQuotationCommand command)
+        public static Quotation Map(AddQuotationCommand command)
         {
             var quotation = new Quotation()
             {

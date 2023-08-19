@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Base.Application.DTOs.Responses
 {
@@ -11,6 +12,8 @@ namespace Base.Application.DTOs.Responses
         public HttpStatusCode HttpStatusCode { get; set; } = HttpStatusCode.OK;
 
         public object Result { get; set; } = new object();
+
+        public bool IsSuccess => HttpStatusCode == HttpStatusCode.OK;
 
         public ServiceResponse BuildSuccessResponse(object result, string requestUri = "")
         {

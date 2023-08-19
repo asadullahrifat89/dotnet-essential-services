@@ -38,7 +38,7 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 var result = await _projectRepository.GetProjectsForProductId(request.ProductId);
 
-                return Response.BuildQueryRecordsResponse<Project>().BuildSuccessResponse(count: result.Count, records: result.Records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<Project>().BuildSuccessResponse(count: result.Count, records: result.Records, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

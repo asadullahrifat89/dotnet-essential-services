@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Teams.ContentMangement.Domain.Entities;
+﻿using Teams.ContentMangement.Domain.Entities;
 
 namespace Teams.ContentMangement.Application.DTOs.Responses
 {
-    public class ProductRecommendationResponse
+    public class ProductRecommendation
     {
         /// Name of the product.
         /// </summary>
@@ -48,9 +43,16 @@ namespace Teams.ContentMangement.Application.DTOs.Responses
         /// </summary>
         public int MatchCount { get; set; } = 0;
 
-        public static ProductRecommendationResponse Initialize((Product product, int MatchCount) matchingProduct)
+        /// <summary>
+        /// Matching percentage against the submitted product search criteria count.
+        /// </summary>
+        public string MatchPercentage { get; set; } = string.Empty;
+
+        public static ProductRecommendation Map(
+            (Product product, int MatchCount) matchingProduct,
+            int submittedProductSearchCriteriaCount)
         {
-            return new ProductRecommendationResponse()
+            return new ProductRecommendation()
             {
                 Name = matchingProduct.product.Name,
                 Description = matchingProduct.product.Description,
@@ -60,6 +62,7 @@ namespace Teams.ContentMangement.Application.DTOs.Responses
                 ProductCostType = matchingProduct.product.ProductCostType,
                 IconUrl = matchingProduct.product.IconUrl,
                 MatchCount = matchingProduct.MatchCount,
+                MatchPercentage = submittedProductSearchCriteriaCount == 0 ? "0 %" : ((matchingProduct.MatchCount / submittedProductSearchCriteriaCount) * 100).ToString() + " %",
             };
         }
     }

@@ -86,6 +86,15 @@ namespace Email.Infrastructure.Persistence
             return emailTemplate;
         }
 
+        public async Task<EmailTemplate> GetEmailTemplateByPurpose(string purpose)
+        {
+            var filter = Builders<EmailTemplate>.Filter.Where(x => x.Purpose.ToLower().Equals(purpose.ToLower()));
+
+            var emailTemplate = await _mongoDbContextProvider.FindOne(filter);
+
+            return emailTemplate;
+        }
+
         #endregion
     }
 }

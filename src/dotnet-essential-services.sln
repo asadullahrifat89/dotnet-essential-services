@@ -59,13 +59,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.ContentMangement.Pres
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.ContentMangement.Infrastructure", "ContentMangement.Infrastructure\Teams.ContentMangement.Infrastructure.csproj", "{257CEEA8-8DA1-49A4-98C1-9280E0019004}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teams.CustomerEngagement.Domain", "Teams.CustomerEngagement.Domain\Teams.CustomerEngagement.Domain.csproj", "{3C6209AE-8C63-4901-849A-B0767094A1FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.CustomerEngagement.Domain", "Teams.CustomerEngagement.Domain\Teams.CustomerEngagement.Domain.csproj", "{3C6209AE-8C63-4901-849A-B0767094A1FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teams.CustomerEngagement.Application", "Teams.CustomerEngagement.Application\Teams.CustomerEngagement.Application.csproj", "{8D7FEA6A-1BE6-4162-ADFF-0B85B0806F92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.CustomerEngagement.Application", "Teams.CustomerEngagement.Application\Teams.CustomerEngagement.Application.csproj", "{8D7FEA6A-1BE6-4162-ADFF-0B85B0806F92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teams.CustomerEngagement.Presentation", "Teams.CustomerEngagement.Presentation\Teams.CustomerEngagement.Presentation.csproj", "{B6D8A611-7208-41EC-B105-C4FF9C01B21B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.CustomerEngagement.Presentation", "Teams.CustomerEngagement.Presentation\Teams.CustomerEngagement.Presentation.csproj", "{B6D8A611-7208-41EC-B105-C4FF9C01B21B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teams.CustomerEngagement.Infrastructure", "Teams.CustomerEngagement.Infrastructure\Teams.CustomerEngagement.Infrastructure.csproj", "{6549219C-1BAF-4B52-9DAD-0CBE0C93C2FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.CustomerEngagement.Infrastructure", "Teams.CustomerEngagement.Infrastructure\Teams.CustomerEngagement.Infrastructure.csproj", "{6549219C-1BAF-4B52-9DAD-0CBE0C93C2FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlobModule", "BlobModule", "{2FDC280B-4017-4389-8E63-BDC2C8DD5C3B}"
 EndProject
@@ -80,6 +80,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ContentMangementModule", "ContentMangementModule", "{FBB2C8F4-3361-421B-AD90-3F529722F123}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomerEngagementModule", "CustomerEngagementModule", "{E3B5C0C6-9B40-4D21-9CC4-C60F546FFA50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserManagementModule", "UserManagementModule", "{9FE6F8F0-BC98-4F6F-A808-98216852AF1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teams.UserManagement.Domain", "Teams.UserManagement.Domain\Teams.UserManagement.Domain.csproj", "{A6067279-405D-4E2B-88D3-78963DDEC5EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teams.UserManagement.Application", "Teams.UserManagement.Application\Teams.UserManagement.Application.csproj", "{921F085B-C080-4C41-840B-E3DA804FA1EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teams.UserManagement.Presentation", "Teams.UserManagement.Presentation\Teams.UserManagement.Presentation.csproj", "{534D856B-BF1D-47EB-B4A4-DF373825FD27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teams.UserManagement.Infrastructure", "Teams.UserManagement.Infrastructure\Teams.UserManagement.Infrastructure.csproj", "{BC7ECDD5-1692-4484-A751-67E80B62C225}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -203,6 +213,22 @@ Global
 		{6549219C-1BAF-4B52-9DAD-0CBE0C93C2FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6549219C-1BAF-4B52-9DAD-0CBE0C93C2FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6549219C-1BAF-4B52-9DAD-0CBE0C93C2FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6067279-405D-4E2B-88D3-78963DDEC5EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6067279-405D-4E2B-88D3-78963DDEC5EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6067279-405D-4E2B-88D3-78963DDEC5EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6067279-405D-4E2B-88D3-78963DDEC5EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{921F085B-C080-4C41-840B-E3DA804FA1EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{921F085B-C080-4C41-840B-E3DA804FA1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{921F085B-C080-4C41-840B-E3DA804FA1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{921F085B-C080-4C41-840B-E3DA804FA1EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{534D856B-BF1D-47EB-B4A4-DF373825FD27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{534D856B-BF1D-47EB-B4A4-DF373825FD27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{534D856B-BF1D-47EB-B4A4-DF373825FD27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{534D856B-BF1D-47EB-B4A4-DF373825FD27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC7ECDD5-1692-4484-A751-67E80B62C225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC7ECDD5-1692-4484-A751-67E80B62C225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC7ECDD5-1692-4484-A751-67E80B62C225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC7ECDD5-1692-4484-A751-67E80B62C225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -243,6 +269,11 @@ Global
 		{F609325A-2704-421B-B1C4-A193D37BCDEE} = {437A8F93-31B5-4D10-9FAC-CDA1EFDC6F8D}
 		{FBB2C8F4-3361-421B-AD90-3F529722F123} = {F609325A-2704-421B-B1C4-A193D37BCDEE}
 		{E3B5C0C6-9B40-4D21-9CC4-C60F546FFA50} = {F609325A-2704-421B-B1C4-A193D37BCDEE}
+		{9FE6F8F0-BC98-4F6F-A808-98216852AF1C} = {F609325A-2704-421B-B1C4-A193D37BCDEE}
+		{A6067279-405D-4E2B-88D3-78963DDEC5EC} = {9FE6F8F0-BC98-4F6F-A808-98216852AF1C}
+		{921F085B-C080-4C41-840B-E3DA804FA1EF} = {9FE6F8F0-BC98-4F6F-A808-98216852AF1C}
+		{534D856B-BF1D-47EB-B4A4-DF373825FD27} = {9FE6F8F0-BC98-4F6F-A808-98216852AF1C}
+		{BC7ECDD5-1692-4484-A751-67E80B62C225} = {9FE6F8F0-BC98-4F6F-A808-98216852AF1C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB70096C-560D-49A7-A8FD-667045E6B7CE}

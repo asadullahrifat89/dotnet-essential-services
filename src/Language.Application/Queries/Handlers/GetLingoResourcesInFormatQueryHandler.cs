@@ -52,7 +52,7 @@ namespace Language.Application.Queries.Handlers
                         var result = await _lingoResourceRepository.GetLanguageResourcesInJSONFormat(
                             appId: request.AppId,
                             languageCode: request.LanguageCode);
-                        return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildSuccessResponse(result, authCtx?.RequestUri);
+                        return Response.BuildQueryRecordResponse<Dictionary<string, string>>().BuildSuccessResponse(result, authCtx.RequestUri);
 
                     default:
 

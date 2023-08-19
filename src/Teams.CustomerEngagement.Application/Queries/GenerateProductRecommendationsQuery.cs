@@ -2,13 +2,13 @@
 using Teams.ContentMangement.Application.DTOs.Responses;
 using Teams.ContentMangement.Domain.Entities;
 
-namespace Teams.ContentMangement.Application.Queries
+namespace Teams.CustomerEngagement.Application.Queries
 {
-    public class GetProductRecommendationsQuery : PagedRequestBase<ProductRecommendationResponse>
+    public class GetProductRecommendationsQuery : PagedRequestBase<ProductRecommendation>
     {
         public string[] ProductSearchCriteriaIds { get; set; } = new string[] { };
 
-        public EmploymentType[]? EmploymentTypes { get; set; } = null;      
+        public EmploymentType[]? EmploymentTypes { get; set; } = null;
 
         public int? MinimumManPower { get; set; } = null;
 

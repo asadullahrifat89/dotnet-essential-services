@@ -38,7 +38,7 @@ namespace Blob.Application.Queries.Handlers
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 var result = await _blobFileRepository.GetBlobFile(request.FileId);
 
-                return Response.BuildQueryRecordResponse<BlobFile>().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildQueryRecordResponse<BlobFile>().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

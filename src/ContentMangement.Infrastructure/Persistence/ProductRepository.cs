@@ -2,6 +2,7 @@
 using Base.Infrastructure.Providers.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using MongoDB.Driver;
+using System.Collections.Generic;
 using Teams.ContentMangement.Domain.Entities;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
 
@@ -148,12 +149,13 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
             int? manPower,
             int? experience)
         {
+            // 1. Fetch ProductSearchCriteriaMaps from ProductSearchCriteriaMaps collection with productSearchCriteriaIds
             var mapsFilter = Builders<ProductSearchCriteriaMap>.Filter.In(x => x.ProductSearchCriteriaId, productSearchCriteriaIds);
             var productSearchCriteriaMaps = await _mongoDbService.GetDocuments(mapsFilter);
 
             var emptyMatchings = new List<(Product product, int MatchCount)>();
 
-            // if no search criteria mapping was found return empty result.
+            // if no search criteria mapping was found return empty result
             if (productSearchCriteriaMaps is null || !productSearchCriteriaMaps.Any())
             {
                 return (0, emptyMatchings.ToArray());
@@ -176,8 +178,12 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
                 filter &= Builders<Product>.Filter.Gte(x => x.Experience, experience);
             }
 
+            // 2. Get productIds from productSearchCriteriaMaps
+            // 3. Make a distinct list of productIds
             var productIds = productSearchCriteriaMaps.Select(x => x.ProductId).Distinct().ToArray();
 
+
+            // 4. Fetch products from Products collection with productIds
             filter &= Builders<Product>.Filter.In(x => x.Id, productIds);
             var count = await _mongoDbService.CountDocuments(filter);
 
@@ -186,8 +192,9 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
                 skip: pageIndex * pageSize,
                 limit: pageSize);
 
-            var matchingProducts = new List<(Product product, int MatchCount)>();
-
+            // 5. Create in memory tuple list List<(Product Product, int MatchCount)>
+            var matchingProducts = new List<(Product Product, int MatchCount)>();
+                       
             foreach (var product in products)
             {
                 var foundProductSearchCriteriaMaps = productSearchCriteriaMaps.Where(x => x.ProductId == product.Id).ToArray();
@@ -197,6 +204,7 @@ namespace Teams.ContentMangement.Infrastructure.Persistence
                 matchingProducts.Add((product, matchCount));
             }
 
+            // 6. Re order the matching products with match count
             var orderedResults = matchingProducts.OrderByDescending(x => x.MatchCount).ToArray();
 
             return (count, orderedResults is not null ? orderedResults : emptyMatchings.ToArray());

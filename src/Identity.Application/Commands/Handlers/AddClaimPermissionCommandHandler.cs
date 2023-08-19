@@ -45,11 +45,11 @@ namespace Identity.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var claimPermission = AddClaimPermissionCommand.Initialize(command, authCtx);
+                var claimPermission = AddClaimPermissionCommand.Map(command, authCtx);
 
                 var result = await _claimPermissionRepository.AddClaimPermission(claimPermission);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

@@ -46,16 +46,16 @@ namespace Identity.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var user = SubmitUserCommand.Initialize(command, authCtx);
+                var user = SubmitUserCommand.Map(command, authCtx);
 
                 var result = await _userRepository.SubmitUser(user);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Initialize(result), authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Map(result), authCtx.RequestUri);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri);
             }
         }
 

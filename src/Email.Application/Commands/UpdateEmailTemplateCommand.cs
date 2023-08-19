@@ -8,7 +8,7 @@ namespace Email.Application.Commands
     {
         public string TemplateId { get; set; } = string.Empty;
 
-        public static EmailTemplate Initialize(UpdateEmailTemplateCommand command, AuthenticationContext authenticationContext)
+        public static EmailTemplate Map(UpdateEmailTemplateCommand command, AuthenticationContext authenticationContext)
         {
             var EmailTemplate = new EmailTemplate()
             {

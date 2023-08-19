@@ -19,11 +19,11 @@ namespace Identity.Application.DTOs
 
         public string PhoneNumber { get; set; } = string.Empty;
 
-        public Address Address { get; set; } = new Address();
+        public Address[] Addresses { get; set; } = new Address[] { };
 
         public UserStatus UserStatus { get; set; }
 
-        public static UserResponse Initialize(UserBase user)
+        public static UserResponse Map(UserBase user)
         {
             return new UserResponse()
             {
@@ -34,7 +34,7 @@ namespace Identity.Application.DTOs
                 Email = user.Email,
                 ProfileImageUrl = user.ProfileImageUrl,
                 PhoneNumber = user.PhoneNumber,
-                Address = user.Address,
+                Addresses = user.Addresses,
                 UserStatus = user.UserStatus,
             };
         }

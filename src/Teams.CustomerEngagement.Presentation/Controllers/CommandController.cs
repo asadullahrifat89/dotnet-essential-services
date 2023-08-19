@@ -33,6 +33,7 @@ namespace Teams.CustomerEngagement.Presentation.Controllers
 
         #region Methods
 
+        [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_AddQuotation)]
         public async Task<ServiceResponse> AddAddQuotation(AddQuotationCommand command)
         {

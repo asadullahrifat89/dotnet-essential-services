@@ -10,7 +10,7 @@ namespace Language.Application.Commands
     {
         public string Name { get; set; } = string.Empty;
 
-        public static LanguageApp Initialize(AddLingoAppCommand command, AuthenticationContext authenticationContext)
+        public static LanguageApp Map(AddLingoAppCommand command, AuthenticationContext authenticationContext)
         {
             var lingoApp = new LanguageApp()
             {

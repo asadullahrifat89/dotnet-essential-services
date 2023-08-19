@@ -47,14 +47,12 @@ namespace Identity.Infrastructure.Persistence
                 var updatedAccountActivationRequest = await _mongoDbContextProvider.UpdateById(update: update, alreadyExistsAccountActivationRequest.Id);
 
                 return updatedAccountActivationRequest;
-                //return Response.BuildServiceResponse().BuildSuccessResponse(updatedAccountActivationRequest, authCtx?.RequestUri);
             }
             else
             {
                 await _mongoDbContextProvider.InsertDocument(accountActivationRequest);
 
                 return accountActivationRequest;
-                //return Response.BuildServiceResponse().BuildSuccessResponse(accountActivationRequest, authCtx?.RequestUri);
             }
         }
 

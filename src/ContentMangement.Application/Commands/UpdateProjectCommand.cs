@@ -9,7 +9,7 @@ namespace Teams.ContentMangement.Application.Commands
 
         public PublishingStatus PublishingStatus { get; set; } = PublishingStatus.Published;
 
-        public static Project Initialize(UpdateProjectCommand command, AuthenticationContext authenticationContext)
+        public static Project Map(UpdateProjectCommand command, AuthenticationContext authenticationContext)
         {
             var project = new Project()
             {
