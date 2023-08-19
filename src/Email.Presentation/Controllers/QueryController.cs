@@ -40,6 +40,12 @@ namespace Email.Presentation.Controllers
             return await _mediator.Send(query);
         }
 
+        [HttpGet(EndpointRoutes.Action_GetEmailTemplateByPurpose)]
+        public async Task<QueryRecordResponse<EmailTemplate>> GetEmailTemplateByPurpose([FromQuery] GetEmailTemplateByPurposeQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
         #endregion
     }
 }

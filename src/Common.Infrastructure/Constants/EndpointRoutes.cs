@@ -30,6 +30,7 @@
 
         public const string Action_CreateEmailTemplate = "api/Command/CreateEmailTemplate";
         public const string Action_GetEmailTemplate = "api/Query/GetEmailTemplate";
+        public const string Action_GetEmailTemplateByPurpose = "api/Query/GetEmailTemplateByPurpose";
         public const string Action_UpdateEmailTemplate = "api/Command/UpdateEmailTemplate";
 
         public const string Action_EnqueueEmailMessage = "api/Command/EnqueueEmailMessage";

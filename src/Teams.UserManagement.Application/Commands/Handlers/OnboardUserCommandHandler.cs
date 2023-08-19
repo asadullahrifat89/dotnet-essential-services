@@ -1,6 +1,7 @@
 ﻿using Base.Application.DTOs.Responses;
 using Base.Application.Extensions;
 using Base.Shared.Constants;
+using Email.Application.Queries;
 using Email.Domain.Repositories.Interfaces;
 using Identity.Application.Commands.Validators;
 using Identity.Application.DTOs;
@@ -20,7 +21,6 @@ namespace Teams.UserManagement.Application.Commands.Handlers
         private readonly ILogger<OnboardUserCommandHandler> _logger;
         private readonly IAuthenticationContextProvider _authenticationContextProvider;
         private readonly IMediator _mediator;
-        private readonly IEmailTemplateRepository _emailTemplateRepository;
         private readonly IConfiguration _configuration;
 
         #endregion
@@ -30,13 +30,11 @@ namespace Teams.UserManagement.Application.Commands.Handlers
         public OnboardUserCommandHandler(
             ILogger<OnboardUserCommandHandler> logger,
             IAuthenticationContextProvider authenticationContextProvider,
-            IEmailTemplateRepository emailTemplateRepository,
             IMediator mediator,
             IConfiguration configuration)
         {
             _logger = logger;
             _authenticationContextProvider = authenticationContextProvider;
-            _emailTemplateRepository = emailTemplateRepository;
             _mediator = mediator;
             _configuration = configuration;
         }
@@ -53,27 +51,29 @@ namespace Teams.UserManagement.Application.Commands.Handlers
 
                 // submit user
                 var submitUserCommand = OnboardUserCommand.InitializeSubmitUserCommand(command);
-                var userSubmitted = await _mediator.Send(submitUserCommand);
+                var userSubmitted = await _mediator.Send(submitUserCommand, cancellationToken);
 
                 if (userSubmitted.IsSuccess)
                 {
                     // send user activation request
                     var sendUserAccountActivationRequestCommand = OnboardUserCommand.InitializeSendUserAccountActivationRequestCommand(command);
-                    var userActivationSubmitted = await _mediator.Send(sendUserAccountActivationRequestCommand);
+                    var userActivationSubmitted = await _mediator.Send(sendUserAccountActivationRequestCommand, cancellationToken);
 
                     if (userActivationSubmitted.IsSuccess)
                     {
                         var accountActivationRequest = userActivationSubmitted.Result as AccountActivationRequest;
-                        var activationLink = _configuration["Routes:BaseUrl"] + "/" + _configuration["Routes:Onboarding"];
+                        var activationLink = _configuration["Routes:AppUrl"] + "/" + _configuration["Routes:Onboarding"];
 
                         // get email template for user onborading purpose
-                        var emailTemplate = await _emailTemplateRepository.GetEmailTemplateByPurpose("account-activation");
+
+                        var emailTemplateQuery = new GetEmailTemplateByPurposeQuery() { Purpose = "account-activation" };
+                        var emailTemplateAcquired = await _mediator.Send(emailTemplateQuery, cancellationToken);
 
                         var enqueueEmailCommand = OnboardUserCommand.InitializeEnqueueEmailMessageCommand(
-                               command: command,
-                               activationKey: accountActivationRequest.ActivationKey,
-                               activationLink: activationLink,
-                               emailTemplate: emailTemplate);
+                              command: command,
+                              activationKey: accountActivationRequest.ActivationKey,
+                              activationLink: activationLink,
+                              emailTemplate: emailTemplateAcquired.IsSuccess ? emailTemplateAcquired.Result : default);
 
                         // send email
 
