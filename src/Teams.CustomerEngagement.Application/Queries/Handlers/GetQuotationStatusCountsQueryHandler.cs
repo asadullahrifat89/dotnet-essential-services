@@ -48,9 +48,11 @@ namespace Teams.CustomerEngagement.Application.Queries.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 var result = await _QuotationRepository.GetQuotationStatusCounts();
-                var records= result.Records.Select(x=> QuotationStatusCount.Initialize(x)).ToArray();
 
-                return Response.BuildQueryRecordsResponse<QuotationStatusCount>().BuildSuccessResponse(count: result.Count, records: records, authCtx?.RequestUri);
+                var records = result.Records.Select(x => QuotationStatusCount.Initialize(x)).ToList();
+                records.Add(new QuotationStatusCount() { QuoteStatus = "Total", Count = records.Sum(x => x.Count) });
+
+                return Response.BuildQueryRecordsResponse<QuotationStatusCount>().BuildSuccessResponse(count: result.Count, records: records.ToArray(), authCtx?.RequestUri);
             }
             catch (Exception ex)
             {

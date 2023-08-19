@@ -1,10 +1,11 @@
-﻿using Teams.CustomerEngagement.Domain.Entities;
+﻿using Base.Application.Extensions;
+using Teams.CustomerEngagement.Domain.Entities;
 
 namespace Teams.CustomerEngagement.Application.DTOs.Responses
 {
     public class QuotationStatusCount
     {
-        public QuoteStatus QuoteStatus { get; set; }
+        public string QuoteStatus { get; set; }
 
         public long Count { get; set; }
 
@@ -12,7 +13,7 @@ namespace Teams.CustomerEngagement.Application.DTOs.Responses
         {
             return new QuotationStatusCount()
             {
-                QuoteStatus = record.QuoteStatus,
+                QuoteStatus = EnumExtensions.GetEnumDescription(record.QuoteStatus),
                 Count = record.Count
             };
         }

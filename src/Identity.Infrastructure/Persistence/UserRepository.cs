@@ -156,6 +156,15 @@ namespace Identity.Infrastructure.Persistence
             return await _mongoDbContextProvider.Exists(filter);
         }
 
+        public async Task<bool> BeActiveUser(string userEmail)
+        {
+            var filter = Builders<User>.Filter.And(
+                    Builders<User>.Filter.Eq(x => x.Email, userEmail),
+                    Builders<User>.Filter.Eq(x => x.UserStatus, UserStatus.Active));
+
+            return await _mongoDbContextProvider.Exists(filter);
+        }
+
         public async Task<User> GetUser(string userEmail, string password)
         {
             var encryptedPassword = password.Encrypt();
@@ -189,7 +198,7 @@ namespace Identity.Infrastructure.Persistence
 
             var user = await _mongoDbContextProvider.FindOne(filter);
 
-            return user;            
+            return user;
         }
 
         public async Task<(long Count, User[] Users)> GetUsers(string searchTerm, int pageIndex, int pageSize)

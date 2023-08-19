@@ -1,4 +1,5 @@
 ﻿using Base.Domain.Entities;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 using Teams.ContentMangement.Domain.Entities;
 
@@ -137,11 +138,22 @@ namespace Teams.CustomerEngagement.Domain.Entities
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum QuoteStatus
     {
+        [Description("Pending")]
         Pending,
+
+        [Description("Quotation Ready")]
         QuotationReady,
+
+        [Description("Meeting Requested")]
         MeetingRequested,
+
+        [Description("Contract Ready")]
         ContractReady,
+
+        [Description("Contract Signed")]
         ContractSigned,
+
+        [Description("Backlog")]
         Backlog,
     }
 
