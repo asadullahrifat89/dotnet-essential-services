@@ -62,7 +62,7 @@ namespace Teams.UserManagement.Application.Commands.Handlers
                     if (userActivationSubmitted.IsSuccess)
                     {
                         var accountActivationRequest = userActivationSubmitted.Result as AccountActivationRequest;
-                        var activationLink = _configuration["Routes:AppUrl"] + "/" + _configuration["Routes:Onboarding"];
+                        var activationLink = _configuration["Routes:AppUrl"] + "/" + _configuration["Routes:Onboarding"] + $"?email={command.Email}";
 
                         // get email template for user onborading purpose
 
