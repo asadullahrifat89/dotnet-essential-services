@@ -46,7 +46,7 @@ namespace Email.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var emailMessage = EnqueueEmailMessageCommand.Initialize(command, authCtx);
+                var emailMessage = EnqueueEmailMessageCommand.Map(command, authCtx);
 
                 var result = await _emailRepository.EnqueueEmailMessage(emailMessage);
 

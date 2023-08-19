@@ -24,7 +24,7 @@ namespace Language.Application.Commands
             public string ResourceValue { get; set; } = string.Empty;
         }
 
-        public static List<LanguageResource> Initialize(AddLingoResourcesCommand command, AuthenticationContext authenticationContext)
+        public static List<LanguageResource> Map(AddLingoResourcesCommand command, AuthenticationContext authenticationContext)
         {
             var resourcesKeys = command.ResourceKeys.Select(x => x.ResourceKey).Distinct();
             var lingoResources = new List<LanguageResource>();

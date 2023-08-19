@@ -9,7 +9,7 @@ namespace Teams.CustomerEngagement.Application.DTOs.Responses
 
         public long Count { get; set; }
 
-        public static QuotationStatusCount Initialize((QuoteStatus QuoteStatus, long Count) record)
+        public static QuotationStatusCount Map((QuoteStatus QuoteStatus, long Count) record)
         {
             return new QuotationStatusCount()
             {

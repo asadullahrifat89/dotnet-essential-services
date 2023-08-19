@@ -49,7 +49,7 @@ namespace Language.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var lingoResources = AddLingoResourcesCommand.Initialize(command, authCtx);
+                var lingoResources = AddLingoResourcesCommand.Map(command, authCtx);
 
                 var result = await _lingoResourcesRepository.AddLanguageResources(lingoResources);
 

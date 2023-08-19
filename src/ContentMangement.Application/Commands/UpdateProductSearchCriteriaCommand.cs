@@ -7,7 +7,7 @@ namespace Teams.ContentMangement.Application.Commands
     {
         public string SearchCriteriaId { get; set; } = string.Empty;
 
-        public static ProductSearchCriteria Initialize(UpdateProductSearchCriteriaCommand command, AuthenticationContext authCtx)
+        public static ProductSearchCriteria Map(UpdateProductSearchCriteriaCommand command, AuthenticationContext authCtx)
         {
             var searchCriteria = new ProductSearchCriteria()
             {

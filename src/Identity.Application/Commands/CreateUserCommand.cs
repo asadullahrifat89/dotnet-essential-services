@@ -29,7 +29,7 @@ namespace Identity.Application.Commands
 
         //public string TenantId { get; set; } = string.Empty;
 
-        public static User Initialize(CreateUserCommand command, AuthenticationContext authenticationContext)
+        public static User Map(CreateUserCommand command, AuthenticationContext authenticationContext)
         {
             var user = new User()
             {

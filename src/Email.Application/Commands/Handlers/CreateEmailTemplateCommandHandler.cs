@@ -46,7 +46,7 @@ namespace Email.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 
-                var emailTemplate = CreateEmailTemplateCommand.Initialize(command, authCtx);
+                var emailTemplate = CreateEmailTemplateCommand.Map(command, authCtx);
 
                 var result = await _emailRepository.CreateEmailTemplate(emailTemplate);
 

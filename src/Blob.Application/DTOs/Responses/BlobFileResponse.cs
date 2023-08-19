@@ -6,7 +6,7 @@ namespace Blob.Application.DTOs.Responses
     {
         public byte[] Bytes { get; set; } = new byte[] { };
 
-        public static BlobFileResponse Initialize(BlobFile blobFile, byte[] bytes)
+        public static BlobFileResponse Map(BlobFile blobFile, byte[] bytes)
         {
             return new BlobFileResponse()
             {

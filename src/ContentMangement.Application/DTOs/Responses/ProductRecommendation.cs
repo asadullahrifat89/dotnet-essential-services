@@ -43,7 +43,9 @@ namespace Teams.ContentMangement.Application.DTOs.Responses
         /// </summary>
         public int MatchCount { get; set; } = 0;
 
-        public static ProductRecommendation Initialize((Product product, int MatchCount) matchingProduct)
+        public int MatchPercentage { get; set; } = 0;
+
+        public static ProductRecommendation Map((Product product, int MatchCount) matchingProduct, int submittedProductSearchCriteriaCount)
         {
             return new ProductRecommendation()
             {

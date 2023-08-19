@@ -47,11 +47,11 @@ namespace Identity.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var user = UpdateUserCommand.Initialize(command, authCtx);
+                var user = UpdateUserCommand.Map(command, authCtx);
 
                 var result = await _userRepository.UpdateUser(user);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Initialize(result), authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Map(result), authCtx?.RequestUri);
             }
             catch (Exception ex)
             {

@@ -46,7 +46,7 @@ namespace Language.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var lingoApp = AddLingoAppCommand.Initialize(command, authCtx);
+                var lingoApp = AddLingoAppCommand.Map(command, authCtx);
 
                 var result = await _lingoAppRepository.AddLingoApp(lingoApp);
 

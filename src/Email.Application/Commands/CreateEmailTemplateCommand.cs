@@ -18,7 +18,7 @@ namespace Email.Application.Commands
 
         public string Purpose { get; set; } = string.Empty;
 
-        public static EmailTemplate Initialize(CreateEmailTemplateCommand command, AuthenticationContext authenticationContext)
+        public static EmailTemplate Map(CreateEmailTemplateCommand command, AuthenticationContext authenticationContext)
         {
             var EmailTemplate = new EmailTemplate()
             {

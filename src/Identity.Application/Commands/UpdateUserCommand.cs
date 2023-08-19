@@ -17,7 +17,7 @@ namespace Identity.Application.Commands
 
         public Address[] Addresses { get; set; } = new Address[] { };
 
-        public static User Initialize(UpdateUserCommand command, AuthenticationContext authenticationContext)
+        public static User Map(UpdateUserCommand command, AuthenticationContext authenticationContext)
         {
             var user = new User()
             {

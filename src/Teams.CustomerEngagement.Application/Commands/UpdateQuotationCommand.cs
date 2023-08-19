@@ -20,7 +20,7 @@ namespace Teams.CustomerEngagement.Application.Commands
 
         public string Note { get; set; } = string.Empty;
 
-        public static Quotation Initialize(UpdateQuotationCommand command)
+        public static Quotation Map(UpdateQuotationCommand command)
         {
             var quotation = new Quotation()
             {

@@ -45,7 +45,7 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var searchCriteria = AddProductSearchCriteriaCommand.Initialize(command, authCtx);
+                var searchCriteria = AddProductSearchCriteriaCommand.Map(command, authCtx);
 
                 var result = await _searchCriteriaRepository.AddProductSearchCriteria(searchCriteria);
 

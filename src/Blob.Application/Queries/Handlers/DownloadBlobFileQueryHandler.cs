@@ -32,7 +32,7 @@ namespace Blob.Application.Queries.Handlers
 
                 var result = await _blobFileRepository.DownloadBlobFile(request.FileId);
 
-                var blobResponse = BlobFileResponse.Initialize(result.blobFile, result.bytes);
+                var blobResponse = BlobFileResponse.Map(result.blobFile, result.bytes);
 
                 return blobResponse;
             }

@@ -9,7 +9,7 @@ namespace Identity.Application.Commands
     {
         public string Email { get; set; } = string.Empty;
 
-        public static AccountActivationRequest Initialize(SendUserAccountActivationRequestCommand command)
+        public static AccountActivationRequest Map(SendUserAccountActivationRequestCommand command)
         {
             return new AccountActivationRequest()
             {

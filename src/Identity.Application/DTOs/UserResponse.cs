@@ -23,7 +23,7 @@ namespace Identity.Application.DTOs
 
         public UserStatus UserStatus { get; set; }
 
-        public static UserResponse Initialize(UserBase user)
+        public static UserResponse Map(UserBase user)
         {
             return new UserResponse()
             {

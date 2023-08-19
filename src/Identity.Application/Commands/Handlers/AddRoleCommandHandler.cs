@@ -45,7 +45,7 @@ namespace Identity.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var role = AddRoleCommand.Initialize(command, authCtx);
+                var role = AddRoleCommand.Map(command, authCtx);
 
                 var result = await _roleRepository.AddRole(role, command.Claims);
 

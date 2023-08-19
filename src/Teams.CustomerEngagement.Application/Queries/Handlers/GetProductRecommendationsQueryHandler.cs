@@ -54,7 +54,9 @@ namespace Teams.CustomerEngagement.Application.Queries.Handlers
                     manPower: request.MinimumManPower,
                     experience: request.MinimumExperience);
 
-                var records = result.Records.Select(x => ProductRecommendation.Initialize(x)).ToArray();
+                var records = result.Records.Select(matchingProduct => ProductRecommendation.Map(
+                    matchingProduct: matchingProduct,
+                    submittedProductSearchCriteriaCount: request.ProductSearchCriteriaIds.Length)).ToArray();
 
                 return Response.BuildQueryRecordsResponse<ProductRecommendation>().BuildSuccessResponse(count: result.Count, records: records, authCtx?.RequestUri);
             }

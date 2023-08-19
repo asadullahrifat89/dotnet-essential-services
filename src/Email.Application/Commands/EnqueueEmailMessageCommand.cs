@@ -30,7 +30,7 @@ namespace Email.Application.Commands
 
         public EmailTemplateConfiguration EmailTemplateConfiguration { get; set; } = new EmailTemplateConfiguration();
 
-        public static EmailMessage Initialize(EnqueueEmailMessageCommand command, AuthenticationContext authenticationContext)
+        public static EmailMessage Map(EnqueueEmailMessageCommand command, AuthenticationContext authenticationContext)
         {
             var emailMessage = new EmailMessage()
             {

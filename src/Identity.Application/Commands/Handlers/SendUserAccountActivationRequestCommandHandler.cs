@@ -46,7 +46,7 @@ namespace Identity.Application.Commands.Handlers
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
 
-                var accountActivationRequest = SendUserAccountActivationRequestCommand.Initialize(command);
+                var accountActivationRequest = SendUserAccountActivationRequestCommand.Map(command);
 
                 var result = await _accountActivationRequest.CreateAccountActivationRequest(accountActivationRequest);
 

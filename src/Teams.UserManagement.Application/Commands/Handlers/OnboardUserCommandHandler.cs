@@ -57,13 +57,13 @@ namespace Teams.UserManagement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 // submit user
-                var submitUserCommand = OnboardUserCommand.InitializeSubmitUserCommand(command);
+                var submitUserCommand = OnboardUserCommand.MapSubmitUserCommand(command);
                 var userSubmitted = await _mediator.Send(submitUserCommand, cancellationToken);
 
                 if (userSubmitted.IsSuccess)
                 {
                     // send user activation request
-                    var sendUserAccountActivationRequestCommand = OnboardUserCommand.InitializeSendUserAccountActivationRequestCommand(command);
+                    var sendUserAccountActivationRequestCommand = OnboardUserCommand.MapSendUserAccountActivationRequestCommand(command);
                     var userActivationSubmitted = await _mediator.Send(sendUserAccountActivationRequestCommand, cancellationToken);
 
                     if (userActivationSubmitted.IsSuccess)
@@ -72,18 +72,16 @@ namespace Teams.UserManagement.Application.Commands.Handlers
                         var activationLink = _configuration["Routes:AppUrl"] + "/" + _configuration["Routes:Onboarding"] + $"?email={command.Email}";
 
                         // get email template for user onborading purpose
-
                         var emailTemplateQuery = new GetEmailTemplateByPurposeQuery() { Purpose = "account-activation" };
                         var emailTemplateAcquired = await _mediator.Send(emailTemplateQuery, cancellationToken);
 
-                        var enqueueEmailCommand = OnboardUserCommand.InitializeEnqueueEmailMessageCommand(
+                        var enqueueEmailCommand = OnboardUserCommand.MapEnqueueEmailMessageCommand(
                               command: command,
                               activationKey: accountActivationRequest.ActivationKey,
                               activationLink: activationLink,
                               emailTemplate: emailTemplateAcquired.IsSuccess ? emailTemplateAcquired.Result : default);
 
                         // send email
-
                         var emailEnqueued = await _mediator.Send(enqueueEmailCommand);
 
                         return emailEnqueued;

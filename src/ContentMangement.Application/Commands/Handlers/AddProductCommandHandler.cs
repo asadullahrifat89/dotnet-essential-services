@@ -45,7 +45,7 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var product = AddProductCommand.Initialize(command, authCtx);
+                var product = AddProductCommand.Map(command, authCtx);
 
                 var result = await _productRepository.AddProduct(product, command.LinkedProductSearchCriteriaIds);
 

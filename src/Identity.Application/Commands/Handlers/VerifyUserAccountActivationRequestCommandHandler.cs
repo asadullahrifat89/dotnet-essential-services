@@ -51,7 +51,7 @@ namespace Identity.Application.Commands.Handlers
                     activationKey: command.ActivationKey,
                     password: command.Password);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Initialize(result), authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Map(result), authCtx?.RequestUri);
             }
             catch (Exception ex)
             {

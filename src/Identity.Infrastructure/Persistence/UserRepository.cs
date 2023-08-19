@@ -93,7 +93,6 @@ namespace Identity.Infrastructure.Persistence
             var updatedUser = await _mongoDbContextProvider.UpdateById(update: update, id: userId);
 
             return updatedUser;
-            //return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Initialize(updatedUser), authCtx?.RequestUri);
         }
 
         public async Task<UserRoleMap[]> UpdateUserRoles(string userId, string[] roleNames)

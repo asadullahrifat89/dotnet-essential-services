@@ -48,7 +48,7 @@ namespace Teams.CustomerEngagement.Application.Commands.Handlers
 
                 var existingQuotation = await _quotationRepository.GetQuotation(command.QuotationId);
 
-                var quotation = UpdateQuotationCommand.Initialize(command);
+                var quotation = UpdateQuotationCommand.Map(command);
 
                 var result = await _quotationRepository.UpdateQuotation(quotation);
 

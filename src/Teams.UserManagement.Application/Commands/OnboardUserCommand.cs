@@ -12,7 +12,7 @@ namespace Teams.UserManagement.Application.Commands
 
         public string[] MetaTags { get; set; } = new string[] { };
 
-        public static SubmitUserCommand InitializeSubmitUserCommand(OnboardUserCommand command)
+        public static SubmitUserCommand MapSubmitUserCommand(OnboardUserCommand command)
         {
             return new SubmitUserCommand()
             {
@@ -21,7 +21,7 @@ namespace Teams.UserManagement.Application.Commands
             };
         }
 
-        public static SendUserAccountActivationRequestCommand InitializeSendUserAccountActivationRequestCommand(OnboardUserCommand command)
+        public static SendUserAccountActivationRequestCommand MapSendUserAccountActivationRequestCommand(OnboardUserCommand command)
         {
             return new SendUserAccountActivationRequestCommand()
             {
@@ -29,7 +29,7 @@ namespace Teams.UserManagement.Application.Commands
             };
         }
 
-        public static EnqueueEmailMessageCommand InitializeEnqueueEmailMessageCommand(
+        public static EnqueueEmailMessageCommand MapEnqueueEmailMessageCommand(
             OnboardUserCommand command,            
             string activationKey,
             string activationLink,

@@ -45,7 +45,7 @@ namespace Teams.CustomerEngagement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
-                var quotation = AddQuotationCommand.Initialize(command);
+                var quotation = AddQuotationCommand.Map(command);
 
                 var result = await _quotationRepository.AddQuotation(quotation);
 

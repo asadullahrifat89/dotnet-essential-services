@@ -11,7 +11,7 @@ namespace Identity.Application.Commands
 
         public string[] MetaTags { get; set; } = new string[] { };
 
-        public static User Initialize(SubmitUserCommand command, AuthenticationContext authenticationContext)
+        public static User Map(SubmitUserCommand command, AuthenticationContext authenticationContext)
         {
             var user = new User()
             {
