@@ -45,9 +45,17 @@ namespace Teams.CustomerEngagement.Application.Commands.Handlers
                 validationResult.EnsureValidResult();
 
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
+
+                var existingQuotation = await _quotationRepository.GetQuotation(command.QuotationId);
+
                 var quotation = UpdateQuotationCommand.Initialize(command);
 
                 var result = await _quotationRepository.UpdateQuotation(quotation);
+
+                if (existingQuotation.QuoteStatus != result.QuoteStatus)
+                {
+                    // TODO: send email to quotation customer
+                }
 
                 return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
             }

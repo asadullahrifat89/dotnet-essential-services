@@ -126,10 +126,6 @@ namespace Teams.CustomerEngagement.Domain.Entities
         public SkillsetType SkillsetType { get; set; }
     }
 
-    // TODO: add quotation product hash map
-    // TODO: add quotation search criteria hash map
-    // TODO: add quotation and document hash map
-
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum LinkedQuotationDocumentType
     {
