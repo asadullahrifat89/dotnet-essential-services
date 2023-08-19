@@ -51,7 +51,7 @@ namespace Identity.Application.Commands.Handlers
 
                 var result = await _userRepository.UpdateUser(user);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Map(result), authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Map(result), authCtx.RequestUri);
             }
             catch (Exception ex)
             {

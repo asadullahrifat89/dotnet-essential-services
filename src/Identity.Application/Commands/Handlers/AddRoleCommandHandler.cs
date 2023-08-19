@@ -49,7 +49,7 @@ namespace Identity.Application.Commands.Handlers
 
                 var result = await _roleRepository.AddRole(role, command.Claims);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

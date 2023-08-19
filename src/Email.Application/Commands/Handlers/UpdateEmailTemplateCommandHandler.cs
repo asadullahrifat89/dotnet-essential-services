@@ -40,7 +40,7 @@ namespace Email.Application.Commands.Handlers
 
                 var updatedTemplate = await _emailRepository.UpdateEmailTemplate(emailTemplate);
                 
-                return Response.BuildServiceResponse().BuildSuccessResponse(updatedTemplate, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(updatedTemplate, authCtx.RequestUri);
 
             }
             catch (Exception ex)

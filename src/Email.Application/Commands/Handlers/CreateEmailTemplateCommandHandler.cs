@@ -50,13 +50,13 @@ namespace Email.Application.Commands.Handlers
 
                 var result = await _emailRepository.CreateEmailTemplate(emailTemplate);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri);
             }
         }
 

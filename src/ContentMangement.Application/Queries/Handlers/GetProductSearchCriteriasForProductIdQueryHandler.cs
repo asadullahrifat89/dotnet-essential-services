@@ -48,7 +48,7 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 var result = await _productSearchCriteriaRepository.GetProductSearchCriteriasForProductId(request.ProductId);
 
-                return Response.BuildQueryRecordsResponse<ProductSearchCriteria>().BuildSuccessResponse(result.Count, result.Records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<ProductSearchCriteria>().BuildSuccessResponse(result.Count, result.Records, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

@@ -40,7 +40,7 @@ namespace Identity.Application.Queries.Handlers
 
                 return Response.BuildQueryRecordsResponse<Role>().BuildSuccessResponse(
                        count: result.Count,
-                       records: result.Roles, authCtx?.RequestUri);
+                       records: result.Roles, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

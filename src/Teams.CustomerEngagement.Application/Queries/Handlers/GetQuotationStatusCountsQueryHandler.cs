@@ -52,7 +52,7 @@ namespace Teams.CustomerEngagement.Application.Queries.Handlers
                 var records = result.Records.Select(x => QuotationStatusCount.Map(x)).ToList();
                 records.Add(new QuotationStatusCount() { QuoteStatus = "Total", Count = records.Sum(x => x.Count) });
 
-                return Response.BuildQueryRecordsResponse<QuotationStatusCount>().BuildSuccessResponse(count: result.Count, records: records.ToArray(), authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<QuotationStatusCount>().BuildSuccessResponse(count: result.Count, records: records.ToArray(), authCtx.RequestUri);
             }
             catch (Exception ex)
             {

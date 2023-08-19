@@ -38,7 +38,7 @@ namespace Identity.Application.Queries.Handlers
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 var result = await _userRepository.GetUser(request.UserId);
 
-                return Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Map(result), authCtx?.RequestUri);
+                return Response.BuildQueryRecordResponse<UserResponse>().BuildSuccessResponse(UserResponse.Map(result), authCtx.RequestUri);
             }
             catch (Exception ex)
             {

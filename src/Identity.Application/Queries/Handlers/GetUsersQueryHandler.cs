@@ -39,7 +39,7 @@ namespace Identity.Application.Queries.Handlers
 
                 return new QueryRecordsResponse<UserResponse>().BuildSuccessResponse(
                    count: result.Count,
-                   records: result.Users is not null ? result.Users.Select(x => UserResponse.Map(x)).ToArray() : Array.Empty<UserResponse>(), authCtx?.RequestUri);
+                   records: result.Users is not null ? result.Users.Select(x => UserResponse.Map(x)).ToArray() : Array.Empty<UserResponse>(), authCtx.RequestUri);
             }
             catch (Exception ex)
             {

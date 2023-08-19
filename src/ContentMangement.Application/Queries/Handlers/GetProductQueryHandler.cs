@@ -39,7 +39,7 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                 var authCtx = _authenticationContextProvider.GetAuthenticationContext();
                 var result = await _productRepository.GetProduct(request.ProductId);
 
-                return Response.BuildQueryRecordResponse<Product>().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildQueryRecordResponse<Product>().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

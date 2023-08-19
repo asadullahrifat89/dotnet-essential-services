@@ -37,7 +37,7 @@ namespace Language.Application.Queries.Handlers
 
                 var result = await _lingoAppRepository.GetLingoApp(request.AppId);
 
-                return Response.BuildQueryRecordResponse<LanguageApp>().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildQueryRecordResponse<LanguageApp>().BuildSuccessResponse(result, authCtx.RequestUri);
 
             }
             catch (Exception ex)

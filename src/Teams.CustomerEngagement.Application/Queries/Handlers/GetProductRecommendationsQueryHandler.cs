@@ -58,7 +58,7 @@ namespace Teams.CustomerEngagement.Application.Queries.Handlers
                     matchingProduct: matchingProduct,
                     submittedProductSearchCriteriaCount: request.ProductSearchCriteriaIds.Length)).ToArray();
 
-                return Response.BuildQueryRecordsResponse<ProductRecommendation>().BuildSuccessResponse(count: result.Count, records: records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<ProductRecommendation>().BuildSuccessResponse(count: result.Count, records: records, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

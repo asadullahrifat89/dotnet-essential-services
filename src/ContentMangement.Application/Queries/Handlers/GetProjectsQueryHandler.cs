@@ -38,7 +38,7 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                     pageSize: request.PageSize,
                     publishingStatus: request.PublishingStatus);
 
-                return Response.BuildQueryRecordsResponse<Project>().BuildSuccessResponse(count: result.Count, records: result.Records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<Project>().BuildSuccessResponse(count: result.Count, records: result.Records, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

@@ -51,12 +51,12 @@ namespace Identity.Application.Commands.Handlers
                     oldPassword: request.OldPassword,
                     newPassword: request.NewPassword);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Map(result), authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(UserResponse.Map(result), authCtx.RequestUri);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext()?.RequestUri);
+                return Response.BuildServiceResponse().BuildErrorResponse(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri);
             }
         }
 

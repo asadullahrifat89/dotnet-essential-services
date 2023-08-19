@@ -39,7 +39,7 @@ namespace Email.Application.Queries.Handlers
 
                 var result = await _emailRepository.GetEmailTemplateByPurpose(request.Purpose);
 
-                return Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildQueryRecordResponse<EmailTemplate>().BuildSuccessResponse(result, authCtx.RequestUri);
 
             }
             catch (Exception ex)

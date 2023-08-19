@@ -44,7 +44,7 @@ namespace Teams.ContentMangement.Application.Queries.Handlers
                     //searchCriteriaType: request.SearchCriteriaType,
                     skillsetType: request.SkillsetType);
 
-                return Response.BuildQueryRecordsResponse<ProductSearchCriteria>().BuildSuccessResponse(result.Count, result.Records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<ProductSearchCriteria>().BuildSuccessResponse(result.Count, result.Records, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

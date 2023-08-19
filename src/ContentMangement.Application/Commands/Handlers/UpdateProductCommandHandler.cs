@@ -49,7 +49,7 @@ namespace Teams.ContentMangement.Application.Commands.Handlers
                 var product = UpdateProductCommand.Map(command, authCtx);
 
                 var result = await _productRepository.UpdateProduct(product, command.LinkedProductSearchCriteriaIds);
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {

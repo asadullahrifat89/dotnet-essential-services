@@ -50,7 +50,7 @@ namespace Identity.Application.Commands.Handlers
 
                 var result = await _accountActivationRequest.CreateAccountActivationRequest(accountActivationRequest);
 
-                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx?.RequestUri);
+                return Response.BuildServiceResponse().BuildSuccessResponse(result, authCtx.RequestUri);
             }
             catch (Exception ex)
             {
