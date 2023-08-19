@@ -43,9 +43,14 @@ namespace Teams.ContentMangement.Application.DTOs.Responses
         /// </summary>
         public int MatchCount { get; set; } = 0;
 
-        public int MatchPercentage { get; set; } = 0;
+        /// <summary>
+        /// Matching percentage against the submitted product search criteria count.
+        /// </summary>
+        public string MatchPercentage { get; set; } = string.Empty;
 
-        public static ProductRecommendation Map((Product product, int MatchCount) matchingProduct, int submittedProductSearchCriteriaCount)
+        public static ProductRecommendation Map(
+            (Product product, int MatchCount) matchingProduct,
+            int submittedProductSearchCriteriaCount)
         {
             return new ProductRecommendation()
             {
@@ -57,6 +62,7 @@ namespace Teams.ContentMangement.Application.DTOs.Responses
                 ProductCostType = matchingProduct.product.ProductCostType,
                 IconUrl = matchingProduct.product.IconUrl,
                 MatchCount = matchingProduct.MatchCount,
+                MatchPercentage = submittedProductSearchCriteriaCount == 0 ? "0 %" : ((matchingProduct.MatchCount / submittedProductSearchCriteriaCount) * 100).ToString() + " %",
             };
         }
     }
