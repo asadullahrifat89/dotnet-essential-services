@@ -64,5 +64,6 @@
         public const string Action_UpdateQuotation = "api/Command/UpdateQuotation";
         public const string Action_GetQuotation = "api/Query/GetQuotation";
         public const string Action_GetQuotations = "api/Query/GetQuotations";
+        public const string Action_GetQuotationStatusCounts = "api/Query/GetQuotationStatusCounts";
     }
 }

@@ -11,7 +11,7 @@ using Teams.CustomerEngagement.Application.Queries.Validators;
 
 namespace Teams.CustomerEngagement.Application.Queries.Handlers
 {
-    public class GetProductRecommendationsQueryHandler : IRequestHandler<GetProductRecommendationsQuery, QueryRecordsResponse<ProductRecommendationResponse>>
+    public class GetProductRecommendationsQueryHandler : IRequestHandler<GetProductRecommendationsQuery, QueryRecordsResponse<ProductRecommendation>>
     {
         #region Fields
 
@@ -40,7 +40,7 @@ namespace Teams.CustomerEngagement.Application.Queries.Handlers
 
         #region Methods
 
-        public async Task<QueryRecordsResponse<ProductRecommendationResponse>> Handle(GetProductRecommendationsQuery request, CancellationToken cancellationToken)
+        public async Task<QueryRecordsResponse<ProductRecommendation>> Handle(GetProductRecommendationsQuery request, CancellationToken cancellationToken)
         {
             try
             {
@@ -56,14 +56,14 @@ namespace Teams.CustomerEngagement.Application.Queries.Handlers
                     manPower: request.MinimumManPower,
                     experience: request.MinimumExperience);
 
-                var records = result.Records.Select(x => ProductRecommendationResponse.Initialize(x)).ToArray();
+                var records = result.Records.Select(x => ProductRecommendation.Initialize(x)).ToArray();
 
-                return Response.BuildQueryRecordsResponse<ProductRecommendationResponse>().BuildSuccessResponse(count: result.Count, records: records, authCtx?.RequestUri);
+                return Response.BuildQueryRecordsResponse<ProductRecommendation>().BuildSuccessResponse(count: result.Count, records: records, authCtx?.RequestUri);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                return Response.BuildQueryRecordsResponse<ProductRecommendationResponse>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
+                return Response.BuildQueryRecordsResponse<ProductRecommendation>().BuildErrorResponse(Response.BuildErrorResponse().BuildExternalError(ex.Message, _authenticationContextProvider.GetAuthenticationContext().RequestUri));
             }
         }
 

@@ -4,7 +4,7 @@ using Teams.ContentMangement.Domain.Entities;
 
 namespace Teams.CustomerEngagement.Application.Queries
 {
-    public class GetProductRecommendationsQuery : PagedRequestBase<ProductRecommendationResponse>
+    public class GetProductRecommendationsQuery : PagedRequestBase<ProductRecommendation>
     {
         public string[] ProductSearchCriteriaIds { get; set; } = new string[] { };
 

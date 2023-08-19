@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Teams.ContentMangement.Application.DTOs.Responses;
+using Teams.CustomerEngagement.Application.DTOs.Responses;
 using Teams.CustomerEngagement.Application.Queries;
 using Teams.CustomerEngagement.Domain.Entities;
 
@@ -47,9 +48,15 @@ namespace Teams.CustomerEngagement.Presentation.Controllers
             return await _mediator.Send(query);
         }
 
+        [HttpGet(EndpointRoutes.Action_GetQuotationStatusCounts)]
+        public async Task<QueryRecordsResponse<QuotationStatusCount>> GetQuotationStatusCounts([FromQuery] GetQuotationStatusCountsQuery query)
+        {
+            return await _mediator.Send(query);
+        }
+
         [AuthorizationNotRequired]
         [HttpPost(EndpointRoutes.Action_GetProductRecommendations)]
-        public async Task<QueryRecordsResponse<ProductRecommendationResponse>> GetProductRecommendations([FromBody] GetProductRecommendationsQuery query)
+        public async Task<QueryRecordsResponse<ProductRecommendation>> GetProductRecommendations([FromBody] GetProductRecommendationsQuery query)
         {
             return await _mediator.Send(query);
         }

@@ -120,6 +120,21 @@ namespace Teams.CustomerEngagement.Infrastructure.Persistence
             return (count, quotations is not null ? quotations.ToArray() : Array.Empty<Quotation>());
         }
 
+        public async Task<(long Count, (QuoteStatus QuoteStatus, long Count)[] Records)> GetQuotationStatusCounts()
+        {
+            var quoteStatusCounts = new List<(QuoteStatus QuoteStatus, long Count)>();
+
+            foreach (QuoteStatus quoteStatus in Enum.GetValues(typeof(QuoteStatus)))
+            {
+                var filter = Builders<Quotation>.Filter.Eq(x => x.QuoteStatus, quoteStatus);
+                var count = await _mongoDbService.CountDocuments(filter);
+
+                quoteStatusCounts.Add((quoteStatus, count));
+            }
+
+            return (quoteStatusCounts.Count, quoteStatusCounts.ToArray());
+        }
+
         #endregion
     }
 }

@@ -7,7 +7,7 @@ using Teams.ContentMangement.Domain.Entities;
 
 namespace Teams.ContentMangement.Application.DTOs.Responses
 {
-    public class ProductRecommendationResponse
+    public class ProductRecommendation
     {
         /// Name of the product.
         /// </summary>
@@ -48,9 +48,9 @@ namespace Teams.ContentMangement.Application.DTOs.Responses
         /// </summary>
         public int MatchCount { get; set; } = 0;
 
-        public static ProductRecommendationResponse Initialize((Product product, int MatchCount) matchingProduct)
+        public static ProductRecommendation Initialize((Product product, int MatchCount) matchingProduct)
         {
-            return new ProductRecommendationResponse()
+            return new ProductRecommendation()
             {
                 Name = matchingProduct.product.Name,
                 Description = matchingProduct.product.Description,
