@@ -8,6 +8,8 @@ namespace Email.Domain.Repositories.Interfaces
 
         Task<EmailTemplate> GetEmailTemplate(string templateId);
 
+        Task<EmailTemplate> GetEmailTemplateByPurpose(string purpose);
+
         Task<EmailTemplate> UpdateEmailTemplate(EmailTemplate emailTemplate);
 
         Task<bool> BeAnExistingEmailTemplate(string templateName);

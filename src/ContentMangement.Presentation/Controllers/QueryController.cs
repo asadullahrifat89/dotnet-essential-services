@@ -5,7 +5,6 @@ using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Teams.ContentMangement.Application.DTOs.Responses;
 using Teams.ContentMangement.Application.Queries;
 using Teams.ContentMangement.Domain.Entities;
 

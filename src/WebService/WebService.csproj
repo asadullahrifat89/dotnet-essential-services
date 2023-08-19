@@ -26,6 +26,7 @@
     <ProjectReference Include="..\Identity.Presentation\Identity.Presentation.csproj" />
     <ProjectReference Include="..\Language.Presentation\Language.Presentation.csproj" />
     <ProjectReference Include="..\Teams.CustomerEngagement.Presentation\Teams.CustomerEngagement.Presentation.csproj" />
+    <ProjectReference Include="..\Teams.UserManagement.Presentation\Teams.UserManagement.Presentation.csproj" />
   </ItemGroup>
 
 </Project>

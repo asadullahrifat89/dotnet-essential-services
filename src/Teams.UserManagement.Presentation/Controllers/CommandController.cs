@@ -5,14 +5,19 @@ using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Teams.CustomerEngagement.Application.Commands;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Teams.UserManagement.Application.Commands;
 
-namespace Teams.CustomerEngagement.Presentation.Controllers
+namespace Teams.UserManagement.Presentation.Controllers
 {
     [ApiController]
     [AuthorizationRequired]
-    [ControllerName("Teams.CustomerEngagement.Command")]
-    public class CommandController : ControllerBase
+    [ControllerName("Teams.UserManagement.Command")]
+    public class CommandController
     {
         #region Fields
 
@@ -34,17 +39,11 @@ namespace Teams.CustomerEngagement.Presentation.Controllers
         #region Methods
 
         [AuthorizationNotRequired]
-        [HttpPost(EndpointRoutes.Action_AddQuotation)]
-        public async Task<ServiceResponse> AddAddQuotation(AddQuotationCommand command)
+        [HttpPost(EndpointRoutes.Action_OnboardUser)]
+        public async Task<ServiceResponse> OnboardUser(OnboardUserCommand command)
         {
             return await _mediator.Send(command);
-        }
-
-        [HttpPut(EndpointRoutes.Action_UpdateQuotation)]
-        public async Task<ServiceResponse> AddUpdateQuotation(UpdateQuotationCommand command)
-        {
-            return await _mediator.Send(command);
-        }
+        }       
 
         #endregion
     }

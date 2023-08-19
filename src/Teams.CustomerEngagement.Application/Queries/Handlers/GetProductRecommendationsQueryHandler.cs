@@ -4,9 +4,7 @@ using Identity.Application.Providers.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Teams.ContentMangement.Application.DTOs.Responses;
-using Teams.ContentMangement.Domain.Entities;
 using Teams.ContentMangement.Domain.Repositories.Interfaces;
-using Teams.CustomerEngagement.Application.Queries;
 using Teams.CustomerEngagement.Application.Queries.Validators;
 
 namespace Teams.CustomerEngagement.Application.Queries.Handlers
