@@ -18,7 +18,13 @@ namespace Identity.Application.Providers
             var httpContext = _httpContextAccessor.HttpContext;
 
             if (httpContext is not null)
-                return new AuthenticationContext((string?)httpContext.Items["RequestUri"], (UserBase?)httpContext.Items["User"], (string?)httpContext.Items["AccessToken"]);
+            {
+                var requestUri = (string?)httpContext.Items["RequestUri"];
+                var user = (UserBase?)httpContext.Items["User"];
+                var accessToken = (string?)httpContext.Items["AccessToken"];
+
+                return new AuthenticationContext(requestUri ?? "", user ?? new UserBase(), accessToken ?? "");
+            }
             else
                 return new AuthenticationContext();
         }

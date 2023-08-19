@@ -40,6 +40,7 @@ namespace Teams.ContentMangement.Presentation.Controllers
             return await _mediator.Send(query);
         }
 
+        [AuthorizationNotRequired]
         [HttpGet(EndpointRoutes.Action_GetProductSearchCriterias)]
         public async Task<QueryRecordsResponse<ProductSearchCriteria>> GetProductSearchCriterias([FromQuery] GetProductSearchCriteriasQuery query)
         {
@@ -63,8 +64,6 @@ namespace Teams.ContentMangement.Presentation.Controllers
         {
             return await _mediator.Send(query);
         }
-
-       
 
         [HttpGet(EndpointRoutes.Action_GetProject)]
         public async Task<QueryRecordResponse<Project>> GetProject([FromQuery] GetProjectQuery query)
