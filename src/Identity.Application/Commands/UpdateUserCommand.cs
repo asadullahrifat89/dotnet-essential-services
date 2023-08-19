@@ -15,7 +15,7 @@ namespace Identity.Application.Commands
 
         public string ProfileImageUrl { get; set; } = string.Empty;
 
-        public Address Address { get; set; } = new Address();
+        public Address[] Addresses { get; set; } = new Address[] { };
 
         public static User Initialize(UpdateUserCommand command, AuthenticationContext authenticationContext)
         {
@@ -26,7 +26,7 @@ namespace Identity.Application.Commands
                 LastName = command.LastName,
                 DisplayName = (command.FirstName + " " + command.LastName).Trim(),
                 ProfileImageUrl = command.ProfileImageUrl,
-                Address = command.Address,
+                Addresses = command.Addresses,
                 UserStatus = UserStatus.Inactive,
                 //TenantId = command.TenantId,
             };

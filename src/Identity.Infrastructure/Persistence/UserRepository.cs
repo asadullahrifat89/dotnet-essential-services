@@ -69,7 +69,7 @@ namespace Identity.Infrastructure.Persistence
                 .Set(x => x.FirstName, user.FirstName)
                 .Set(x => x.LastName, user.LastName)
                 .Set(x => x.ProfileImageUrl, user.ProfileImageUrl)
-                .Set(x => x.Address, user.Address)
+                .Set(x => x.Addresses, user.Addresses)
                 .Set(x => x.TimeStamp.ModifiedOn, DateTime.UtcNow)
                 .Set(x => x.TimeStamp.ModifiedBy, authCtx.User?.Id);
 

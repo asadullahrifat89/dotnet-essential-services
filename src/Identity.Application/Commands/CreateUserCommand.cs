@@ -21,7 +21,7 @@ namespace Identity.Application.Commands
 
         public string Password { get; set; } = string.Empty;
 
-        public Address Address { get; set; } = new Address();
+        public Address[] Addresses { get; set; } = new Address[] { };
 
         public string[] MetaTags { get; set; } = new string[] { };
 
@@ -40,7 +40,7 @@ namespace Identity.Application.Commands
                 PhoneNumber = command.PhoneNumber,
                 Email = command.Email,
                 Password = command.Password.Encrypt(),
-                Address = command.Address,
+                Addresses = command.Addresses,
                 MetaTags = command.MetaTags,
                 UserStatus = UserStatus.Inactive,
                 TimeStamp = authenticationContext.BuildCreatedByTimeStamp(),
