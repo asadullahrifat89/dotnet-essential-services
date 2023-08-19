@@ -33,13 +33,13 @@ namespace Language.Presentation.Controllers
 
         #region Methods
 
-        [HttpPost(EndpointRoutes.Action_AddLingoApp)]
+        [HttpPost(EndpointRoutes.Action_AddLanguageApp)]
         public async Task<ServiceResponse> AddLingoApp(AddLingoAppCommand command)
         {
             return await _mediator.Send(command);
         }
 
-        [HttpPost(EndpointRoutes.Action_AddLingoResources)]
+        [HttpPost(EndpointRoutes.Action_AddLanguageResources)]
         public async Task<ServiceResponse> AddLingoResources(AddLingoResourcesCommand command)
         {
             return await _mediator.Send(command);

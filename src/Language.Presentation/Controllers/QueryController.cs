@@ -34,14 +34,14 @@ namespace Language.Presentation.Controllers
 
         #region Methods
 
-        [HttpGet(EndpointRoutes.Action_GetLingoResourcesInFormat)]
+        [HttpGet(EndpointRoutes.Action_GetLanguageResourcesInFormat)]
 
         public async Task<QueryRecordResponse<Dictionary<string, string>>> GetLingoResourcesInFormat([FromQuery] GetLingoResourcesInFormatQuery query)
         {
             return await _mediator.Send(query);
         }
 
-        [HttpGet(EndpointRoutes.Action_GetLingoApp)]
+        [HttpGet(EndpointRoutes.Action_GetLanguageApp)]
 
         public async Task<QueryRecordResponse<LanguageApp>> GetLingoApp([FromQuery] GetLingoAppQuery query)
         {
