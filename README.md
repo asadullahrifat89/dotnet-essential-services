@@ -2,8 +2,7 @@
 
 Within this project, a commanding monolith stands tall, exemplifying the principles of domain-driven design and embodying a clean architecture. This architectural marvel houses indispensable modules essential for the development of even the most rudimentary software applications.
 
-![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/484cdb75-da2d-4adb-b0ba-ff4ca763e87c)
-
+![image](https://github.com/asadullahrifat89/dotnet-essential-services/assets/25480176/6460194d-76b2-489b-bea2-3562232d1067)
 
 # Project Structure
 The architectural design of this solution is deeply influenced by the principles of clean architecture, ensuring a structured and organized development process.
@@ -12,13 +11,13 @@ The architectural design of this solution is deeply influenced by the principles
 At the core of our solution lies the Domain layer. It serves as the bedrock upon which modules are constructed, defining fundamental elements such as entities, value objects, aggregates, domain events, exceptions, and repository interfaces.
 
 ### Application Layer: 
-Positioned directly above the Domain layer, the Application layer orchestrates the business logic and vital use cases of the application. It encompasses the definition of commands, queries, DTOs (Data Transfer Objects), services, extensions, providers, constants, attributes, middlewares, along with their corresponding interfaces and implementations. This solution follows the CQRS pattern, hence, you will find commands and queries, complete with their definitions, handlers, and validators in dedicated folders.
+Positioned directly above the Domain layer, the Application layer orchestrates the business logic and vital use cases of the application. It encompasses the definition of commands, queries, DTOs (Data Transfer Objects), services, extensions, providers, constants, attributes, and middlewares, along with their corresponding interfaces and implementations. This solution follows the CQRS pattern, hence, you will find commands and queries, complete with their definitions, handlers, and validators in dedicated folders.
 
 ### Infrastructure Layer: 
 The Infrastructure layer serves as the bridge between repositories and database connections. This layer primarily houses repository implementations and database contexts.
 
 ### Presentation Layer: 
-As the outermost layer, the Presentation layer serves as the entry point to the system. It comprises controllers that facilitate the execution of commands and queries. In line with the CQRS pattern, you will find command and query controllers within this layer, each action adorned with relevant attributes, and endpoint routes meticulously derived from a constant class.
+As the outermost layer, the Presentation layer serves as the entry point to the system. It comprises controllers that facilitate the execution of commands and queries. In line with the CQRS pattern, you will find command and query controllers within this layer, each action adorned with relevant attributes and endpoint routes meticulously derived from a constant class.
 
 # Modules
 
@@ -35,7 +34,7 @@ Within this module, we have implemented a fundamental OAuth2 system. This empowe
 BlobModule introduces a basic yet robust blob storage solution using GridFS. This facilitates the storage of binary large objects within a MongoDB database using structured buckets. Files are efficiently chunked and stored as byte arrays, ensuring optimal performance.
 
 ### EmailModule: 
-The EmailModule offers a comprehensive email management solution powered by MailKit. Users can create custom email templates in both plain text and HTML formats. These templates can be employed to dispatch emails to recipients. Furthermore, the module allows for email dispatch without templates. It operates seamlessly with a hosted service, efficiently queuing and processing email sending tasks in batches.
+The EmailModule offers a comprehensive email management solution powered by MailKit. Users can create custom email templates in both plain text and HTML formats. These templates can be employed to dispatch emails to recipients. Furthermore, the module allows for email dispatch without templates. It operates seamlessly with a hosted service, efficiently queuing and processing email-sending tasks in batches.
 
 ### LanguageModule: 
 LanguageModule serves as a cornerstone for implementing user interface language features, particularly valuable in React or Angular applications. Here, you can create applications and set multi-lingual resource values for specific labels within your front-end application.

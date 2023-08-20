@@ -35,10 +35,10 @@
 
         public const string Action_EnqueueEmailMessage = "api/Command/EnqueueEmailMessage";
 
-        public const string Action_AddLingoApp = "api/Command/AddLingoApp";
-        public const string Action_AddLingoResources = "api/Command/AddLingoResources";
-        public const string Action_GetLingoApp = "api/Query/GetLingoApp";
-        public const string Action_GetLingoResourcesInFormat = "api/Query/GetLingoResourcesInFormat";
+        public const string Action_AddLanguageApp = "api/Command/AddLanguageApp";
+        public const string Action_AddLanguageResources = "api/Command/AddLanguageResources";
+        public const string Action_GetLanguageApp = "api/Query/GetLanguageApp";
+        public const string Action_GetLanguageResourcesInFormat = "api/Query/GetLanguageResourcesInFormat";
 
         public const string Action_SendUserAccountActivationRequest = "api/Command/SendUserAccountActivationRequest";
         public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";
