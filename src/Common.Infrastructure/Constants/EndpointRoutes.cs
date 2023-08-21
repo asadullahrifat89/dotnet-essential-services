@@ -2,6 +2,8 @@
 {
     public static class EndpointRoutes
     {
+        public const string Action_Ping = "api/Query/Ping";
+
         public const string Action_GetUser = "api/Query/GetUser";
         public const string Action_GetUsers = "api/Query/GetUsers";
         public const string Action_CreateUser = "api/Command/CreateUser";

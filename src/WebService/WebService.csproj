@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Base.Presentation\Base.Presentation.csproj" />
     <ProjectReference Include="..\Blob.Presentation\Blob.Presentation.csproj" />
     <ProjectReference Include="..\Email.Presentation\Email.Presentation.csproj" />
     <ProjectReference Include="..\Identity.Presentation\Identity.Presentation.csproj" />
