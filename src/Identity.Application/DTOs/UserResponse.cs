@@ -1,5 +1,4 @@
 ﻿using Base.Domain.Entities;
-using Identity.Domain.Entities;
 
 namespace Identity.Application.DTOs
 {

@@ -3,7 +3,6 @@ using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Blob.Application.Queries;
 using Blob.Domain.Entities;
-using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

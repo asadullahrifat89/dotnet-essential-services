@@ -1,7 +1,6 @@
 ﻿using Base.Application.Attributes;
 using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
-using Identity.Application.Attributes;
 using Identity.Application.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Http;

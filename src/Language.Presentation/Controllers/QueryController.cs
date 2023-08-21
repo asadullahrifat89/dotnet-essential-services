@@ -1,7 +1,6 @@
 ﻿using Base.Application.Attributes;
 using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
-using Identity.Application.Attributes;
 using Language.Application.Queries;
 using Language.Domain.Entities;
 using MediatR;

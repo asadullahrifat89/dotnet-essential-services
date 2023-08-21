@@ -57,6 +57,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityModule", "IdentityM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LanguageModule", "LanguageModule", "{3143CB45-C3EE-4B60-8FB3-B69BC85EBAEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.Presentation", "Base.Presentation\Base.Presentation.csproj", "{96E4FD19-30F6-4AB7-BA8D-0519C5A00954}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{382750BF-978F-4E24-B751-F6E9E4E7AD89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{382750BF-978F-4E24-B751-F6E9E4E7AD89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{382750BF-978F-4E24-B751-F6E9E4E7AD89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E4FD19-30F6-4AB7-BA8D-0519C5A00954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E4FD19-30F6-4AB7-BA8D-0519C5A00954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E4FD19-30F6-4AB7-BA8D-0519C5A00954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E4FD19-30F6-4AB7-BA8D-0519C5A00954}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -176,6 +182,7 @@ Global
 		{C8035348-E473-4E0F-B8BB-8165780510CD} = {C73863BE-611E-479D-90C6-25D5FFE4AA88}
 		{95230936-0437-456E-81D7-F0CCD273FF2A} = {C73863BE-611E-479D-90C6-25D5FFE4AA88}
 		{3143CB45-C3EE-4B60-8FB3-B69BC85EBAEC} = {C73863BE-611E-479D-90C6-25D5FFE4AA88}
+		{96E4FD19-30F6-4AB7-BA8D-0519C5A00954} = {C1AFCDEE-4E74-4CF1-B831-84D53FE7C368}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB70096C-560D-49A7-A8FD-667045E6B7CE}

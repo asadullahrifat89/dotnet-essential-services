@@ -1,17 +1,21 @@
 ﻿using Base.Application.Attributes;
 using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
-using Blob.Application.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Blob.Presentation.Controllers
+namespace Base.Presentation.Controllers
 {
     [ApiController]
-    [AuthorizationRequired]
-    [ControllerName("Blob.Command")]
-    public class CommandController : ControllerBase
+    [AuthorizationNotRequired]
+    [ControllerName("Base.Query")]
+    public class QueryController : ControllerBase
     {
         #region Fields
 
@@ -22,7 +26,7 @@ namespace Blob.Presentation.Controllers
 
         #region Ctor
 
-        public CommandController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+        public QueryController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             _mediator = mediator;
             _httpContextAccessor = httpContextAccessor;
@@ -30,14 +34,10 @@ namespace Blob.Presentation.Controllers
 
         #endregion
 
-        #region Methods
-
-        [HttpPost(EndpointRoutes.Action_UploadFile)]        
-        public async Task<ServiceResponse> UploadFile(IFormFile file)
+        [HttpGet(EndpointRoutes.Action_Ping)]
+        public async Task<string> Ping()
         {
-            return await _mediator.Send(new UploadBlobFileCommand() { FormFile = file });
+            return "I am alive.";
         }
-
-        #endregion
     }
 }

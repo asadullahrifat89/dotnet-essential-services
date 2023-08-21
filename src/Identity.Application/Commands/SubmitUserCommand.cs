@@ -1,4 +1,5 @@
 ﻿using Base.Application.DTOs.Responses;
+using Base.Domain.Entities;
 using Identity.Application.Extensions;
 using Identity.Domain.Entities;
 using MediatR;

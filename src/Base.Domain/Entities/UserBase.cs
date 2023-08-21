@@ -1,7 +1,6 @@
-﻿using Base.Domain.Entities;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace Identity.Domain.Entities
+namespace Base.Domain.Entities
 {
     public class UserBase : EntityBase
     {

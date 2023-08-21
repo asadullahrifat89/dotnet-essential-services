@@ -2,7 +2,6 @@
 using Base.Application.DTOs.Responses;
 using Base.Shared.Constants;
 using Email.Application.Commands;
-using Identity.Application.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
