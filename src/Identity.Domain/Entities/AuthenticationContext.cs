@@ -1,4 +1,6 @@
-﻿namespace Identity.Domain.Entities
+﻿using Base.Domain.Entities;
+
+namespace Identity.Domain.Entities
 {
     public class AuthenticationContext
     {

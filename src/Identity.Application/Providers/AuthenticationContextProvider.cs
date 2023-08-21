@@ -1,4 +1,5 @@
-﻿using Identity.Application.Providers.Interfaces;
+﻿using Base.Domain.Entities;
+using Identity.Application.Providers.Interfaces;
 using Identity.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 

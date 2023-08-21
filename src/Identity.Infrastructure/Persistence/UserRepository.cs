@@ -1,4 +1,5 @@
 ﻿using Base.Application.Extensions;
+using Base.Domain.Entities;
 using Base.Infrastructure.Providers.Interfaces;
 using Identity.Application.Providers.Interfaces;
 using Identity.Domain.Entities;

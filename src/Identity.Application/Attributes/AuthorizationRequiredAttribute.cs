@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Identity.Domain.Entities;
+using Base.Domain.Entities;
 
 namespace Identity.Application.Attributes
 {
