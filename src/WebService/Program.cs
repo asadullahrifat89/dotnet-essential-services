@@ -91,6 +91,7 @@ if (environemntVariable != null && CommonConstants.AllowedSwaggerEnvironments.Co
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
     {
+        options.AddServer(new OpenApiServer() { Url = builder.Configuration["ServerURL"] });
         options.SwaggerDoc("v1", new OpenApiInfo { Title = "Essential Web Service", Version = "v1" });
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
