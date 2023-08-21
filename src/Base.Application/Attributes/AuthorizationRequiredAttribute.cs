@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Base.Domain.Entities;
 
-namespace Identity.Application.Attributes
+namespace Base.Application.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizationRequiredAttribute : Attribute, IAuthorizationFilter
