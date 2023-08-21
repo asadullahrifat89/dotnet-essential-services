@@ -41,32 +41,6 @@
         public const string Action_GetLanguageResourcesInFormat = "api/Query/GetLanguageResourcesInFormat";
 
         public const string Action_SendUserAccountActivationRequest = "api/Command/SendUserAccountActivationRequest";
-        public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";
-
-        public const string Action_AddProductSearchCriteria = "api/Command/AddProductSearchCriteria";
-        public const string Action_UpdateProductSearchCriteria = "api/Command/UpdateProductSearchCriteria";
-        public const string Action_GetProductSearchCriteria = "api/Query/GetProductSearchCriteria";
-        public const string Action_GetProductSearchCriterias = "api/Query/GetProductSearchCriterias";
-        public const string Action_GetProductSearchCriteriasForProductIdQuery = "api/Query/GetProductSearchCriteriasForProductId";
-
-        public const string Action_AddProject = "api/Command/AddProject";
-        public const string Action_UpdateProject = "api/Command/UpdateProject";
-        public const string Action_GetProject = "api/Query/GetProject";        
-        public const string Action_GetProjects = "api/Query/GetProjects";
-        public const string Action_GetProjectsForProductId = "api/Query/GetProjectsForProductId";
-
-        public const string Action_AddProduct = "api/Command/AddProduct";
-        public const string Action_UpdateProduct = "api/Command/UpdateProduct";
-        public const string Action_GetProduct = "api/Query/GetProduct";        
-        public const string Action_GetProducts = "api/Query/GetProducts";
-        public const string Action_GetProductRecommendations = "api/Query/GetProductRecommendations";
-
-        public const string Action_AddQuotation = "api/Command/AddQuotation";
-        public const string Action_UpdateQuotation = "api/Command/UpdateQuotation";
-        public const string Action_GetQuotation = "api/Query/GetQuotation";
-        public const string Action_GetQuotations = "api/Query/GetQuotations";
-        public const string Action_GetQuotationStatusCounts = "api/Query/GetQuotationStatusCounts";
-
-        public const string Action_OnboardUser = "api/Command/OnboardUser";
+        public const string Action_VerifyUserAccountActivationRequest = "api/Command/VerifyUserAccountActivationRequest";       
     }
 }
